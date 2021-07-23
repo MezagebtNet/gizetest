@@ -99,6 +99,12 @@ return [
         'emergency' => [
             'path' => storage_path('logs/laravel.log'),
         ],
+
+        'codecheef' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/codecheef.log'),
+            'level' => 'info',
+        ],
     ],
 
 ];

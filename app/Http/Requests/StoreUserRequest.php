@@ -10,7 +10,11 @@ class StoreUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'     => [
+            'firstname'     => [
+                'string',
+                'required',
+            ],
+            'lastname'     => [
                 'string',
                 'required',
             ],
@@ -20,6 +24,7 @@ class StoreUserRequest extends FormRequest
             ],
             'password' => [
                 'required',
+                'confirmed',
             ],
             'roles.*'  => [
                 'integer',
@@ -33,6 +38,6 @@ class StoreUserRequest extends FormRequest
 
     public function authorize()
     {
-        return Gate::allows('user_access');
+        return Gate::allows('system_user');
     }
 }

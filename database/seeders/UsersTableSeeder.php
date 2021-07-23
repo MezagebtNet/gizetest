@@ -12,20 +12,40 @@ class UsersTableSeeder extends Seeder
         $users = [
             [
                 'id'             => 1,
-                'name'           => 'Admin',
+                'firstname'           => 'Admin',
                 'email'          => 'admin@admin.com',
                 'password'       => bcrypt('password'),
+                'lastname'       => '',
                 'remember_token' => null,
             ],
             [
                 'id'             => 2,
-                'name'           => 'User',
+                'firstname'           => 'User',
                 'email'          => 'user@user.com',
                 'password'       => bcrypt('password'),
+                'lastname'       => '',
+                'remember_token' => null,
+            ],
+            [
+                'id'             => 3,
+                'firstname'           => 'Girum',
+                'email'          => '4girum@gmail.com',
+                'password'       => bcrypt('12345678'),
+                'lastname'       => '',
                 'remember_token' => null,
             ],
         ];
 
         User::insert($users);
+
+
+        $user = User::find(1);
+        $user->assignRole('user');
+
+        $user = User::find(2);
+        $user->assignRole('admin');
+
+        $user = User::find(3);
+        $user->assignRole('super-admin');
     }
 }

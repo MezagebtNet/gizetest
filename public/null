@@ -1,0 +1,1469 @@
+Book::first();
+Book::with(
+            [
+                'bookable.book_author',
+                'bookable.book_genre',
+                'book_format',
+            ]
+        )
+            ->addSelect([
+                                                                                                
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', $currency_id)
+                    ->limit(1)])
+
+            ->get();
+$books = Book::with(
+            [
+                'bookable.book_author',
+                'bookable.book_genre',
+                'book_format',
+            ]
+        )
+            ->addSelect([
+                                                                                                
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                'bookable.book_author',
+                'bookable.book_genre',
+                'book_format',
+            ]
+        )
+            ->addSelect([
+                                                                                                
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                'bookable.book_author',
+                'bookable.book_genre',
+                'book_format',
+            ]
+        )
+            ->addSelect([
+                'latest_price' => BookPrice::select('price')
+                     ->whereColumn('book_id', 'books.id')
+                     ->where('published_at', '<', $dayAfter)
+                     ->where('currency_id', $currency_id)
+                     ->orderByDesc('published_at')
+                     ->limit(1),
+
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                'bookable.book_author',
+                'bookable.book_genre',
+                'book_format',
+            ]
+        )
+            ->addSelect([
+                'latest_price' => BookPrice::select('price')
+                     ->whereColumn('book_id', 'books.id')
+                     ->where('published_at', '<', Carbon::now()->modify('+1 day')->format('Y-m-d'))
+                     ->where('currency_id',1)
+                     ->orderByDesc('published_at')
+                     ->limit(1),
+
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                'bookable.book_author',
+                'bookable.book_genre',
+                'book_format',
+            ]
+        )
+            ->addSelect([
+                'latest_price' => BookPrice::select('price')
+                     ->whereColumn('book_id', 'books.id')
+                     ->where('published_at', '<', now()->modify('+1 day')->format('Y-m-d'))
+                     ->where('currency_id',1)
+                     ->orderByDesc('published_at')
+                     ->limit(1),
+
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                'bookable.book_author',
+                'bookable.book_genre',
+                'book_format',
+            ]
+        )
+            ->addSelect([
+                'latest_price' => BookPrice::select('price')
+                     ->whereColumn('book_id', 'books.id')
+                     ->where('published_at', '<', now()->modify('+1 day')->format('Y-m-d'))
+                     ->where('currency_id',1)
+                     ->orderByDesc('published_at')
+                     ->limit(1),
+
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                'bookable.book_author',
+                'bookable.book_genre',
+                'book_format',
+            ]
+        )
+            ->addSelect([
+                'latest_price' => BookPrice::select('price')
+                     ->whereColumn('book_id', 'books.id')
+                     ->where('published_at', '<', now()->modify('+1 day')->format('Y-m-d'))
+                     ->where('currency_id',1)
+                     ->orderByDesc('published_at')
+                     ->limit(1),
+
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                'bookable.book_author',
+                'bookable.book_genre',
+                'book_format',
+            ]
+        )
+            ->addSelect([
+                'latest_price' => BookPrice::select('price')
+                     ->whereColumn('book_id', 'books.id')
+                     ->where('published_at', '<', now()->modify('+1 day')->format('Y-m-d'))
+                     ->where('currency_id',1)
+                     ->orderByDesc('published_at')
+                     ->limit(1),
+
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                'bookable.book_author',
+                'bookable.book_genre',
+                'book_format',
+            ]
+        )
+            ->addSelect([
+                'latest_price' => BookPrice::select('price')
+                     ->whereColumn('book_id', 'books.id')
+                     ->where('published_at', '<', now()->modify('+1 day')->format('Y-m-d'))
+                     ->where('currency_id',1)
+                     ->orderByDesc('published_at')
+                     ->limit(1),
+
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                'bookable.book_author',
+                'bookable.book_genre',
+                'book_format',
+            ]
+        )
+            ->addSelect([
+                'latest_price' => BookPrice::select('price')
+                     ->whereColumn('book_id', 'books.id')
+                     ->where('max(published_at)', '<', now()->modify('+1 day')->format('Y-m-d'))
+                     ->where('currency_id',1)
+                     ->orderByDesc('published_at')
+                     ->limit(1),
+
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                'bookable.book_author',
+                'bookable.book_genre',
+                'book_format',
+            ]
+        )
+            ->addSelect([
+                'latest_price' => BookPrice::select('price')
+                     ->whereColumn('book_id', 'books.id')
+			
+                     ->where('published_at', '<', now()->modify('+1 day')->format('Y-m-d'))
+			  		->where('max(published_at)')
+                     ->where('currency_id',1)
+                     ->orderByDesc('published_at')
+                     ->limit(1),
+
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                'bookable.book_author',
+                'bookable.book_genre',
+                'book_format',
+            ]
+        )
+            ->addSelect([
+                'latest_price' => BookPrice::select('price')
+                     ->whereColumn('book_id', 'books.id')
+			
+                     ->where('published_at', '<', now()->modify('+1 day')->format('Y-m-d'))
+			  		->where('max(published_at)')
+                     ->where('currency_id',1)
+                     ->orderByDesc('published_at')
+                     ->limit(1),
+
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+now();
+now()->modify('+1 day')->format('Y-m-d');
+Book::with(['book_price']);
+Book::with(
+            [
+                'bookable.book_author',
+                'bookable.book_genre',
+                'book_format',
+            ]
+        )
+            ->addSelect([
+                'latest_price' => BookPrice::select('price')
+                     ->whereColumn('book_id', 'books.id')
+			
+                     ->where('published_at', '<', now()->modify('+1 day')->format('Y-m-d'))
+			  		 ->where('max(published_at)')
+                     ->where('currency_id', 1)
+                     ->orderByDesc('published_at')
+                     ->limit(1),
+
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                'bookable.book_author',
+                'bookable.book_genre',
+                'book_format',
+            ]
+        )
+            ->addSelect([
+
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                'bookable.book_author',
+                'bookable.book_genre',
+                'book_format',
+			  	'book_price',
+            ]
+        )
+            ->addSelect([
+
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                'bookable.book_author',
+                'bookable.book_genre',
+                'book_format',
+            ]
+        )
+            ->addSelect([
+				'current' => $this->current_pricing() , 
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                'bookable.book_author',
+                'bookable.book_genre',
+                'book_format',
+            ]
+        )
+            ->addSelect([
+				'current' => $this::current_pricing() , 
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                'bookable.book_author',
+                'bookable.book_genre',
+                'book_format',
+            ]
+        )
+            ->addSelect([
+				'current' => Bcurrent_pricing() , 
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                'bookable.book_author',
+                'bookable.book_genre',
+                'book_format',
+            ]
+        )
+            ->addSelect([
+				'current' => Book::current_pricing() , 
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                'bookable.book_author',
+                'bookable.book_genre',
+                'book_format',
+            ]
+        )
+            ->addSelect([
+				'current' => Book::current_pricing , 
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                'bookable.book_author',
+                'bookable.book_genre',
+                'book_format',
+            ]
+        )
+            ->addSelect([
+				'current' => Book::current_pricing() , 
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                'bookable.book_author',
+                'bookable.book_genre',
+                'book_format',
+            ]
+        )
+            ->addSelect([
+				'current' => Book->find(1)::current_pricing() , 
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                'bookable.book_author',
+                'bookable.book_genre',
+                'book_format',
+            ]
+        )
+            ->addSelect([
+				'current' => Book::find(1)::->rrent_pricing() , 
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                'bookable.book_author',
+                'bookable.book_genre',
+                'book_format',
+            ]
+        )
+            ->addSelect([
+				'current' => Book::find(1)->rrent_pricing() , 
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                'bookable.book_author',
+                'bookable.book_genre',
+                'book_format',
+            ]
+        )
+            ->addSelect([
+				'current' => Book::find(1)->current_pricing() , 
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                'bookable.book_author',
+                'bookable.book_genre',
+                'book_format',
+            ]
+        )
+            ->addSelect([
+				'current' => Book::find(1)->current_pricing() , 
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                'bookable.book_author',
+                'bookable.book_genre',
+                'book_format',
+            ]
+        )
+            ->addSelect([
+				'current' => Book::find(1)->current_pricing , 
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                'bookable.book_author',
+                'bookable.book_genre',
+                'book_format',
+            ]
+        )
+            ->addSelect([
+				'current' => Book::find(1)->current_pricing->limit(1) , 
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                'bookable.book_author',
+                'bookable.book_genre',
+                'book_format',
+            ]
+        )
+            ->addSelect([
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                'bookable.book_author',
+                'bookable.book_genre',
+                'book_format',
+            ]
+        )
+            ->addSelect([
+			    'latest_price' => BookPrice::select('price')
+                    ->whereColumn('book_id', 'books.id')
+                    ->where('published_at', '<', now()->modify('+1 day')->format('Y-m-d'))
+                    ->where('currency_id', 1)
+                    ->orderByDesc('published_at')
+                    ->limit(1),
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                'bookable.book_author',
+                'bookable.book_genre',
+                'book_format',
+            ]
+        )
+            ->addSelect([
+			    'latest_price' => BookPrice::select('price')
+                    ->whereColumn('book_id', 'books.id')
+                    ->where('published_at', '<', now()->modify('+1 day')->format('Y-m-d'))
+			  		->max('published_at')
+                    ->where('currency_id', 1)
+                    ->orderByDesc('published_at')
+                    ->limit(1),
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                'bookable.book_author',
+                'bookable.book_genre',
+                'book_format',
+            ]
+        )
+            ->addSelect([
+			    'latest_price' => BookPrice::select('price')
+                    ->whereColumn('book_id', 'books.id')
+                    			  		->max('published_at')
+                    ->where('currency_id', 1)
+                    ->orderByDesc('published_at')
+                    ->limit(1),
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                'bookable.book_author',
+                'bookable.book_genre',
+                'book_format',
+            ]
+        )
+            ->addSelect([
+			    'latest_price' => BookPrice::select('price')
+                    ->whereColumn('book_id', 'books.id')
+			  		->max('published_at')
+                    ->where('currency_id', 1)
+                    ->orderByDesc('published_at')
+                    ->limit(1),
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                'bookable.book_author',
+                'bookable.book_genre',
+                'book_format',
+            ]
+        )
+            ->addSelect([
+			    'latest_price' => BookPrice::select('price')
+                    ->whereColumn('book_id', 'books.id')
+			  		                    ->where('currency_id', 1)
+                    ->orderByDesc('published_at')
+                    ->limit(1),
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                'bookable.book_author',
+                'bookable.book_genre',
+                'book_format',
+            ]
+        )
+            ->addSelect([
+			    'latest_price' => BookPrice::select('price')
+                    ->whereColumn('book_id', 'books.id')
+                    ->where('published_at', '<', now()->modify('+1 day')->format('Y-m-d'))
+			  		->max('published_at')
+                    ->where('currency_id', 1)
+                    ->orderByDesc('published_at')
+                    ->limit(1),
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+  			->groupBy('published_at')
+
+            ->get();
+Book::with(
+            [
+                'bookable.book_author',
+                'bookable.book_genre',
+                'book_format',
+            ]
+        )
+            ->addSelect([
+			    'latest_price' => BookPrice::select('price')
+                    ->whereColumn('book_id', 'books.id')
+                    ->where('published_at', '<', now()->modify('+1 day')->format('Y-m-d'))
+			  		->where('published_at','=', now())
+			  		->max('published_at')
+                    ->where('currency_id', 1)
+                    ->orderByDesc('published_at')
+                    ->limit(1),
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                'bookable.book_author',
+                'bookable.book_genre',
+                'book_format',
+            ]
+        )
+            ->addSelect([
+			    'latest_price' => BookPrice::select('price')
+                    ->whereColumn('book_id', 'books.id')
+                    
+			  		->where('published_at','=', now())
+			  		->max('published_at')
+                    ->where('currency_id', 1)
+                    ->orderByDesc('published_at')
+                    ->limit(1),
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                'bookable.book_author',
+                'bookable.book_genre',
+                'book_format',
+            ]
+        )
+            ->addSelect([
+			    'latest_price' => BookPrice::select('price')
+                    ->whereColumn('book_id', 'books.id')
+                    ->where('published_at', '<', now()->modify('+1 day')->format('Y-m-d'))
+			  		->max('published_at')
+                    ->where('currency_id', 1)
+                    ->orderByDesc('published_at')
+                    ->limit(1),
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                'bookable.book_author',
+                'bookable.book_genre',
+                'book_format',
+            ]
+        )
+            ->addSelect([
+			    'latest_price' => BookPrice::select('price')
+                    ->whereColumn('book_id', 'books.id')
+                    ->where('published_at', '<', now()->modify('+1 day')->format('Y-m-d'))
+			  		->max('published_at')
+                    ->where('currency_id', 1)
+                    ->orderByDesc('published_at')
+                    ->limit(1),
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                'bookable.book_author',
+                'bookable.book_genre',
+                'book_format',
+            ]
+        )
+            ->addSelect([
+			    'latest_price' => BookPrice::select('price')
+                    ->whereColumn('book_id', 'books.id')
+                    ->where('published_at', '<', now()->modify('+1 day')->format('Y-m-d'))
+                    ->where('currency_id', 1)
+                    ->orderByDesc('published_at')
+                    ->limit(1),
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                'bookable.book_author',
+                'bookable.book_genre',
+                'book_format',
+            ]
+        )
+            ->addSelect([
+			    'latest_price' => BookPrice::select('price')
+                    ->whereColumn('book_id', 'books.id')
+                    ->where('published_at', '<', now()->modify('+1 day')->format('Y-m-d'))->max('published_at')
+                    ->where('currency_id', 1)
+                    ->orderByDesc('published_at')
+                    ->limit(1),
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                'bookable.book_author',
+                'bookable.book_genre',
+                'book_format',
+            ]
+        )
+            ->addSelect([
+			    'latest_price' => BookPrice::select('price')
+                    ->whereColumn('book_id', 'books.id')
+                    ->where('published_at', '<', now()->modify('+1 day')->format('Y-m-d'))->sort_by('published_at', 'desc')
+                    ->where('currency_id', 1)
+                    ->orderByDesc('published_at')
+                    ->limit(1),
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                'bookable.book_author',
+                'bookable.book_genre',
+                'book_format',
+            ]
+        )
+            ->addSelect([
+			    'latest_price' => BookPrice::select('price')
+                    ->whereColumn('book_id', 'books.id')
+                    ->where('published_at', '<', now()->modify('+1 day')->format('Y-m-d'))->orderBy('published_at', 'desc')
+                    ->where('currency_id', 1)
+                    ->orderByDesc('published_at')
+                    ->limit(1),
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                'bookable.book_author',
+                'bookable.book_genre',
+                'book_format',
+            ]
+        )
+            ->addSelect([
+			    'latest_price' => BookPrice::select('price')
+                    ->whereColumn('book_id', 'books.id')
+                    ->where('published_at', '<', now()->modify('+1 day')->format('Y-m-d'))
+                    ->where('currency_id', 1)
+                    ->orderByDesc('published_at')
+                    ->limit(1),
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                'bookable.book_author',
+                'bookable.book_genre',
+                'book_format',
+            ]
+        )
+            ->addSelect([
+			    'latest_price' => BookPrice::select('price')
+                    ->whereColumn('book_id', 'books.id')
+                    ->where('published_at', '<', now()->modify('+1 day')->format('Y-m-d'))
+                    ->where('currency_id', 1)
+                    ->orderByDesc('published_at')
+                    ->limit(1),
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                'bookable.book_author',
+                'bookable.book_genre',
+                'book_format',
+            ]
+        )
+            ->addSelect([
+			    'latest_price' => BookPrice::select('price')
+                    ->whereColumn('book_id', 'books.id')
+                    ->where('published_at', '<', now()->modify('+1 day')->format('Y-m-d'))
+                    ->where('currency_id', 1)
+                    ->orderByAsc('published_at')
+                    ->limit(1),
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                'bookable.book_author',
+                'bookable.book_genre',
+                'book_format',
+            ]
+        )
+            ->addSelect([
+			    'latest_price' => BookPrice::select('price')
+                    ->whereColumn('book_id', 'books.id')
+                    ->where('published_at', '<', now()->modify('+1 day')->format('Y-m-d'))
+                    ->where('currency_id', 1)
+                    ->orderByDesc('published_at')
+                    ->limit(1),
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                                'bookable.book_genre',
+                'book_format',
+            ]
+        )
+            ->addSelect([
+			    'latest_price' => BookPrice::select('price')
+                    ->whereColumn('book_id', 'books.id')
+                    ->where('published_at', '<', now()->modify('+1 day')->format('Y-m-d'))
+                    ->where('currency_id', 1)
+                    ->orderByDesc('published_at')
+                    ->limit(1),
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                                                'book_format',
+            ]
+        )
+            ->addSelect([
+			    'latest_price' => BookPrice::select('price')
+                    ->whereColumn('book_id', 'books.id')
+                    ->where('published_at', '<', now()->modify('+1 day')->format('Y-m-d'))
+                    ->where('currency_id', 1)
+                    ->orderByDesc('published_at')
+                    ->limit(1),
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                                                            ]
+        )
+            ->addSelect([
+			    'latest_price' => BookPrice::select('price')
+                    ->whereColumn('book_id', 'books.id')
+                    ->where('published_at', '<', now()->modify('+1 day')->format('Y-m-d'))
+                    ->where('currency_id', 1)
+                    ->orderByDesc('published_at')
+                    ->limit(1),
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                                                            ]
+        )
+            ->addSelect([
+			    'latest_price' => BookPrice::select('price')
+                    ->whereColumn('book_id', 'books.id')
+                    			  
+                    ->where('currency_id', 1)
+                    ->orderByDesc('published_at')
+			  
+			  
+				->groupBy('published_at')
+                ->having('published_at', '<', now()->modify('+1 day')->format('Y-m-d'))
+			  
+                    ->limit(1),
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                                                            ]
+        )
+            ->addSelect([
+			    'latest_price' => BookPrice::select('price')
+                    ->whereColumn('book_id', 'books.id')
+                    			  
+                    ->where('currency_id', 1)
+                    ->orderByDesc('published_at')
+			  
+			  
+				->groupBy('published_at')
+                ->having('published_at', '<', now()->modify('+1 day')->format('Y-m-d'))
+			  
+                    ->limit(1),
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                                                            ]
+        )
+            ->addSelect([
+			    'latest_price' => BookPrice::select('price')
+                    ->whereColumn('book_id', 'books.id')
+                    			  
+                    ->where('currency_id', 1)
+                    ->orderByDesc('published_at')
+			  
+			  
+				->groupBy('published_at')
+                ->having('published_at', '<', now()->modify('+1 day')->format('Y-m-d'))
+			  
+                    ->limit(1),
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                                                            ]
+        )
+            ->addSelect([
+			    'latest_price' => BookPrice::select('published_at')
+                    ->whereColumn('book_id', 'books.id')
+                    			  
+                    ->where('currency_id', 1)
+                    ->orderByDesc('published_at')
+			  
+			  
+				->groupBy('published_at')
+                ->having('published_at', '<', now()->modify('+1 day')->format('Y-m-d'))
+			  
+                    ->limit(1),
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                                                            ]
+        )
+            ->addSelect([
+			    'latest_price' => BookPrice::select('published_at')
+                    ->whereColumn('book_id', 'books.id')
+                    			  
+                    ->where('currency_id', 1)
+                    ->orderByDesc('published_at')
+			  
+			  
+				->groupBy('published_at')
+                ->having('published_at', '<', now()->modify('+1 day')->format('Y-m-d'))
+			  
+                    ->limit(1),
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                                                            ]
+        )
+            ->addSelect([
+			    'latest_price' => BookPrice::select('published_at')
+                    ->whereColumn('book_id', 'books.id')
+                    			  
+                    ->where('currency_id', 1)
+                    ->orderByDesc('published_at')
+			  
+			  
+				->groupBy('published_at')
+                ->having('published_at', '<', now()->modify('+1 day')->format('Y-m-d'))
+			  
+                    ->limit(1),
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                                                            ]
+        )
+            ->addSelect([
+			    'latest_price' => BookPrice::select('published_at')
+                    ->whereColumn('book_id', 'books.id')
+                    			  
+                    ->where('currency_id', 1)
+                    ->orderByDesc('published_at');
+			  
+			  
+				->groupBy('published_at')
+                ->having('published_at', '<', now()->modify('+1 day')->format('Y-m-d'))
+			  
+                    ->limit(1),
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                                                            ]
+        )
+            ->addSelect([
+			    'latest_price' => BookPrice::select('published_at')
+                    ->whereColumn('book_id', 'books.id')
+                    			  
+                    ->where('currency_id', 1)
+                    ->orderByDesc('published_at')
+			  
+			  
+				->groupBy('published_at')
+                ->having('published_at', '<', now()->modify('+1 day')->format('Y-m-d'))
+			  
+                    ->limit(1),
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                                                            ]
+        )
+            ->addSelect([
+			    'latest_price' => BookPrice::select('published_at')
+                    ->whereColumn('book_id', 'books.id')
+                    			  
+                    ->whereIn('id', DB::raw(
+					'SELECT book_id, price, published_at 
+FROM book_prices S 
+WHERE 
+	published_at = (
+    	SELECT MAX(published_at) 
+        FROM book_prices 
+        WHERE (published_at < now() AND book_id = 1 AND currency_id = 1))'
+					))
+			  
+			  
+			  
+                    ->limit(1),
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                                                            ]
+        )
+            ->addSelect([
+			    'latest_price' => BookPrice::select('published_at')
+                    ->whereColumn('book_id', 'books.id')
+                    			  
+                    ->whereIn('id', DB::raw(
+					'SELECT book_id, price, published_at 
+FROM book_prices S 
+WHERE 
+	published_at = (
+    	SELECT MAX(published_at) 
+        FROM book_prices 
+        WHERE (published_at < now() AND book_id = 1 AND currency_id = 1))'
+					)->toArray())
+			  
+			  
+			  
+                    ->limit(1),
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                                                            ]
+        )
+            ->addSelect([
+			    'latest_price' => BookPrice::select('published_at')
+                    ->whereColumn('book_id', 'books.id')
+                    			  
+                    ->whereIn('id', DB::raw(
+					'SELECT book_id, price, published_at 
+FROM book_prices S 
+WHERE 
+	published_at = (
+    	SELECT MAX(published_at) 
+        FROM book_prices 
+        WHERE (published_at < now() AND book_id = 1 AND currency_id = 1))'
+					)->get())
+			  
+			  
+			  
+                    ->limit(1),
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                                                            ]
+        )
+            ->addSelect([
+			    'latest_price' => BookPrice::select('published_at')
+                    ->whereColumn('book_id', 'books.id')
+                    			  
+                    ->whereIn('id', DB::raw(
+					'SELECT book_id, price, published_at 
+FROM book_prices S 
+WHERE 
+	published_at = (
+    	SELECT MAX(published_at) 
+        FROM book_prices 
+        WHERE (published_at < now() AND book_id = 1 AND currency_id = 1))'
+					)->get()->toArray())
+			  
+			  
+			  
+                    ->limit(1),
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                                                            ]
+        )
+            ->addSelect([
+			    'latest_price' => BookPrice::select('published_at')
+                    ->whereColumn('book_id', 'books.id')
+                    			  
+                    ->whereIn('id', DB::raw(
+					'SELECT book_id, price, published_at 
+FROM book_prices S 
+WHERE 
+	published_at = (
+    	SELECT MAX(published_at) 
+        FROM book_prices 
+        WHERE (published_at < now() AND book_id = 1 AND currency_id = 1))'
+					)->get()->toArray())
+			  
+			  
+			  
+                    ->limit(1),
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                                                            ]
+        )
+            ->addSelect([
+			    'latest_price' => BookPrice::select('published_at')
+                    ->whereColumn('book_id', 'books.id')
+                    			  
+                    ->whereIn('id', select(DB::raw(
+					'SELECT book_id, price, published_at 
+FROM book_prices S 
+WHERE 
+	published_at = (
+    	SELECT MAX(published_at) 
+        FROM book_prices 
+        WHERE (published_at < now() AND book_id = 1 AND currency_id = 1))'
+					))->get()->toArray())
+			  
+			  
+			  
+                    ->limit(1),
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                                                            ]
+        )
+            ->addSelect([
+			    'latest_price' => BookPrice::select('published_at')
+                    ->whereColumn('book_id', 'books.id')
+                    			  
+                    ->whereIn('id', (DB::raw(
+					'SELECT book_id, price, published_at 
+FROM book_prices S 
+WHERE 
+	published_at = (
+    	SELECT MAX(published_at) 
+        FROM book_prices 
+        WHERE (published_at < now() AND book_id = 1 AND currency_id = 1))'
+					))->get()->toArray())
+			  
+			  
+			  
+                    ->limit(1),
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                                                            ]
+        )
+            ->addSelect([
+			    'latest_price' => BookPrice::select('published_at')
+                    ->whereColumn('book_id', 'books.id')
+                    			  
+                    ->whereIn('id', select(DB::raw(
+					'SELECT book_id, price, published_at 
+FROM book_prices S 
+WHERE 
+	published_at = (
+    	SELECT MAX(published_at) 
+        FROM book_prices 
+        WHERE (published_at < now() AND book_id = 1 AND currency_id = 1))'
+					)))->get()->toArray())
+			  
+			  
+			  
+                    ->limit(1),
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                                                            ]
+        )
+            ->addSelect([
+			    'latest_price' => BookPrice::select('published_at')
+                    ->whereColumn('book_id', 'books.id')
+                    			  
+                    ->whereIn('id', select((DB::raw(
+					'SELECT book_id, price, published_at 
+FROM book_prices S 
+WHERE 
+	published_at = (
+    	SELECT MAX(published_at) 
+        FROM book_prices 
+        WHERE (published_at < now() AND book_id = 1 AND currency_id = 1))'
+					)))->get()->toArray())
+			  
+			  
+			  
+                    ->limit(1),
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                                                            ]
+        )
+            ->addSelect([
+			    'latest_price' => BookPrice::select('published_at')
+                    ->whereColumn('book_id', 'books.id')
+                    			  
+                    ->select(DB::raw(
+					'SELECT book_id, price, published_at 
+FROM book_prices S 
+WHERE 
+	published_at = (
+    	SELECT MAX(published_at) 
+        FROM book_prices 
+        WHERE (published_at < now() AND book_id = 1 AND currency_id = 1))'
+					)->get()->toArray()
+			  
+			  
+			  
+                    ->limit(1),
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                                                            ]
+        )
+            ->addSelect([
+			    'latest_price' => BookPrice::select('published_at')
+                    ->whereColumn('book_id', 'books.id')
+                    			  
+                    ->select(DB::raw(
+					'SELECT book_id, price, published_at 
+FROM book_prices S 
+WHERE 
+	published_at = (
+    	SELECT MAX(published_at) 
+        FROM book_prices 
+        WHERE (published_at < now() AND book_id = 1 AND currency_id = 1))'
+					)->get()->toArray())
+			  
+			  
+			  
+                    ->limit(1),
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                                                            ]
+        )
+            ->addSelect([
+			    'latest_price' => select(DB::raw(
+					'SELECT book_id, price, published_at 
+FROM book_prices S 
+WHERE 
+	published_at = (
+    	SELECT MAX(published_at) 
+        FROM book_prices 
+        WHERE (published_at < now() AND book_id = 1 AND currency_id = 1))'
+					)->get()->toArray())
+                    			  
+                   
+			  
+			  
+			  
+                    ->limit(1),
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                                                            ]
+        )
+            ->addSelect([
+			    'latest_price' => select(DB::raw(
+					'SELECT book_id, price, published_at 
+FROM book_prices S 
+WHERE 
+	published_at = (
+    	SELECT MAX(published_at) 
+        FROM book_prices 
+        WHERE (published_at < now() AND book_id = 1 AND currency_id = 1))'
+					)->get())
+                    			  
+                   
+			  
+			  
+			  
+                    ->limit(1),
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                                                            ]
+        )
+            ->addSelect([
+			    'latest_price' => select(DB::raw(
+					'SELECT book_id, price, published_at 
+FROM book_prices S 
+WHERE 
+	published_at = (
+    	SELECT MAX(published_at) 
+        FROM book_prices 
+        WHERE (published_at < now() AND book_id = 1 AND currency_id = 1))'
+					))
+                    			  
+                   
+			  
+			  
+			  
+                    ->limit(1),
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+Book::with(
+            [
+                                                            ]
+        )
+            ->addSelect([
+			    'latest_price' => select(DB::raw(
+					'SELECT book_id, price, published_at 
+FROM book_prices S 
+WHERE 
+	published_at = (
+    	SELECT MAX(published_at) 
+        FROM book_prices 
+        WHERE (published_at < now() AND book_id = 1 AND currency_id = 1))'
+					))
+                    			  
+                   
+			  
+			  
+			  
+                    ->limit(1),
+                'currency_code' => Currency::select('currency_code')
+                    ->where('id', 1)
+                    ->limit(1)])
+
+            ->get();
+select(DB::raw(
+					'SELECT book_id, price, published_at 
+FROM book_prices S 
+WHERE 
+	published_at = (
+    	SELECT MAX(published_at) 
+        FROM book_prices 
+        WHERE (published_at < now() AND book_id = 1 AND currency_id = 1))'
+					))
+DB::raw(
+					'SELECT book_id, price, published_at 
+FROM book_prices S 
+WHERE 
+	published_at = (
+    	SELECT MAX(published_at) 
+        FROM book_prices 
+        WHERE (published_at < now() AND book_id = 1 AND currency_id = 1))'
+					)

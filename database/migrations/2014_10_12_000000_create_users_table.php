@@ -21,9 +21,19 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
-            $table->text('profile_photo_path')->nullable();
+$table->string('profile_photo_path', 2048)->nullable();
+
             $table->timestamps();
         });
+
+Schema::table('users', function (Blueprint $table) {
+    $table->renameColumn('name', 'firstname');
+    $table->string('lastname');
+    $table->bigInteger('book_author_id')->nullable();
+    $table->bigInteger('shop_manager_id')->nullable();
+    // $table->string('email')->nullable()->change();
+});
+
     }
 
     /**

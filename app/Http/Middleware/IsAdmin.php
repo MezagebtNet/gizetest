@@ -16,9 +16,12 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        if() {
-            abort(403);
-        }
+// $user = User::find(auth()->user()->id);
+// // dd($user->roles()->get()->contains(1));
+// if(!$user->roles()->get()->contains(2)) {
+//     abort(403);
+// }
+
         return $next($request);
     }
 }

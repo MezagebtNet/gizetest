@@ -1,43 +1,101 @@
-<x-guest-layout>
-    <x-jet-authentication-card>
-        <x-slot name="logo">
-            <x-jet-authentication-card-logo />
-        </x-slot>
+@extends('layouts.website.index')
 
-        <x-jet-validation-errors class="mb-4" />
+@section('title', 'User Account')
 
+@section('styles')
+    @livewireStyles
+@endsection
+
+@section('navbar')
+    @include('website.navbar')
+@endsection
+
+@section('content')
+
+<x-jet-authentication-card>
+    <x-slot name="logo">
+        <x-jet-authentication-card-logo />
+    </x-slot>
+
+    <x-jet-validation-errors class="mb-3" />
+
+    <div class="card-body">
         <form method="POST" action="{{ route('register') }}">
             @csrf
 
-            <div>
-                <x-jet-label for="name" value="{{ __('Name') }}" />
-                <x-jet-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
+            <div class="form-group">
+                <x-jet-label value="{{ __('First Name') }}" />
+
+                <x-jet-input class="{{ $errors->has('firstname') ? 'is-invalid' : '' }}" type="text" name="firstname"
+                             :value="old('firstname')" required autofocus autocomplete="firstname" />
+                <x-jet-input-error for="firstname"></x-jet-input-error>
             </div>
 
-            <div class="mt-4">
-                <x-jet-label for="email" value="{{ __('Email') }}" />
-                <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
+            <div class="form-group">
+                <x-jet-label value="{{ __('Last Name') }}" />
+
+                <x-jet-input class="{{ $errors->has('lastname') ? 'is-invalid' : '' }}" type="text" name="lastname"
+                             :value="old('lastname')" required autofocus autocomplete="lastname" />
+                <x-jet-input-error for="lastname"></x-jet-input-error>
             </div>
 
-            <div class="mt-4">
-                <x-jet-label for="password" value="{{ __('Password') }}" />
-                <x-jet-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
+            <div class="form-group">
+                <x-jet-label value="{{ __('Email') }}" />
+
+                <x-jet-input class="{{ $errors->has('email') ? 'is-invalid' : '' }}" type="email" name="email"
+                             :value="old('email')" required />
+                <x-jet-input-error for="email"></x-jet-input-error>
             </div>
 
-            <div class="mt-4">
-                <x-jet-label for="password_confirmation" value="{{ __('Confirm Password') }}" />
-                <x-jet-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
+            <div class="form-group">
+                <x-jet-label value="{{ __('Password') }}" />
+
+                <x-jet-input class="{{ $errors->has('password') ? 'is-invalid' : '' }}" type="password"
+                             name="password" required autocomplete="new-password" />
+                <x-jet-input-error for="password"></x-jet-input-error>
             </div>
 
-            <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
-                </a>
+            <div class="form-group">
+                <x-jet-label value="{{ __('Confirm Password') }}" />
 
-                <x-jet-button class="ml-4">
-                    {{ __('Register') }}
-                </x-jet-button>
+                <x-jet-input class="form-control" type="password" name="password_confirmation" required autocomplete="new-password" />
+            </div>
+
+            @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
+                <div class="form-group">
+                    <div class="custom-control custom-checkbox">
+                        <x-jet-checkbox id="terms" name="terms" />
+                        <label class="custom-control-label" for="terms">
+                            {!! __('I agree to the :terms_of_service and :privacy_policy', [
+                                        'terms_of_service' => '<a target="_blank" href="'.route('terms.show').'">'.__('Terms of Service').'</a>',
+                                        'privacy_policy' => '<a target="_blank" href="'.route('policy.show').'">'.__('Privacy Policy').'</a>',
+                                ]) !!}
+                        </label>
+                    </div>
+                </div>
+            @endif
+
+            <div class="mb-0">
+                <div class="d-flex justify-content-end align-items-baseline">
+                    <a class="text-muted mr-3 text-decoration-none" href="{{ route('login') }}">
+                        {{ __('Already registered?') }}
+                    </a>
+
+                    <x-jet-button>
+                        {{ __('Register') }}
+                    </x-jet-button>
+                </div>
             </div>
         </form>
-    </x-jet-authentication-card>
-</x-guest-layout>
+    </div>
+</x-jet-authentication-card>
+@endsection
+
+@section('js')
+    @livewireScripts
+@endsection
+
+
+
+
+

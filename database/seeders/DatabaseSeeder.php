@@ -14,11 +14,42 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            PermissionsTableSeeder::class,
-            RolesTableSeeder::class,
-            PermissionRoleTableSeeder::class,
+
+
+            //Roles and Permissions
+            RolesAndPermissionsSeeder::class,
+
+            // PermissionsTableSeeder::class,
+            // RolesTableSeeder::class,
+            // PermissionRoleTableSeeder::class,
             UsersTableSeeder::class,
-            RoleUserTableSeeder::class,
+            // RoleUserTableSeeder::class,
+            CustomersTableSeeder::class,
+            ServicesTableSeeder::class,
+            // CitiesTableSeeder::class,
+            // StatesTableSeeder::class,
+            ClaimsServiceTableSeeder::class,
+            RefundsTableSeeder::class,
+            RefundServiceTableSeeder::class,
+
+            BookAuthorsSeeder::class,
+
+            //Factory Settings..
+            FactorySettings\BookTypesSeeder::class,
+            FactorySettings\BookGenresSeeder::class,
+            FactorySettings\BookFormatsSeeder::class,
+            FactorySettings\CurrenciesSeeder::class,
+            FactorySettings\BookLanguagesSeeder::class,
+            FactorySettings\BookRoyaltyRatesSeeder::class,
+
+            //Book Data...
+            BookData\BookSeriesSeeder::class,
+            BookData\BookablesSeeder::class,
+            BookData\BooksSeeder::class,
+            BookData\BookPricesSeeder::class,
+
+
+
         ]);
     }
 }

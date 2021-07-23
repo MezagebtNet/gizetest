@@ -10,13 +10,20 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'    => [
+            'firstname'  => [
+                'string',
+                'required',
+            ],
+            'lastname'  => [
                 'string',
                 'required',
             ],
             'email'   => [
                 'required',
                 'unique:users,email,' . request()->route('user')->id,
+            ],
+            'password' => [
+                'confirmed',
             ],
             'roles.*' => [
                 'integer',
@@ -30,6 +37,6 @@ class UpdateUserRequest extends FormRequest
 
     public function authorize()
     {
-        return Gate::allows('user_access');
+        return Gate::allows('system_user');
     }
 }
