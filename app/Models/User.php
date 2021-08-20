@@ -174,4 +174,17 @@ class User extends Authenticatable
         return $this->firstname . ' ' . $this->lastname;
     }
 
+    /**
+     * The batches that belong to the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function batches()
+    {
+        return $this->belongsToMany(Batch::class, 'batch_user', 'user_id', 'batch_id')
+        ->withPivot('approved', 'active')
+        ->as ('subscription')
+        ->withTimestamps();
+    }
+
 }

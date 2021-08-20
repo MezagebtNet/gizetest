@@ -55,6 +55,35 @@ return [
             'visibility' => 'public',
         ],
 
+
+        'local_disk' => [
+            'driver' => 'local',
+            'root' => storage_path('app/files'),
+            'url' => env('APP_URL') . '/storage',
+            'visibility' => 'private',
+        ],
+
+        'hls_secrets' => [
+            'driver' => 'local',
+            'root' => storage_path('app/files/l'),
+            'url' => env('APP_URL') . '/storage',
+            'visibility' => 'private',
+        ],
+
+        'video_secrets' => [
+            'driver' => 'local',
+            'root' => storage_path('app/files/v'),
+            'url' => env('APP_URL') . '/storage',
+            'visibility' => 'private',
+        ],
+
+        'temp_secrets' => [
+            'driver' => 'local',
+            'root' => storage_path('app/files/temp_secrets'),
+            'url' => env('APP_URL') . '/storage',
+            'visibility' => 'private',
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

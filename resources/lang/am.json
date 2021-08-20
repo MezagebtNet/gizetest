@@ -1,0 +1,41 @@
+{
+    "Hello,": "ሰላም",
+
+    "Log in": "ግባ",
+    "Register": "ይመዝገቡ",
+    "Home": "ዋና ገጽ",
+    "Addmes": "አድሜስ",
+
+    "Profile": "መገለጫ",
+    "Profile Information": "የመገለጫ መረጃ",
+    "Update your account's profile information and email address.": "የመለያዎን የመገለጫ መረጃ እና የኢሜል አድራሻ ይለውጡ",
+    "Saved." : "ተቀምጧል",
+    "Photo" : "ፎቶ",
+    "Select A New Photo": "ፎቶ ይምረጡ",
+    "Remove Photo": "ፎቶ አስወግድ",
+    "First Name": "ስም",
+    "Last Name": "የአባት ስም",
+    "Email": "ኢሜይል",
+    "Save": "አስቀምጥ",
+
+    "Update Password":"መለያዎን ያዘምኑ",
+    "Ensure your account is using a long, random password to stay secure.": "የአካውንትዎን ደህንነት እንደተጠበቀ ለመቆየት መለያዎ ረጅም እና የዘፈቀደ የይለፍ ቃል እየተጠቀመ መሆኑን ያረጋግጡ",
+    "Current Password": "ነባር የይለፍ ቃል",
+    "New Password": "አዲስ የይለፍ ቃል",
+    "Confirm Password": "የይለፍ ቃል አረጋግጥ",
+
+    "Two Factor Authentication": "ባለሁለት እርከን ማረጋገጫ",
+    "Add additional security to your account using two factor authentication.": "የባለ ሁለት እርከን ማረጋገጫ በመጠቀም በመለያዎ ላይ ተጨማሪ ደህንነት ያክሉ።",
+    "You have enabled two factor authentication.": "የባለሁለት እርከን ማረጋገጫን አንቅተዋል",
+    "You have not enabled two factor authentication.": "የባለሁለት እርከን ማረጋገጫን አላነቁም",
+    "When two factor authentication is enabled, you will be prompted for a secure, random token during authentication. You may retrieve this token from your phone's Google Authenticator application.": "ባለሁለት እርከን ማረጋገጫ አገልግሎት ላይ ሲውል ፣ በማረጋገጫ ጊዜ ደህንነቱ የተጠበቀ ፣ የማይደገም ተለዋዋጭ ቁጥር እንዲያስገቡ ይጠየቃሉ። ይህን ቁጥር ከስልክዎ የ Google አረጋጋጭ መተግበሪያ ሰርስረው ማውጣት ይችላሉ።",
+    "Two factor authentication is now enabled. Scan the following QR code using your phone's authenticator application.": "ሁለት ምክንያቶች ማረጋገጫ አሁን ነቅቷል። የስልክዎን አረጋጋጭ መተግበሪያ በመጠቀም የሚከተለውን የ QR ኮድ ይቃኙ።",
+    "Store these recovery codes in a secure password manager. They can be used to recover access to your account if your two factor authentication device is lost.": "እነዚህን የመልሶ ማግኛ ኮዶች በአስተማማኝ የይለፍ ቃል አስተዳዳሪ ውስጥ ያከማቹ። የእርስዎ የሁለትዮሽ ማረጋገጫ መሣሪያ ከጠፋ የመለያዎን መዳረሻ መልሶ ለማግኘት ሊያገለግሉ ይችላሉ።",
+    "Enable": "አንቃ",
+    "Regenerate Recovery Codes": "የመልሶ ማግኛ ኮዶችን እንደገና አድስ",
+    "Show Recovery Codes": "የመልሶ ማግኛ ኮዶችን አሳይ",
+    "Disable": "አሰናክል"
+
+
+
+}

@@ -6,14 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    @yield('styles')
+
 
 
 
     <!-- Scripts -->
     <script src="{{ mix('js/app.js') }}" defer></script>
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', '') }} - @yield('page_title')</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -31,6 +31,12 @@
     <link rel="stylesheet" href="{{ asset('vendors/admin/plugins/jqvmap/jqvmap.min.css') }}">
     <!-- sweetalert2 -->
     <link rel="stylesheet" href="{{ asset('vendors/admin/plugins/sweetalert2/sweetalert2.min.css') }}">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="{{ asset('vendors/admin/plugins/select2/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendors/admin/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+
+    <!-- Bootstrap4 Duallistbox -->
+    <link rel="stylesheet" href="{{ asset('vendors/admin/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css') }}">
 
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('vendors/admin/dist/css/adminlte.min.css') }}">
@@ -41,6 +47,7 @@
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset('vendors/admin/plugins/summernote/summernote-bs4.min.css') }}">
 
+    @yield('styles')
 
 </head>
 
@@ -68,12 +75,12 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">@yield('title')</h1>
+                            <h1 class="m-0">@yield('header_title')</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
+
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="{{ url('admin/') }}">Admin</a></li>
-                                <li class="breadcrumb-item active">@yield('title')</li>
+                                @yield('breadcrumb')
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -91,11 +98,7 @@
         </div>
         <!-- /.content-wrapper -->
         <footer class="main-footer">
-            <strong>Copyright &copy; 2021 <a href="https://mezagebtnet.com">MezagebtNet.com</a>.</strong>
-            All rights reserved.
-            <div class="float-right d-none d-sm-inline-block">
-                <b>Version</b> 1.0
-            </div>
+            @include('layouts.user.includes.footer')
         </footer>
 
         <!-- Control Sidebar -->
@@ -105,6 +108,10 @@
         <!-- /.control-sidebar -->
     </div>
     <!-- ./wrapper -->
+
+
+    @stack('modals')
+
 
     <!-- jQuery -->
     <script src="{{ asset('vendors/admin/plugins/jquery/jquery.min.js') }}"></script>
@@ -117,6 +124,8 @@
     </script>
     <!-- Bootstrap 4 -->
     <script src="{{ asset('vendors/admin/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <!-- Select2 -->
+    <script src="{{ asset('vendors/admin/plugins/select2/js/select2.full.min.js') }}"></script>
     <!-- ChartJS -->
     <script src="{{ asset('vendors/admin/plugins/chart.js/Chart.min.js') }}"></script>
     <!-- Sparkline -->
@@ -145,12 +154,13 @@
     <!-- Sweetalert2 -->
     <script src="{{ asset('vendors/admin/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
 
+    <!-- Bootstrap4 Duallistbox -->
+    <script src="{{ asset('vendors/admin/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js') }}"></script>
 
 
 
 
 
-    @stack('modals')
 
 
 

@@ -5,13 +5,13 @@
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="{{ url('/') }}" class="nav-link"><i class="fas fa-home pr-1"></i> Main Site</a>
+            <a href="{{ route('website.home') }}" class="nav-link"><i class="fas fa-home pr-1"></i> {{ __('Main Site') }}</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="{{ url('/admin') }}" class="nav-link"><i class="fas fa-laptop-house pr-1"></i>Admin Home</a>
+            <a href="{{ route('admin.home') }}" class="nav-link"><i class="fas fa-laptop-house pr-1"></i>{{ __('Admin Home') }}</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="#" class="nav-link">About</a>
+            <a href="#" class="nav-link">{{ __('About') }}</a>
         </li>
     </ul>
 

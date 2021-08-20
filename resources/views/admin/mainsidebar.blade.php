@@ -23,17 +23,6 @@
             </div>
         </div>
 
-        <!-- SidebarSearch Form -->
-        <div class="form-inline">
-            <div class="input-group" data-widget="sidebar-search">
-                <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-                <div class="input-group-append">
-                    <button class="btn btn-sidebar">
-                        <i class="fas fa-search fa-fw"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
 
         <!-- Sidebar Menu -->
         <nav class="mt-2 ">
@@ -41,7 +30,7 @@
                 <!-- Add icons to the links using the .nav-icon class
        with font-awesome or any other icon font library -->
 
-                @if (auth()->user()->isSuperAdmin())
+                {{-- @if (auth()->user()->isSuperAdmin())
                 @canany(['system_user', 'system_setting', 'manage_agent_subscription'])
                 <li class="nav-header">SYSTEM SETTINGS</li>
                 <li class="nav-item
@@ -109,7 +98,7 @@
 
                 </li>
                 @endcanany
-                @endif
+                @endif --}}
 
                 @if (auth()->user()->isSuperAdmin() || auth()->user()->isAdmin())
                 @canany(['system_user'])
@@ -120,65 +109,93 @@
                         <p class="text">User Accounts</p>
                     </a>
                 </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('admin.manage.gize_channels.index') }}" class="nav-link {{ request()->is('admin/channels/gizechannel*') ? 'active' : '' }}">
+                        <i class="nav-icon fa fa-solid fa-bullhorn"></i>
+                        <p class="text">All Gize Channels</p>
+                    </a>
+                </li>
+                <li class="nav-item
+                    {{ request()->is('admin/manage/*') ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link
+                        {{ request()->is('admin/manage/gize-channel*') ? 'active' : '' }}">
+                        <i class="nav-icon fa fa-solid fa-bullhorn"></i>
+                        <p>
+                            Your Channel (Addmes)
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview ">
+
+                        {{-- <li class="nav-item">
+                            <a href=""
+                                class="nav-link ">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Edit Channel </p>
+                            </a>
+                        </li> --}}
+                        <li class="nav-item">
+                            <a href="{{ route('admin.manage.channelvideo.index') }}"
+                                class="nav-link {{ request()->is('admin/manage/channelvideos/channelvideo*') ? 'active' : '' }}">
+                                <i class="far fa fa-video nav-icon"></i>
+                                <p>Videos </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.manage.batch.index') }}"
+                                class="nav-link  {{
+                                request()->is('admin/manage/batches') ||
+                                request()->is('admin/manage/batches/create') ||
+                                request()->is('admin/manage/batches/edit/*')
+                                ? 'active' : '' }}">
+                                <i class="nav-icon fa fa-users"></i>
+                                <p>Batches </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.manage.batch.subscription.index') }}"
+                                class="nav-link  {{ request()->is('admin/manage/batches/subscriptions*') ? 'active' : '' }}">
+                                <i class="nav-icon fa fa-users"></i>
+                                <p>Subscriptions </p>
+                            </a>
+                        </li>
+                        {{-- <li class="nav-item">
+                            <a href=""
+                                class="nav-link ">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Subscription Periods</p>
+                            </a>
+                        </li> --}}
+                        <li class="nav-item">
+                            <a href=""
+                                class="nav-link ">
+                                <i class="far fa fa-calendar nav-icon"></i>
+                                <p>Schedule Calendar </p>
+                            </a>
+                        </li>
+
+                         </ul>
+
+                </li>
                 @endcanany
                 @endif
-
-
-                @if (auth()->user()->isSuperAdmin() || auth()->user()->isAdmin() )
-                <li class="nav-header">BOOKS</li>
-                <li class="nav-item">
-                    <a href="{{ route('profile.show') }}" class="nav-link">
-                        <i class="nav-icon far fa-circle text-info"></i>
-                        <p class="text">All Books</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-
-                    <a href="{{ route('profile.show') }}" class="nav-link">
-                        <i class="nav-icon far fa-circle text-info"></i>
-                        <p class="text">Authors</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-
-                    <a href="{{ route('profile.show') }}" class="nav-link">
-                        <i class="nav-icon far fa-circle text-info"></i>
-                        <p class="text">Authors</p>
-                    </a>
-                </li>
-
-                <li class="nav-header">BOOK SHOPS</li>
-                <li class="nav-item">
-                    <a href="{{ route('profile.show') }}" class="nav-link">
-                        <i class="nav-icon far fa-circle text-info"></i>
-                        <p class="text">Manage Shops</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-
-                    <a href="{{ route('profile.show') }}" class="nav-link">
-                        <i class="nav-icon far fa-circle text-info"></i>
-                        <p class="text">Subscriptions</p>
-                    </a>
-                </li>
-
-                @endif
-
-
 
                 <li class="nav-header">MY ACCOUNT</li>
                 <li class="nav-item">
                     <a href="{{ route('profile.show') }}" class="nav-link">
-                        <i class="nav-icon far fa-circle text-info"></i>
+                        <i class="nav-icon far fa-id-card"></i>
                         <p class="text">My Proile</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('logout') }}" class="nav-link">
-                        <i class="nav-icon far fa-circle text-info"></i>
+                        <i class="nav-icon far fa fa-sign-out-alt"></i>
                         <p class="text">Logout</p>
                     </a>
                 </li>
+
+
 
                 {{-- <li class="nav-item">
                     <a href="#" class="nav-link">

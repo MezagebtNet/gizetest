@@ -75,11 +75,13 @@ class BookTypeController extends Controller
 
         $book_type = BookType::find($request->id);
 
-        $book_type->name = $request->name;
-
         $validated = $request->validate([
             'name' => 'required|max:255|unique:book_types,name,' . $request->id . ',id',
         ]);
+
+        $book_type->name = $request->name;
+
+
 
         $book_type->save($validated);
 

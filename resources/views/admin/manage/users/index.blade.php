@@ -1,10 +1,26 @@
 @extends('layouts.admin.index')
 
-@section('title', 'User Management')
+@section('page_title', 'Users')
+
+@section('page_title', 'Users')
+
+@section('header_title')
+	Users Management Page
+@stop
+
+@section('breadcrumb')
+		<li class="breadcrumb-item"><a href="{{ route('admin.home') }}">Admin</a></li>
+		<li class="breadcrumb-item active">Users Management</li>
+@endsection
 
 @section('styles')
     @livewireStyles
 @endsection
+
+@section('navbar')
+    @include('admin.navbar')
+@endsection
+
 
 @section('notifications-dropdown')
     @include('admin.notifications-dropdown')

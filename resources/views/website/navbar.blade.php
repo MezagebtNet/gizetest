@@ -1,9 +1,9 @@
-<nav class="main-header  navbar navbar-expand-md navbar-light navbar-white">
+<nav class="main-header  navbar navbar-expand-md navbar-dark navbar-gray-dark">
     <div class="container">
-        <a href="{{ asset('vendors/admin/index3.html') }}" class="navbar-brand">
-            <img src="{{ asset('vendors/admin/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
-                class="img-size-50 brand-image img-circle elevation-1" style="opacity: .8">
-            <span class="brand-text font-weight-light">Mezagebt Net</span>
+        <a href="{{ url('/') }}" class="navbar-brand">
+            <img src="{{ asset('assets/image/logos/Gize logo banner dark.png') }}" alt="Gize"
+                class=" brand-image pr-2" height="36px" style="opacity: 1">
+            {{-- <span class="brand-text font-weight-light">Gize</span> --}}
         </a>
 
         <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse"
@@ -15,17 +15,17 @@
             <!-- Left navbar links -->
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a href="{{ route('website.home') }}" class="nav-link">Home</a>
+                    <a href="{{ url('/') }}" class="nav-link">{{ __('Home') }}</a>
                 </li>
                 {{-- <li class="nav-item">
                     <a href="#" class="nav-link">Contact</a>
                 </li> --}}
                 <li class="nav-item">
-                    <a href="{{ route('user.home') }}" class="nav-link">My Account</a>
+                    <a href="{{ route('user.home') }}" class="nav-link">{{ __('Addmes') }}</a>
                 </li>
 
                 <!-- Navbar Search -->
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link" data-widget="navbar-search" href="#" role="button">
                         <i class="fas fa-search"></i>
                     </a>
@@ -55,7 +55,7 @@
                             </div>
                         </form>
                     </div>
-                </li>
+                </li> --}}
 
 
 
@@ -164,71 +164,40 @@
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                     @guest
                         @if (Route::has('login'))
-                <li class="nav-item">
-                    <a href="{{ route('login') }}" class="nav-link">Log in</a>
-                </li>
+                            <li class="nav-item">
+                                <a href="{{ route('login') }}" class="nav-link">{{ __('Log in') }}</a>
+                            </li>
 
-                @endif
-
-                @if (Route::has('register'))
-                    <li class="nav-item">
-                        <a href="{{ route('register') }}" class="nav-link">Register</a>
-                    </li>
-
-                @endif
-            @endguest
-
-            @auth
-                <li class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                        <img alt="{{ auth()->user()->full_name_first_chars }}" style="width: 32px; height: 32px;"
-                            src="{{ auth()->user()->profile_photo_url }}"
-                            class="ml-1 img-size-32 user-image img-circle elevation-0" title="Profile Image"
-                            alt="User Image">
-                        <span class="d-none d-md-inline">{{ __('Hello,') }} {{ auth()->user()->firstname }}</span>
-
-                    </a>
-                    <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-                        @if (auth()->user()->isSuperAdmin() ||
-        auth()->user()->isAdmin())
-                            <li class="dropdown-divider"></li>
-                            <li><a href="{{ route('admin.home') }}" class="dropdown-item">System Administration</a></li>
-                            <li class="dropdown-divider"></li>
-                        @endif
-                        @if (auth()->user()->isDefaultUser() ||
-        auth()->user()->isSuperAdmin() ||
-        auth()->user()->isAdmin())
-                            <li><a href="{{ route('user.home') }}" class="dropdown-item">My Account</a></li>
                         @endif
 
-                        @if (auth())
-                            <li><a href="{{ route('profile.show') }}" class="dropdown-item">Edit Profile</a></li>
+                        @if (Route::has('register'))
+                            <li class="nav-item">
+                                <a href="{{ route('register') }}" class="nav-link">{{ __('Register') }}</a>
+                            </li>
+
                         @endif
+                    @endguest
+
+                    @auth
+
+                        <!-- Notifications Dropdown Menu -->
+                        @include('website.navbar-notifications-dropdown')
+
+                        <!-- User Dropdown Menu -->
+                        @include('website.navbar-user-dropdown')
+
+                        <!-- Language Dropdown Menu -->
+                        @include('website.navbar-language-dropdown')
+
+                    @endauth
+                </div>
+            </li>
 
 
-                        <li class="dropdown-divider"></li>
-
-                        <li><a href="{{ route('logout') }}" class="dropdown-item">Logout</a></li>
-
-                    </ul>
-                </li>
-
-
-            @endauth
-
-
-            <!-- Notifications Dropdown Menu -->
-            @auth
-                @include('website.notifications-dropdown')
-            @endauth
-    </div>
-    </li>
-
-
-    </ul>
+        </ul>
     </div>
 </nav>
-    {{-- <div class="row">
+{{-- <div class="row">
 				<div class="col-sm-10 col-md-8 col-lg-9 col-xs-offset-2  pt-sm-1 pt-2 align-center bg-white" style="margin: 0 auto;">
 						<div class="input-group">
 								<div class="input-group-btn search-panel">
@@ -265,3 +234,6 @@
 						</div>
 				</div>
 		</div> --}}
+
+
+

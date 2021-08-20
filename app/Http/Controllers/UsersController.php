@@ -10,9 +10,11 @@ use Symfony\Component\HttpFoundation\Response;
 use SPatie\Permission\Models\Role;
 use SPatie\Permission\Models\Permission;
 use App\Models\User;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class UsersController extends Controller
 {
+    use SoftDeletes;
 
     public function index()
     {
@@ -51,6 +53,7 @@ abort_if(Gate::denies('system_user'), Response::HTTP_FORBIDDEN, 'Forbidden');
 
 return redirect()->route('admin.manage.users.index');
 
+
     }
 
     public function show(User $user)
@@ -83,7 +86,8 @@ abort_if(Gate::denies('system_user'), Response::HTTP_FORBIDDEN, 'Forbidden');
         $user->syncRoles($request->input('roles', []));
 
 
-        return redirect()->route('admin.manage.users.index');
+return redirect()->route('admin.manage.users.index');
+
 
     }
 
@@ -95,6 +99,7 @@ abort_if(Gate::denies('system_user'), Response::HTTP_FORBIDDEN, 'Forbidden');
         $user->delete();
 
 return redirect()->route('admin.manage.users.index');
+
 
     }
 }

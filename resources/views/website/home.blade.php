@@ -2,44 +2,53 @@
 
 @section('title', 'User Account')
 
-@section('navbar')
+@section('styles')
+    <style>
+        .channel-card {
+            min-width: 340px;
+            max-width: 340px;
+            /* margin: 0 auto; */
+            /* Added */
+            float: none;
+            /* Added */
+            margin-bottom: 10px;
+            /* Added */
+        }
 
-    @include('website.navbar')
-
+    </style>
 @endsection
+
+@section('navbar')
+    @include('website.navbar')
+@endsection
+
+
+
 
 @section('content')
 
 
-<div class="navbar-search-block">
-    <form class="form-inline">
-        <div class="input-group input-group-sm">
-            <div class="btn-group" role="group">
-                <button id="btnGroupDrop1" type="button" class=" dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  All
-                </button>
-                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                  <a class="dropdown-item" href="#">All</a>
-                  <a class="dropdown-item" href="#">Books</a>
-                </div>
-              </div>
-            <input class="form-control form-control-navbar" type="search" placeholder="Search"
-                aria-label="Search">
-            <div class="input-group-append">
-                <button class="btn btn-navbar" type="submit">
-                    <i class="fas fa-search"></i>
-                </button>
-                <button class="btn btn-navbar" type="button" data-widget="navbar-search">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
+
+    {{-- <div class="row"> --}}
+    {{-- <div class="d-flex justify-content-center"> --}}
+    <div class="row">
+        <div class="col">
+            <h1>Channels</h1>
         </div>
-    </form>
-</div>
+    </div>
+    <div class="row grid-container">
+        <div class="justify-content-center ">
+            {{-- <center> --}}
+            <div class=" row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 ">
+                <x-channels.card />
+                <x-channels.card />
+                <x-channels.card />
+            </div>
+            {{-- </center> --}}
+        </div>
+    </div>
+    {{-- </div> --}}
+    {{-- </div> --}}
 
 
-
-
-
-    Landing Page
 @endsection

@@ -9,7 +9,6 @@
 
 
 
-    @yield('styles')
     <script src="{{ mix('js/app.js') }}" defer></script>
 
     <title>{{ config('app.name', 'Laravel') }}</title>
@@ -26,6 +25,9 @@
 
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="{{ asset('vendors/admin/plugins/fontawesome-free/css/all.min.css') }}">
+
+    <!-- Flag Icons -->
+    <link rel="stylesheet" href="{{ asset('vendors/admin/plugins/flag-icon-css/css/flag-icon.min.css') }}">
 
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('vendors/admin/dist/css/adminlte.min.css') }}">
@@ -71,6 +73,8 @@
         }
 
     </style>
+    @yield('styles')
+
 </head>
 
 <body class="hold-transition layout-top-nav layout-navbar-fixed layout-footer-fixed">
@@ -94,7 +98,8 @@
         <!-- /.content-header -->
 
         <!-- Main content -->
-        <div class="container-fluid mt-3">
+        {{-- <div class="container-fluid"> --}}
+            <div class="">
             <!-- Main content -->
             <section class="content">
                 @yield('content')
@@ -107,6 +112,10 @@
     <!-- /.content-wrapper -->
 
 
+    <!-- /.content-wrapper -->
+    <footer class="main-footer">
+        @include('layouts.user.includes.footer')
+    </footer>
 
     <!-- Control Sidebar -->
     <aside class="control-sidebar control-sidebar-dark">

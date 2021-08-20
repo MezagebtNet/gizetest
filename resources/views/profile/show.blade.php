@@ -17,7 +17,7 @@
                 <div class="col-sm-12  order-sm-1">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Profile </h3>
+                            <h3 class="card-title">{{ __('Profile') }} </h3>
 
                             <div class="card-tools">
                                 <!-- Collapse Button -->
