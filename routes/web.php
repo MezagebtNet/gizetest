@@ -63,7 +63,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function(){
             return view('welcome');
 
         return view('website.home');
-    })->name('website.home');
+    })->name('home');
 
 
 
