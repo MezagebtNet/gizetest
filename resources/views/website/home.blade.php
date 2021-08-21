@@ -33,7 +33,7 @@
     {{-- <div class="d-flex justify-content-center"> --}}
     <div class="row">
         <div class="col">
-            <h1>Channels</h1>
+            <h1>Channels [edited]</h1>
         </div>
     </div>
     <div class="row grid-container">
