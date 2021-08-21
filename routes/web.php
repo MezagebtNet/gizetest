@@ -76,7 +76,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function(){
         // })->name('website.home');
 
         //Route GROUP::WEBSITE Index page
-        Route::group(['prefix' => 'web', 'middleware' => 'role:super-admin|user', 'as' => 'website.'], function () {
+        Route::group(['prefix' => 'web', 'middleware' => 'role:super-admin|user', 'as' => 'web.'], function () {
             //HOME
             Route::get('/', function () {
                 return view('website.home');
