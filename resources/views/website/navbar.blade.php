@@ -1,4 +1,4 @@
-<nav class="main-header  navbar navbar-expand-md navbar-dark navbar-gray-dark">
+<nav class="main-header border-bottom-0 navbar navbar-expand-md navbar-dark navbar-gray-dark">
     <div class="container">
         <a href="{{ url('/') }}" class="navbar-brand">
             <img src="{{ asset('assets/image/logos/Gize logo banner dark.png') }}" alt="Gize"
@@ -158,43 +158,42 @@
 
 
 
-            <!-- User Dropdown Menu -->
-            <li class="nav-item dropdown">
+            <!-- Dropdown Menu -->
+            @auth
 
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                    @guest
-                        @if (Route::has('login'))
-                            <li class="nav-item">
-                                <a href="{{ route('login') }}" class="nav-link">{{ __('Log in') }}</a>
-                            </li>
+                <!-- Notifications Dropdown Menu -->
+                @include('website.navbar-notifications-dropdown')
 
-                        @endif
 
-                        @if (Route::has('register'))
-                            <li class="nav-item">
-                                <a href="{{ route('register') }}" class="nav-link">{{ __('Register') }}</a>
-                            </li>
 
-                        @endif
-                    @endguest
+                <!-- User Dropdown Menu -->
+                @include('website.navbar-user-dropdown')
 
-                    @auth
+                <!-- Language Dropdown Menu -->
+                @include('website.navbar-language-dropdown')
 
-                        <!-- Notifications Dropdown Menu -->
-                        @include('website.navbar-notifications-dropdown')
-
-                        <!-- User Dropdown Menu -->
-                        @include('website.navbar-user-dropdown')
-
-                        <!-- Language Dropdown Menu -->
-                        @include('website.navbar-language-dropdown')
-
-                    @endauth
-                </div>
-            </li>
-
+            @endauth
 
         </ul>
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+            @guest
+                @if (Route::has('login'))
+                    <li class="nav-item">
+                        <a href="{{ route('login') }}" class="nav-link">{{ __('Log in') }}</a>
+                    </li>
+
+                @endif
+
+                @if (Route::has('register'))
+                    <li class="nav-item">
+                        <a href="{{ route('register') }}" class="nav-link">{{ __('Register') }}</a>
+                    </li>
+
+                @endif
+            @endguest
+
+
+        </div>
     </div>
 </nav>
 {{-- <div class="row">
@@ -234,6 +233,3 @@
 						</div>
 				</div>
 		</div> --}}
-
-
-

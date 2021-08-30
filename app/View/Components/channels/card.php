@@ -6,14 +6,36 @@ use Illuminate\View\Component;
 
 class card extends Component
 {
+
+     /**
+     * The player id.
+     *
+     * @var string
+     */
+    public $id;
+     /**
+     * The player slug.
+     *
+     * @var string
+     */
+    public $slug;
+     /**
+     * The player name.
+     *
+     * @var string
+     */
+    public $name;
+
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($id, $slug, $name)
     {
-        //
+        $this->id = $id;
+        $this->slug = $slug;
+        $this->name = $name;
     }
 
     /**

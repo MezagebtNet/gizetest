@@ -160,4 +160,28 @@ class Batch extends Model
 
     }
 
+
+    /**
+     * The channelvideos that belong to the BatchUser
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function channelvideos()
+    {
+        return $this->belongsToMany(Channelvideo::class, 'batch_channelvideo', 'batch_id', 'channelvideo_id')
+            ->withPivot(['starts_at', 'ends_at'])
+            // ->as('batch_channelvideo')
+            ->withTimestamps();
+    }
+
+    /**
+     * Get the gize_channel that owns the Batch
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function gize_channel()
+    {
+        return $this->belongsTo(GizeChannel::class);
+    }
+
 }

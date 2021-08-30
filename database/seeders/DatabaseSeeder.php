@@ -29,15 +29,16 @@ class DatabaseSeeder extends Seeder
             // RefundServiceTableSeeder::class,
 
             // BookAuthorsSeeder::class,
-            SubscriptionTypesSeeder::class,
-
-            BatchesSeeder::class,
-
             ChannelCategoriesSeeder::class,
 
             ChannelvideoCategorySeeder::class,
 
             GizeChannelsTableSeeder::class,
+
+            SubscriptionTypesSeeder::class,
+
+            BatchesSeeder::class,
+
 
             ChannelvideosTableSeeder::class,
 
@@ -45,6 +46,11 @@ class DatabaseSeeder extends Seeder
             BatchUserSeeder::class,
 
             SubscriptionPeriodsSeeder::class,
+
+            BatchChannelvideoSeeder::class,
+
+            GizeChannelUserSeeder::class,
+
             // BatchSubscriptionPeriodsSeeder::class,
 
 

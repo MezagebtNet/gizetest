@@ -12,10 +12,15 @@
                     $user_role_names = auth()->user()->getRoleNames();
                     $display_role = "";
                     if(auth()->user()->hasRole('super-admin')){
-                        $display_role = 'Super Admin';
+                        $display_role = 'Super-Admin';
                     }
-                    else if(auth()->user()->hasRole('admin')){
-                        $display_role = 'Admin (Manager)';
+                    else{
+                        if(auth()->user()->hasRole('channel-admin')){
+                            $display_role .= 'Channel-Admin ';
+                        }
+                        if(auth()->user()->hasRole('system-admin')){
+                            $display_role .= 'System-Admin ';
+                        }
                     }
 
                 @endphp
@@ -100,29 +105,39 @@
                 @endcanany
                 @endif --}}
 
-                @if (auth()->user()->isSuperAdmin() || auth()->user()->isAdmin())
+                @if (auth()->user()->isSuperAdmin() || auth()->user()->isSystemAdmin() || auth()->user()->isChannelAdmin())
+                <li class="nav-header">MANAGEMENT</li>
                 @canany(['system_user'])
-                <li class="nav-header">MANAGE</li>
                 <li class="nav-item">
-                    <a href="{{ route('admin.manage.users.index') }}" class="nav-link {{ request()->is('admin/manage/users*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.manage.user.index') }}" class="nav-link {{ request()->is('admin/manage/users*') ? 'active' : '' }}">
                         <i class="nav-icon far fa-user"></i>
                         <p class="text">User Accounts</p>
                     </a>
                 </li>
-
+                @endcanany
+                @canany(['system_gize_channels'])
                 <li class="nav-item">
-                    <a href="{{ route('admin.manage.gize_channels.index') }}" class="nav-link {{ request()->is('admin/channels/gizechannel*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.manage.gize_channel.index') }}" class="nav-link {{ request()->is('admin/manage/gize_channel*') ? 'active' : '' }}">
                         <i class="nav-icon fa fa-solid fa-bullhorn"></i>
                         <p class="text">All Gize Channels</p>
                     </a>
                 </li>
+                @endcanany
+                @canany([
+                    'manage_channel',
+                    'manage_batch',
+                    'manage_subscription',
+                    'manage_schedule',
+                ])
+                <li class="nav-header">CHANNELS</li>
+
                 <li class="nav-item
                     {{ request()->is('admin/manage/*') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link
                         {{ request()->is('admin/manage/gize-channel*') ? 'active' : '' }}">
                         <i class="nav-icon fa fa-solid fa-bullhorn"></i>
                         <p>
-                            Your Channel (Addmes)
+                            ADDMES CHANNEL
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>

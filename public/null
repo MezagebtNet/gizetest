@@ -1,12 +1,28 @@
-BatchUser::where('id', 3)->first()->getTotalPaidForBatch(2);
-BatchUser::where('id', 2)->first()->getTotalPaidForBatch(1);
-BatchUser::where('id', 2)->first()->getTotalPaidForBatch(1);
-BatchUser::where('id', 2)->first()->getTotalPaidForBatch(1);
-$batch_id = 1;
-
-$k = SubscriptionPeriod::where('batch_id', $batch_id)->get()->pluck('id');
-        $total_paid = DB::table('subscription_payments')
-            ->where('batch_user_id', 2)
-            ->whereIn('subscription_period_id',
-                $k)
-            ->sum('amount');
+$gize_channels = GizeChannel::all();
+$gize_channels = GizeChannel::find(1)->users()
+$gize_channels = GizeChannel::find(1)->users()->get()
+$gize_channels = GizeChannel::find(1)->users()->get()->pluck('id')
+$gize_channels = GizeChannel::find(1)->users()->pluck('id')
+$gize_channels = GizeChannel::find(1)->users()->pluck('id')
+$gize_channels = GizeChannel::with(	'users' )->get()
+$gize_channels = GizeChannel::with(	'users' )->orderBy('id', 'ASC')->get()
+User::role('channel-admin')->get()
+User::role('channel-admin')->get()->load('roles')
+GizeChannel::find(1)->load('users')
+GizeChannel::find(1)->with('users')
+GizeChannel::find(1)->with('users')->get()
+GizeChannel::find(1)->load('users')->get()
+GizeChannel::find(1)->load('users')->get()
+GizeChannel::find(1)->load('users')->get()
+GizeChannel::find(2)->load('users')->get()
+GizeChannel::find(2)->load('users')->get()
+GizeChannel::find(2)->load('users')
+GizeChannel::find(1)->load('users')
+GizeChannel::find(1)->users()
+GizeChannel::with('users')->orderBy('id', 'ASC')->get();
+$G = GizeChannel::with('users')->orderBy('id', 'ASC')->get();
+$G->name()
+$G = GizeChannel::with('users')->orderBy('id', 'ASC')->get();
+$G->name
+$G = GizeChannel::with('users')->orderBy('id', 'ASC')->get();
+$G[0]->name

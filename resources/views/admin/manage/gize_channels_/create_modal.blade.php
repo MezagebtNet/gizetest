@@ -19,6 +19,12 @@
                   <input type="text" class="form-control" id="slug" />
               </div>
               <div class="form-group">
+                <label for="select_channel-admin">Select Channel Admins</label>
+                <select id="select_channel-admin" multiple name="select_channel-admins[]" class="select-channel-admins"></select>
+
+
+              </div>
+              <div class="form-group">
                 <label for="users">Channel Admins</label>
 
                   <div class="select2-purple">

@@ -4,7 +4,8 @@ namespace App\Listeners;
 
 use App\Events\UserCreatedEvent;
 use App\Models\User;
-use App\Notifications\NewUserNotification;
+use App\Notifications\UserCreatedNotification;
+
 use App\Notifications\WelcomeNotification;
 use Illuminate\Support\Facades\Notification;
 
@@ -36,11 +37,13 @@ class UserCreatedListener
         //...
 
         //Log activity...
-        activity()->log('New user [' . $event->user->id . '] created. @' . $event->user->created_at);
+// activity()->log('New user [' . $event->user->id . '] created. @' . $event->user->created_at);
+
 
         //Send a 'new_user' notification to all Admins...
         $all_admins = User::role(['super-admin', 'admin'])->get();
-        Notification::send($all_admins, new NewUserNotification($event->user));
+Notification::send($all_admins, new UserCreatedNotification($event->user));
+
 
         //Send a 'welcome' notification to the new user...
         Notification::send($event->user, new WelcomeNotification($event->user));

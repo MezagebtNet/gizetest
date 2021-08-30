@@ -5,7 +5,7 @@
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="{{ route('website.home') }}" class="nav-link"><i class="fas fa-home pr-1"></i> {{ __('Main Site') }}</a>
+            <a href="{{ url('/') }}" class="nav-link"><i class="fas fa-home pr-1"></i> {{ __('Main Site') }}</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
             <a href="{{ route('admin.home') }}" class="nav-link"><i class="fas fa-laptop-house pr-1"></i>{{ __('Admin Home') }}</a>
@@ -103,8 +103,19 @@
             </div>
         </li> --}}
 
+        <!-- Dropdown Menu -->
+        @auth
+
+            <!-- Notifications Dropdown Menu -->
+            @include('admin.navbar-notifications-dropdown')
+
+            <!-- Language Dropdown Menu -->
+            @include('website.navbar-language-dropdown')
+
+        @endauth
+
         <!-- Notifications Dropdown Menu -->
-        @yield('notifications-dropdown')
+        {{-- @yield('notifications-dropdown') --}}
 
         <li class="nav-item">
             <a class="nav-link" data-widget="fullscreen" href="#" role="button">

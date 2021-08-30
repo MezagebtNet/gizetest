@@ -2,26 +2,28 @@
 
 @section('page_title', 'Users')
 
+@section('page_title', 'Users')
+
 @section('header_title')
 	Users Management Page
 @stop
 
 @section('breadcrumb')
 		<li class="breadcrumb-item"><a href="{{ route('admin.home') }}">Admin</a></li>
-		<li class="breadcrumb-item active"><a href="{{ route('admin.manage.users.index') }}">Users Management</a></li>
-		<li class="breadcrumb-item active"><a href="#">New</a></li>
+		<li class="breadcrumb-item active">Users Management</li>
 @endsection
 
 @section('styles')
     @livewireStyles
-    <!-- Select2 -->
-    <link rel="stylesheet" href="{{ asset('vendors/admin/plugins/select2/css/select2.min.css') }}">
-    <link rel="stylesheet"
-        href="{{ asset('vendors/admin/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
 @endsection
 
+@section('navbar')
+    @include('admin.navbar')
+@endsection
+
+
 @section('notifications-dropdown')
-    @include('admin.notifications-dropdown')
+    @include('admin.navbar-notifications-dropdown')
 @endsection
 
 @section('mainsidebar')
@@ -32,13 +34,9 @@
 
     <div class="row .flex-md-row-reverse">
 
-        <div class="col-sm-3  order-sm-2">
 
-            @include('admin.system_configs.sidebar')
 
-        </div>
-
-        <div class="col-sm-9  order-sm-1">
+        <div class="col-sm-12">
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">Create User  </h3>
@@ -53,7 +51,7 @@
 
 
                 <div class="card-body">
-                    <form method="post" action="{{ route('admin.manage.users.store') }}">
+                    <form method="post" action="{{ route('admin.manage.user.store') }}">
                         @csrf
                         <div class="px-4 py-2 sm:p-6">
 
@@ -140,7 +138,7 @@
 
 
                         <div class="px-4 pt-4 text-right">
-                            <a href="{{ route('admin.manage.users.index') }}" class="btn btn-default mr-2">
+                            <a href="{{ route('admin.manage.user.index') }}" class="btn btn-default mr-2">
                                 Cancel
                             </a>
                             <button class="btn btn-primary ">

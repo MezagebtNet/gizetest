@@ -6,7 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-
+    @php
+        $csrf = json_encode([
+            'csrfToken' => csrf_token(),
+        ]);
+    @endphp
+    <script>
+        window.Laravel = "{{ json_encode(['csrfToken' => csrf_token()]) }}";
+        var module = {}; /*   <-----THIS LINE */
+    </script>
 
 
 
@@ -33,21 +41,26 @@
     <link rel="stylesheet" href="{{ asset('vendors/admin/plugins/sweetalert2/sweetalert2.min.css') }}">
     <!-- Select2 -->
     <link rel="stylesheet" href="{{ asset('vendors/admin/plugins/select2/css/select2.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('vendors/admin/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+    <link rel="stylesheet"
+        href="{{ asset('vendors/admin/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
 
     <!-- Bootstrap4 Duallistbox -->
-    <link rel="stylesheet" href="{{ asset('vendors/admin/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css') }}">
+    <link rel="stylesheet"
+        href="{{ asset('vendors/admin/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css') }}">
 
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('vendors/admin/dist/css/adminlte.min.css') }}">
     <!-- overlayScrollbars -->
-    <link rel="stylesheet" href="{{ asset('vendors/admin/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
+    <link rel="stylesheet"
+        href="{{ asset('vendors/admin/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
     <!-- Daterange picker -->
     <link rel="stylesheet" href="{{ asset('vendors/admin/plugins/daterangepicker/daterangepicker.css') }}">
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset('vendors/admin/plugins/summernote/summernote-bs4.min.css') }}">
 
     @yield('styles')
+
+    @include('layouts.scripts.notification_styles')
 
 </head>
 
@@ -56,8 +69,8 @@
 
         <!-- Preloader -->
         <div style="display:none;" class="preloader dark-mode flex-column justify-content-center align-items-center">
-            <img class="animation__shake" src="{{ asset('vendors/admin/dist/img/AdminLTELogo.png') }}" alt="AdminLTELogo"
-                height="60" width="60">
+            <img class="animation__shake" src="{{ asset('vendors/admin/dist/img/AdminLTELogo.png') }}"
+                alt="AdminLTELogo" height="60" width="60">
         </div>
 
         <!-- Navbar -->
@@ -120,7 +133,6 @@
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <script>
         $.widget.bridge('uibutton', $.ui.button)
-
     </script>
     <!-- Bootstrap 4 -->
     <script src="{{ asset('vendors/admin/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
@@ -155,7 +167,8 @@
     <script src="{{ asset('vendors/admin/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
 
     <!-- Bootstrap4 Duallistbox -->
-    <script src="{{ asset('vendors/admin/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js') }}"></script>
+    <script src="{{ asset('vendors/admin/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js') }}">
+    </script>
 
 
 
@@ -165,6 +178,9 @@
 
 
     @stack('scripts_js')
+
+    @include('layouts.scripts.notification_scripts');
+
 
     @yield('js')
 </body>

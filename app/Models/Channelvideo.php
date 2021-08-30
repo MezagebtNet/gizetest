@@ -47,4 +47,17 @@ class Channelvideo extends Model
         return $this->belongsTo(GizeChannel::class);
     }
 
+    /**
+     * The batches that belong to the Channelvideo
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function batches()
+    {
+        return $this->belongsToMany(Batch::class, 'batch_channelvideo', 'channelvideo_id', 'batch_id')
+            ->withPivot(['starts_at', 'ends_at'])
+            // ->as('batch_channelvideo')
+            ->withTimestamps();
+    }
+
 }

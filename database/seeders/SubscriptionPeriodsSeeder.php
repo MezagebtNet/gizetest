@@ -58,35 +58,5 @@ class SubscriptionPeriodsSeeder extends Seeder
             );
         }
 
-        /*for ($i = 0; $i <= 1; $i++) {
-    for ($y = 0; $y <= 1; $y++) {
-
-    if ($i == 0) {
-    $type = 1; // "Ethiopian (Monthly)";
-    $year = 2013 + $y;
-    } elseif ($i == 1) {
-    $type = 2; // "Gregorian (Monthly)";
-    $year = 2021 + $y;
-    }
-    for ($j = 1; $j <= 13; $j++) {
-    if ($i == 1 && $j == 13) {
-    continue;
-    }
-
-    $subscription_period = SubscriptionPeriod::create([
-    'subscription_type_id' => $type,
-    'year' => $year,
-    'month_no' => $j,
-    'created_at' => Date::now()->format('Y-m-d H:i:s'),
-    'updated_at' => Date::now()->format('Y-m-d H:i:s'),
-
-    ]);
-
-    }
-    }
-
-    }
-     */
-
     }
 }

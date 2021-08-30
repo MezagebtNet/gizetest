@@ -1,4 +1,4 @@
-   @auth
+
     <li class="nav-item dropdown">
         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
             <img alt="{{ auth()->user()->full_name_first_chars }}" style="width: 32px; height: 32px;"
@@ -25,6 +25,16 @@
             @if (auth())
                 <li><a href="{{ route('profile.show') }}" class="dropdown-item">Edit Profile</a></li>
             @endif
+            <li>
+                <div class="dropdown-item">
+                    <!-- Theme switch -->
+                    <span>{{ __('Choose Theme Color') }}</span>
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" id="themeSwitch">
+                        <label class="custom-control-label" for="themeSwitch">{{ __('Dark Mode') }}</label>
+                    </div>
+                </div>
+            </li>
 
 
             <li class="dropdown-divider"></li>
@@ -33,6 +43,3 @@
 
         </ul>
     </li>
-
-
-@endauth

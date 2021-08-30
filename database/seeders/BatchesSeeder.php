@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Batch;
 use App\Models\SubscriptionType;
 use App\Models\User;
+use App\Models\GizeChannel;
 use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
 use Jenssegers\Date\Date;
@@ -54,24 +55,32 @@ class BatchesSeeder extends Seeder
         $users = User::all()->pluck('id');
         $subscription_type_ids = SubscriptionType::all()->pluck('id');
 
-        for ($i = 1; $i <= 3; $i++) {
-            $batch = Batch::create([
-                "code_name" => $faker->unique()->slug(3), //"2013-02-06-01",
-                "description" => $faker->sentence(2),
-                "status" => $faker->randomElement([0, 1, 2, 3]),
-                // "subscription_period_id" => $faker->numberBetween(0, 100),
-                "starts_on_date" => $faker->dateTimeThisMonth('+12 days'),
-                "payment_fee" => $faker->numberBetween(800, 1000),
-                "currency" => $faker->randomElement(['ETB', 'USD']),
-                'created_at' => Date::now()->format('Y-m-d H:i:s'),
-                'updated_at' => Date::now()->format('Y-m-d H:i:s'),
-                'subscription_type_id' => $faker->randomElement($subscription_type_ids),
-            ]);
+        $gize_channels = GizeChannel::all();
+        $gize_channels_ids = $gize_channels->pluck('id');
 
-            // if (count($users)) {
-            //     $batch->users()->sync($users->random(mt_rand(1, 3)));
-            // }
+        foreach ($gize_channels as $gize_channel) {
+            # code...
 
+            for ($i = 1; $i <= $faker->randomElement([2,4,5,6,7]); $i++) {
+                $batch = Batch::create([
+                    "code_name" => $faker->unique()->slug(3), //"2013-02-06-01",
+                    "description" => $faker->sentence(2),
+                    "status" => $faker->randomElement([0, 1, 2, 3]),
+                    // "subscription_period_id" => $faker->numberBetween(0, 100),
+                    "starts_on_date" => $faker->dateTimeThisMonth('+12 days'),
+                    "payment_fee" => $faker->numberBetween(800, 1000),
+                    "currency" => $faker->randomElement(['ETB', 'USD']),
+                    'created_at' => Date::now()->format('Y-m-d H:i:s'),
+                    'updated_at' => Date::now()->format('Y-m-d H:i:s'),
+                    'subscription_type_id' => $faker->randomElement($subscription_type_ids),
+                    'gize_channel_id' => $gize_channel->id,
+                ]);
+
+                // if (count($users)) {
+                //     $batch->users()->sync($users->random(mt_rand(1, 3)));
+                // }
+
+            }
         }
     }
 }

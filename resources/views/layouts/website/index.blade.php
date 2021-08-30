@@ -6,12 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    @php
+        $csrf = json_encode([
+            'csrfToken' => csrf_token(),
+        ]);
+    @endphp
+    <script>
+        window.Laravel = "{{ json_encode(['csrfToken' => csrf_token()]) }}";
+        var module = {}; /*   <-----THIS LINE */
+    </script>
 
 
 
+
+    {{-- <script src="{{ asset('assets/js/dist/echo.iife.js') }}"></script> --}}
     <script src="{{ mix('js/app.js') }}" defer></script>
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+
+
+
+
+
+    <title>{{ config('app.name', 'Gize') }}</title>
 
     <!-- Fonts -->
     {{-- <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet"> --}}
@@ -53,7 +69,25 @@
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset('vendors/admin/plugins/summernote/summernote-bs4.min.css') }}">
 
+
     <style>
+        .dark-mode {
+            background-color: #23252a !important;
+            color: #fff;
+        }
+
+        .dark-mode .navbar-gray-dark,
+        .dark-mode .main-footer {
+            background-color: #000 !important;
+            color: #fff;
+            border-width: 0px;
+        }
+
+        .dark-mode .content-wrapper {
+            background-color: #23252a;
+            color: #fff;
+        }
+
         body {
             /* font-family: 'Nunito'; */
             font-family: 'Source Sans pro';
@@ -75,9 +109,13 @@
     </style>
     @yield('styles')
 
+    @include('layouts.scripts.notification_styles')
+
 </head>
 
-<body class="hold-transition layout-top-nav layout-navbar-fixed layout-footer-fixed">
+<body class="
+dark-mode
+hold-transition layout-top-nav layout-navbar-fixed layout-footer-fixed">
     <!-- Preloader -->
     <div style="display:none;" class="preloader dark-mode flex-column justify-content-center align-items-center">
         <img class="animation__shake" src="{{ asset('vendors/admin/dist/img/AdminLTELogo.png') }}" alt="AdminLTELogo"
@@ -99,7 +137,7 @@
 
         <!-- Main content -->
         {{-- <div class="container-fluid"> --}}
-            <div class="">
+        <div class="">
             <!-- Main content -->
             <section class="content">
                 @yield('content')
@@ -135,6 +173,9 @@
 
     <!-- jQuery -->
     <script src="{{ asset('vendors/admin/plugins/jquery/jquery.min.js') }}"></script>
+
+
+
     <!-- jQuery UI 1.11.4 -->
     <script src="{{ asset('vendors/admin/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -155,16 +196,18 @@
     <!-- AdminLTE for demo purposes -->
     {{-- <script src="{{ asset('vendors/admin/dist/js/demo.js') }}"></script> --}}
 
+    <!-- Sweetalert2 -->
+    <script src="{{ asset('vendors/admin/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+    <!-- Bootstrap Switch -->
+    <script src="{{ asset('vendors/admin/plugins/bootstrap-switch/js/bootstrap-switch.min.js') }}"></script>
+
 
 
     @yield('modals')
 
     @yield('js')
 
-
     @stack('modals')
-
-
 
     @stack('scripts_js')
 
@@ -186,7 +229,14 @@
                 alert('search?');
             }
         });
+
+        $("input[data-bootstrap-switch]").each(function(){
+            $(this).bootstrapSwitch('state', $(this).prop('checked'));
+        })
     </script>
+
+
+    @include('layouts.scripts.notification_scripts');
 </body>
 
 </html>

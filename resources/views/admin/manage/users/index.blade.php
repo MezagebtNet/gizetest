@@ -23,7 +23,7 @@
 
 
 @section('notifications-dropdown')
-    @include('admin.notifications-dropdown')
+    @include('admin.navbar-notifications-dropdown')
 @endsection
 
 @section('mainsidebar')
@@ -41,7 +41,7 @@
                     data-target="#currencyCreateModal">
                     Add modal
                 </button> --}}
-                    <a class="btn btn-xs px-2 ml-2 btn-primary" href="{{ route('admin.manage.users.create') }}">
+                    <a class="btn btn-xs px-2 ml-2 btn-primary" href="{{ route('admin.manage.user.create') }}">
                         Add New
                     </a>
                     <div class="card-tools">
@@ -84,16 +84,16 @@
 
                                     <td class="">
                                         <div class="row">
-                                            <a href="{{ route('admin.manage.users.show', $user->id) }}"
+                                            <a href="{{ route('admin.manage.user.show', $user->id) }}"
                                                 class="mx-1 btn btn-xs btn-outline-success" title="View"><i
                                                     class="fa fa-eye"></i> View</a>
 
-                                            <a href="{{ route('admin.manage.users.edit', $user->id) }}"
+                                            <a href="{{ route('admin.manage.user.edit', $user->id) }}"
                                                 class="mx-1 btn btn-xs btn-outline-info" title="Edit"><i
                                                     class="fa fa-edit"></i>
                                                 Edit</a>
                                             <form class="inline-block"
-                                                action="{{ route('admin.manage.users.destroy', $user->id) }}" method="POST"
+                                                action="{{ route('admin.manage.user.destroy', $user->id) }}" method="POST"
                                                 onsubmit="return confirm('Are you sure?');">
                                                 <input type="hidden" name="_method" value="DELETE">
                                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">

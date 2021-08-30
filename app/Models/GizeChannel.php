@@ -20,7 +20,30 @@ class GizeChannel extends Model
     protected $fillable = [
         'name',
         'slug',
+        'producer',
+        'description',
     ];
+
+    protected $appends = [
+        'channel_admins'
+    ];
+
+    public function getChannelAdminsAttribute($value){
+        //
+    }
+
+
+    /**
+     * The users that belong to the GizeChannel
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'gize_channel_user', 'gize_channel_id', 'user_id');
+    }
+
+
 
     public function categories()
     {
@@ -50,6 +73,16 @@ class GizeChannel extends Model
                 'source' => 'name',
             ],
         ];
+    }
+
+    /**
+     * Get all of the batches for the GizeChannel
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function batches()
+    {
+        return $this->hasMany(Batch::class);
     }
 
 }

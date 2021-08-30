@@ -34,6 +34,22 @@ class UsersTableSeeder extends Seeder
                 'lastname'       => '',
                 'remember_token' => null,
             ],
+            [
+                'id'             => 4,
+                'firstname'      => 'User2',
+                'email'          => 'user2@user.com',
+                'password'       => bcrypt('password'),
+                'lastname'       => '',
+                'remember_token' => null,
+            ],
+            [
+                'id'             => 5,
+                'firstname'      => 'User3',
+                'email'          => 'user3@user.com',
+                'password'       => bcrypt('password'),
+                'lastname'       => '',
+                'remember_token' => null,
+            ],
         ];
 
         User::insert($users);
@@ -43,9 +59,18 @@ class UsersTableSeeder extends Seeder
         $user->assignRole('user');
 
         $user = User::find(2);
-        $user->assignRole('admin');
+        $user->assignRole('channel-admin');
 
         $user = User::find(3);
         $user->assignRole('super-admin');
+
+        $user = User::find(4);
+        $user->assignRole('system-admin');
+        $user->assignRole('channel-admin');
+
+        $user = User::find(5);
+        $user->assignRole('user');
+        $user->assignRole('channel-admin');
+
     }
 }

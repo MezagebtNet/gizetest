@@ -34,8 +34,13 @@
     "Enable": "አንቃ",
     "Regenerate Recovery Codes": "የመልሶ ማግኛ ኮዶችን እንደገና አድስ",
     "Show Recovery Codes": "የመልሶ ማግኛ ኮዶችን አሳይ",
-    "Disable": "አሰናክል"
+    "Disable": "አሰናክል",
 
+    "Gize Channels": "የጊዜ ቻናሎች",
+    "My Streamed Videos": "ለኔ የተለቀቁ ቪዲዮዎች",
+    "Videos available for you to watch from this channel": "በዚህ ቻናል ላይ ለእርስዎ እንዲመለከቷቸው የተቀመጡ ቪዲዮዎች",
 
+    "Choose Theme Color": "የገጽታ ቀለም ይምረጡ",
+    "Dark Mode": "ጨለማዊ"
 
 }

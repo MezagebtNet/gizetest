@@ -40,9 +40,8 @@ Channel Batches Management Page
 
 
 @section('notifications-dropdown')
-@include('admin.notifications-dropdown')
+    @include('admin.navbar-notifications-dropdown')
 @endsection
-
 @section('mainsidebar')
 @include('admin.mainsidebar')
 @endsection

@@ -18,6 +18,8 @@ class CreateChannelvideosTable extends Migration
             $table->string('title');
             $table->string('trainer');
             $table->string('duration');
+$table->string('host');
+
             $table->float('price')->default(0);
             $table->longText('description')->nullable();
             $table->integer('category_id')->nullable();

@@ -2,18 +2,29 @@
 
 @section('page_title', 'Users')
 
+@section('page_title', 'Users')
+
 @section('header_title')
 	Users Management Page
 @stop
 
 @section('breadcrumb')
 		<li class="breadcrumb-item"><a href="{{ route('admin.home') }}">Admin</a></li>
-		<li class="breadcrumb-item active"><a href="{{ route('admin.manage.users') }}">Users Management</a></li>
+		<li class="breadcrumb-item active"><a href="{{ route('admin.manage.user.index') }}">Users Management</a></li>
 		<li class="breadcrumb-item active"><a href="#">Edit</a></li>
 @endsection
 
+@section('styles')
+    @livewireStyles
+@endsection
+
+@section('navbar')
+    @include('admin.navbar')
+@endsection
+
+
 @section('notifications-dropdown')
-    @include('admin.notifications-dropdown')
+    @include('admin.navbar-notifications-dropdown')
 @endsection
 
 @section('mainsidebar')
@@ -24,13 +35,8 @@
 
     <div class="row .flex-md-row-reverse">
 
-        <div class="col-sm-3  order-sm-2">
 
-            @include('admin.system_configs.sidebar')
-
-        </div>
-
-        <div class="col-sm-9  order-sm-1">
+        <div class="col-12 ">
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">Edit User (ID: {{ $user->id }}) </h3>
@@ -45,7 +51,7 @@
 
 
                 <div class="card-body">
-                    <form method="post" action="{{ route('admin.manage.users.update', $['language' => app()->getLocale(), 'id' => $user->id]) }}">
+                    <form method="post" action="{{ route('admin.manage.user.update', ['user' => $user]) }}">
                         @csrf
                         @method('put')
                         <div class="px-4 py-2 sm:p-6">
@@ -130,7 +136,7 @@
 
 
                         <div class="px-4 pt-4 text-right">
-                            <a href="{{ route('admin.manage.users.index') }}" class="btn btn-default mr-2">
+                            <a href="{{ route('admin.manage.user.index') }}" class="btn btn-default mr-2">
                                 Cancel
                             </a>
                             <button class="btn btn-primary ">

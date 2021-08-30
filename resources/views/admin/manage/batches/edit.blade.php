@@ -23,7 +23,7 @@
 
 
 @section('notifications-dropdown')
-    @include('admin.notifications-dropdown')
+    @include('admin.navbar-notifications-dropdown')
 @endsection
 
 @section('content')

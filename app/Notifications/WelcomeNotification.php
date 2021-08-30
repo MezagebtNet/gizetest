@@ -28,7 +28,7 @@ class WelcomeNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['database', 'broadcast'];
     }
 
     /**
@@ -54,8 +54,8 @@ class WelcomeNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            'type' => 'welcome',
-            'message' => 'Hello ' . $this->user->fullName() . ', welcome to ' . env('APP_NAME') . '.',
+            'type' => 'user_welcome',
+            'message' => 'Hello ' . $this->user->fullName() . ', Welcome to ' . env('APP_NAME') . '.',
             'user_id' => $this->user->id,
         ];
     }

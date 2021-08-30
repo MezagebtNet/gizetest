@@ -18,17 +18,21 @@ class RolesAndPermissionsSeeder extends Seeder
         $permissions = [
             'system_user',
             'system_setting',
-            'system_account_activate_user',
+            'system_gize_channels',
 
-            'manage_author_subscription',
-            'manage_shop_subscription',
-            'manage_agent_subscription',
+            'manage_channel',
+            'manage_batch',
+            'manage_subscription',
+            'manage_schedule',
 
-            'shop_data',
-            'shop_agent_assignment',
-            'author_data',
-            'author_asign_shop',
-            'author_activate_account',
+            // 'manage_shop_subscription',
+            // 'manage_agent_subscription',
+
+            // 'shop_data',
+            // 'shop_agent_assignment',
+            // 'author_data',
+            // 'author_asign_shop',
+            // 'author_activate_account',
         ];
 
         foreach ($permissions as $permission) {
@@ -40,8 +44,20 @@ class RolesAndPermissionsSeeder extends Seeder
         // this can be done as separate statements
         $role = Role::create(['name' => 'user']);
 
-        $role = Role::create(['name' => 'admin'])
-            ->givePermissionTo(['manage_author_subscription', 'manage_shop_subscription', 'manage_agent_subscription']);
+        $role = Role::create(['name' => 'channel-admin'])
+            ->givePermissionTo([
+                'manage_channel',
+                'manage_batch',
+                'manage_subscription',
+                'manage_schedule',
+            ]);
+
+        $role = Role::create(['name' => 'system-admin'])
+            ->givePermissionTo([
+                'system_user',
+                'system_setting',
+                'system_gize_channels',
+            ]);
 
         //Gets permission in the Gate::before method...
         $role = Role::create(['name' => 'super-admin']);

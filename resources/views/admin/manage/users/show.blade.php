@@ -8,23 +8,31 @@
 
 @section('breadcrumb')
 		<li class="breadcrumb-item"><a href="{{ route('admin.home') }}">Admin</a></li>
-		<li class="breadcrumb-item active"><a href="{{ route('admin.manage.users') }}">Users Management</a></li>
+		<li class="breadcrumb-item active"><a href="{{ route('admin.manage.user.index') }}">Users Management</a></li>
 		<li class="breadcrumb-item active"><a href="#">Show</a></li>
+@endsection
+
+@section('styles')
+    @livewireStyles
+@endsection
+
+@section('navbar')
+    @include('admin.navbar')
+@endsection
+
+
+@section('notifications-dropdown')
+    @include('admin.navbar-notifications-dropdown')
 @endsection
 
 @section('mainsidebar')
     @include('admin.mainsidebar')
 @endsection
 
+
 @section('content')
     <div class="row .flex-md-row-reverse">
-        <div class="col-sm-3  order-sm-2">
-
-            @include('admin.system_configs.sidebar')
-
-        </div>
-
-        <div class="col-sm-9  order-sm-1">
+        <div class="col-12">
             <div class="card">
                 <div class="card-header">
 
@@ -89,7 +97,7 @@
                 </div>
 
                 <div class="card-footer">
-                    <a href="{{ route('admin.manage.users.index') }}" class="ml-2">
+                    <a href="{{ route('admin.manage.user.index') }}" class="ml-2">
                         < Back to list</a>
 
                 </div>

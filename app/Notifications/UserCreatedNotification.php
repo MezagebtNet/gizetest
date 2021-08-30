@@ -3,10 +3,11 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class NewUserNotification extends Notification
+class UserCreatedNotification extends Notification
 {
     use Queueable;
 
@@ -30,7 +31,8 @@ class NewUserNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['database', 'broadcast'];
+
     }
 
     /**
@@ -56,10 +58,37 @@ class NewUserNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            'type' => 'new_user',
+            'type' => 'admin_user_account',
             'user_id' => $this->user->id,
             'name' => $this->user->fullName(),
             'email' => $this->user->email,
         ];
     }
+
+    /* Get the broadcastable representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @return BroadcastMessage
+     */
+    public function toBroadcast($notifiable)
+    {
+        return new BroadcastMessage([
+            'type' => 'admin_user_account',
+            'message' => $this->user->fullName() . ' has just joined ' . env('APP_NAME') . '.',
+            'user_id' => $this->user->id,
+            'name' => $this->user->fullName(),
+            'email' => $this->user->email,
+        ]);
+    }
+
+    /**
+     * Get the type of the notification being broadcast.
+     *
+     * @return string
+     */
+    public function broadcastType()
+    {
+        return 'broadcast.message';
+    }
+
 }

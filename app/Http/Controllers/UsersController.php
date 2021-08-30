@@ -4,13 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
-use Symfony\Component\HttpFoundation\Response;
-use SPatie\Permission\Models\Role;
-use SPatie\Permission\Models\Permission;
 use App\Models\User;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Gate;
+use SPatie\Permission\Models\Role;
+use Symfony\Component\HttpFoundation\Response;
 
 class UsersController extends Controller
 {
@@ -18,8 +16,7 @@ class UsersController extends Controller
 
     public function index()
     {
-abort_if(Gate::denies('system_user'), Response::HTTP_FORBIDDEN, 'Forbidden');
-
+        abort_if(Gate::denies('system_user'), Response::HTTP_FORBIDDEN, 'Forbidden');
 
         $users = User::with('roles')->get();
 
@@ -28,8 +25,7 @@ abort_if(Gate::denies('system_user'), Response::HTTP_FORBIDDEN, 'Forbidden');
 
     public function create()
     {
-abort_if(Gate::denies('system_user'), Response::HTTP_FORBIDDEN, 'Forbidden');
-
+        abort_if(Gate::denies('system_user'), Response::HTTP_FORBIDDEN, 'Forbidden');
 
         $roles = Role::get();
 
@@ -46,28 +42,23 @@ abort_if(Gate::denies('system_user'), Response::HTTP_FORBIDDEN, 'Forbidden');
         //Notify Super Admins of this event...
         $super_admins = User::role('super-admin')->get();
 
-
         // Notification::send($super_admins, new NewUserNotification($event->user));
         // event(new UserCreated($user));
 
-
-return redirect()->route('admin.manage.users.index');
-
+        return redirect()->route('admin.manage.user.index');
 
     }
 
     public function show(User $user)
     {
-abort_if(Gate::denies('system_user'), Response::HTTP_FORBIDDEN, 'Forbidden');
-
+        abort_if(Gate::denies('system_user'), Response::HTTP_FORBIDDEN, 'Forbidden');
 
         return view('admin.manage.users.show', compact('user'));
     }
 
     public function edit(User $user)
     {
-abort_if(Gate::denies('system_user'), Response::HTTP_FORBIDDEN, 'Forbidden');
-
+        abort_if(Gate::denies('system_user'), Response::HTTP_FORBIDDEN, 'Forbidden');
 
         $roles = Role::get();
 
@@ -85,21 +76,58 @@ abort_if(Gate::denies('system_user'), Response::HTTP_FORBIDDEN, 'Forbidden');
         // $user->roles()->sync($request->input('roles', []));
         $user->syncRoles($request->input('roles', []));
 
-
-return redirect()->route('admin.manage.users.index');
-
+        return redirect()->route('admin.manage.user.index');
 
     }
 
     public function destroy(User $user)
     {
-abort_if(Gate::denies('system_user'), Response::HTTP_FORBIDDEN, 'Forbidden');
-
+        abort_if(Gate::denies('system_user'), Response::HTTP_FORBIDDEN, 'Forbidden');
 
         $user->delete();
 
-return redirect()->route('admin.manage.users.index');
-
+        return redirect()->route('admin.manage.user.index');
 
     }
+
+    public function renderedNotificationDropdownData($dropdown_state=false)
+    {
+        // abort_if(\Auth::user()->id == null, Response::HTTP_FORBIDDEN, 'Forbidden');
+
+        $user = \Auth::user();
+
+        return $user->renderedNotificationDropdownData($dropdown_state);
+
+    }
+
+    public function markAllNotificationAsRead($dropdown_state = false){
+        // abort_if(\Auth::user()->id != $user_id, Response::HTTP_FORBIDDEN, 'Forbidden');
+
+        $user = \Auth::user();
+
+        foreach ($user->unreadNotifications as $notification) {
+            $notification->markAsRead();
+        }
+
+        return $user->renderedNotificationDropdownData($dropdown_state);
+
+    }
+
+    public function markNotificationAsRead($notification_id, $dropdown_state = false){
+
+        // abort_if(\Auth::user()->id != $user_id, Response::HTTP_FORBIDDEN, 'Forbidden');
+
+        $user = \Auth::user();
+
+        foreach ($user->unreadNotifications as $notification) {
+            if($notification_id == $notification->id){
+                $notification->markAsRead();
+                break;
+            }
+        }
+
+        return $user->renderedNotificationDropdownData($dropdown_state);
+
+    }
+
 }

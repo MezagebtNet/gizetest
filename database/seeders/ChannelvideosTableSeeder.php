@@ -134,12 +134,13 @@ class ChannelvideosTableSeeder extends Seeder
         $gize_channels = GizeChannel::all();
 
         $gize_channels->each(function (GizeChannel $gc) use ($faker, $gize_channels, $channelvideo_category_ids) {
-            for ($i = 1; $i <= $faker->numberBetween(1, 4); $i++) {
+            for ($i = 1; $i <= $faker->numberBetween(1, 24); $i++) {
 
                 $channelvideo = Channelvideo::create([
                     'title' => $faker->sentence(3),
                     'trainer' => 'ጤንነት ሰጠኝ (ሩፋኤል)',
                     'duration' => $faker->randomDigitNot(0) . ' ደቂቃ',
+                    'host' => $faker->name('male'),  // አቅራቢ
                     'price' => 0.00,
                     'description' => $faker->paragraph,
                     'category_id' => null,
