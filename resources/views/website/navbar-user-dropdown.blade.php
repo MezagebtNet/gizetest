@@ -10,7 +10,7 @@
         </a>
         <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
             @if (auth()->user()->isSuperAdmin() ||
-                auth()->user()->isAdmin())
+                auth()->user()->isSystemAdmin())
                 <li><a href="{{ route('admin.home') }}" class="dropdown-item">System Administration</a></li>
 
                 <li><a href="{{ route('admin.home') }}" class="dropdown-item">Notifications</a></li>
@@ -18,7 +18,7 @@
             @endif
             @if (auth()->user()->isDefaultUser() ||
                 auth()->user()->isSuperAdmin() ||
-                auth()->user()->isAdmin())
+                auth()->user()->isSystemAdmin())
                 <li><a href="{{ route('user.home') }}" class="dropdown-item">My Account</a></li>
             @endif
 

@@ -20,7 +20,8 @@ class CreateGizeChannelsTable extends Migration
 
             $table->string('slug')->nullable()->unique();
 $table->string('producer', 100)->nullable();
-$table->string('host', 100)->nullable();
+// $table->string('host', 100)->nullable();
+
 
             $table->longText('description', 100)->nullable();
             $table->timestamps();

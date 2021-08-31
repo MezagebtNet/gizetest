@@ -41,7 +41,8 @@ class UserCreatedListener
 
 
         //Send a 'new_user' notification to all Admins...
-        $all_admins = User::role(['super-admin', 'admin'])->get();
+$all_admins = User::role(['super-admin', 'system-admin'])->get();
+
 Notification::send($all_admins, new UserCreatedNotification($event->user));
 
 

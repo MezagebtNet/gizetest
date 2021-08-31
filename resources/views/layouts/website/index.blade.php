@@ -126,9 +126,6 @@ hold-transition layout-top-nav layout-navbar-fixed layout-footer-fixed">
     @include('layouts.website.includes.navbar')
     <!-- /.navbar -->
 
-
-
-
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->

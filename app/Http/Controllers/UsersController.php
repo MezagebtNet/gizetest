@@ -109,24 +109,28 @@ class UsersController extends Controller
             $notification->markAsRead();
         }
 
-        return $user->renderedNotificationDropdownData($dropdown_state);
-
+        // return $user->renderedNotificationDropdownData($dropdown_state);
+        return 'success';
     }
 
     public function markNotificationAsRead($notification_id, $dropdown_state = false){
 
         // abort_if(\Auth::user()->id != $user_id, Response::HTTP_FORBIDDEN, 'Forbidden');
 
+
         $user = \Auth::user();
+        // return $user;
 
         foreach ($user->unreadNotifications as $notification) {
             if($notification_id == $notification->id){
                 $notification->markAsRead();
+                // return $user->renderedNotificationDropdownData($dropdown_state);
+
                 break;
             }
         }
+        return 'success';
 
-        return $user->renderedNotificationDropdownData($dropdown_state);
 
     }
 
