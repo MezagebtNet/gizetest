@@ -196,6 +196,7 @@ class BatchController extends Controller
         $validated = $request->validate([
             'from_date' => 'required',
             'to_date' => 'required',
+            'name' => 'required',
             'period_batch_id' => 'required',
         ]);
 
@@ -204,6 +205,7 @@ class BatchController extends Controller
         $subscription_period = new SubscriptionPeriod();
 
         $subscription_period->batch_id = $batch_id;
+        $subscription_period->name = $request->name;
         $subscription_period->from_date = $request->from_date;
         $subscription_period->to_date = $request->to_date;
 
@@ -216,6 +218,37 @@ class BatchController extends Controller
         $subscription_period->save();
 
         return response()->json(['status' => 'success', 'message' => 'New period added.', 'subscription_period' => $subscription_period], 200);
+
+        // } catch (\Throwable $th) {
+
+        // }
+        // return response()->json(['status' => 'fail', 'message' => 'Unable to add period.']);
+    }
+
+    public function editPeriod(Request $request)
+    {
+
+        // try {
+        $validated = $request->validate([
+            'from_date' => 'required',
+            'to_date' => 'required',
+            'batch_id' => 'required',
+            'name' => 'required',
+            'subscription_period_id'  => 'required',
+        ]);
+
+        $batch_id = $request->period_batch_id;
+        $subscription_period_id = $request->subscription_period_id;
+
+        $subscription_period = SubscriptionPeriod::find($subscription_period_id);
+
+        $subscription_period->from_date = $request->from_date;
+        $subscription_period->to_date = $request->to_date;
+        $subscription_period->name = $request->name;
+
+        $subscription_period->save();
+
+        return response()->json(['status' => 'success', 'message' => 'Period Updated.', 'subscription_period' => $subscription_period], 200);
 
         // } catch (\Throwable $th) {
 

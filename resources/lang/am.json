@@ -41,6 +41,15 @@
     "Videos available for you to watch from this channel": "በዚህ ቻናል ላይ ለእርስዎ እንዲመለከቷቸው የተቀመጡ ቪዲዮዎች",
 
     "Choose Theme Color": "የገጽታ ቀለም ይምረጡ",
-    "Dark Mode": "ጨለማዊ"
+    "Dark Mode": "ጨለማዊ",
+
+    "Edit Period": "ክፍለ ጊዜ አስተካክል",
+    "Add New Period": "አዲስ ክፍለ ጊዜ ጨምር",
+    "From Date": "ከቀን",
+    "To Date": "እስከ ቀን",
+    "Save": "አስቀምጥ",
+    "Update": "ቀይር",
+    "Add": "ጨምር",
+    "Close": "ዝጋ"
 
 }

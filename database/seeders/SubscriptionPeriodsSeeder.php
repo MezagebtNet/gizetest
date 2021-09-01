@@ -29,6 +29,7 @@ class SubscriptionPeriodsSeeder extends Seeder
                 array_push($subscription_periods,
                     [
                         "period_no" => $i,
+                        "name" => $faker->word(),
                         "from_date" => $faker->date(),
                         "to_date" => $faker->date(),
                         'created_at' => Date::now()->format('Y-m-d H:i:s'),

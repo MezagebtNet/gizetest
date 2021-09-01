@@ -229,7 +229,7 @@ class BatchUserController extends Controller
         $subscription_type = '';
         $subscriber_name = '';
         $batch_user = BatchUser::where('id', $batch_user_id)->first();
-        $total_paid_for_batch = $batch_user->getTotalPaidForBatch($batch_id);
+        $total_paid_for_batch = $batch_user->total_paid;
 
         return response()->json(['status' => 'success', 'message' => 'Payment Detail Updated.',
             'subscription_period_id' => $subscription_period_id,

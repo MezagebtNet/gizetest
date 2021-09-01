@@ -18,6 +18,8 @@ class CreateSubscriptionPeriodsTable extends Migration
             // $table->bigInteger('subscription_type_id')->unsigned()->nullable();
             // $table->string('year', 4)->nullable(); // 'YYYY'
             $table->tinyInteger('period_no')->unsigned()->nullable()->default(1);
+$table->string('name', 100)->nullable();
+
             $table->date('from_date')->nullable();
             $table->date('to_date')->nullable();
             $table->timestamps();

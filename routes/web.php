@@ -294,6 +294,9 @@ Route::group(['middleware' => 'auth'], function () {
 
                 //add subscription period
                 Route::post('/create-period', [BatchController::class, 'addPeriod'])->name('addperiod');
+//edit subscription period
+Route::post('/edit-period', [BatchController::class, 'editPeriod'])->name('editperiod');
+
 
                 //BATCH_SUBSCRIPTIONS
                 Route::group(['prefix' => 'subscriptions', 'as' => 'subscription.'], function () {

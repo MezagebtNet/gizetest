@@ -1,28 +1,290 @@
-$gize_channels = GizeChannel::all();
-$gize_channels = GizeChannel::find(1)->users()
-$gize_channels = GizeChannel::find(1)->users()->get()
-$gize_channels = GizeChannel::find(1)->users()->get()->pluck('id')
-$gize_channels = GizeChannel::find(1)->users()->pluck('id')
-$gize_channels = GizeChannel::find(1)->users()->pluck('id')
-$gize_channels = GizeChannel::with(	'users' )->get()
-$gize_channels = GizeChannel::with(	'users' )->orderBy('id', 'ASC')->get()
-User::role('channel-admin')->get()
-User::role('channel-admin')->get()->load('roles')
-GizeChannel::find(1)->load('users')
-GizeChannel::find(1)->with('users')
-GizeChannel::find(1)->with('users')->get()
-GizeChannel::find(1)->load('users')->get()
-GizeChannel::find(1)->load('users')->get()
-GizeChannel::find(1)->load('users')->get()
-GizeChannel::find(2)->load('users')->get()
-GizeChannel::find(2)->load('users')->get()
-GizeChannel::find(2)->load('users')
-GizeChannel::find(1)->load('users')
-GizeChannel::find(1)->users()
-GizeChannel::with('users')->orderBy('id', 'ASC')->get();
-$G = GizeChannel::with('users')->orderBy('id', 'ASC')->get();
-$G->name()
-$G = GizeChannel::with('users')->orderBy('id', 'ASC')->get();
-$G->name
 $G = GizeChannel::with('users')->orderBy('id', 'ASC')->get();
 $G[0]->name
+$batch_id = 1;
+$batch_user_id = 1;
+$subscription_period_id = 1;
+
+BatchUser::find($batch_user_id);
+$G = GizeChannel::with('users')->orderBy('id', 'ASC')->get();
+$G[0]->name
+$batch_id = 1;
+$batch_user_id = 1;
+$subscription_period_id = 1;
+
+BatchUser::find($batch_user_id)->get();
+$G = GizeChannel::with('users')->orderBy('id', 'ASC')->get();
+$G[0]->name
+$batch_id = 1;
+$batch_user_id = 1;
+$subscription_period_id = 1;
+
+BatchUser::find($batch_user_id)->get();
+$batch_id = 1;
+$batch_user_id = 1;
+$subscription_period_id = 1;
+
+$subscription_payments = DB::table('subscription_payments')
+            ->where('batch_user_id', $this->id)
+            ->join('subscription_periods', 'subscription_payments.subscription_period_id', '=', 'subscription_periods.id')
+            ->get();
+$batch_id = 1;
+$batch_user_id = 1;
+$subscription_period_id = 1;
+
+$subscription_payments = DB::table('subscription_payments')
+            ->where('batch_user_id', $batch_user_id)
+            ->join('subscription_periods', 'subscription_payments.subscription_period_id', '=', 'subscription_periods.id')
+            ->get();
+$batch_id = 1;
+$batch_user_id = 1;
+$subscription_period_id = 1;
+
+$subscription_payments = DB::table('subscription_payments')
+            ->where('batch_user_id', $batch_user_id)
+			->where('batch_id', $batch_id)
+            ->join('subscription_periods', 'subscription_payments.subscription_period_id', '=', 'subscription_periods.id')
+            ->get();
+$batch_id = 2
+$batch_user_id = 1;
+$subscription_period_id = 1;
+
+$subscription_payments = DB::table('subscription_payments')
+            ->where('batch_user_id', $batch_user_id)
+			->where('batch_id', $batch_id)
+            ->join('subscription_periods', 'subscription_payments.subscription_period_id', '=', 'subscription_periods.id')
+            ->get();
+$batch_id = 1
+$batch_user_id = 1;
+$subscription_period_id = 1;
+
+$subscription_payments = DB::table('subscription_payments')
+            ->where('batch_user_id', $batch_user_id)
+			->where('batch_id', $batch_id)
+            ->join('subscription_periods', 'subscription_payments.subscription_period_id', '=', 'subscription_periods.id')
+            ->get();
+$batch_id = 1;
+$batch_user_id = 1;
+$subscription_period_id = 1;
+
+$subscription_payments = DB::table('subscription_payments')
+            ->where('batch_user_id', $batch_user_id)
+			->where('batch_id', $batch_id)
+            ->join('subscription_periods', 'subscription_payments.subscription_period_id', '=', 'subscription_periods.id')
+            ->get();
+$batch_id = 2;
+$batch_user_id = 1;
+$subscription_period_id = 1;
+
+$subscription_payments = DB::table('subscription_payments')
+            ->where('batch_user_id', $batch_user_id)
+			->where('batch_id', $batch_id)
+            ->join('subscription_periods', 'subscription_payments.subscription_period_id', '=', 'subscription_periods.id')
+            ->get();
+$batch_id = 2;
+$batch_user_id = 1;
+$subscription_period_id = 1;
+
+$subscription_payments = DB::table('subscription_payments')
+  ->select('batch_id')
+            ->where('batch_user_id', $batch_user_id)
+			->where('batch_id', $batch_id)
+            ->join('subscription_periods', 'subscription_payments.subscription_period_id', '=', 'subscription_periods.id')
+            ->get();
+$batch_id = 2;
+$batch_user_id = 1;
+$subscription_period_id = 1;
+
+$subscription_payments = DB::table('subscription_payments')
+  ->select('count(batch_id)')
+            ->where('batch_user_id', $batch_user_id)
+			->where('batch_id', $batch_id)
+            ->join('subscription_periods', 'subscription_payments.subscription_period_id', '=', 'subscription_periods.id')
+            ->get();
+$batch_id = 2;
+$batch_user_id = 1;
+$subscription_period_id = 1;
+
+$subscription_payments = DB::table('subscription_payments')
+  ->select('batch_id')->count()
+            ->where('batch_user_id', $batch_user_id)
+			->where('batch_id', $batch_id)
+            ->join('subscription_periods', 'subscription_payments.subscription_period_id', '=', 'subscription_periods.id')
+            ->get();
+$batch_id = 2;
+$batch_user_id = 1;
+$subscription_period_id = 1;
+
+$subscription_payments = 	DB::table('subscription_payments')
+  ->select('batch_id')->sum()
+            ->where('batch_user_id', $batch_user_id)
+			->where('batch_id', $batch_id)
+            ->join('subscription_periods', 'subscription_payments.subscription_period_id', '=', 'subscription_periods.id')
+            ->get();
+$batch_id = 2;
+$batch_user_id = 1;
+$subscription_period_id = 1;
+
+$subscription_payments = 	DB::table('subscription_payments')
+  ->select('sum(batch_id)')
+            ->where('batch_user_id', $batch_user_id)
+			->where('batch_id', $batch_id)
+            ->join('subscription_periods', 'subscription_payments.subscription_period_id', '=', 'subscription_periods.id')
+            ->get();
+$batch_id = 2;
+$batch_user_id = 1;
+$subscription_period_id = 1;
+
+$subscription_payments = 	DB::table('subscription_payments')
+  ->select('sum(`batch_id`)')
+            ->where('batch_user_id', $batch_user_id)
+			->where('batch_id', $batch_id)
+            ->join('subscription_periods', 'subscription_payments.subscription_period_id', '=', 'subscription_periods.id')
+            ->get();
+$batch_id = 2;
+$batch_user_id = 1;
+$subscription_period_id = 1;
+
+$subscription_payments = 	DB::table('subscription_payments')
+  ->select('sum(`batch_id`)'            ->where('batch_user_id', $batch_user_id)
+			->where('batch_id', $batch_id)
+            ->join('subscription_periods', 'subscription_payments.subscription_period_id', '=', 'subscription_periods.id')
+            ->get();
+$batch_id = 2;
+$batch_user_id = 1;
+$subscription_period_id = 1;
+
+$subscription_payments = 	DB::table('subscription_payments')
+            ->where('batch_user_id', $batch_user_id)
+			->where('batch_id', $batch_id)
+            ->join('subscription_periods', 'subscription_payments.subscription_period_id', '=', 'subscription_periods.id')
+            ->get();
+$batch_id = 2;
+$batch_user_id = 1;
+$subscription_period_id = 1;
+
+$subscription_payments = 	DB::table('subscription_payments')
+            ->where('batch_user_id', $batch_user_id)
+			->where('batch_id', $batch_id)
+            ->join('subscription_periods', 'subscription_payments.subscription_period_id', '=', 'subscription_periods.id')
+            ->get();
+$subscription_payments->sum('amount');
+$batch_id = 2;
+$batch_user_id = 1;
+$subscription_period_id = 1;
+
+$subscription_payments = 	DB::table('subscription_payments')
+            ->where('batch_user_id', $batch_user_id)
+			->where('batch_id', $batch_id)
+            ->join('subscription_periods', 'subscription_payments.subscription_period_id', '=', 'subscription_periods.id')
+            ->get();
+$batch_id = 2;
+$batch_user_id = 1;
+$subscription_period_id = 1;
+
+$subscription_payments = 	DB::table('subscription_payments')
+            ->where('batch_user_id', $batch_user_id)
+			->where('batch_id', $batch_id)
+            ->join('subscription_periods', 'subscription_payments.subscription_period_id', '=', 'subscription_periods.id')
+            ->get()->sum('amount');
+$batch_id = 2;
+$batch_user_id = 1;
+$subscription_period_id = 1;
+
+$k = SubscriptionPeriod::where('batch_id', $batch_id)->get()->pluck('id');
+        $total_paid = DB::table('subscription_payments')
+            ->where('batch_user_id', $this->id)
+            ->whereIn('subscription_period_id',
+                $k)
+            ->sum('amount');
+$batch_id = 2;
+$batch_user_id = 1;
+$subscription_period_id = 1;
+
+$k = SubscriptionPeriod::where('batch_id', $batch_id)->get()->pluck('id');
+        $total_paid = DB::table('subscription_payments')
+            ->where('batch_user_id', $batch_user_id)
+            ->whereIn('subscription_period_id',
+                $k)
+            ->sum('amount');
+$batch_id = 2;
+$batch_user_id = 1;
+$subscription_period_id = 1;
+
+$k = SubscriptionPeriod::where('batch_id', $batch_id)->get()->pluck('id');
+        $total_paid = DB::table('subscription_payments')
+            ->where('batch_user_id', $batch_user_id)
+            ->whereIn('subscription_period_id',
+                $k)
+            ->sum('amount');
+$batch_id = 2;
+$batch_user_id = 4;
+$subscription_period_id = 22;
+
+$k = SubscriptionPeriod::where('batch_id', $batch_id)->get()->pluck('id');
+        $total_paid = DB::table('subscription_payments')
+            ->where('batch_user_id', $batch_user_id)
+            ->whereIn('subscription_period_id',
+                $k)
+            ->sum('amount');
+$batch_id = 2;
+$batch_user_id = 4;
+$subscription_period_id = 22;
+
+$k = SubscriptionPeriod::where('batch_id', $batch_id)->get()->pluck('id');
+        $total_paid = DB::table('subscription_payments')
+            ->where('batch_user_id', $batch_user_id)
+            ->whereIn('subscription_period_id',
+                22)
+            ->sum('amount');
+$batch_id = 2;
+$batch_user_id = 4;
+$subscription_period_id = 22;
+
+Batch::find($batch_id)->get()
+$batch_id = 2;
+$batch_user_id = 4;
+$subscription_period_id = 22;
+
+$batch = Batch::find($batch_id)->get();
+
+$batch[0]
+$batch_id = 2;
+$batch_user_id = 4;
+$subscription_period_id = 22;
+
+$batch = Batch::find($batch_id)->get();
+
+$batch[0]->subscription_periods[0]
+$batch_id = 2;
+$batch_user_id = 4;
+$subscription_period_id = 22;
+
+$batch = Batch::find($batch_id)->get();
+
+$batch[0]->subscription_periods[0]->period_no
+$batch_id = 2;
+$batch_user_id = 4;
+$subscription_period_id = 22;
+
+$batch = Batch::find($batch_id)->get();
+
+$batch[0]->subscription_periods[0]
+$batch_id = 2;
+$batch_user_id = 4;
+$subscription_period_id = 22;
+
+$batch = Batch::find($batch_id)->get();
+$batch_id = 2;
+$batch_user_id = 4;
+$subscription_period_id = 22;
+
+$batch = Batch::find($batch_id)->get();
+
+$batch[0]->subscription_periods[0]
+$batch_id = 2;
+$batch_user_id = 4;
+$subscription_period_id = 22;
+
+$batch = Batch::find($batch_id)->get();
+
+$batch[0]->subscription_periods[0]

@@ -73,10 +73,8 @@ class BatchUser extends Pivot
 
         $subscription_payments = DB::table('subscription_payments')
             ->where('batch_user_id', $this->id)
-        // ->whereIn('subscription_period_id',
-        //     SubscriptionPeriod::where('batch_id', )
-        // $this->id)
-            ->select('amount')
+			->where('batch_id', $this->batch_id)
+            ->join('subscription_periods', 'subscription_payments.subscription_period_id', '=', 'subscription_periods.id')
             ->get();
 
         return $subscription_payments->sum('amount');
@@ -107,6 +105,7 @@ class BatchUser extends Pivot
     {
         $subscription_payments = DB::table('subscription_payments')
             ->where('batch_user_id', $this->id)
+            ->where('batch_id', $this->batch_id)
             ->join('subscription_periods', 'subscription_payments.subscription_period_id', '=', 'subscription_periods.id')
             ->get();
 

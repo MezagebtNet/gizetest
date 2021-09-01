@@ -123,7 +123,18 @@ Batch Subscriptions Page
                                 <th style="text-align: center;" scope="col">Active</th>
                                 {{-- <th scope="col">Joined</th> --}}
                                 @for ($i = 1; $i <= $batch->max_period_no; $i++)
-                                    <th scope="col">P-{{ $i }}</th>
+                                    <th scope="col">
+                                            <a href="javascript:void(0);"
+                                             class="btn-edit-period"
+                                             batch_id="{{ $batch->id }}"
+                                             period_name="{{ $batch->subscription_periods[$i-1]->name }}"
+                                             subscription_period_id = "{{ $batch->subscription_periods[$i-1]->id }}"
+                                             from_date = "{{ $batch->subscription_periods[$i-1]->from_date }}"
+                                             to_date = "{{ $batch->subscription_periods[$i-1]->to_date }}"
+                                             data-toggle="tooltip" title="{{ $i }} | {{ $batch->subscription_periods[$i-1]->name }} ({{ $batch->subscription_periods[$i-1]->from_date }} - {{ $batch->subscription_periods[$i-1]->to_date }})">{{ $i }} <i class="fa fa-edit"></i></a>
+
+
+
                                 @endfor
                                 <th scope="col">Total</th>
                                 <th scope="col"></th>
@@ -422,6 +433,9 @@ Batch Subscriptions Page
     <!-- Add Period Modal -->
     @include('admin.manage.batches.subscriptions.periods.create_modal')
 
+    <!-- Edit Period Modal -->
+    @include('admin.manage.batches.subscriptions.periods.edit_modal')
+
 @endsection
 
 
@@ -445,7 +459,40 @@ Batch Subscriptions Page
 </script>
 
 
+
+<script type="text/javascript">
+    $(function () {
+        $('#period_from_date').datetimepicker();
+        $('#period_to_date').datetimepicker({
+            useCurrent: false
+        });
+        $("#period_from_date").on("change.datetimepicker", function (e) {
+            $('#period_to_date').datetimepicker('minDate', e.date);
+        });
+        $("#period_to_date").on("change.datetimepicker", function (e) {
+            $('#period_from_date').datetimepicker('maxDate', e.date);
+        });
+
+
+
+        $('#period_from_date_ed').datetimepicker();
+        $('#period_to_date_ed').datetimepicker({
+            useCurrent: false
+        });
+        $("#period_from_date_ed").on("change.datetimepicker", function (e) {
+            $('#period_to_date_ed').datetimepicker('minDate', e.date);
+        });
+        $("#period_to_date_ed").on("change.datetimepicker", function (e) {
+            $('#period_from_date_ed').datetimepicker('maxDate', e.date);
+        });
+    });
+</script>
+
 <script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+
     function payment_cell_empty_template(response, i) {
 
         td_pymt_cell = `<td scope="col" id="${response.id }-${i}"
@@ -568,17 +615,25 @@ Batch Subscriptions Page
 
     function initdatetimePicker(){
         $('#pmt_edit_payment_date').datetimepicker({
-            format: "YYYY-MM-DD"
+            format: "L"
         });
         $('#pmt_create_payment_date').datetimepicker({
-            format: "YYYY-MM-DD"
+            format: "L"
         });
 
         $('#period_from_date').datetimepicker({
-            format: "YYYY-MM-DD"
+            format: "L"
         });
         $('#period_to_date').datetimepicker({
-            format: "YYYY-MM-DD"
+            format: "L"
+        });
+
+
+        $('#period_from_date_ed').datetimepicker({
+            format: "L"
+        });
+        $('#period_to_date_ed').datetimepicker({
+            format: "L"
         });
     };
 
@@ -646,7 +701,6 @@ Batch Subscriptions Page
         $('#periodForm')[0].reset();
     });
 
-    //Payment Modal - Show/Hide Add New Modal Form
     $('#periodModal').on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget) // Button that triggered the modal
 
@@ -656,6 +710,47 @@ Batch Subscriptions Page
 
     });
 
+    //Handle Edit Period Modal...
+    $('#periodEditModal').on('hide.bs.modal', function(event) {
+        $('#periodEditForm')[0].reset();
+
+        $('#period_from_date_ed').datetimepicker("date", null);
+
+        $('#period_to_date_ed').datetimepicker("date", null);
+
+    });
+
+    $('#periodEditModal').on('show.bs.modal', function(event) {
+        // var button = $(event.relatedTarget) // Button that triggered the modal
+
+        // let batch_id = button.data('batch_id') // Extract info from data-* attributes
+
+        // $('#period_batch_id_ed').val(batch_id);
+
+    });
+
+    $('.btn-edit-period').on('click', function(e){
+
+        let _token = $('input[name=_token]').val();
+
+        let batch_id = $(this).attr('batch_id');
+        let from_date = $(this).attr('from_date');
+        let to_date = $(this).attr('to_date');
+        let subscription_period_id = $(this).attr('subscription_period_id');
+        let name = $(this).attr('period_name');
+
+        // alert(subscription_period_id);
+        $('#period_from_date_ed').datetimepicker('date', moment(from_date, 'YYYY-MM-DD'));
+        $('#period_to_date_ed').datetimepicker('date', moment(to_date, 'YYYY-MM-DD'));
+        $('#period_batch_id_ed').val(batch_id);
+        $('#period_name_ed').val(name);
+        $('#subscription_period_id_ed').val(subscription_period_id);
+
+        $('#periodEditModal').modal('toggle');
+        // alert('here i am' + $(this).attr('batch_id'));
+    });
+
+    //Period Modal - Add New
     $('#periodForm').on('submit', function(e){
         e.preventDefault();
 
@@ -664,12 +759,14 @@ Batch Subscriptions Page
 
         from_date = $('#period_from_date').datetimepicker('date').format('YYYY-MM-DD HH:mm:ss');
         to_date = $('#period_to_date').datetimepicker('date').format('YYYY-MM-DD HH:mm:ss');
+        name = $('#period_name').val();
         batch_id = $('#period_batch_id').val();
 
         formData = new FormData(this);
         formData.append('from_date', from_date);
         formData.append('to_date', to_date);
         formData.append('batch_id', batch_id);
+        formData.append('name', name);
 
 
 
@@ -692,6 +789,46 @@ Batch Subscriptions Page
         });
 
     });
+
+    //Period Modal - Edit
+    $('#periodEditForm').on('submit', function(e){
+        e.preventDefault();
+
+        let url = "{{ route('admin.manage.batch.editperiod') }}";
+        let _token = $('input[name=_token]').val();
+
+        let from_date = $('#period_from_date_ed').datetimepicker('date').format('YYYY-MM-DD HH:mm:ss');
+        let to_date = $('#period_to_date_ed').datetimepicker('date').format('YYYY-MM-DD HH:mm:ss');
+        let name = $('#period_name_ed').val();
+        let batch_id = $('#period_batch_id_ed').val();
+        let subscription_period_id = $('#subscription_period_id_ed').val();
+
+        formData = new FormData(this);
+        formData.append('from_date', from_date);
+        formData.append('to_date', to_date);
+        formData.append('batch_id', batch_id);
+        formData.append('name', name);
+        formData.append('subscription_period_id', subscription_period_id);
+
+
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(response){
+                //Refresh page.
+                let url = "{{ route('admin.manage.batch.subscription.index', ':id') }}";
+                url = url.replace(':id', batch_id);
+
+                window.location.replace(url);
+
+            },
+            error: function(xhr){},
+        });
+    });
+
 
 
     $('#btnContinue').on('click', function() {
