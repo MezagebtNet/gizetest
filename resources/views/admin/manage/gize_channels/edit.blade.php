@@ -94,7 +94,7 @@
 
                             <label for="description" class="">Description</label>
 
-                            <textarea class="form-control" id="description" rows="5">{{ old('description', $gize_channel->description) }}</textarea>
+                            <textarea class="form-control" id="description" name="description" rows="5">{{ old('description', $gize_channel->description) }}</textarea>
 
 
                             @error('description')

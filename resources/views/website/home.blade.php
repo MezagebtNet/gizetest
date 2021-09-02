@@ -94,7 +94,7 @@
                 <div class=" row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 ">
                     @foreach ($gize_channels as $gize_channel)
 
-                        <x-channels.card :name="$gize_channel->name" :id="$gize_channel->id" :slug="$gize_channel->slug" />
+                        <x-channels.card :name="$gize_channel->name" :producer="$gize_channel->producer" :id="$gize_channel->id" :slug="$gize_channel->slug" />
 
                     @endforeach
                 </div>

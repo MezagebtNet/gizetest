@@ -298,6 +298,7 @@ Route::group(['middleware' => 'auth'], function () {
 Route::post('/edit-period', [BatchController::class, 'editPeriod'])->name('editperiod');
 
 
+
                 //BATCH_SUBSCRIPTIONS
                 Route::group(['prefix' => 'subscriptions', 'as' => 'subscription.'], function () {
                     //Get All
@@ -351,7 +352,8 @@ Route::post('/edit-period', [BatchController::class, 'editPeriod'])->name('editp
 
     });
 
-    //ROUTE GROUP::USER (AUTHOR OR SHOP)
+//ROUTE GROUP::USER
+
     Route::group(['prefix' => 'user', 'middleware' => 'role:super-admin|user', 'as' => 'user.'], function () {
 
         //MY HOME

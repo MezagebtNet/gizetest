@@ -13,10 +13,10 @@
                     src="{{ asset('assets/image/Addmes Logo.png') }}" alt="Addmes Channel">
 
                 <figcaption class="pt-4">
-                    <h5 class="title">{{ $name }}</h5>
-                    <p>በጤንነት ሰጠኝ (ወ/ሩፋኤል) </p>
+                    <h5 class="title text-bold">{{ $name }}</h5>
+                    <p class="text-sm">{{ $producer }}</p>
                 </figcaption>
-            <span class="position-relative badge badge-danger">2</span>
+            <span class="position-relative badge badge-danger">3</span>
 
             </figure> <!-- iconbox // -->
         </article>

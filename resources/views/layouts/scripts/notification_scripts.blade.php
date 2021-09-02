@@ -1,9 +1,10 @@
 <script type="module">
-    import Echo from '{{ asset('assets/js/dist/echo.js') }}'
+    /*
+    import Echo from "{{ asset('assets/js/dist/echo.js') }}"
 
     import {
         Pusher
-    } from '{{ asset('assets/js/dist/pusher.js') }}'
+    } from "{{ asset('assets/js/dist/pusher.js') }}"
 
     window.Pusher = Pusher
 
@@ -23,6 +24,7 @@
     //         console.log(e)
     // });
 
+    */
 
 
     // console.log("websokets in use");
@@ -34,6 +36,7 @@
     $(function() {
         renderNotifications();
 
+        /*
         window.Echo.private('App.Models.User.' + '{{ auth()->user()->id }}')
             .notification((notification) => {
                 if (notification.type == "broadcast.message") {
@@ -50,12 +53,10 @@
                     renderNotifications();
 
                 }
-                // notifyMe_firefox("You've got a notification");
 
-                // console.log(notification, "New user notification.");
-                // alert(notification.name + " has just registered!")
 
             });
+        */
 
         // var myVar = setInterval(myTimer, 1000 * 10);
 

@@ -288,3 +288,13 @@ $subscription_period_id = 22;
 $batch = Batch::find($batch_id)->get();
 
 $batch[0]->subscription_periods[0]
+$batch_id = 2;
+$batch_user_id = 4;
+$subscription_period_id = 22;
+
+GizeChannels::all()
+$batch_id = 2;
+$batch_user_id = 4;
+$subscription_period_id = 22;
+
+GizeChannel::all()

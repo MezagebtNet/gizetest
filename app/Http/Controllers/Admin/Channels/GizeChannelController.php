@@ -34,10 +34,12 @@ class GizeChannelController extends Controller
     {
         $gize_channel = new GizeChannel();
         $gize_channel->name = $request->name;
+        $gize_channel->producer = $request->producer;
         $gize_channel->description = $request->description;
         $gize_channel->slug = $request->slug;
         $validated = $request->validate([
             'name' => 'required|unique:gize_channels,name|max:255',
+            'producer' => 'required|unique:gize_channels,name|max:255',
             'description' => 'required',
             'slug' => 'required|unique:gize_channels,slug|max:25',
         ]);
@@ -52,11 +54,13 @@ class GizeChannelController extends Controller
         $gize_channel = GizeChannel::find($request->id);
 
         $gize_channel->name = $request->name;
+        $gize_channel->producer = $request->producer;
         $gize_channel->description = $request->description;
         $gize_channel->slug = $request->slug;
 
         $validated = $request->validate([
             'name' => 'required|max:255|unique:gize_channels,name,' . $request->id . ',id',
+            'producer' => 'required|max:255|unique:gize_channels,name,' . $request->id . ',id',
             'description' => 'required',
             'slug' => 'required|max:25|unique:gize_channels,slug,' . $request->id . ',id',
         ]);

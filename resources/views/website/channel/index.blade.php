@@ -108,7 +108,7 @@
             <div class="d-flex align-items-center flex-column bd-highlight ">
                 <div class="mb-auto p-2 bd-highlight">
                     <h1 class="channel-title mb-auto">{{ $gize_channel->name }}</h1>
-                    <p class="channel-description lead">በጤንነት ሰጠኝ (ወ/ሩፋኤል)</p>
+                    <p class="channel-description lead">{{ __('Producer') }} - {{ $gize_channel->producer }}</p>
                 </div>
             </div>
 

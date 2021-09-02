@@ -14,6 +14,14 @@ class UpdateGizeChannelRequest extends FormRequest
                 'string',
                 'required',
             ],
+            'producer' => [
+                'string',
+                'required',
+            ],
+            'description' => [
+                'string',
+                'required',
+            ],
             'slug' => [
                 'string',
                 'required',

@@ -14,6 +14,14 @@ class StoreGizeChannelRequest extends FormRequest
                 'string',
                 'required',
             ],
+            'producer' => [
+                'string',
+                'required',
+            ],
+            'description' => [
+                'string',
+                'required',
+            ],
             'slug' => [
                 'unique:gize_channels',
                 'required',

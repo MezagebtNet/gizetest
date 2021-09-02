@@ -19,6 +19,7 @@ class card extends Component
      * @var string
      */
     public $slug;
+
      /**
      * The player name.
      *
@@ -26,16 +27,25 @@ class card extends Component
      */
     public $name;
 
+
+     /**
+     * The player producer.
+     *
+     * @var string
+     */
+    public $producer;
+
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($id, $slug, $name)
+    public function __construct($id, $slug, $name, $producer)
     {
         $this->id = $id;
         $this->slug = $slug;
         $this->name = $name;
+        $this->producer = $producer;
     }
 
     /**

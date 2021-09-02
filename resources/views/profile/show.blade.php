@@ -11,8 +11,9 @@
 @endsection
 
 @section('content')
+{{-- <div class="row"> --}}
 
-        <div>
+        <div class="row">
             @if (Laravel\Fortify\Features::canUpdateProfileInformation())
                 <div class="col-sm-12  order-sm-1">
                     <div class="card">
@@ -59,7 +60,7 @@
             @endif
         </div>
 
-
+{{-- </div> --}}
 
 @endsection
 
