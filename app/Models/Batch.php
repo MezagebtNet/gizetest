@@ -19,6 +19,7 @@ class Batch extends Model
         'code_name',
         'description',
         // 'subscription_period_id',
+        'gize_channel_id',
         'starts_on_date',
         'payment_fee',
         'currency',
@@ -43,7 +44,10 @@ class Batch extends Model
 
     public function getSubscriptionPeriodsAttribute($value)
     {
-        return Batch::find($this->id)->subscriptionPeriods()->get();
+        if($this->id){
+            return Batch::find($this->id)->subscriptionPeriods()->get();
+        }
+        return [];
     }
 
     public function getSubscribersCountAttribute($value)

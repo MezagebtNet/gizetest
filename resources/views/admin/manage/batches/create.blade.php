@@ -50,6 +50,7 @@
                     <form id="batchForm" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" class="form-control" name="id" id="id" value="" />
+                        <input type="hidden" class="form-control" name="gize_channel_id" id="gize_channel_id" value="1" />
 
                         <div class="form-group">
                             <label for="code_name">Code Name</label>
@@ -185,6 +186,7 @@
                 let currency = $('#currency').val();
                 let starts_on_date = $('#starts_on_date').datetimepicker('date').format('YYYY-MM-DD HH:mm:ss');
                 let status = $('#status').val();
+                let gize_channel_id = $('#gize_channel_id').val();
                 let _token = $('input[name=_token]').val();
 
                 formData.append("code_name", code_name);
@@ -194,6 +196,7 @@
                 formData.append("currency", currency);
                 formData.append("starts_on_date", starts_on_date);
                 formData.append("status", status);
+                formData.append("gize_channel_id", gize_channel_id);
 
                 formData.append("_token", _token);
 

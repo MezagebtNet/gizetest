@@ -31,7 +31,9 @@ class UserCreatedNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['database', 'broadcast'];
+return ['database'];
+// return ['database', 'broadcast'];
+
 
     }
 
@@ -65,30 +67,32 @@ class UserCreatedNotification extends Notification
         ];
     }
 
-    /* Get the broadcastable representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return BroadcastMessage
-     */
-    public function toBroadcast($notifiable)
-    {
-        return new BroadcastMessage([
-            'type' => 'admin_user_account',
-            'message' => $this->user->fullName() . ' has just joined ' . env('APP_NAME') . '.',
-            'user_id' => $this->user->id,
-            'name' => $this->user->fullName(),
-            'email' => $this->user->email,
-        ]);
-    }
+// /* Get the broadcastable representation of the notification.
+//  *
+//  * @param  mixed  $notifiable
+//  * @return BroadcastMessage
+//  */
+// public function toBroadcast($notifiable)
+// {
+//     return new BroadcastMessage([
+//         'type' => 'admin_user_account',
+//         'message' => $this->user->fullName() . ' has just joined ' . env('APP_NAME') . '.',
+//         'user_id' => $this->user->id,
+//         'name' => $this->user->fullName(),
+//         'email' => $this->user->email,
+//     ]);
+// }
 
-    /**
-     * Get the type of the notification being broadcast.
-     *
-     * @return string
-     */
-    public function broadcastType()
-    {
-        return 'broadcast.message';
-    }
+
+// /**
+//  * Get the type of the notification being broadcast.
+//  *
+//  * @return string
+//  */
+// public function broadcastType()
+// {
+//     return 'broadcast.message';
+// }
+
 
 }

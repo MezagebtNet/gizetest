@@ -52,9 +52,11 @@ class BatchController extends Controller
                 'status' => 'required',
                 'payment_fee' => 'required',
                 'currency' => 'required',
+                'gize_channel_id' => 'required',
             ]);
 
             $batch->code_name = $request->code_name;
+            $batch->gize_channel_id = $request->gize_channel_id;
             $batch->description = $request->description;
             // $batch->subscription_period_id = $request->subscription_period_id;
             $batch->payment_fee = $request->payment_fee;
@@ -66,7 +68,8 @@ class BatchController extends Controller
             $batch->save();
             return response()->json($batch);
         } catch (\Throwable $th) {
-            //throw $th;
+throw $th;
+
         }
     }
 
