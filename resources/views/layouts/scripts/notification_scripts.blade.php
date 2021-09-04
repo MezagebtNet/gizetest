@@ -1,5 +1,5 @@
 <script type="module">
-    /*
+
     import Echo from "{{ asset('assets/js/dist/echo.js') }}"
 
     import {
@@ -16,15 +16,15 @@
         wsHost: window.location.hostname,
         wsPort: 6001,
         forceTLS: false,
-        disableStats: true,
+        disableStats: false,
     });
 
-    // window.Echo.channel('your-channel')
-    // .listen('your-event-class', (e) => {
-    //         console.log(e)
-    // });
+    window.Echo.channel('App.Models.User.'+ "{{ auth()->user()->id }}")
+    .listen('your-event-class', (e) => {
+            console.log(e)
+    });
 
-    */
+
 
 
     // console.log("websokets in use");
@@ -36,7 +36,7 @@
     $(function() {
         renderNotifications();
 
-        /*
+
         window.Echo.private('App.Models.User.' + '{{ auth()->user()->id }}')
             .notification((notification) => {
                 if (notification.type == "broadcast.message") {
@@ -56,7 +56,7 @@
 
 
             });
-        */
+
 
         // var myVar = setInterval(myTimer, 1000 * 10);
 
@@ -97,7 +97,7 @@
 
             let url = "{{ route('web.rendernotifications', ['dropdown_state' => ':dropdown_state']) }}";
             let dropdown_state = $('.notifications-dropdown').hasClass('show');
-            console.log(dropdown_state);
+            // console.log(dropdown_state);
             url = url.replace(':dropdown_state', dropdown_state);
 
             $.ajax({

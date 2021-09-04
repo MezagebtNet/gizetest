@@ -13,14 +13,14 @@
                 auth()->user()->isSystemAdmin())
                 <li><a href="{{ route('admin.home') }}" class="dropdown-item">System Administration</a></li>
 
-                <li><a href="{{ route('admin.home') }}" class="dropdown-item">Notifications</a></li>
+                {{-- <li><a href="{{ route('admin.home') }}" class="dropdown-item">Notifications</a></li> --}}
                 <li class="dropdown-divider"></li>
             @endif
-            @if (auth()->user()->isDefaultUser() ||
+            {{-- @if (auth()->user()->isDefaultUser() ||
                 auth()->user()->isSuperAdmin() ||
                 auth()->user()->isSystemAdmin())
                 <li><a href="{{ route('user.home') }}" class="dropdown-item">My Account</a></li>
-            @endif
+            @endif --}}
 
             @if (auth())
                 <li><a href="{{ route('profile.show') }}" class="dropdown-item">Edit Profile</a></li>
