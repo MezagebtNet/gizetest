@@ -21,7 +21,7 @@
                     <span><strong>Start Date: </strong>{{ $batch->starts_on_date }}</span><br/>
                     <span><strong>Status: </strong>{{ $batch->status_name }}</span><br/>
                     <span><strong>Subscription Type: </strong>{{ $batch->subscription_type_name }}</span><br/>
-                    <span><strong>Max Period: </strong>{{ $batch->max_period_no }}</span><br/>
+                    <span><strong>Last Period: </strong>#{{ $batch->max_period_no }} - {{ $batch->max_period_name }}</span><br/>
                 {{-- </li>
               </ul> --}}
 

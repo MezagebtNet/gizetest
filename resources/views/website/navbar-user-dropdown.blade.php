@@ -26,14 +26,17 @@
                 <li><a href="{{ route('profile.show') }}" class="dropdown-item">Edit Profile</a></li>
             @endif
             <li>
-                <div class="dropdown-item">
+                <a class="dropdown-item select-theme d-flex flex-column" theme="{{ auth()->user()->theme_preference }}">
                     <!-- Theme switch -->
-                    <span>{{ __('Choose Theme Color') }}</span>
-                    <div class="custom-control custom-switch">
-                        <input type="checkbox" class="custom-control-input" id="themeSwitch">
-                        <label class="custom-control-label" for="themeSwitch">{{ __('Dark Mode') }}</label>
+                    <span>{{ __('Choose Theme Color') }}:</span>
+                    <div class="theme-switch">
+                    @if( auth()->user()->theme_preference == 'light-mode' )
+                        <span><i class="fa fa-moon"></i> {{ __('Dark Mode') }}</span>
+                    @elseif ( auth()->user()->theme_preference == 'dark-mode' )
+                        <span><i class="fa fa-sun"></i> {{ __('Light Mode') }}</span>
+                    @endif
                     </div>
-                </div>
+                </a>
             </li>
 
 

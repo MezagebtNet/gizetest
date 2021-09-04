@@ -36,7 +36,7 @@
                 </div>
                 <div class="card" id="imgPreviewCard_ed" style="display: none;">
                   <div class="card-body">
-                    <img id="imgPreview_ed" src="#" alt="your image" style="display:none; max-width:100px; height: auto;" />
+                    <img class="mr-2" id="imgPreview_ed" src="#" alt="your image" style="border-radius: 8px; display:none; max-width:100px; height: auto;" />
                     <button id="btn-delete-cover-image" channelvideoid="" type="button" class="btn btn-danger">Delete</button>
                   </div>
                 </div>

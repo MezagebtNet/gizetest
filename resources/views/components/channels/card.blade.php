@@ -16,7 +16,7 @@
                     <h5 class="title text-bold">{{ $name }}</h5>
                     <p class="text-sm">{{ $producer }}</p>
                 </figcaption>
-            <span class="position-relative badge badge-danger">3</span>
+            {{-- <span class="position-relative badge badge-danger">3</span> --}}
 
             </figure> <!-- iconbox // -->
         </article>

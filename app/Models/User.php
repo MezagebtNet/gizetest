@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Hash;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
 use Jenssegers\Date\Date;
+use App\Controllers\UserPreferencesController;
 
 
 class User extends Authenticatable
@@ -38,7 +39,11 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'firstname', 'email', 'password', 'password_confirmation', 'lastname',
+        'firstname',
+        'lastname',
+        'email',
+        'password',
+        'password_confirmation',
     ];
 
     /**
@@ -204,10 +209,10 @@ class User extends Authenticatable
     // }
 
 
-    public function setNameAttribute()
-    {
-        return $this->firstname.' '.$this->lastname;
-    }
+    // public function setNameAttribute()
+    // {
+    //     return $this->firstname.' '.$this->lastname;
+    // }
     public function getNameAttribute()
     {
         return $this->firstname.' '.$this->lastname;
@@ -303,6 +308,19 @@ class User extends Authenticatable
         ->withPivot('approved', 'active')
         ->as ('subscription')
         ->withTimestamps();
+    }
+
+    public function changeLanguagePreference($lang){
+
+        return UserPreferencesController::changeLanguagePreference($this->id, $lang);
+
+    }
+
+
+    public function changeThemePreference($theme){
+
+        return UserPreferencesController::changeThemePreference($this->id, $theme);
+
     }
 
 }

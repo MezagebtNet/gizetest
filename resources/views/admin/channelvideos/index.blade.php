@@ -61,7 +61,7 @@
 										<tr id="channelvideoid{{$channelvideo->id}}">
 											<td><input type="checkbox" name="ids" class="checkBoxClass" value="{{$channelvideo->id}}"/></td>
 											<td>
-											   <img width="130" src="{{($channelvideo->poster_image_url!=null)? asset('storage\\'.$channelvideo->poster_image_url):asset('storage\\images\\l\\thumb\\channelvideo.jpg')}}" />
+											   <img style="border-radius: 8px;" width="130" src="{{($channelvideo->poster_image_url!=null)? asset('storage\\'.$channelvideo->poster_image_url):asset('storage\\images\\l\\thumb\\channelvideo.jpg')}}" />
 											</td>
 											<td scope="row">{{$channelvideo->title}}</td>
 											<td>{{$channelvideo->trainer}}</td>
@@ -607,7 +607,7 @@
 							}
 
 							let tableRowHtml = '<tr id="channelvideoid'+ response.id+'"><td><input type="checkbox" name="ids" class="checkBoxClass" value="' + response.id + '"/></td>'+
-								'<td><img width="130" src="' + imgUrl +
+								'<td><img style="border-radius: 8px;" width="130" src="' + imgUrl +
 								'" /></td><td>' +
 								response.title + '</td><td>' +
 								response.trainer + '</td><td>' +
@@ -755,7 +755,7 @@
 
 						if(response){
 							$('#channelvideoid' + response.id + ' td:nth-child(1)').html('<input type="checkbox" name="ids" class="checkBoxClass" value="' + response.id + '"/>');
-							$('#channelvideoid' + response.id + ' td:nth-child(2)').html('<img width="130" src="'+imgUrl+'" />');
+							$('#channelvideoid' + response.id + ' td:nth-child(2)').html('<img style="border-radius: 8px;" width="130" src="'+imgUrl+'" />');
 							$('#channelvideoid' + response.id + ' td:nth-child(3)').text(response.title);
 							$('#channelvideoid' + response.id + ' td:nth-child(4)').text(response.trainer);
 							$('#channelvideoid' + response.id + ' td:nth-child(5)').text(response.duration);
@@ -824,7 +824,7 @@
 					//render default image..
 
 					let imgUrl = "{{ asset('storage/images/l/thumb/channelvideo.jpg') }}";
-					$('#channelvideoid' + channelvideoid + ' td:nth-child(2)').html('<img width="130" src="'+imgUrl+'" />');
+					$('#channelvideoid' + channelvideoid + ' td:nth-child(2)').html('<img style="border-radius: 8px;" width="130" src="'+imgUrl+'" />');
 
 
 				}
@@ -985,7 +985,7 @@
 							}
 
 							$('#channelvideoid' + channelvideo.id + ' td:nth-child(1)').html('<input type="checkbox" name="ids" class="checkBoxClass" value="' + channelvideo.id + '"/>');
-							$('#channelvideoid' + channelvideo.id + ' td:nth-child(2)').html('<img width="130" src="'+imgUrl+'" />');
+							$('#channelvideoid' + channelvideo.id + ' td:nth-child(2)').html('<img style="border-radius: 8px;" width="130" src="'+imgUrl+'" />');
 							$('#channelvideoid' + channelvideo.id + ' td:nth-child(3)').text(channelvideo.title);
 							$('#channelvideoid' + channelvideo.id + ' td:nth-child(4)').text(channelvideo.trainer);
 							$('#channelvideoid' + channelvideo.id + ' td:nth-child(5)').text(channelvideo.duration);

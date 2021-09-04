@@ -10,9 +10,9 @@
         <li class="nav-item d-none d-sm-inline-block">
             <a href="{{ route('admin.home') }}" class="nav-link"><i class="fas fa-laptop-house pr-1"></i>{{ __('Admin Home') }}</a>
         </li>
-        <li class="nav-item d-none d-sm-inline-block">
+        {{-- <li class="nav-item d-none d-sm-inline-block">
             <a href="#" class="nav-link">{{ __('About') }}</a>
-        </li>
+        </li> --}}
     </ul>
 
     <!-- Right navbar links -->

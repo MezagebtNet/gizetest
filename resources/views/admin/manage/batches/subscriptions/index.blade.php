@@ -87,7 +87,8 @@ Batch Subscriptions Page
                 <!-- /.card-tools -->
             </div>
 
-            <div class="card-body">
+            <div class="card-body" style="overflow-x: scroll;">
+
                 @if (!$batch)
 
                     Please Select batch to Continue:
@@ -111,291 +112,295 @@ Batch Subscriptions Page
                     </div>
 
                 @else
-                    <table id="subscriptionTable" style="width:100%;"
-                        class="table table-striped table-bordered table-hover ">
-                        <caption>List of Subscriptions</caption>
-                        <thead>
-                            <tr>
-                                <th scope="col"><input type="checkbox" id="chkCheckAll" /></th>
-                                <th scope="col">ID</th>
-                                <th scope="col">User</th>
-                                <th scope="col">Approval</th>
-                                <th style="text-align: center;" scope="col">Active</th>
-                                {{-- <th scope="col">Joined</th> --}}
-                                @for ($i = 1; $i <= $batch->max_period_no; $i++)
-                                    <th scope="col">
-                                            <a href="javascript:void(0);"
-                                             class="btn-edit-period"
-                                             batch_id="{{ $batch->id }}"
-                                             period_name="{{ $batch->subscription_periods[$i-1]->name }}"
-                                             subscription_period_id = "{{ $batch->subscription_periods[$i-1]->id }}"
-                                             from_date = "{{ $batch->subscription_periods[$i-1]->from_date }}"
-                                             to_date = "{{ $batch->subscription_periods[$i-1]->to_date }}"
-                                             data-toggle="tooltip" title="{{ $i }} | {{ $batch->subscription_periods[$i-1]->name }} ({{ $batch->subscription_periods[$i-1]->from_date }} - {{ $batch->subscription_periods[$i-1]->to_date }})">{{ $i }} <i class="fa fa-edit"></i></a>
+                <div class="row"  style="min-width:600px; ">
+                    <div class="col-12">
+                            <table id="subscriptionTable" style="width:100%;"
+                                class="table table-striped table-bordered table-hover ">
+                                <caption>List of Subscriptions</caption>
+                                <thead>
+                                    <tr>
+                                        <th scope="col"><input type="checkbox" id="chkCheckAll" /></th>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">User</th>
+                                        <th scope="col">Approval</th>
+                                        <th style="text-align: center;" scope="col">Active</th>
+                                        {{-- <th scope="col">Joined</th> --}}
+                                        @for ($i = 1; $i <= $batch->max_period_no; $i++)
+                                            <th scope="col">
+                                                    <a href="javascript:void(0);"
+                                                    class="btn-edit-period"
+                                                    batch_id="{{ $batch->id }}"
+                                                    period_name="{{ $batch->subscription_periods[$i-1]->name }}"
+                                                    subscription_period_id = "{{ $batch->subscription_periods[$i-1]->id }}"
+                                                    from_date = "{{ $batch->subscription_periods[$i-1]->from_date }}"
+                                                    to_date = "{{ $batch->subscription_periods[$i-1]->to_date }}"
+                                                    data-toggle="tooltip" title="{{ $i }} | {{ $batch->subscription_periods[$i-1]->name }} ({{ $batch->subscription_periods[$i-1]->from_date }} - {{ $batch->subscription_periods[$i-1]->to_date }})">{{ $i }} <i class="fa fa-edit"></i></a>
 
 
 
-                                @endfor
-                                <th scope="col">Total</th>
-                                <th scope="col"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($subscriptions as $subscription)
-                                <tr id="subscriptionid{{ $subscription->id }}" style="height:90px;">
-                                    <td class="align-middle"><input type="checkbox" name="ids" class="checkBoxClass "
-                                            value="{{ $subscription->id }}" /></td>
-                                    <th scope="row" class="align-middle"> {{ $subscription->id }}</th>
-                                    <td class="align-middle">
-                                        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                                            <div class="d-none d-lg-block image align-middle"
-                                                style="margin-top: auto; margin-bottom: auto;">
-                                                <img src="{{ $subscription->subscriber->profile_photo_url }}"
-                                                    alt="{{ $subscription->subscriber->name }}"
-                                                    style="width:54px; height: 54px;"
-                                                    class="align-middle rounded-circle elevation-1">
-                                            </div>
-                                            <div class="info" style="display: grid;">
-                                                <strong>{{ $subscription->subscriber_name }}</strong>
-                                                <span
-                                                    class="d-none d-sm-block text-sm">{{ $subscription->subscriber->email }}</span>
-                                                <span class="text-md mt-1">Joined at:</span>
-                                                <span class="text-sm">{{ $subscription->created_at }}</span>
-                                                <span
-                                                    class="text-xs text-muted">{{ $subscription->created_at->diffForHumans() }}</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="align-middle">
-                                        <div class="text-center">
-                                            @if ($subscription->approved)
-                                                Approved
-                                            @else
-                                                <button type="button" class="btn btn-xs btn-success btn-approve"
-                                                    subscriptionid="{{ $subscription->id }}"><i class="fa fa-check">
-                                                    </i> Approve</button>
-                                            @endif
-                                        </div>
-                                    </td>
-                                    <td class="align-middle">
-                                        <div class="text-center">
-                                            @if ($subscription->active === 1)
-                                                <a href="javascript:void(0);"
-                                                    class="text-cetner  text-lg btn-toggle-active active"
-                                                    subscriptionid="{{ $subscription->id }}">
-                                                    <i style="color: green;" class="fa fa-check"></i></a>
-                                            @else
-                                                <a href="javascript:void(0);"
-                                                    class="text-cetner  text-lg btn-toggle-active"
-                                                    subscriptionid="{{ $subscription->id }}">
-                                                    <i style="color: red;" class="fa fa-times"></i></a>
-                                            @endif
-                                        </div>
-                                    </td>
-                                    {{-- <td>
-                                    </td> --}}
-                                    {{-- {{ dd($subscription->max_period_no) }} --}}
-                                    @php
-                                        $subscription_periods = $batch->subscriptionPeriods;
-
-                                    @endphp
-                                    @for ($i = 1; $i <= $subscription->max_period_no; $i++)
-
-                                        @php
-                                            $found = false;
-                                        @endphp
-                                        {{-- @foreach ($batch->subscriptionPeriods as $subscription_period) --}}
-                                        {{-- @if ($subscription_period->period_no == $i) --}}
-                                        {{-- @if ($payment->id) --}}
-                                        @foreach ($subscription->payment_history as $payment)
-                                            @php
-
-                                                $pmt_id = '';
-                                                $pmt_amount = 0;
-                                                $pmt_reciept_no = '';
-                                                $pmt_from_date = '';
-                                                $pmt_to_Date = '';
-                                                $pmt_method = '';
-                                                $pmt_payment_date = '';
-                                                $found = false;
-                                            @endphp
-                                            @if ($payment->period_no == $i)
-                                                @php
-                                                    $pmt_id = $payment->id;
-                                                    $pmt_amount = $payment->amount;
-                                                    $pmt_reciept_no = $payment->reciept_no;
-                                                    $pmt_from_date = $payment->from_date;
-                                                    $pmt_to_date = $payment->to_date;
-                                                    $pmt_method = $payment->method;
-                                                    $pmt_payment_date = $payment->payment_date;
-                                                    $pmt_subscription_period_id = $payment->subscription_period_id;
-                                                    $found = true;
-                                                @endphp
-                                                {{-- @continue --}}
-
-                                                <td scope="col" id="{{ $subscription->id . '-' . $i }}"
-                                                    class="table-success align-middle">
-                                                    <div class="text-center"
-                                                        style="margin-top: auto; margin-bottom: auto; align:middle;">
-                                                        <strong>{{ $pmt_amount . ' ' . $subscription->currency }}</strong>
+                                        @endfor
+                                        <th scope="col">Total</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($subscriptions as $subscription)
+                                        <tr id="subscriptionid{{ $subscription->id }}" style="height:90px;">
+                                            <td class="align-middle"><input type="checkbox" name="ids" class="checkBoxClass "
+                                                    value="{{ $subscription->id }}" /></td>
+                                            <th scope="row" class="align-middle"> {{ $subscription->id }}</th>
+                                            <td class="align-middle">
+                                                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                                                    <div class="d-none d-lg-block image align-middle"
+                                                        style="margin-top: auto; margin-bottom: auto;">
+                                                        <img src="{{ $subscription->subscriber->profile_photo_url }}"
+                                                            alt="{{ $subscription->subscriber->name }}"
+                                                            style="width:54px; height: 54px;"
+                                                            class="align-middle rounded-circle elevation-1">
                                                     </div>
-                                                    <div class="btn-group">
-                                                        <button title="Payment Menu List" type="button"
-                                                            class="btn btn-xs btn-success dropdown-toggle"
-                                                            data-toggle="dropdown" aria-haspopup="true"
-                                                            aria-expanded="false">
-                                                            <i class="px-1  fa fa-list">
-                                                            </i>
-                                                        </button>
-                                                        <div class="dropdown-menu">
-                                                            <a class="dropdown-item mnu_show_payment"
-                                                                href="javascript:void(0);"
-                                                                pmt_batch_user_id="{{ $subscription->id }}"
-                                                                pmt_subscription_period="{{ $i }}"
-                                                                pmt_subscription_period_id="{{ $pmt_subscription_period_id }}"
-                                                                pmt_subscription_type="{{ $subscription->subscription_type }}"
-                                                                pmt_subscriber_name="{{ $subscription->subscriber_name }}"
-                                                                pmt_amount="{{ $pmt_amount }}"
-                                                                pmt_reciept_no="{{ $pmt_reciept_no }}"
-                                                                pmt_from_date="{{ $pmt_from_date }}"
-                                                                pmt_to_date="{{ $pmt_to_date }}"
-                                                                pmt_method="{{ $pmt_method }}"
-                                                                pmt_payment_date="{{ $pmt_payment_date }}">
-                                                                <i class="px-1  fa fa-list">
-                                                                </i><span> Detail</span>
-                                                            </a>
-                                                            <a class="dropdown-item mnu_edit_payment"
-                                                                pmt_id="{{ $pmt_id }}"
-                                                                pmt_batch_user_id="{{ $subscription->id }}"
-                                                                pmt_subscription_period="{{ $i }}"
-                                                                pmt_subscription_period_id="{{ $pmt_subscription_period_id }}"
-                                                                pmt_subscription_type="{{ $subscription->subscription_type }}"
-                                                                pmt_subscriber_name="{{ $subscription->subscriber_name }}"
-                                                                pmt_amount="{{ $pmt_amount }}"
-                                                                pmt_reciept_no="{{ $pmt_reciept_no }}"
-                                                                pmt_from_date="{{ $pmt_from_date }}"
-                                                                pmt_to_date="{{ $pmt_to_date }}"
-                                                                pmt_method="{{ $pmt_method }}"
-                                                                pmt_payment_date="{{ $pmt_payment_date }}"
-                                                                href="javascript:void(0);">
-                                                                <i class="px-1  fa fa-edit">
-                                                                </i><span> Edit</span>
-                                                            </a>
-
-                                                            <div class="dropdown-divider"></div>
-                                                            <a class="dropdown-item btn-remove-payment"
-                                                                pmt_batch_user_id="{{ $subscription->id }}"
-                                                                pmt_subscription_period_id="{{ $pmt_subscription_period_id }}"
-                                                                pmt_subscription_period="{{ $i }}"
-                                                                pmt_subscription_batch_id="{{ $subscription->batch_id }}"
-                                                                pmt_subscription_type="{{ $subscription->subscription_type }}"
-                                                                pmt_subscriber_name="{{ $subscription->subscriber_name }}"
-                                                                href="#"> <i class="px-1  fa fa-times">
-                                                                </i><span> Remove</a></span>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            @endif
-                                        @break ($payment->period_no == $i)
-
-                                    @endforeach
-
-                                    {{-- @endforeach --}}
-                                    @if (!$found)
-                                        {{-- <td scope="col" id="{{ $subscription->id . '-' . $i }}"
-                                                class="table-success align-middle">
-                                                <div class="text-center"
-                                                    style="margin-top: auto; margin-bottom: auto; align:middle;">
-                                                    <strong>{{ $pmt_amount . ' ' . $subscription->currency }}</strong>
-                                                </div>
-                                                <div class="btn-group">
-                                                    <button title="Payment Menu List" type="button"
-                                                        class="btn btn-xs btn-success dropdown-toggle"
-                                                        data-toggle="dropdown" aria-haspopup="true"
-                                                        aria-expanded="false">
-                                                        <i class="px-1  fa fa-list">
-                                                        </i>
-                                                    </button>
-                                                    <div class="dropdown-menu">
-                                                        <a class="dropdown-item mnu_show_payment"
-                                                            href="javascript:void(0);" pmt_id="{{ $pmt_id }}"
-                                                            pmt_batch_user_id="{{ $subscription->id }}"
-                                                            pmt_subscription_period="{{ $i }}"
-                                                            pmt_subscription_period_id="{{ $pmt_subscription_period_id }}"
-                                                            pmt_subscription_type="{{ $subscription->subscription_type }}"
-                                                            pmt_subscriber_name="{{ $subscription->subscriber_name }}"
-                                                            pmt_amount="{{ $pmt_amount }}"
-                                                            pmt_reciept_no="{{ $pmt_reciept_no }}"
-                                                            pmt_from_date="{{ $pmt_from_date }}"
-                                                            pmt_to_date="{{ $pmt_to_date }}"
-                                                            pmt_method="{{ $pmt_method }}"
-                                                            pmt_payment_date="{{ $pmt_payment_date }}">
-                                                            <i class="px-1  fa fa-list">
-                                                            </i><span> Detail</span>
-                                                        </a>
-                                                        <a class="dropdown-item mnu_edit_payment"
-                                                            pmt_id="{{ $pmt_id }}"
-                                                            pmt_batch_user_id="{{ $subscription->id }}"
-                                                            pmt_subscription_period="{{ $i }}"
-                                                            pmt_subscription_period_id="{{ $pmt_subscription_period_id }}"
-                                                            pmt_subscription_type="{{ $subscription->subscription_type }}"
-                                                            pmt_subscriber_name="{{ $subscription->subscriber_name }}"
-                                                            pmt_amount="{{ $pmt_amount }}"
-                                                            pmt_reciept_no="{{ $pmt_reciept_no }}"
-                                                            pmt_from_date="{{ $pmt_from_date }}"
-                                                            pmt_to_date="{{ $pmt_to_date }}"
-                                                            pmt_method="{{ $pmt_method }}"
-                                                            pmt_payment_date="{{ $pmt_payment_date }}"
-                                                            href="javascript:void(0);">
-                                                            <i class="px-1  fa fa-edit">
-                                                            </i><span> Edit</span>
-                                                        </a>
-
-                                                        <div class="dropdown-divider"></div>
-                                                        <a class="dropdown-item btn-remove-payment"
-                                                            pmt_batch_user_id="{{ $subscription->id }}"
-                                                            pmt_subscription_period_id="{{ $pmt_subscription_period_id }}"
-                                                            pmt_subscription_period="{{ $i }}"
-                                                            href="#"> <i class="px-1  fa fa-times">
-                                                            </i><span> Remove</a></span>
+                                                    <div class="info" style="display: grid;">
+                                                        <strong>{{ $subscription->subscriber_name }}</strong>
+                                                        <span
+                                                            class="d-none d-sm-block text-sm">{{ $subscription->subscriber->email }}</span>
+                                                        <span class="text-md mt-1">Joined at:</span>
+                                                        <span class="text-sm">{{ $subscription->created_at }}</span>
+                                                        <span
+                                                            class="text-xs text-muted">{{ $subscription->created_at->diffForHumans() }}</span>
                                                     </div>
                                                 </div>
+                                            </td>
+                                            <td class="align-middle">
+                                                <div class="text-center">
+                                                    @if ($subscription->approved)
+                                                        Approved
+                                                    @else
+                                                        <button type="button" class="btn btn-xs btn-success btn-approve"
+                                                            subscriptionid="{{ $subscription->id }}"><i class="fa fa-check">
+                                                            </i> Approve</button>
+                                                    @endif
+                                                </div>
+                                            </td>
+                                            <td class="align-middle">
+                                                <div class="text-center">
+                                                    @if ($subscription->active === 1)
+                                                        <a href="javascript:void(0);"
+                                                            class="text-cetner  text-lg btn-toggle-active active"
+                                                            subscriptionid="{{ $subscription->id }}">
+                                                            <i style="color: green;" class="fa fa-check"></i></a>
+                                                    @else
+                                                        <a href="javascript:void(0);"
+                                                            class="text-cetner  text-lg btn-toggle-active"
+                                                            subscriptionid="{{ $subscription->id }}">
+                                                            <i style="color: red;" class="fa fa-times"></i></a>
+                                                    @endif
+                                                </div>
+                                            </td>
+                                            {{-- <td>
                                             </td> --}}
-                                        @php
-                                            // $found = false;
-                                        @endphp
-                                        {{-- @else --}}
-                                        <td scope="col" id="{{ $subscription->id . '-' . $i }}"
-                                            class=" align-middle">
-                                            <button title="Add Payment Detail" type="button"
-                                                class="btn btn-sm btn-danger ml-2 btn_add_payment" data-toggle="modal"
-                                                data-target="#paymentModal"
-                                                data-batch_user_id="{{ $subscription->id }}"
-                                                data-batch_id="{{ $subscription->batch_id }}"
-                                                data-subscription_period="{{ $i }}"
-                                                data-subscription_type="{{ $subscription->subscription_type }}"
-                                                data-subscriber_name="{{ $subscription->subscriber_name }}">
+                                            {{-- {{ dd($subscription->max_period_no) }} --}}
+                                            @php
+                                                $subscription_periods = $batch->subscriptionPeriods;
 
-                                                <i class="fa fa-plus">
-                                                </i></button>
-                                        </td>
+                                            @endphp
+                                            @for ($i = 1; $i <= $subscription->max_period_no; $i++)
 
-                                    @endif
-                            @endfor
-                            <td class="align-middle"  id="total{{ $subscription->id }}">
-                                <strong>{{ $subscription->total_paid . ' ' . $subscription->currency }}</strong>
-                            </td>
-                            <td id="{{ $subscription->id }}">
-                                <div class="row">
+                                                @php
+                                                    $found = false;
+                                                @endphp
+                                                {{-- @foreach ($batch->subscriptionPeriods as $subscription_period) --}}
+                                                {{-- @if ($subscription_period->period_no == $i) --}}
+                                                {{-- @if ($payment->id) --}}
+                                                @foreach ($subscription->payment_history as $payment)
+                                                    @php
 
-                                </div>
+                                                        $pmt_id = '';
+                                                        $pmt_amount = 0;
+                                                        $pmt_reciept_no = '';
+                                                        $pmt_from_date = '';
+                                                        $pmt_to_Date = '';
+                                                        $pmt_method = '';
+                                                        $pmt_payment_date = '';
+                                                        $found = false;
+                                                    @endphp
+                                                    @if ($payment->period_no == $i)
+                                                        @php
+                                                            $pmt_id = $payment->id;
+                                                            $pmt_amount = $payment->amount;
+                                                            $pmt_reciept_no = $payment->reciept_no;
+                                                            $pmt_from_date = $payment->from_date;
+                                                            $pmt_to_date = $payment->to_date;
+                                                            $pmt_method = $payment->method;
+                                                            $pmt_payment_date = $payment->payment_date;
+                                                            $pmt_subscription_period_id = $payment->subscription_period_id;
+                                                            $found = true;
+                                                        @endphp
+                                                        {{-- @continue --}}
 
-                            </td>
-                            </tr>
+                                                        <td scope="col" id="{{ $subscription->id . '-' . $i }}"
+                                                            class="table-success align-middle">
+                                                            <div class="text-center"
+                                                                style="margin-top: auto; margin-bottom: auto; align:middle;">
+                                                                <strong>{{ $pmt_amount . ' ' . $subscription->currency }}</strong>
+                                                            </div>
+                                                            <div class="btn-group">
+                                                                <button title="Payment Menu List" type="button"
+                                                                    class="btn btn-xs btn-success dropdown-toggle"
+                                                                    data-toggle="dropdown" aria-haspopup="true"
+                                                                    aria-expanded="false">
+                                                                    <i class="px-1  fa fa-list">
+                                                                    </i>
+                                                                </button>
+                                                                <div class="dropdown-menu">
+                                                                    <a class="dropdown-item mnu_show_payment"
+                                                                        href="javascript:void(0);"
+                                                                        pmt_batch_user_id="{{ $subscription->id }}"
+                                                                        pmt_subscription_period="{{ $i }}"
+                                                                        pmt_subscription_period_id="{{ $pmt_subscription_period_id }}"
+                                                                        pmt_subscription_type="{{ $subscription->subscription_type }}"
+                                                                        pmt_subscriber_name="{{ $subscription->subscriber_name }}"
+                                                                        pmt_amount="{{ $pmt_amount }}"
+                                                                        pmt_reciept_no="{{ $pmt_reciept_no }}"
+                                                                        pmt_from_date="{{ $pmt_from_date }}"
+                                                                        pmt_to_date="{{ $pmt_to_date }}"
+                                                                        pmt_method="{{ $pmt_method }}"
+                                                                        pmt_payment_date="{{ $pmt_payment_date }}">
+                                                                        <i class="px-1  fa fa-list">
+                                                                        </i><span> Detail</span>
+                                                                    </a>
+                                                                    <a class="dropdown-item mnu_edit_payment"
+                                                                        pmt_id="{{ $pmt_id }}"
+                                                                        pmt_batch_user_id="{{ $subscription->id }}"
+                                                                        pmt_subscription_period="{{ $i }}"
+                                                                        pmt_subscription_period_id="{{ $pmt_subscription_period_id }}"
+                                                                        pmt_subscription_type="{{ $subscription->subscription_type }}"
+                                                                        pmt_subscriber_name="{{ $subscription->subscriber_name }}"
+                                                                        pmt_amount="{{ $pmt_amount }}"
+                                                                        pmt_reciept_no="{{ $pmt_reciept_no }}"
+                                                                        pmt_from_date="{{ $pmt_from_date }}"
+                                                                        pmt_to_date="{{ $pmt_to_date }}"
+                                                                        pmt_method="{{ $pmt_method }}"
+                                                                        pmt_payment_date="{{ $pmt_payment_date }}"
+                                                                        href="javascript:void(0);">
+                                                                        <i class="px-1  fa fa-edit">
+                                                                        </i><span> Edit</span>
+                                                                    </a>
 
-                @endforeach
-                </tbody>
-                </table>
+                                                                    <div class="dropdown-divider"></div>
+                                                                    <a class="dropdown-item btn-remove-payment"
+                                                                        pmt_batch_user_id="{{ $subscription->id }}"
+                                                                        pmt_subscription_period_id="{{ $pmt_subscription_period_id }}"
+                                                                        pmt_subscription_period="{{ $i }}"
+                                                                        pmt_subscription_batch_id="{{ $subscription->batch_id }}"
+                                                                        pmt_subscription_type="{{ $subscription->subscription_type }}"
+                                                                        pmt_subscriber_name="{{ $subscription->subscriber_name }}"
+                                                                        href="#"> <i class="px-1  fa fa-times">
+                                                                        </i><span> Remove</a></span>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    @endif
+                                                @break ($payment->period_no == $i)
+
+                                            @endforeach
+
+                                            {{-- @endforeach --}}
+                                            @if (!$found)
+                                                {{-- <td scope="col" id="{{ $subscription->id . '-' . $i }}"
+                                                        class="table-success align-middle">
+                                                        <div class="text-center"
+                                                            style="margin-top: auto; margin-bottom: auto; align:middle;">
+                                                            <strong>{{ $pmt_amount . ' ' . $subscription->currency }}</strong>
+                                                        </div>
+                                                        <div class="btn-group">
+                                                            <button title="Payment Menu List" type="button"
+                                                                class="btn btn-xs btn-success dropdown-toggle"
+                                                                data-toggle="dropdown" aria-haspopup="true"
+                                                                aria-expanded="false">
+                                                                <i class="px-1  fa fa-list">
+                                                                </i>
+                                                            </button>
+                                                            <div class="dropdown-menu">
+                                                                <a class="dropdown-item mnu_show_payment"
+                                                                    href="javascript:void(0);" pmt_id="{{ $pmt_id }}"
+                                                                    pmt_batch_user_id="{{ $subscription->id }}"
+                                                                    pmt_subscription_period="{{ $i }}"
+                                                                    pmt_subscription_period_id="{{ $pmt_subscription_period_id }}"
+                                                                    pmt_subscription_type="{{ $subscription->subscription_type }}"
+                                                                    pmt_subscriber_name="{{ $subscription->subscriber_name }}"
+                                                                    pmt_amount="{{ $pmt_amount }}"
+                                                                    pmt_reciept_no="{{ $pmt_reciept_no }}"
+                                                                    pmt_from_date="{{ $pmt_from_date }}"
+                                                                    pmt_to_date="{{ $pmt_to_date }}"
+                                                                    pmt_method="{{ $pmt_method }}"
+                                                                    pmt_payment_date="{{ $pmt_payment_date }}">
+                                                                    <i class="px-1  fa fa-list">
+                                                                    </i><span> Detail</span>
+                                                                </a>
+                                                                <a class="dropdown-item mnu_edit_payment"
+                                                                    pmt_id="{{ $pmt_id }}"
+                                                                    pmt_batch_user_id="{{ $subscription->id }}"
+                                                                    pmt_subscription_period="{{ $i }}"
+                                                                    pmt_subscription_period_id="{{ $pmt_subscription_period_id }}"
+                                                                    pmt_subscription_type="{{ $subscription->subscription_type }}"
+                                                                    pmt_subscriber_name="{{ $subscription->subscriber_name }}"
+                                                                    pmt_amount="{{ $pmt_amount }}"
+                                                                    pmt_reciept_no="{{ $pmt_reciept_no }}"
+                                                                    pmt_from_date="{{ $pmt_from_date }}"
+                                                                    pmt_to_date="{{ $pmt_to_date }}"
+                                                                    pmt_method="{{ $pmt_method }}"
+                                                                    pmt_payment_date="{{ $pmt_payment_date }}"
+                                                                    href="javascript:void(0);">
+                                                                    <i class="px-1  fa fa-edit">
+                                                                    </i><span> Edit</span>
+                                                                </a>
+
+                                                                <div class="dropdown-divider"></div>
+                                                                <a class="dropdown-item btn-remove-payment"
+                                                                    pmt_batch_user_id="{{ $subscription->id }}"
+                                                                    pmt_subscription_period_id="{{ $pmt_subscription_period_id }}"
+                                                                    pmt_subscription_period="{{ $i }}"
+                                                                    href="#"> <i class="px-1  fa fa-times">
+                                                                    </i><span> Remove</a></span>
+                                                            </div>
+                                                        </div>
+                                                    </td> --}}
+                                                @php
+                                                    // $found = false;
+                                                @endphp
+                                                {{-- @else --}}
+                                                <td scope="col" id="{{ $subscription->id . '-' . $i }}"
+                                                    class=" align-middle">
+                                                    <button title="Add Payment Detail" type="button"
+                                                        class="btn btn-sm btn-danger ml-2 btn_add_payment" data-toggle="modal"
+                                                        data-target="#paymentModal"
+                                                        data-batch_user_id="{{ $subscription->id }}"
+                                                        data-batch_id="{{ $subscription->batch_id }}"
+                                                        data-subscription_period="{{ $i }}"
+                                                        data-subscription_type="{{ $subscription->subscription_type }}"
+                                                        data-subscriber_name="{{ $subscription->subscriber_name }}">
+
+                                                        <i class="fa fa-plus">
+                                                        </i></button>
+                                                </td>
+
+                                            @endif
+                                    @endfor
+                                    <td class="align-middle"  id="total{{ $subscription->id }}">
+                                        <strong>{{ $subscription->total_paid . ' ' . $subscription->currency }}</strong>
+                                    </td>
+                                    <td id="{{ $subscription->id }}">
+                                        <div class="row">
+
+                                        </div>
+
+                                    </td>
+                                    </tr>
+
+                            @endforeach
+                            </tbody>
+                            </table>
+                        </div>
+                    </div>
                 @endif
             </div>
 

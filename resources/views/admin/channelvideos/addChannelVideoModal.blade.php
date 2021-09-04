@@ -31,7 +31,7 @@
                 <input type="file" name="image_input" class="form-control-file" id="image_input" />
                 <div class="card" id="imgPreviewCard" style="display: none;">
                   <div class="card-body">
-                    <img id="imgPreview" src="#" alt="your image" style="display:none; max-width:100px; height: auto;" />
+                    <img id="imgPreview" src="#" alt="your image" style="border-radius: 8px; display:none; max-width:250px; height: auto;" />
                   </div>
                 </div>
                 <span id="imgDetails" style=""></span>

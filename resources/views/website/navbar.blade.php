@@ -20,9 +20,9 @@
                 {{-- <li class="nav-item">
                     <a href="#" class="nav-link">Contact</a>
                 </li> --}}
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a href="{{ route('user.home') }}" class="nav-link">{{ __('Addmes') }}</a>
-                </li>
+                </li> --}}
 
                 <!-- Navbar Search -->
                 {{-- <li class="nav-item">

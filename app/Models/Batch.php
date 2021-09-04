@@ -38,6 +38,7 @@ class Batch extends Model
         // 'starts_on_date_formated',
         'subscription_type_name',
         'max_period_no',
+        'max_period_name',
         'subscribers_count',
         'subscription_periods',
     ];
@@ -58,6 +59,12 @@ class Batch extends Model
     public function getMaxPeriodNoAttribute($value)
     {
         return $this->maxPeriodNo();
+    }
+
+
+    public function getMaxPeriodNameAttribute($value)
+    {
+        return $this->maxPeriodName();
     }
 
     public function getStartsOnDateAttribute($value)
@@ -134,7 +141,7 @@ class Batch extends Model
     }
 
     /**
-     * Get the current pricing for the product.
+     * Get the last period no for the batch.
      */
     public function maxPeriodNo()
     {
@@ -149,6 +156,18 @@ class Batch extends Model
             // 'price_max' => $prices_max->max('pivot_price_max'),
         ];
         // return $subscription_period->subscription_period_id;
+    }
+
+
+    /**
+     * Get the last Period name for the batch.
+     */
+    public function maxPeriodName()
+    {
+        $periods = SubscriptionPeriod::where('batch_id', $this->id);
+        return Batch::find($this->id)->subscriptionPeriods()->where('period_no', max($periods->pluck('period_no')->toArray()))->value('name');
+
+
     }
 
     public function subscribersCount()

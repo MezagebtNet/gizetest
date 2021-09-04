@@ -58,13 +58,31 @@
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset('vendors/admin/plugins/summernote/summernote-bs4.min.css') }}">
 
-    @yield('styles')
 
+    @yield('styles')
+    <style>
+        .dark-mode .table-success{
+            color: rgb(32, 32, 32);
+        }
+        .dark-mode .table-striped tbody tr {
+            background-color: #343a40 !important;
+
+        }
+        .dark-mode .table-striped tbody th{
+            background-color: #343a40c0 !important;
+        }
+        .dark-mode .table.DTFC_Cloned tr {
+            background-color: #343a40;
+            margin-bottom: 0;
+        }
+    </style>
     @include('layouts.scripts.notification_styles')
 
 </head>
 
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="
+{{ auth()->user()->theme_preference == 'dark-mode' ? 'dark-mode' : '' }}
+hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
 
         <!-- Preloader -->
@@ -180,6 +198,7 @@
     @stack('scripts_js')
 
     @include('layouts.scripts.notification_scripts');
+    @include('layouts.scripts.userpreference_scripts');
 
 
     @yield('js')

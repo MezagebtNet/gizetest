@@ -17,14 +17,8 @@
     </script>
 
 
-
-
     {{-- <script src="{{ asset('assets/js/dist/echo.iife.js') }}"></script> --}}
     <script src="{{ mix('js/app.js') }}" defer></script>
-
-
-
-
 
 
     <title>{{ config('app.name', 'Gize') }}</title>
@@ -66,6 +60,8 @@
         href="{{ asset('vendors/admin/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
     <!-- Daterange picker -->
     <link rel="stylesheet" href="{{ asset('vendors/admin/plugins/daterangepicker/daterangepicker.css') }}">
+    <!-- iCheck for checkboxes and radio inputs -->
+    <link rel="stylesheet" href="{{ asset('vendors/admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset('vendors/admin/plugins/summernote/summernote-bs4.min.css') }}">
 
@@ -114,7 +110,7 @@
 </head>
 
 <body class="
-dark-mode
+{{ auth()->user()->theme_preference == 'dark-mode' ? 'dark-mode' : '' }}
 hold-transition layout-top-nav layout-navbar-fixed layout-footer-fixed">
     <!-- Preloader -->
     <div style="display:none;" class="preloader dark-mode flex-column justify-content-center align-items-center">
@@ -218,14 +214,7 @@ hold-transition layout-top-nav layout-navbar-fixed layout-footer-fixed">
                 $('.input-group #search_param').val(param);
             });
         });
-        var a = document.getElementByTagName('a').item(0);
-        $(a).on('keyup', function(evt) {
-            console.log(evt);
-            if (evt.keycode === 13) {
 
-                alert('search?');
-            }
-        });
 
         $("input[data-bootstrap-switch]").each(function(){
             $(this).bootstrapSwitch('state', $(this).prop('checked'));
@@ -234,6 +223,7 @@ hold-transition layout-top-nav layout-navbar-fixed layout-footer-fixed">
 
 
     @include('layouts.scripts.notification_scripts');
+    @include('layouts.scripts.userpreference_scripts');
 </body>
 
 </html>

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Gate;
 use SPatie\Permission\Models\Role;
 use Symfony\Component\HttpFoundation\Response;
 
+
 class UsersController extends Controller
 {
     use SoftDeletes;
@@ -133,5 +134,8 @@ class UsersController extends Controller
 
 
     }
+
+
+
 
 }

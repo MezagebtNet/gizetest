@@ -13,7 +13,7 @@
         @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
 
                 <a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}"
-                    class="dropdown-item {{ (LaravelLocalization::getCurrentLocale() == $localeCode) ? 'active': '' }}">
+                    class="dropdown-item select-lang {{ (LaravelLocalization::getCurrentLocale() == $localeCode) ? 'active': '' }}">
                     <i class="flag-icon flag-icon-{{ $localeCode == 'en' ? 'us' : 'et' }} mr-2"></i> {{ $properties['native'] }}
                 </a>
         @endforeach

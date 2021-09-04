@@ -1,10 +1,34 @@
-$batch_id = 2;
-$batch_user_id = 4;
-$subscription_period_id = 22;
+User::all()
+Batch::find(1)
+Batch::find(2)
+Batch::find(2)->subscriptionPeriods()->get();
+Batch::find(2)->subscriptionPeriods()->get()->max('period_no');
+Batch::find(2)->subscriptionPeriods()->get()->where(ma;
+Batch::find(2)->subscriptionPeriods()->get();
+Batch::find(2)->subscriptionPeriods()->get()->where('id', 8);
+Batch::find(2)->subscriptionPeriods()->get()->where('period_no', max('period_no');
+Batch::find(2)->subscriptionPeriods()->get()->where('period_no', max('period_no'));
+Batch::find(2)->subscriptionPeriods()->get()->where('period_no', max('period_no'))->get();
+Batch::find(2)->subscriptionPeriods()->where('period_no', max('period_no'))->get();
+Batch::find(2)->subscriptionPeriods()->get()->where('period_no', max('period_no'));
+Batch::find(2)->subscriptionPeriods()->get()->where('period_no', max('period_no')->get());
+Batch::find(2)->subscriptionPeriods()->get()->where('period_no', '=',max('period_no'));
+Batch::find(2)->subscriptionPeriods()->get()->where('period_no', max(period_no));
+Batch::find(2)->subscriptionPeriods()->get()->where('period_no', max([1,2,3,4]));
+$periods = SubscriptionPeriod::where('batch_id', 2);
+Batch::find(2)->subscriptionPeriods()->get()->where('period_no', max($periods->pluck('id')));
+$periods = SubscriptionPeriod::where('batch_id', 2);
+Batch::find(2)->subscriptionPeriods()->get()->where('period_no', max($periods->pluck('id')->toArray()));
+$periods = SubscriptionPeriod::where('batch_id', 2);
 
-$batch = new Batch();
-$batch_id = 2;
-$batch_user_id = 4;
-$subscription_period_id = 22;
-
-$batch = new Batch();
+$periods->pluck('id')->toArray()
+$periods = SubscriptionPeriod::where('batch_id', 2);
+Batch::find(2)->subscriptionPeriods()->get()->where('period_no', max($periods->pluck('period_no')->toArray()));
+$periods = SubscriptionPeriod::where('batch_id', 2);
+Batch::find(2)->subscriptionPeriods()->get()->where('period_no', max(pluck('period_no')->toArray()));
+$periods = SubscriptionPeriod::where('batch_id', 2);
+Batch::find(2)->subscriptionPeriods()->get()->where('period_no', max($periods->pluck('period_no')->toArray()));
+$periods = SubscriptionPeriod::where('batch_id', 2);
+Batch::find(2)->subscriptionPeriods()->get()->where('period_no', max($periods->pluck('period_no')->toArray()))->value('name');
+$periods = SubscriptionPeriod::where('batch_id', 2);
+Batch::find(2)->subscriptionPeriods()->where('period_no', max($periods->pluck('period_no')->toArray()))->value('name');

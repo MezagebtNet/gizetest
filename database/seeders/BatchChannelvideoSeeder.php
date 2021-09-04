@@ -36,8 +36,8 @@ class BatchChannelvideoSeeder extends Seeder
 
                 $batch->channelvideos()->attach($channelvideo_ids,
                     [
-                        'starts_at' => $starts_at = $faker->dateTimeBetween('-1 week', '+1 week')->format('Y-m-d H:i:s'),
-                        'ends_at' => Date::createFromFormat('Y-m-d H:i:s', $starts_at)->add('1 day')->format('Y-m-d H:i:s'),
+                        'starts_at' => $starts_at = $faker->dateTimeBetween('-4 week', '1 day')->format('Y-m-d H:i:s'),
+                        'ends_at' => Date::createFromFormat('Y-m-d H:i:s', $starts_at)->add('5 day')->format('Y-m-d H:i:s'),
                     ]
                 );
 

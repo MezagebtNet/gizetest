@@ -23,8 +23,12 @@ class CreateUsersTable extends Migration
             $table->foreignId('current_team_id')->nullable();
 $table->string('profile_photo_path', 2048)->nullable();
 
-            $table->timestamps();
+$table->string('language_preference', 15)->nullable()->default('en'); //en - English, am - Amharic, ...
+$table->string('theme_preference', 15)->nullable()->default('light-mode'); //light - Light-Mode, dark - Dark-Mode, ...
 $table->softDeletes();
+
+$table->timestamps();
+
 
         });
 
@@ -35,6 +39,7 @@ Schema::table('users', function (Blueprint $table) {
     $table->bigInteger('shop_manager_id')->nullable();
     // $table->string('email')->nullable()->change();
 });
+
 
     }
 
