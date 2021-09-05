@@ -1,7 +1,7 @@
 <a class="channel-card-link" href={{ route('channel.landing', $slug) }}>
     <div class="mx-2 mx-xs-2">
 
-        <article class="position-relative card card-body channel-card grow" style="border-radius: 16px;">
+        <article class="position-relative card card-body channel-card grow" style="">
             {{-- <div class="ribbon-wrapper ribbon-lg">
                 <div class="ribbon bg-succondary text-lg">
                   አዲስ ተጭኗል

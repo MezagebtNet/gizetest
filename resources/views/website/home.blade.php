@@ -26,6 +26,27 @@
             text-decoration: none;
             color: black;
         }
+        .channel-card {
+            min-height: 230px;
+            max-height: 230px;
+            /* margin: 0 auto; */
+            /* Added */
+            float: none;
+            /* Added */
+            margin-bottom: 10px;
+            /* Added */
+        }
+
+         article.card-body  {
+            border-radius: 16px;
+            border: 1px solid #c3c3c3;
+            background-color: #fff;
+        }
+
+        .dark-mode .channel-card  {
+            border-radius: 16px;
+            border: 1px solid #545454;
+        }
 
     </style>
     {{-- <style>
@@ -82,8 +103,8 @@
     {{-- <div class="row"> --}}
     {{-- <div class="d-flex justify-content-center"> --}}
 
-    <div class="container mb-4">
-        <div class="row mt-4">
+    <div class="container pb-4">
+        <div class="row pt-4">
             <div class="col">
                 <h2 class="mb-4">{{ __('Gize Channels') }}</h2>
             </div>

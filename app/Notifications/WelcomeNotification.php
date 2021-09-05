@@ -28,8 +28,9 @@ class WelcomeNotification extends Notification
      */
     public function via($notifiable)
     {
-return ['database'];
-// return ['database', 'broadcast'];
+// return ['database'];
+return ['database', 'broadcast'];
+
 
     }
 

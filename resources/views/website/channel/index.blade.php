@@ -42,16 +42,7 @@
             max-width: 22rem;
         }
 
-        .channel-card {
-            min-width: 200px;
-            max-width: 200px;
-            /* margin: 0 auto; */
-            /* Added */
-            float: none;
-            /* Added */
-            margin-bottom: 10px;
-            /* Added */
-        }
+
 
         .channel-title {
             color: aliceblue;

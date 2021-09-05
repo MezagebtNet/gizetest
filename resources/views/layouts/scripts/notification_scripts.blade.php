@@ -19,10 +19,10 @@
         disableStats: false,
     });
 
-    window.Echo.channel('App.Models.User.'+ "{{ auth()->user()->id }}")
-    .listen('your-event-class', (e) => {
-            console.log(e)
-    });
+    // window.Echo.channel('App.Models.User.'+ "{{ auth()->user()->id }}")
+    // .listen('your-event-class', (e) => {
+    //         console.log(e)
+    // });
 
 
 
