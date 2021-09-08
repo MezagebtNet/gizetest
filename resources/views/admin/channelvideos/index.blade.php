@@ -14,7 +14,7 @@
 
 @section('breadcrumb')
 		<li class="breadcrumb-item"><a href="{{ route('admin.home') }}">Admin</a></li>
-		<li class="breadcrumb-item active">Addmes - Channel Videos</li>
+		<li class="breadcrumb-item active">{{ $gize_channel->name }} - Channel Videos</li>
 @endsection
 
 
@@ -41,8 +41,8 @@
 							<a href="#"  class="btn btn-xs btn-secondary" data-toggle="modal" data-target="#channelvideoModal"><i class="fa fa-plus"> </i> Add New</a>
 
 						</div>
-						<div class="card-body">
-							<table id="channelvideoTable" class="table table-striped table-hover table-sm table-responsive-sm table-responsive-md">
+						<div class="card-body" style="min-width: 850px; overfloww-s:scroll;">
+							<table id="channelvideoTable" class="table table-striped table-hover table-sm  table-responsive-md">
 								<thead>
 									<tr>
 										<th scope="col"><input type="checkbox" id="chkCheckAll" /></th>
@@ -146,7 +146,7 @@
 	<!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
 	<!-- <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script> -->
 
-	<script src="https://vjs.zencdn.net/7.11.4/video.min.js"></script>
+	{{-- <script src="https://vjs.zencdn.net/7.11.4/video.min.js"></script> --}}
 
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/resumable.js/1.1.0/resumable.min.js"></script>
@@ -256,8 +256,8 @@
 				$('#imgDetails_ed').html('');
 				$('#imgPreviewCard_ed').hide();
 			}
-			//Add New ChannelVideo
 
+			//Add New ChannelVideo
 			$(function readURL(input){
 				var url = $("#image_input").val();
 				var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
@@ -293,11 +293,17 @@
 				var button = $(event.relatedTarget) // Button that triggered the modal
 				let id = button.attr('channelvideoid');
 				// $('#btn-delete-channelvideo').attr('channelvideoid', id);
-				let url = '{{ route("admin.manage.channelvideo.getById", ":id") }}' ;
+
+				let url = "{{ route('admin.manage.channelvideo.getById', ['gize_channel_id' => ':gize_channel_id', 'id' => ':id']) }}";
+				let gize_channel_id = "{{ $gize_channel->id }}";
+				url = url.replace(':gize_channel_id', gize_channel_id);
 				url = url.replace(':id', id);
+
+				let modal = $(this);
 
 				$.get(url, function(channelvideo) {
 					$('#channelvideo_id').val(channelvideo.id);
+
 					modal.find('.modal-title').text('Upload Channel Video (ID: ' + channelvideo.id +')' )
 
 					if(channelvideo.hls_uploaded){
@@ -331,6 +337,7 @@
 					}
 					else {
 						//Show file upload form...
+						console.log(channelvideo.hls_uploaded);
 
 						// $('#videoStreamUploader').show();
 						$('#resumable-stream-browse').show();
@@ -406,7 +413,9 @@
 				if(confirm("Do you want to delete the channel video stream files?")){
 					//Delete channelvideo stream files for $channelvideoid.....
 
-					let url = '{{ route("admin.manage.channelvideo.deletehls", ":id") }}' ;
+					let gize_channel_id = "{{ $gize_channel->id }}";
+					let url = "{{ route('admin.manage.channelvideo.deletehls', ['gize_channel_id' => ':gize_channel_id', 'id' => ':id']) }}";
+					url = url.replace(':gize_channel_id', gize_channel_id);
 					url = url.replace(':id', channelvideoid);
 
 					$.ajax(
@@ -450,12 +459,16 @@
 
 			$(document).on('click', '#resumable-keys-delete', function(e){
 				e.preventDefault();
-				let channelvideoid = $('#channelvideo_id').val();
 				if(confirm("Do you want to delete keys for this channelvideo?")){
 					//Delete channelvideo key files for $channelvideoid.....
+					let channelvideoid = $('#channelvideo_id').val();
+					// alert(channelvideoid);
 
-					let url = '{{ route("admin.manage.channelvideo.deletekeys", ":id") }}' ;
+					let gize_channel_id = "{{ $gize_channel->id }}";
+					let url = "{{ route('admin.manage.channelvideo.deletekeys', ['gize_channel_id' => ':gize_channel_id', 'id' => ':id']) }}";
+					url = url.replace(':gize_channel_id', gize_channel_id);
 					url = url.replace(':id', channelvideoid);
+					// alert(url);
 
 					$.ajax(
 						{
@@ -496,8 +509,6 @@
 			});
 
 
-
-
 			$('#channelvideoUploadForm').submit(function(e){
 				e.preventDefault();
 
@@ -505,9 +516,12 @@
 				// formData.append("channelvideoid", );
 
 				// let channelvideo_file_input = $('#channelvideo_file_input').val();
+				let gize_channel_id = "{{ $gize_channel->id }}";
+				let url = "{{ route('admin.manage.channelvideo.upload.post', ['gize_channel_id' => ':gize_channel_id']) }}";
+				url = url.replace(':gize_channel_id', gize_channel_id);
 
 				$.ajax({
-					url: "{{route('admin.manage.channelvideo.upload.post')}}",
+					url: url,
 					type: "POST",
 					data: formData,
 					contentType: false,
@@ -585,9 +599,12 @@
 				formData.append("description", description);
 				formData.append("_token", _token);
 
+				let gize_channel_id = "{{ $gize_channel->id }}";
+				let url = "{{ route('admin.manage.channelvideo.add', ['gize_channel_id' => ':gize_channel_id']) }}";
+				url = url.replace(':gize_channel_id', gize_channel_id);
 
 				$.ajax({
-					url: "{{route('admin.manage.channelvideo.add')}}",
+					url: url,
 					type: "POST",
 					data: formData,
 					contentType: false,
@@ -737,8 +754,12 @@
 					_token: _token
 				};
 
+				let gize_channel_id = "{{ $gize_channel->id }}";
+				let url = "{{ route('admin.manage.channelvideo.update', ['gize_channel_id' => ':gize_channel_id']) }}";
+				url = url.replace(':gize_channel_id', gize_channel_id);
+
 				$.ajax({
-					url: "{{route('admin.manage.channelvideo.update')}}",
+					url: url,
 					type: "POST",
 					data: formData,
 					contentType: false,
@@ -840,8 +861,11 @@
 				$('#btn-delete-cover-image').attr('channelvideoid', id);
 				var modal = $(this);
 				modal.find('.modal-title').text('Edit Channel Video (ID:' + id + ')');
-				let url = '{{ route("admin.manage.channelvideo.getById", ":id") }}' ;
+				let gize_channel_id = "{{ $gize_channel->id }}";
+				let url = "{{ route('admin.manage.channelvideo.getById', ['gize_channel_id' => ':gize_channel_id', 'id' => ':id']) }}";
+				url = url.replace(':gize_channel_id', gize_channel_id);
 				url = url.replace(':id', id);
+
 				$.get(url, function(channelvideo) {
 					$('#id').val(channelvideo.id);
 					$('#title_ed').val(channelvideo.title);
@@ -880,8 +904,9 @@
 			$(document).on('click', '.btn-delete', function(){
 				let id = $(this).attr('channelvideoid');
 				// alert(id);
-
-				let url = "{{ route('admin.manage.channelvideo.delete', ':id') }}"
+				let gize_channel_id = "{{ $gize_channel->id }}";
+				let url = "{{ route('admin.manage.channelvideo.delete', ['gize_channel_id' => ':gize_channel_id', 'id' => ':id']) }}";
+				url = url.replace(':gize_channel_id', gize_channel_id);
 				url = url.replace(":id", id);
 				// alert(url);
 
@@ -930,8 +955,12 @@
 							allids.push($(this).val());
 						});
 
+						let gize_channel_id = "{{ $gize_channel->id }}";
+						let url = "{{ route('admin.manage.channelvideo.deleteSelected', ['gize_channel_id' => ':gize_channel_id']) }}";
+						url = url.replace(':gize_channel_id', gize_channel_id);
+
 						$.ajax({
-							url: "{{route('admin.manage.channelvideo.deleteSelected')}}",
+							url: url,
 							type: 'DELETE',
 							data: {
 								_token: $("input[name=_token]").val(),
@@ -964,7 +993,9 @@
 					_token: _token
 				};
 				// alert(JSON.stringify(data));
-				let routeUrl = (isActive) ? "{{route('admin.manage.channelvideo.deactivate')}}" : "{{route('admin.manage.channelvideo.activate')}}";
+				let routeUrl = (isActive) ? "{{route('admin.manage.channelvideo.deactivate', ['gize_channel_id' => ':gize_channel_id'])}}" : "{{route('admin.manage.channelvideo.activate', ['gize_channel_id' => ':gize_channel_id'])}}";
+				let gize_channel_id = "{{ $gize_channel->id }}";
+				routeUrl = routeUrl.replace(':gize_channel_id', gize_channel_id);
 
 				$.ajax({
 					url: routeUrl,
@@ -1048,7 +1079,13 @@
 			let usr_id = $(this).attr('lv_usr_id');
 			let lv_id = $(this).attr('lv_id');
 
-			$.post('{{ route("admin.manage.channelvideo.revokeaccess") }}',
+			let gize_channel_id = "{{ $gize_channel->id }}";
+			let url = "{{ route('admin.manage.channelvideo.revokeaccess', ['gize_channel_id' => ':gize_channel_id']) }}";
+			url = url.replace(':gize_channel_id', gize_channel_id);
+
+
+
+			$.post(url,
 				{
 					_token : $("input[name=_token]").val(),
 						vid_id: lv_id,
@@ -1070,7 +1107,11 @@
 			let usr_id = $(this).attr('lv_usr_id');
 			let lv_id = $(this).attr('lv_id');
 
-			$.post('{{ route("admin.manage.channelvideo.allowaccess") }}',
+			let gize_channel_id = "{{ $gize_channel->id }}";
+			let url = "{{ route('admin.manage.channelvideo.allowaccess', ['gize_channel_id' => ':gize_channel_id']) }}";
+			url = url.replace(':gize_channel_id', gize_channel_id);
+
+			$.post(url,
 				{
 					_token : $("input[name=_token]").val(),
 						vid_id: lv_id,
@@ -1097,9 +1138,9 @@
 			var button = $(event.relatedTarget) // Button that triggered the modal
 			let id = button.attr('channelvideoid');
 
-			let url = '{{ route("admin.manage.channelvideo.accesslist") }}' ;
-
-			// url = url.replace(':id', id);
+			let gize_channel_id = "{{ $gize_channel->id }}";
+			let url = "{{ route('admin.manage.channelvideo.accesslist', ['gize_channel_id' => ':gize_channel_id']) }}";
+			url = url.replace(':gize_channel_id', gize_channel_id);
 
 			$.post(url, { vid_id: id})
 				.done(function (channelvideo) {
@@ -1217,7 +1258,9 @@
 
 
 						let id = $("#channelvideo_id").val();
-						let url = '{{ route("admin.manage.channelvideo.getById", ":id") }}' ;
+						let gize_channel_id = "{{ $gize_channel->id }}";
+						let url = "{{ route('admin.manage.channelvideo.deletehls', ['gize_channel_id' => ':gize_channel_id', 'id' => ':id']) }}";
+						url = url.replace(':gize_channel_id', gize_channel_id);
 						url = url.replace(':id', id);
 
 						$.get(url, function(channelvideo) {
@@ -1361,7 +1404,9 @@
 
 
 						let id = $("#channelvideo_id").val();
-						let url = '{{ route("admin.manage.channelvideo.getById", ":id") }}' ;
+						let gize_channel_id = "{{ $gize_channel->id }}";
+						let url = "{{ route('admin.manage.channelvideo.getById', ['gize_channel_id' => ':gize_channel_id', 'id' => ':id']) }}";
+						url = url.replace(':gize_channel_id', gize_channel_id);
 						url = url.replace(':id', id);
 
 						$.get(url, function(channelvideo) {

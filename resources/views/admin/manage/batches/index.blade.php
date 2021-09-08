@@ -31,7 +31,7 @@ Channel Batches Management Page
 
 @section('breadcrumb')
 <li class="breadcrumb-item"><a href="{{ route('admin.home') }}">Admin</a></li>
-<li class="breadcrumb-item active">Addmes - Batches</li>
+<li class="breadcrumb-item active">{{ $gize_channel->name }} - Batches</li>
 @endsection
 
 @section('navbar')
@@ -56,7 +56,7 @@ Channel Batches Management Page
     <div class="col-sm-12  order-sm-1">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Batch Settings </h3>
+                <h3 class="card-title">Batch List </h3>
                 <!-- Button trigger modal -->
                 {{-- <button type="button" class="btn btn-xs ml-2 btn-secondary" data-toggle="modal"
                         data-target="#currencyCreateModal">
@@ -65,7 +65,7 @@ Channel Batches Management Page
                 {{-- <button type="button" class="btn btn-xs btn-secondary ml-2" data-toggle="modal"
                         data-target="#batchModal"><i class="fa fa-plus"> </i> Add New</button> --}}
 
-                <a href="{{ route('admin.manage.batch.addform') }}" class="btn ml-2 btn-xs btn-primary"><i
+                <a href="{{ route('admin.manage.batch.addform', $gize_channel->id) }}" class="btn ml-2 btn-xs btn-primary"><i
                         class="fa fa-plus"> </i> ADD FORM </a>
                 <div class="card-tools">
 
@@ -104,13 +104,13 @@ Channel Batches Management Page
                                     <th scope="row"> {{ $batch->id }}</th>
                                     <td>{{ $batch->code_name }}</td>
                                     <td>{{ $batch->description }}</td>
-                                    <td>{{ $batch->starts_on_date }}</td>
+                                    <td>{{ $batch->starts_on_date_formated }}</td>
                                     <td>{{ $batch->payment_fee }}</td>
                                     <td>{{ $batch->currency }}</td>
                                     <td>{{ $batch->subscription_type_name }}</td>
                                     <td><span class="text-info text-sm"><i class="far fa-dot-circle"></i>
                                             {{ $batch->status_name }}</span></td>
-                                    <td class="mx-auto bg-white px-2 text-right " style="width: 400px;"
+                                    <td class="mx-auto px-2 text-right " style="width: 400px;"
                                         id="{{ $batch->id }}">
                                         <div class="text-center">
 
@@ -126,7 +126,7 @@ Channel Batches Management Page
                                                         class="fa fa-edit"></i>
                                                     Edit</button> --}}
 
-                                            <a href="{{ route('admin.manage.batch.editform', $batch->id) }}"
+                                            <a href="{{ route('admin.manage.batch.editform', ['gize_channel_id' => $gize_channel->id, 'id' => $batch->id]) }}"
                                                 class="btn btn-xs btn-success"><i class="fa fa-edit"></i> EDIT </a>
 
                                             <button batchid="{{ $batch->id }}"
@@ -302,9 +302,12 @@ Channel Batches Management Page
 
         formData.append("_token", _token);
 
+        let url = "{{ route('admin.manage.batch.add', ':gize_channel_id') }}";
+        let gize_channel_id = "{{ $gize_channel->id }}";
+        url = url.replace(':gize_channel_id', gize_channel_id);
 
         $.ajax({
-            url: "{{ route('admin.manage.batch.add') }}",
+            url: url,
             type: "POST",
             data: formData,
             contentType: false,
@@ -419,8 +422,12 @@ Channel Batches Management Page
         formData.append("status", status);
 
 
+        let url = "{{ route('admin.manage.batch.update', ':gize_channel_id') }}";
+        let gize_channel_id = "{{ $gize_channel->id }}";
+        url = url.replace(':gize_channel_id', gize_channel_id);
+
         $.ajax({
-            url: "{{ route('admin.manage.batch.update') }}",
+            url: url,
             type: "POST",
             data: formData,
             contentType: false,
@@ -518,8 +525,10 @@ Channel Batches Management Page
     //Delete Batch Meta and its related files
     $(document).on('click', '.btn-delete', function() {
         let id = $(this).attr('batchid');
-        url = "{{ route('admin.manage.batch.delete', ':id') }}";
+        url = "{{ route('admin.manage.batch.delete', ['gize_channel_id' => ':gize_channel_id', 'id' => ':id']) }}";
+        gize_channel_id = "{{ $gize_channel->id }}";
         url = url.replace(':id', id);
+        url = url.replace(':gize_channel_id', gize_channel_id);
         el = $(this);
 
 
@@ -575,17 +584,29 @@ Channel Batches Management Page
                 allids.push($(this).val());
             });
 
+
+            let url = "{{ route('admin.manage.batch.deleteSelected', ':gize_channel_id') }}";
+            let gize_channel_id = "{{ $gize_channel->id }}";
+            url = url.replace(':gize_channel_id', gize_channel_id);
+
             $.ajax({
-                url: "{{ route('admin.manage.batch.deleteSelected') }}",
+                url: url,
                 type: 'DELETE',
                 data: {
                     _token: $("input[name=_token]").val(),
                     ids: allids
                 },
                 success: function(response) {
+                    let table = $('#batchTable').DataTable();
+
                     $.each(allids, function(key, val) {
                         console.log(val);
-                        $('#batchid' + val).remove();
+                        // $('#batchid' + val).remove();
+
+                        var row = table.row($('#batchid' + val));
+                        var rowNode = row.node();
+                        row.remove().draw();
+
                     });
                     Swal.fire({
                         position: 'top-end',

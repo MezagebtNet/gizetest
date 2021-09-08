@@ -35,7 +35,7 @@ class Batch extends Model
     protected $appends = [
         // 'status',
         'status_name',
-        // 'starts_on_date_formated',
+        'starts_on_date_formated',
         'subscription_type_name',
         'max_period_no',
         'max_period_name',
@@ -45,10 +45,15 @@ class Batch extends Model
 
     public function getSubscriptionPeriodsAttribute($value)
     {
-        if($this->id){
-            return Batch::find($this->id)->subscriptionPeriods()->get();
+        try {
+            if($this->id){
+                return Batch::find($this->id)->subscriptionPeriods()->get();
+            }
+        } catch (\Throwable $th) {
+            // throw $th;
         }
-        return [];
+
+        return collect([]);
     }
 
     public function getSubscribersCountAttribute($value)
@@ -67,10 +72,12 @@ class Batch extends Model
         return $this->maxPeriodName();
     }
 
-    public function getStartsOnDateAttribute($value)
+    public function getStartsOnDateFormatedAttribute($value)
     {
         // $value = $this->starts_on_date;
-        $fmtDate = Carbon::parse($value)->format('d-m-Y h:m a');
+        // $fmtDate = Carbon::parse($this->starts_on_date)->format('Y-m-d h:m A');
+
+        $fmtDate = Carbon::createFromFormat('Y-m-d H:i:s',  $this->starts_on_date)->format('Y-m-d h:i A');
         return $fmtDate;
     }
 
@@ -145,17 +152,20 @@ class Batch extends Model
      */
     public function maxPeriodNo()
     {
-        $subscription_periods = $this->subscriptionPeriods()->get();
-        return $subscription_periods->max('period_no');
+        $subscription_periods = collect([]);
+        try {
+            $subscription_periods = $this->subscriptionPeriods()->get();
+            if($subscription_periods->count())
+                return $subscription_periods->max('period_no');
 
-        return (object) [
-            'max_period_no' => $subscription_periods->max('period_no'),
-            // 'from_date' => $subscription_periods->min('name'),
-            // 'to_date' => $subscription_periods->max('name'),
-            // 'price_min' => $dwellings->min('pivot_price_min'),
-            // 'price_max' => $prices_max->max('pivot_price_max'),
-        ];
-        // return $subscription_period->subscription_period_id;
+            else
+                return null;
+
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+        return $subscription_periods;
+
     }
 
 
@@ -164,9 +174,15 @@ class Batch extends Model
      */
     public function maxPeriodName()
     {
-        $periods = SubscriptionPeriod::where('batch_id', $this->id);
-        return Batch::find($this->id)->subscriptionPeriods()->where('period_no', max($periods->pluck('period_no')->toArray()))->value('name');
+        try {
+            $periods = SubscriptionPeriod::where('batch_id', $this->id);
+            // dd($periods);
+            return Batch::find($this->id)->subscriptionPeriods()->where('period_no', max($periods->pluck('period_no')->toArray()))->value('name');
 
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+        return null;
 
     }
 

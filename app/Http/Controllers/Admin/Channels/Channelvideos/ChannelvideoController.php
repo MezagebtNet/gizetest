@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Admin\Channels\Channelvideos;
 
 use App\Http\Controllers\Controller;
 use App\Models\Channelvideo;
+use App\Models\GizeChannel;
 use App\Models\ChannelvideoAccessByAppUser;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\Response;
 use Image;
 
 class ChannelvideoController extends Controller
@@ -28,10 +30,16 @@ class ChannelvideoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($channelId = 2)
+    public function index($gize_channel_id)
     {
-        $channelvideos = ChannelVideo::where('gize_channel_id', $channelId)->orderBy('id', 'DESC')->get();
-        return view('admin.channelvideos.index', compact('channelvideos'));
+        $gize_channel = GizeChannel::find($gize_channel_id);
+        abort_if(!$gize_channel->isPermittedEditor(\Auth::user()), Response::HTTP_FORBIDDEN, 'Forbidden');
+
+        $channelvideos = ChannelVideo::where('gize_channel_id', $gize_channel_id)->orderBy('id', 'DESC')->get();
+        return view('admin.channelvideos.index', compact(
+            'channelvideos',
+            'gize_channel'
+        ));
     }
 
     public static function countActiveChannelVideos()
@@ -40,14 +48,19 @@ class ChannelvideoController extends Controller
         return $channelvideos_count;
     }
 
-    public function addChannelVideo(Request $request)
+    public function addChannelVideo($gize_channel_id, Request $request)
     {
+        $gize_channel = GizeChannel::find($gize_channel_id);
+        abort_if(!$gize_channel->isPermittedEditor(\Auth::user()), Response::HTTP_FORBIDDEN, 'Forbidden');
+        // dd($request);
         $channelvideo = new ChannelVideo();
         $channelvideo->title = $request->title;
         $channelvideo->trainer = $request->trainer;
         $channelvideo->duration = $request->duration;
         $channelvideo->description = $request->description;
-        // Poster Image...
+        $channelvideo->gize_channel_id = $gize_channel_id;
+
+            // Poster Image...
         $request->validate([
             'image_input' => 'image|mimes:jpeg,png,jpg|max:2048',
         ]);
@@ -99,12 +112,14 @@ class ChannelvideoController extends Controller
         $stream->start();
     }
 
-    public function imageDeletePost(Request $request)
+    public function imageDeletePost($gize_channel_id, Request $request)
     {
+        $gize_channel = GizeChannel::find($gize_channel_id);
+        abort_if(!$gize_channel->isPermittedEditor(\Auth::user()), Response::HTTP_FORBIDDEN, 'Forbidden');
 
         $id = $request->channelvideo_id;
 
-        self::deleteChannelVideoImageFiles($id);
+        self::deleteChannelVideoImageFiles($gize_channel_id, $id);
 
         return 'success';
     }
@@ -120,8 +135,11 @@ class ChannelvideoController extends Controller
         return $size;
     }
 
-    public function getChannelVideoById($id)
+    public function getChannelVideoById($gize_channel_id, $id)
     {
+        $gize_channel = GizeChannel::find($gize_channel_id);
+        abort_if(!$gize_channel->isPermittedEditor(\Auth::user()), Response::HTTP_FORBIDDEN, 'Forbidden');
+
         $channelvideo = ChannelVideo::find($id);
         $channelvideo->hls_size = 0; // in bytes
         $channelvideo->keys_size = 0; // in bytes
@@ -162,8 +180,11 @@ class ChannelvideoController extends Controller
         return $count;
     }
 
-    public function updateChannelVideo(Request $request)
+    public function updateChannelVideo($gize_channel_id, Request $request)
     {
+        $gize_channel = GizeChannel::find($gize_channel_id);
+        abort_if(!$gize_channel->isPermittedEditor(\Auth::user()), Response::HTTP_FORBIDDEN, 'Forbidden');
+
         // return $request->id;
         $channelvideo = ChannelVideo::find($request->id);
 
@@ -240,27 +261,30 @@ class ChannelvideoController extends Controller
         return response()->json($channelvideo);
     }
 
-    public function deleteChannelVideo($id)
+    public function deleteChannelVideo($gize_channel_id, $id)
     {
+        $gize_channel = GizeChannel::find($gize_channel_id);
+        abort_if(!$gize_channel->isPermittedEditor(\Auth::user()), Response::HTTP_FORBIDDEN, 'Forbidden');
+
         // return $id;
 
         $channelvideo = ChannelVideo::find($id);
         // return response()->json($channelvideo);
 
         //Delete cover image and thumbnail image
-        self::deleteChannelVideoImageFiles($id);
+        self::deleteChannelVideoImageFiles($gize_channel_id, $id);
 
         //Delete related data from other tables
-        self::deleteRelatedRecords($id);
+        self::deleteRelatedRecords($gize_channel_id, $id);
 
         //Delete channelvideo file and sample channelvideo file
         // self::deleteChannelVideoFiles($id);
 
         //Delete HLS files
-        $this->deleteChannelVideoHLSFiles($id);
+        $this->deleteChannelVideoHLSFiles($gize_channel_id, $id);
 
         //Delete Keys files
-        $this->deleteChannelVideoKeyFiles($id);
+        $this->deleteChannelVideoKeyFiles($gize_channel_id, $id);
 
         $channelvideo->delete();
 
@@ -276,8 +300,11 @@ class ChannelvideoController extends Controller
     /*
      * php delete function that deals with directories recursively
      */
-    public function delete_files($target)
+    public function delete_files($gize_channel_id, $target)
     {
+        $gize_channel = GizeChannel::find($gize_channel_id);
+        abort_if(!$gize_channel->isPermittedEditor(\Auth::user()), Response::HTTP_FORBIDDEN, 'Forbidden');
+
         if (is_dir($target)) {
             $files = glob($target . '*', GLOB_MARK); //GLOB_MARK adds a slash to directories returned
 
@@ -295,8 +322,11 @@ class ChannelvideoController extends Controller
         }
     }
 
-    public function deleteChannelVideoHLSFiles($id)
+    public function deleteChannelVideoHLSFiles($gize_channel_id, $id)
     {
+        $gize_channel = GizeChannel::find($gize_channel_id);
+        abort_if(!$gize_channel->isPermittedEditor(\Auth::user()), Response::HTTP_FORBIDDEN, 'Forbidden');
+
         try {
             $channelvideo = ChannelVideo::find($id);
             $path = 'app/public/hls/';
@@ -317,8 +347,11 @@ class ChannelvideoController extends Controller
         ]);
     }
 
-    public function deleteChannelVideoKeyFiles($id)
+    public function deleteChannelVideoKeyFiles($gize_channel_id, $id)
     {
+        $gize_channel = GizeChannel::find($gize_channel_id);
+        abort_if(!$gize_channel->isPermittedEditor(\Auth::user()), Response::HTTP_FORBIDDEN, 'Forbidden');
+
         try {
             $channelvideo = ChannelVideo::find($id);
             $path = 'app/files/l/';
@@ -339,8 +372,11 @@ class ChannelvideoController extends Controller
         ]);
     }
 
-    public static function deleteRelatedRecords($id)
+    public static function deleteRelatedRecords($gize_channel_id, $id)
     {
+        $gize_channel = GizeChannel::find($gize_channel_id);
+        abort_if(!$gize_channel->isPermittedEditor(\Auth::user()), Response::HTTP_FORBIDDEN, 'Forbidden');
+
         try {
             //Delete data from channelvideo_access_by_app_users table
             $channelvideo_access_by_app_users = ChannelvideoAccessByAppUser::where('channelvideo_id', $id)->delete();
@@ -354,8 +390,11 @@ class ChannelvideoController extends Controller
 
     }
 
-    public static function deleteChannelVideoImageFiles($id)
+    public static function deleteChannelVideoImageFiles($gize_channel_id, $id)
     {
+        $gize_channel = GizeChannel::find($gize_channel_id);
+        abort_if(!$gize_channel->isPermittedEditor(\Auth::user()), Response::HTTP_FORBIDDEN, 'Forbidden');
+
         $channelvideo = ChannelVideo::find($id);
         if ($channelvideo->poster_image_url != null || $channelvideo->poster_image_url != '') {
             if (file_exists('storage/' . $channelvideo->poster_image_url)) {
@@ -374,8 +413,11 @@ class ChannelvideoController extends Controller
         return 1;
     }
 
-    public static function deleteChannelVideoFiles($id)
+    public static function deleteChannelVideoFiles($gize_channel_id, $id)
     {
+        $gize_channel = GizeChannel::find($gize_channel_id);
+        abort_if(!$gize_channel->isPermittedEditor(\Auth::user()), Response::HTTP_FORBIDDEN, 'Forbidden');
+
         $channelvideo = ChannelVideo::find($id);
 
         if ($channelvideo->file_url != null || $channelvideo->file_url != '') {
@@ -405,8 +447,11 @@ class ChannelvideoController extends Controller
         return 0;
     }
 
-    public function deleteCheckedChannelVideos(Request $request)
+    public function deleteCheckedChannelVideos($gize_channel_id, Request $request)
     {
+        $gize_channel = GizeChannel::find($gize_channel_id);
+        abort_if(!$gize_channel->isPermittedEditor(\Auth::user()), Response::HTTP_FORBIDDEN, 'Forbidden');
+
         $ids = $request->ids;
 
         try {
@@ -416,19 +461,19 @@ class ChannelvideoController extends Controller
                 $channelvideo = ChannelVideo::find($id);
 
                 //Delete cover image and thumbnail image
-                self::deleteChannelVideoImageFiles($id);
+                self::deleteChannelVideoImageFiles($gize_channel_id, $id);
 
                 //Delete related data from other tables
-                self::deleteRelatedRecords($id);
+                self::deleteRelatedRecords($gize_channel_id, $id);
 
                 //Delete channelvideo file and sample channelvideo file
                 // self::deleteChannelVideoFiles($id);
 
                 //Delete HLS files
-                $this->deleteChannelVideoHLSFiles($id);
+                $this->deleteChannelVideoHLSFiles($gize_channel_id, $id);
 
                 //Delete Keys files
-                $this->deleteChannelVideoKeyFiles($id);
+                $this->deleteChannelVideoKeyFiles($gize_channel_id, $id);
 
             }
             //delete all records of $ids..
@@ -448,8 +493,11 @@ class ChannelvideoController extends Controller
         return response()->json(['success' => "Records have been deleted."]);
     }
 
-    public function activateChannelVideo(Request $request)
+    public function activateChannelVideo($gize_channel_id, Request $request)
     {
+        $gize_channel = GizeChannel::find($gize_channel_id);
+        abort_if(!$gize_channel->isPermittedEditor(\Auth::user()), Response::HTTP_FORBIDDEN, 'Forbidden');
+
         $channelvideo = ChannelVideo::find($request->channelvideoid);
         if ($channelvideo->hls_uploaded != 0) {
             if ($channelvideo->keys_uploaded != 0) {
@@ -467,8 +515,11 @@ class ChannelvideoController extends Controller
         // return response()->json($channelvideo);
     }
 
-    public function deactivateChannelVideo(Request $request)
+    public function deactivateChannelVideo($gize_channel_id, Request $request)
     {
+        $gize_channel = GizeChannel::find($gize_channel_id);
+        abort_if(!$gize_channel->isPermittedEditor(\Auth::user()), Response::HTTP_FORBIDDEN, 'Forbidden');
+
         $channelvideo = ChannelVideo::find($request->channelvideoid);
         $channelvideo->active = 0;
 
@@ -493,8 +544,11 @@ class ChannelvideoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function fileUploadPost(Request $request)
+    public function fileUploadPost($gize_channel_id, Request $request)
     {
+        $gize_channel = GizeChannel::find($gize_channel_id);
+        abort_if(!$gize_channel->isPermittedEditor(\Auth::user()), Response::HTTP_FORBIDDEN, 'Forbidden');
+
         $channelvideo = ChannelVideo::find($request->channelvideo_id);
         $path = "";
         // $request->validate([
@@ -583,8 +637,11 @@ class ChannelvideoController extends Controller
     }
      */
 
-    public function fileRead(Request $request)
+    public function fileRead($gize_channel_id, $request)
     {
+        $gize_channel = GizeChannel::find($gize_channel_id);
+        abort_if(!$gize_channel->isPermittedEditor(\Auth::user()), Response::HTTP_FORBIDDEN, 'Forbidden');
+
         $channelvideo = ChannelVideo::find($request->channelvideo_id);
 
         $url = $channelvideo->file_url;

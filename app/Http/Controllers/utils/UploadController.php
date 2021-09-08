@@ -2,7 +2,6 @@
 namespace App\Http\Controllers\Utils;
 
 use Storage;
-use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Pion\Laravel\ChunkUpload\Exceptions\UploadMissingFileException;
 use Pion\Laravel\ChunkUpload\Handler\AbstractHandler;
@@ -10,8 +9,14 @@ use Pion\Laravel\ChunkUpload\Handler\HandlerFactory;
 use Pion\Laravel\ChunkUpload\Receiver\FileReceiver;
 use App\Http\Controllers\Controller;
 
-use App\Models\LectureVideo;
-use App\Models\Video;
+use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\Request;
+
+
+use App\Models\Channelvideo;
+use App\Models\GizeChannel;
+
+// use App\Models\Video;
 
 
 class UploadController extends Controller
@@ -26,7 +31,10 @@ class UploadController extends Controller
      * @throws UploadMissingFileException
      * @throws \Pion\Laravel\ChunkUpload\Exceptions\UploadFailedException
      */
-    public function upload(Request $request) {
+    public function upload($gize_channel_id, Request $request) {
+        $gize_channel = GizeChannel::find($gize_channel_id);
+        abort_if(!$gize_channel->isPermittedEditor(\Auth::user()), Response::HTTP_FORBIDDEN, 'Forbidden');
+
         // create the file receiver
         $receiver = new FileReceiver("file", $request, HandlerFactory::classFromRequest($request));
         // check if the upload is success, throw exception or return response you need
@@ -43,7 +51,7 @@ class UploadController extends Controller
             // $vid_id = 12;
             $location = "app/files/l/";
 
-            if($this->saveFile($save->getFile(), $location, $vid_id)){
+            if($this->saveFile($gize_channel_id, $save->getFile(), $location, $vid_id)){
                 //Extract Zip Archive
                 if(self::extractZipFile( $vid_id, $location )){
                     //remove zip file...
@@ -69,7 +77,10 @@ class UploadController extends Controller
 
 
 
-    public function uploadHLSChunk(Request $request) {
+    public function uploadHLSChunk($gize_channel_id, Request $request) {
+        $gize_channel = GizeChannel::find($gize_channel_id);
+        abort_if(!$gize_channel->isPermittedEditor(\Auth::user()), Response::HTTP_FORBIDDEN, 'Forbidden');
+
         // create the file receiver
         $receiver = new FileReceiver("file", $request, HandlerFactory::classFromRequest($request));
         // check if the upload is success, throw exception or return response you need
@@ -87,15 +98,15 @@ class UploadController extends Controller
             // $location = "app/files/l/";
             $location = "app/public/hls/";
 
-            if($this->saveFile($save->getFile(), $location, $vid_id)){
+            if($this->saveFile($gize_channel_id, $save->getFile(), $location, $vid_id)){
                 //Extract Zip Archive
                 if(self::extractZipFile( $vid_id, $location )){
 
                     //Update database
-                    $lecturevideo = LectureVideo::find($vid_id);
-                    // $lecturevideo->file_url = $fileName;
-                    $lecturevideo->hls_uploaded = 1;
-                    $lecturevideo->save();
+                    $channelvideo = Channelvideo::find($vid_id);
+                    // $channelvideo->file_url = $fileName;
+                    $channelvideo->hls_uploaded = 1;
+                    $channelvideo->save();
 
                     //remove zip file...
                     if(file_exists(storage_path($location.$vid_id.'.zip'))){
@@ -103,7 +114,7 @@ class UploadController extends Controller
                         unlink(storage_path($location.$vid_id.'.zip')); //delete thumbnail image
                         return response()->json([
                             'status' => 'success',
-                            'lecturevideo' => $lecturevideo
+                            'channelvideo' => $channelvideo
                         ]);
                     }
                 };
@@ -127,7 +138,10 @@ class UploadController extends Controller
     }
 
 
-    public function uploadKeysChunk(Request $request) {
+    public function uploadKeysChunk($gize_channel_id, Request $request) {
+        $gize_channel = GizeChannel::find($gize_channel_id);
+        abort_if(!$gize_channel->isPermittedEditor(\Auth::user()), Response::HTTP_FORBIDDEN, 'Forbidden');
+
         // create the file receiver
         $receiver = new FileReceiver("file", $request, HandlerFactory::classFromRequest($request));
         // check if the upload is success, throw exception or return response you need
@@ -145,15 +159,15 @@ class UploadController extends Controller
             $location = "app/files/l/";
             // $location = "app/public/hls/";
 
-            if($this->saveFile($save->getFile(), $location, $vid_id)){
+            if($this->saveFile($gize_channel_id, $save->getFile(), $location, $vid_id)){
                 //Extract Zip Archive
                 if(self::extractZipFile( $vid_id, $location )){
 
                     //Update database
-                    $lecturevideo = LectureVideo::find($vid_id);
-                    // $lecturevideo->file_url = $fileName;
-                    $lecturevideo->keys_uploaded = 1;
-                    $lecturevideo->save();
+                    $channelvideo = Channelvideo::find($vid_id);
+                    // $channelvideo->file_url = $fileName;
+                    $channelvideo->keys_uploaded = 1;
+                    $channelvideo->save();
 
                     //remove zip file...
                     if(file_exists(storage_path($location.$vid_id.'.zip'))){
@@ -161,7 +175,7 @@ class UploadController extends Controller
                         unlink(storage_path($location.$vid_id.'.zip')); //delete thumbnail image
                         return response()->json([
                             'status' => 'success',
-                            'lecturevideo' => $lecturevideo
+                            'channelvideo' => $channelvideo
                         ]);
                     }
                 };
@@ -188,7 +202,10 @@ class UploadController extends Controller
     /*
     * php delete function that deals with directories recursively
     */
-    public function delete_files($target) {
+    public function delete_files($gize_channel_id, $target) {
+        $gize_channel = GizeChannel::find($gize_channel_id);
+        abort_if(!$gize_channel->isPermittedEditor(\Auth::user()), Response::HTTP_FORBIDDEN, 'Forbidden');
+
         if(is_dir($target)){
             $files = glob( $target . '*', GLOB_MARK ); //GLOB_MARK adds a slash to directories returned
 
@@ -206,44 +223,50 @@ class UploadController extends Controller
         }
     }
 
-    public function deleteHLSFiles($id){
-        try {
-            $lecturevideo = LectureVideo::find($id);
+    public function deleteHLSFiles($gize_channel_id, $id){
+        $gize_channel = GizeChannel::find($gize_channel_id);
+        abort_if(!$gize_channel->isPermittedEditor(\Auth::user()), Response::HTTP_FORBIDDEN, 'Forbidden');
+
+        // try {
+            $channelvideo = Channelvideo::find($id);
             $path = 'app/public/hls/';
 
-            $dir = storage_path($path.$lecturevideo->id);
+            $dir = storage_path($path.$channelvideo->id);
             if(is_dir($dir)){ //if directory exists...
                 $this->delete_files($dir);
             }
-            $lecturevideo->hls_uploaded = 0;
-            $lecturevideo->save();
+            $channelvideo->hls_uploaded = 0;
+            $channelvideo->save();
             return response()->json([
                 "status" => 'success',
-                "lecturevideo" => $lecturevideo
+                "channelvideo" => $channelvideo
             ]);
-        } catch (\Throwable $th) {
-            //throw $th;
-        }
+        // } catch (\Throwable $th) {
+        //     //throw $th;
+        // }
         return response()->json([
             "status" => 'fail',
             "message" => 'Unable to delete HLS files.'
         ]);
     }
 
-    public function deleteKeysFiles($id){
+    public function deleteKeysFiles($gize_channel_id, $id){
+        $gize_channel = GizeChannel::find($gize_channel_id);
+        abort_if(!$gize_channel->isPermittedEditor(\Auth::user()), Response::HTTP_FORBIDDEN, 'Forbidden');
+
         try {
-            $lecturevideo = LectureVideo::find($id);
+            $channelvideo = Channelvideo::find($id);
             $path = 'app/files/l/';
 
-            $dir = storage_path($path.$lecturevideo->id);
+            $dir = storage_path($path.$channelvideo->id);
             if(is_dir($dir)){ //if directory exists...
                 $this->delete_files($dir);
             }
-            $lecturevideo->keys_uploaded = 0;
-            $lecturevideo->save();
+            $channelvideo->keys_uploaded = 0;
+            $channelvideo->save();
             return response()->json([
                 "status" => 'success',
-                "lecturevideo" => $lecturevideo
+                "channelvideo" => $channelvideo
             ]);
         } catch (\Throwable $th) {
             //throw $th;
@@ -261,7 +284,10 @@ class UploadController extends Controller
 
 
 
-    public function uploadVideoHLSChunk(Request $request) {
+    public function uploadVideoHLSChunk($gize_channel_id, Request $request) {
+        $gize_channel = GizeChannel::find($gize_channel_id);
+        abort_if(!$gize_channel->isPermittedEditor(\Auth::user()), Response::HTTP_FORBIDDEN, 'Forbidden');
+
         // create the file receiver
         $receiver = new FileReceiver("file", $request, HandlerFactory::classFromRequest($request));
         // check if the upload is success, throw exception or return response you need
@@ -276,15 +302,15 @@ class UploadController extends Controller
             // not using move, you need to manually delete the file by unlink($save->getFile()->getPathname())
             $vid_id = $request->vid_id;
 
-            // $location = "app/files/l/";
-            $location = "app/public/video/";
+            $location = "app/files/l/";
+            // $location = "app/public/video/";
 
-            if($this->saveFile($save->getFile(), $location, $vid_id)){
+            if($this->saveFile($gize_channel_id, $save->getFile(), $location, $vid_id)){
                 //Extract Zip Archive
                 if(self::extractZipFile( $vid_id, $location )){
 
                     //Update database
-                    $video = Video::find($vid_id);
+                    $video = Channelvideo::find($vid_id);
                     // $video->file_url = $fileName;
                     $video->hls_uploaded = 1;
                     $video->save();
@@ -319,7 +345,10 @@ class UploadController extends Controller
     }
 
 
-    public function uploadVideoKeysChunk(Request $request) {
+    public function uploadVideoKeysChunk($gize_channel_id, Request $request) {
+        $gize_channel = GizeChannel::find($gize_channel_id);
+        abort_if(!$gize_channel->isPermittedEditor(\Auth::user()), Response::HTTP_FORBIDDEN, 'Forbidden');
+
         // create the file receiver
         $receiver = new FileReceiver("file", $request, HandlerFactory::classFromRequest($request));
         // check if the upload is success, throw exception or return response you need
@@ -337,12 +366,12 @@ class UploadController extends Controller
             $location = "app/files/v/";
             // $location = "app/public/hls/";
 
-            if($this->saveFile($save->getFile(), $location, $vid_id)){
+            if($this->saveFile($gize_channel_id, $save->getFile(), $location, $vid_id)){
                 //Extract Zip Archive
                 if(self::extractZipFile( $vid_id, $location )){
 
                     //Update database
-                    $video = Video::find($vid_id);
+                    $video = Channelvideo::find($vid_id);
                     // $video->file_url = $fileName;
                     $video->keys_uploaded = 1;
                     $video->save();
@@ -377,10 +406,13 @@ class UploadController extends Controller
     }
 
 
-    public function deleteVideoHLSFiles($id){
+    public function deleteVideoHLSFiles($gize_channel_id, $id){
+        $gize_channel = GizeChannel::find($gize_channel_id);
+        abort_if(!$gize_channel->isPermittedEditor(\Auth::user()), Response::HTTP_FORBIDDEN, 'Forbidden');
+
         try {
-            $video = Video::find($id);
-            $path = 'app/public/video/';
+            $video = Channelvideo::find($id);
+            $path = 'app/public/l/';
 
             $dir = storage_path($path.$video->id);
             if(is_dir($dir)){ //if directory exists...
@@ -401,9 +433,12 @@ class UploadController extends Controller
         ]);
     }
 
-    public function deleteVideoKeysFiles($id){
-        try {
-            $video = Video::find($id);
+    public function deleteVideoKeysFiles($gize_channel_id, $id){
+        $gize_channel = GizeChannel::find($gize_channel_id);
+        abort_if(!$gize_channel->isPermittedEditor(\Auth::user()), Response::HTTP_FORBIDDEN, 'Forbidden');
+
+        // try {
+            $video = Channelvideo::find($id);
             $path = 'app/files/v/';
 
             $dir = storage_path($path.$video->id);
@@ -416,9 +451,9 @@ class UploadController extends Controller
                 "status" => 'success',
                 "video" => $video
             ]);
-        } catch (\Throwable $th) {
-            //throw $th;
-        }
+        // } catch (\Throwable $th) {
+        //     //throw $th;
+        // }
         return response()->json([
             "status" => 'fail',
             "message" => 'Unable to delete Video Key files.'
@@ -459,7 +494,7 @@ class UploadController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    protected function saveFile(UploadedFile $file, $location, $vid_id)
+    protected function saveFile($gize_channel_id, UploadedFile $file, $location, $vid_id)
     {
         $fileName = $this->createFilename($file);
 

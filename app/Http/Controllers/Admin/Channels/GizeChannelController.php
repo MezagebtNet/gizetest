@@ -114,6 +114,8 @@ class GizeChannelController extends Controller
 
     public function webGizeChannelList(){
         $gize_channels = GizeChannel::all();
+//TODO:: Show only active ones.
+
 
         return view('website.home.');
     }
@@ -131,8 +133,11 @@ class GizeChannelController extends Controller
     {
         $gize_channel = GizeChannel::create($request->validated());
         // $user->roles()->sync($request->input('roles', []));
+$users = $request->input('users', []);
 
-        $gize_channel->users()->syncWithoutDetaching($request->input('users', []));
+
+$gize_channel->users()->syncWithoutDetaching($users);
+
 
         //Notify Super Admins of this event...
         // event(new UserCreated($user));
@@ -167,7 +172,8 @@ class GizeChannelController extends Controller
         // }
         $gize_channel->update($request->validated());
         // $user->roles()->sync($request->input('roles', []));
-        $gize_channel->users()->syncWithoutDetaching($request->input('users', []));
+$gize_channel->users()->sync($request->input('users', []));
+
 
         return redirect()->route('admin.manage.gize_channel.index');
 

@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Admin\Channels\Batches;
 
 use App\Http\Controllers\Controller;
 use App\Models\Batch;
+use App\Models\GizeChannel;
 use App\Models\SubscriptionPeriod;
 use App\Models\SubscriptionType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+use Symfony\Component\HttpFoundation\Response;
 
 class BatchController extends Controller
 {
@@ -16,9 +19,12 @@ class BatchController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($gize_channel_id)
     {
-        $batches = Batch::orderBy('id', 'DESC')->get();
+        $gize_channel = GizeChannel::find($gize_channel_id);
+        abort_if(!$gize_channel->isPermittedEditor(\Auth::user()), Response::HTTP_FORBIDDEN, 'Forbidden');
+
+        $batches = Batch::where('gize_channel_id', $gize_channel_id)->orderBy('id', 'DESC')->get();
         $subscription_types = SubscriptionType::all();
         // $subscription_periods = SubscriptionPeriod::all();
         // foreach ($subscription_periods as $subscription_period) {
@@ -32,15 +38,16 @@ class BatchController extends Controller
             [
                 'batches',
                 'subscription_types',
+                'gize_channel',
                 // 'subscription_periods',
             ]
         ));
     }
 
-    public function addBatch(Request $request)
+    public function addBatch($gize_channel_id, Request $request)
     {
-        try {
-            //code...
+        $gize_channel = GizeChannel::find($gize_channel_id);
+        abort_if(!$gize_channel->isPermittedEditor(\Auth::user()), Response::HTTP_FORBIDDEN, 'Forbidden');
 
             $batch = new Batch();
 
@@ -55,8 +62,9 @@ class BatchController extends Controller
                 'gize_channel_id' => 'required',
             ]);
 
+
             $batch->code_name = $request->code_name;
-            $batch->gize_channel_id = $request->gize_channel_id;
+            $batch->gize_channel_id = $gize_channel_id;
             $batch->description = $request->description;
             // $batch->subscription_period_id = $request->subscription_period_id;
             $batch->payment_fee = $request->payment_fee;
@@ -67,14 +75,13 @@ class BatchController extends Controller
 
             $batch->save();
             return response()->json($batch);
-        } catch (\Throwable $th) {
-throw $th;
-
-        }
     }
 
-    public function editBatchForm($id)
+    public function editBatchForm($gize_channel_id, $id)
     {
+        $gize_channel = GizeChannel::find($gize_channel_id);
+        abort_if(!$gize_channel->isPermittedEditor(\Auth::user()), Response::HTTP_FORBIDDEN, 'Forbidden');
+
         $batch = Batch::find($id);
         $subscription_types = SubscriptionType::all();
         // $subscription_periods = SubscriptionPeriod::all();
@@ -88,15 +95,19 @@ throw $th;
         return view('admin.manage.batches.edit', compact([
             'batch',
             'subscription_types',
+            'gize_channel',
             // 'subscription_type_name',
             // 'subscription_periods',
         ]));
 
     }
 
-    public function addBatchForm()
+    public function addBatchForm($gize_channel_id)
     {
-        $batches = Batch::orderBy('id', 'DESC')->get();
+        $gize_channel = GizeChannel::find($gize_channel_id);
+        abort_if(!$gize_channel->isPermittedEditor(\Auth::user()), Response::HTTP_FORBIDDEN, 'Forbidden');
+
+        $batches = Batch::where('gize_channel_id', $gize_channel_id)->orderBy('id', 'DESC')->get();
         $subscription_types = SubscriptionType::all();
         // $subscription_periods = SubscriptionPeriod::all();
         // foreach ($subscription_periods as $subscription_period) {
@@ -109,13 +120,16 @@ throw $th;
         return view('admin.manage.batches.create', compact([
             'batches',
             'subscription_types',
+            'gize_channel',
             // 'subscription_type_name',
             // 'subscription_periods',
         ]));
     }
 
-    public function updateBatch(Request $request)
+    public function updateBatch($gize_channel_id, Request $request)
     {
+        $gize_channel = GizeChannel::find($gize_channel_id);
+        abort_if(!$gize_channel->isPermittedEditor(\Auth::user()), Response::HTTP_FORBIDDEN, 'Forbidden');
 
         $batch = Batch::find($request->id);
 
@@ -131,6 +145,7 @@ throw $th;
 
         $batch->code_name = $request->code_name;
         $batch->description = $request->description;
+        $batch->gize_channel_id = $gize_channel_id;
         // $batch->subscription_period_id = $request->subscription_period_id;
         $batch->payment_fee = $request->payment_fee;
         $batch->currency = $request->currency;
@@ -145,14 +160,19 @@ throw $th;
         return response()->json($batch);
     }
 
-    public function getBatchById($id)
+    public function getBatchById($gize_channel_id, $id)
     {
+        $gize_channel = GizeChannel::find($gize_channel_id);
+        abort_if(!$gize_channel->isPermittedEditor(\Auth::user()), Response::HTTP_FORBIDDEN, 'Forbidden');
+
         $batch = Batch::find($id);
         return response()->json($batch);
     }
 
-    public function deleteBatch($id)
+    public function deleteBatch($gize_channel_id, $id)
     {
+        $gize_channel = GizeChannel::find($gize_channel_id);
+        abort_if(!$gize_channel->isPermittedEditor(\Auth::user()), Response::HTTP_FORBIDDEN, 'Forbidden');
 
         $batch = Batch::find($id);
 
@@ -175,7 +195,7 @@ throw $th;
         }
     }
 
-    public function deleteCheckedBatches(Request $request)
+    public function deleteCheckedBatches($gize_channel_id, Request $request)
     {
         $ids = $request->ids;
 
@@ -192,7 +212,7 @@ throw $th;
         return response()->json(['success' => "Records have been deleted."], 200);
     }
 
-    public function addPeriod(Request $request)
+    public function addPeriod($gize_channel_id, Request $request)
     {
 
         // try {
@@ -228,7 +248,7 @@ throw $th;
         // return response()->json(['status' => 'fail', 'message' => 'Unable to add period.']);
     }
 
-    public function editPeriod(Request $request)
+    public function editPeriod($gize_channel_id, Request $request)
     {
 
         // try {

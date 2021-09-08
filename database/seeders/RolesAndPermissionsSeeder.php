@@ -39,6 +39,8 @@ class RolesAndPermissionsSeeder extends Seeder
             Permission::create(['name' => $permission]);
         }
 
+Permission::create(['name' => 'gize_channels']);
+
         // create roles and assign created permissions
 
         // this can be done as separate statements

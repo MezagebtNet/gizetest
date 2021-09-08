@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Website;
 use App\Http\Controllers\Controller;
 use App\Models\Batch;
 use App\Models\GizeChannel;
+use App\Models\BatchChannelvideo;
+
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Collection;
 
@@ -41,13 +43,19 @@ class ChannelLandingPageController extends Controller
 
         $gize_channel = GizeChannel::where('slug', $slug)->firstOrFail();
         //get batches of the channel
-        $batches_in_channel = Batch::where('gize_channel_id', $gize_channel->id)->get();
+$batches_in_channel = Batch::where('gize_channel_id', $gize_channel->id)->get();
 
-        $channelvideos = new Collection([]);
+
+
+$channelvideos = collect([]);
+
 
         foreach ($batches_in_channel as $batch) {
 
-            $videos_in_batch = Batch::find($batch->id)->channelvideos()->whereRaw('(now() between starts_at and ends_at)')->get();
+$videos_in_batch = BatchChannelvideo::where('batch_id', $batch->id)
+    ->whereDate('ends_at', '>=', now())
+    ->whereDate('starts_at', '<=', now())->get();
+
 
             $channelvideos = $channelvideos->merge($videos_in_batch);
 

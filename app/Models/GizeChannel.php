@@ -85,4 +85,15 @@ class GizeChannel extends Model
         return $this->hasMany(Batch::class);
     }
 
+    public function isPermittedEditor(User $user){
+        // return true;
+        if($user->hasRole('super-admin')){
+            return true;
+        }
+        elseif($this->users()->get()->contains($user) && $user->hasRole('channel-admin')){
+            return true;
+        }
+        return false; //or abort(403);
+    }
+
 }

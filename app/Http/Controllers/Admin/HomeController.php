@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\GizeChannel;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -17,6 +18,7 @@ class HomeController extends Controller
 
     public function markNotification(Request $request)
     {
+
         auth()->user()
             ->unreadNotifications
             ->when($request->input('id'), function ($query) use ($request) {

@@ -65,6 +65,7 @@
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset('vendors/admin/plugins/summernote/summernote-bs4.min.css') }}">
 
+    @include('layouts.styles.globalstyles')
 
     <style>
         .dark-mode {
@@ -103,6 +104,7 @@
         }
 
     </style>
+
     @yield('styles')
 
     @include('layouts.scripts.notification_styles')
@@ -222,8 +224,8 @@ hold-transition layout-top-nav layout-navbar-fixed layout-footer-fixed">
     </script>
 
 
-    @include('layouts.scripts.notification_scripts');
-    @include('layouts.scripts.userpreference_scripts');
+    @include('layouts.scripts.notification_scripts')
+    @include('layouts.scripts.userpreference_scripts')
 </body>
 
 </html>

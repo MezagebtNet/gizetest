@@ -2,8 +2,6 @@
 
 @section('page_title', 'Users')
 
-@section('page_title', 'Users')
-
 @section('header_title')
 	Users Management Page
 @stop
@@ -140,7 +138,7 @@
                                 Cancel
                             </a>
                             <button class="btn btn-primary ">
-                                Edit
+                                Update
                             </button>
                         </div>
                     </form>

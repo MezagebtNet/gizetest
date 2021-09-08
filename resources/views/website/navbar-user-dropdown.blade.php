@@ -10,8 +10,10 @@
         </a>
         <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
             @if (auth()->user()->isSuperAdmin() ||
-                auth()->user()->isSystemAdmin())
-                <li><a href="{{ route('admin.home') }}" class="dropdown-item">System Administration</a></li>
+                auth()->user()->isSystemAdmin() ||
+                auth()->user()->isChannelAdmin()
+                )
+                <li><a href="{{ route('admin.home') }}" class="dropdown-item">{{ __('System Administration') }}</a></li>
 
                 {{-- <li><a href="{{ route('admin.home') }}" class="dropdown-item">Notifications</a></li> --}}
                 <li class="dropdown-divider"></li>
@@ -23,10 +25,10 @@
             @endif --}}
 
             @if (auth())
-                <li><a href="{{ route('profile.show') }}" class="dropdown-item">Edit Profile</a></li>
+                <li><a href="{{ route('profile.show') }}" class="dropdown-item">{{ __('Edit Profile') }}</a></li>
             @endif
             <li>
-                <a class="dropdown-item select-theme d-flex flex-column" theme="{{ auth()->user()->theme_preference }}">
+                <a style="cursor:pointer;" class="dropdown-item select-theme d-flex flex-column" theme="{{ auth()->user()->theme_preference }}">
                     <!-- Theme switch -->
                     <span>{{ __('Choose Theme Color') }}:</span>
                     <div class="theme-switch">

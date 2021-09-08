@@ -155,7 +155,7 @@
 
                         <div class="sm:px-4 pb-4">
                             <div class="d-flex justify-content-end">
-                                <a href="{{ route('admin.manage.batch.index') }}" class="btn btn-default mr-2">
+                                <a href="{{ route('admin.manage.batch.index', $gize_channel->id) }}" class="btn btn-default mr-2">
                                     <i class="fa fa-chevron-left"> </i> Back to List</a>
                                 </a>
                                 <button class="btn btn-primary ">
@@ -201,16 +201,21 @@
             });
 
             //Initialize Datetime field
-            let init_date_value = '{{ $batch->starts_on_date }}';
-            $('#starts_on_date').datetimepicker();
-            // alert(init_date_value);
-            $('#starts_on_date').datetimepicker('date', moment(init_date_value, 'MM/DD/YYYY LT'));//.format('YYYY-MM-DD LT'));
 
-            // $('#starts_on_date').datetimepicker('date', moment('11/21/2018', 'MM/DD/YYYY') );
-            // $('#starts_on_date').on("change.datetimepicker", function(e) {
-            //     alert(e.date);
-            // });
+            initdatetimePicker();
+
+            let init_date_value = '{{ $batch->starts_on_date }}';
+
+            $('#starts_on_date').datetimepicker('date', moment(init_date_value, 'YYYY-MM-DD HH:mm:ss'));
+
+
         });
+
+        function initdatetimePicker() {
+            $('#starts_on_date').datetimepicker({
+                //  format: "m/d/Y LT"
+            });
+        }
 
         //Edit Batch
         $('#batchEditForm').on('submit', function(e) {
@@ -247,8 +252,12 @@
                 _token: _token
             };
 
+            let url = "{{ route('admin.manage.batch.update', ':gize_channel_id') }}";
+                gize_channel_id = "{{ $gize_channel->id }}";
+                url = url.replace(':gize_channel_id', gize_channel_id);
+
             $.ajax({
-                url: "{{ route('admin.manage.batch.update') }}",
+                url: url,
                 type: "POST",
                 data: formData,
                 contentType: false,

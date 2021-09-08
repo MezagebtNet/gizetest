@@ -108,7 +108,7 @@
                         <div class="form-row">
                             <div class="col-md-4 mb-3">
                                 <label for="payment_fee">Subscription Fee</label>
-                                <input type="number" step="50" class="form-control" id="payment_fee"
+                                <input type="number" class="form-control" id="payment_fee"
                                     value="{{ old('payment_fee', '0') }}" />
                             </div>
                             <div class="col-md-4 mb-3">
@@ -126,7 +126,7 @@
 
                         <div class="sm:px-4 pb-2">
                             <div class=" d-flex justify-content-end">
-                                <a href="{{ route('admin.manage.batch.index') }}" class="btn btn-default mr-2">
+                                <a href="{{ route('admin.manage.batch.index', $gize_channel->id) }}" class="btn btn-default mr-2">
                                     Cancel
                                 </a>
                                 <button type="submit" class="btn btn-primary">Submit</button>
@@ -208,8 +208,12 @@
                     _token: _token
                 };
 
+                let url = "{{ route('admin.manage.batch.add', ':gize_channel_id') }}";
+                gize_channel_id = "{{ $gize_channel->id }}";
+                url = url.replace(':gize_channel_id', gize_channel_id);
+
                 $.ajax({
-                    url: "{{ route('admin.manage.batch.add') }}",
+                    url: url,
                     type: "POST",
                     data: formData,
                     contentType: false,
@@ -219,7 +223,11 @@
                         if (response) {
 
                             Swal.fire('Record Saved!', '', 'success');
-                            window.location.replace("{{ route('admin.manage.batch.index') }}");
+                            url = "{{ route('admin.manage.batch.index', ':gize_channel_id') }}";
+
+                            url = url.replace(':gize_channel_id', gize_channel_id);
+
+                            window.location.replace(url);
 
                         }
 

@@ -134,25 +134,6 @@
 
 
     <script>
-        // $(function () {alert('here')});
-        $(document).ready(function(e) {
-            // window.Echo.private('App.Models.User.' + {{ auth()->user()->id }})
-            // .notification((notification) => {
-            //     console.log(notification, "New user notification.");
-            // });
-            // window.Echo.join(`chat`)
-            //     .here((users) => {
-            //         alert("hsers");
-            //     })
-            //     .joining((user) => {
-            //         console.log(user.name);
-            //     })
-            //     .leaving((user) => {
-            //         console.log(user.name);
-            //     })
-            //     .error((error) => {
-            //         console.error(error);
-            //     });
-        });
+
     </script>
 @endsection

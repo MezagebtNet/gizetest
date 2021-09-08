@@ -171,7 +171,7 @@ return [
         Jenssegers\Date\DateServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         ProtoneMedia\LaravelFFMpeg\Support\ServiceProvider::class,
-
+        Pion\Laravel\ChunkUpload\Providers\ChunkUploadServiceProvider::class,
 
         /*
          * Application Service Providers...

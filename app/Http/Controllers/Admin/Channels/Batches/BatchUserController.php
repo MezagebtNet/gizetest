@@ -8,20 +8,24 @@ use App\Models\BatchUser;
 use App\Models\SubscriptionPayment;
 use App\Models\SubscriptionPeriod;
 use App\Models\User;
+use App\Models\GizeChannel;
 use Illuminate\Http\Request;
 use Jenssegers\Date\Date;
+use Symfony\Component\HttpFoundation\Response;
 
 class BatchUserController extends Controller
 {
-    public function index($batch_id = null)
+    public function index($gize_channel_id, $batch_id = null)
     {
         // abort_if(Gate::denies('system_user'), Response::HTTP_FORBIDDEN, 'Forbidden');
+        $gize_channel = GizeChannel::find($gize_channel_id);
+        abort_if(!$gize_channel->isPermittedEditor(\Auth::user()), Response::HTTP_FORBIDDEN, 'Forbidden');
 
-        // FUTURE:: filter batches by channels
 
         $batch = null;
-        if (isset($batch_id)) {
-            $batch = Batch::find($batch_id);
+        if ($batch_id != null) {
+            $batch = Batch::where('gize_channel_id', $gize_channel_id)
+                ->where('id', $batch_id)->first();
         }
         $batches = Batch::
             whereIn('status', [1, 2]) //ongoing or onhold
@@ -44,12 +48,16 @@ class BatchUserController extends Controller
                 'subscriptions',
                 'batch',
                 'batches',
+                'gize_channel',
             ]
         ));
     }
 
-    public function unsubscribedUsersList($batch_id)
+    public function unsubscribedUsersList($gize_channel_id, $batch_id)
     {
+        $gize_channel = GizeChannel::find($gize_channel_id);
+        abort_if(!$gize_channel->isPermittedEditor(\Auth::user()), Response::HTTP_FORBIDDEN, 'Forbidden');
+
         $users = [];
         try {
 
@@ -61,8 +69,10 @@ class BatchUserController extends Controller
         return $users;
     }
 
-    public function addSubscriber(Request $request)
+    public function addSubscriber($gize_channel_id, Request $request)
     {
+        $gize_channel = GizeChannel::find($gize_channel_id);
+        abort_if(!$gize_channel->isPermittedEditor(\Auth::user()), Response::HTTP_FORBIDDEN, 'Forbidden');
 
         // try {
         $batch = Batch::find($request->batch_id);
@@ -91,8 +101,11 @@ class BatchUserController extends Controller
         // }
     }
 
-    public function activateBatchUser(Request $request)
+    public function activateBatchUser($gize_channel_id, Request $request)
     {
+        $gize_channel = GizeChannel::find($gize_channel_id);
+        abort_if(!$gize_channel->isPermittedEditor(\Auth::user()), Response::HTTP_FORBIDDEN, 'Forbidden');
+
         $subscription = BatchUser::find($request->subscriptionid);
         if ($subscription->approved != 0) {
             $subscription->active = 1;
@@ -106,8 +119,11 @@ class BatchUserController extends Controller
         // return response()->json($subscription);
     }
 
-    public function deactivateBatchUser(Request $request)
+    public function deactivateBatchUser($gize_channel_id, Request $request)
     {
+        $gize_channel = GizeChannel::find($gize_channel_id);
+        abort_if(!$gize_channel->isPermittedEditor(\Auth::user()), Response::HTTP_FORBIDDEN, 'Forbidden');
+
         $subscription = BatchUser::find($request->subscriptionid);
         $subscription->active = 0;
 
@@ -117,8 +133,11 @@ class BatchUserController extends Controller
         // return response()->json($subscription);
     }
 
-    public function approveBatchUser(Request $request)
+    public function approveBatchUser($gize_channel_id, Request $request)
     {
+        $gize_channel = GizeChannel::find($gize_channel_id);
+        abort_if(!$gize_channel->isPermittedEditor(\Auth::user()), Response::HTTP_FORBIDDEN, 'Forbidden');
+
         $subscription = BatchUser::find($request->subscriptionid);
 
         $subscription->approved = 1;
@@ -129,8 +148,11 @@ class BatchUserController extends Controller
         // return response()->json($subscription);
     }
 
-    public function addPaymentDetail(Request $request)
+    public function addPaymentDetail($gize_channel_id, Request $request)
     {
+        $gize_channel = GizeChannel::find($gize_channel_id);
+        abort_if(!$gize_channel->isPermittedEditor(\Auth::user()), Response::HTTP_FORBIDDEN, 'Forbidden');
+
         //vallidate
         $request->validate([
             'payment_date' => 'required',
@@ -172,7 +194,8 @@ class BatchUserController extends Controller
         //     ->where('subscription_period_id', 3)
         //     ->value('id');
 
-        $batch = Batch::where('id', $batch_id)->first();
+        $batch = Batch::where('id', $batch_id);
+
         $currency = $batch->value('currency');
         $subscription_type = '';
         $subscriber_name = '';
@@ -192,8 +215,11 @@ class BatchUserController extends Controller
 
     }
 
-    public function editPaymentDetail(Request $request)
+    public function editPaymentDetail($gize_channel_id, Request $request)
     {
+        $gize_channel = GizeChannel::find($gize_channel_id);
+        abort_if(!$gize_channel->isPermittedEditor(\Auth::user()), Response::HTTP_FORBIDDEN, 'Forbidden');
+
         //vallidate
         $request->validate([
             'payment_date' => 'required',
@@ -224,7 +250,8 @@ class BatchUserController extends Controller
 
         $batch_id = BatchUser::find($batch_user_id)->first()->value('batch_id');
 
-        $batch = Batch::where('id', $batch_id)->first();
+        $batch = Batch::where('id', $batch_id);
+
         $currency = $batch->value('currency');
         $subscription_type = '';
         $subscriber_name = '';
@@ -243,8 +270,11 @@ class BatchUserController extends Controller
 
     }
 
-    public function deletePaymentDetail($batch_user_id, $subscription_period_id)
+    public function deletePaymentDetail($gize_channel_id, $batch_user_id, $subscription_period_id)
     {
+        $gize_channel = GizeChannel::find($gize_channel_id);
+        abort_if(!$gize_channel->isPermittedEditor(\Auth::user()), Response::HTTP_FORBIDDEN, 'Forbidden');
+
 
         // $batch_user_id = $request->batch_user_id;
         // $subscription_period_id = $request->subscription_period_id;
@@ -268,6 +298,7 @@ class BatchUserController extends Controller
             'total_paid' => $total_paid_for_batch,
 
         ], 200);
+
     }
 
 }

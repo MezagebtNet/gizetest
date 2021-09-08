@@ -103,6 +103,21 @@ class User extends Authenticatable
         return $this->belongsToMany(GizeChannel::class, 'gize_channel_user', 'user_id', 'gize_channel_id');
     }
 
+    /**
+     * all gize_channels super admin can manage
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function all_gize_channels()
+    {
+        if(!$this->hasRole('super-admin')){
+            return collect([]);
+        };
+        return GizeChannel::all();
+    }
+
+
+
 
     public function renderedNotificationDropdownData($dropdown_state=false){
         $user = $this;

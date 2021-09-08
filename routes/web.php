@@ -10,13 +10,14 @@ use App\Http\Controllers\Admin\SystemConfigs\BookGenreController;
 use App\Http\Controllers\Admin\SystemConfigs\BookLanguageController;
 use App\Http\Controllers\Admin\SystemConfigs\BookRoyaltyRateController;
 use App\Http\Controllers\Admin\SystemConfigs\BookTypeController;
+use App\Http\Controllers\Admin\Channels\Batches\BatchScheduleController;
 use App\Http\Controllers\PaymentController;
-use App\Http\Controllers\UsersController;
-use App\Http\Controllers\Website\HomePageController;
-use App\Http\Controllers\Website\ChannelLandingPageController;
-use App\Http\Controllers\Utils\UploadController;
 use App\Http\Controllers\UserPreferencesController;
-
+use App\Http\Controllers\UsersController;
+use App\Http\Controllers\Utils\UploadController;
+use App\Http\Controllers\Utils\FullCalendarController;
+use App\Http\Controllers\Website\ChannelLandingPageController;
+use App\Http\Controllers\Website\HomePageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
@@ -68,7 +69,6 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
             return view('profile.show');
         })->name('profile.show');
 
-
         //Route GROUP::WEBSITE Index page
         Route::group(['prefix' => 'web', 'middleware' => 'role:super-admin|user', 'as' => 'web.'], function () {
 
@@ -81,7 +81,6 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
             Route::post('/markall-user-notifications/{dropdown_state?}', [UsersController::class, 'markAllNotificationAsRead'])->name('markallnotification');
 
         });
-
 
         //Route GROUP::WEBSITE Channels Landing
         Route::group(['prefix' => 'channel', 'middleware' => 'role:super-admin|user', 'as' => 'channel.'], function () {
@@ -219,76 +218,76 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
                 //GIZE_CHANNELS_
                 /*
                 Route::group(['prefix' => 'gize_channels_', 'as' => 'gize_channels_.'], function () {
-                    //Get All
-                    Route::get('/', [GizeChannelController_::class, 'index'])->name('index'); //->middleware(['auth:web', 'scope:read-ebook']);
-                    //add
-                    Route::post('/add', [GizeChannelController_::class, 'addGizeChannel'])->name('add');
-                    //update
-                    Route::post('/update', [GizeChannelController_::class, 'updateGizeChannel'])->name('update');
-                    //get
-                    Route::get('/{id}', [GizeChannelController_::class, 'getGizeChannelById'])->name('get');
-                    //delete
-                    Route::delete('/{id}', [GizeChannelController_::class, 'deleteGizeChannel'])->name('delete');
-                    //delete selected
-                    Route::delete('/del-selected', [GizeChannelController_::class, 'deleteCheckedGizeChannels'])->name('deleteSelected');
-                    //check slug
-                    Route::get('/check_slug', [GizeChannelController_::class, 'checkSlug'])->name('checkslug');
+                //Get All
+                Route::get('/', [GizeChannelController_::class, 'index'])->name('index'); //->middleware(['auth:web', 'scope:read-ebook']);
+                //add
+                Route::post('/add', [GizeChannelController_::class, 'addGizeChannel'])->name('add');
+                //update
+                Route::post('/update', [GizeChannelController_::class, 'updateGizeChannel'])->name('update');
+                //get
+                Route::get('/{id}', [GizeChannelController_::class, 'getGizeChannelById'])->name('get');
+                //delete
+                Route::delete('/{id}', [GizeChannelController_::class, 'deleteGizeChannel'])->name('delete');
+                //delete selected
+                Route::delete('/del-selected', [GizeChannelController_::class, 'deleteCheckedGizeChannels'])->name('deleteSelected');
+                //check slug
+                Route::get('/check_slug', [GizeChannelController_::class, 'checkSlug'])->name('checkslug');
                 });
-                */
+                 */
 
                 //CHANNELVIDEOS (ADDMES)
                 Route::group(['prefix' => 'channelvideos', 'as' => 'channelvideo.'], function () {
 
-                    Route::get('/channelvideo', [ChannelvideoController::class, 'index'])->name('index');
-                    Route::post('/channelvideo', [ChannelvideoController::class, 'index']);
+                    Route::get('/{gize_channel_id}/channelvideo', [ChannelvideoController::class, 'index'])->name('index');
+                    Route::post('/{gize_channel_id}/channelvideo', [ChannelvideoController::class, 'index']);
 
-                    Route::post('/add-channelvideo', [ChannelvideoController::class, 'addChannelvideo'])->name('add');
-                    Route::get('/channelvideos/{id}', [ChannelvideoController::class, 'getChannelvideoById'])->name('getById');
+                    Route::post('/{gize_channel_id}/add-channelvideo', [ChannelvideoController::class, 'addChannelvideo'])->name('add');
+                    Route::get('/{gize_channel_id}/channelvideos/{id}', [ChannelvideoController::class, 'getChannelvideoById'])->name('getById');
 
-                    Route::post('/channelvideo', [ChannelvideoController::class, 'updateChannelvideo'])->name('update');
-                    Route::put('/deactivate-channelvideo', [ChannelvideoController::class, 'deactivateChannelvideo'])->name('deactivate');
-                    Route::put('/activate-channelvideo', [ChannelvideoController::class, 'activateChannelvideo'])->name('activate');
+                    Route::post('/{gize_channel_id}/channelvideo', [ChannelvideoController::class, 'updateChannelvideo'])->name('update');
+                    Route::put('/{gize_channel_id}/deactivate-channelvideo', [ChannelvideoController::class, 'deactivateChannelvideo'])->name('deactivate');
+                    Route::put('/{gize_channel_id}/activate-channelvideo', [ChannelvideoController::class, 'activateChannelvideo'])->name('activate');
 
-                    Route::delete('/channelvideos/{id}', [ChannelvideoController::class, 'deleteChannelvideo'])->name('delete');
-                    Route::delete('/del-selected-channelvideos', [ChannelvideoController::class, 'deleteCheckedChannelvideos'])->name('deleteSelected');
+                    Route::delete('/{gize_channel_id}/channelvideos/{id}', [ChannelvideoController::class, 'deleteChannelvideo'])->name('delete');
+                    Route::delete('/{gize_channel_id}/del-selected-channelvideos', [ChannelvideoController::class, 'deleteCheckedChannelvideos'])->name('deleteSelected');
 
-                    Route::delete('/del-channelvideo-cover-image/{id}', [ChannelvideoController::class, 'deleteChannelvideoImageFiles'])->name('deleteImage');
-                    Route::delete('/del-channelvideo-file/{id}', [ChannelvideoController::class, 'deleteChannelvideoFiles'])->name('deleteFile');
+                    Route::delete('/{gize_channel_id}/del-channelvideo-cover-image/{id}', [ChannelvideoController::class, 'deleteChannelvideoImageFiles'])->name('deleteImage');
+                    Route::delete('/{gize_channel_id}/del-channelvideo-file/{id}', [ChannelvideoController::class, 'deleteChannelvideoFiles'])->name('deleteFile');
 
                     // Route::get('file-upload', [ChannelvideoController::class, 'fileUpload'])->name('channelvideo.upload');
-                    Route::post('channelvideo-file-upload', [ChannelvideoController::class, 'fileUploadPost'])->name('upload.post');
+                    Route::post('/{gize_channel_id}/channelvideo-file-upload', [ChannelvideoController::class, 'fileUploadPost'])->name('upload.post');
                     // Route::post('channelvideo-file-delete', [ChannelvideoController::class, 'fileDeletePost'])->name('channelvideo.delete.post');
-                    Route::post('channelvideo-file-read', [ChannelvideoController::class, 'fileRead'])->name('read');
+                    Route::post('/{gize_channel_id}/channelvideo-file-read', [ChannelvidjeoController::class, 'fileRead'])->name('read');
 
-                    Route::post('video-access-list', [ChannelvideoAccessByAppUserController::class, 'video_access_list'])->name('accesslist');
-                    Route::post('channelvideo-revoke', [ChannelvideoAccessByAppUserController::class, 'revoke_video_access'])->name('revokeaccess');
-                    Route::post('channelvideo-allow', [ChannelvideoAccessByAppUserController::class, 'allow_video_access'])->name('allowaccess');
+                    Route::post('/{gize_channel_id}/video-access-list', [ChannelvideoAccessByAppUserController::class, 'video_access_list'])->name('accesslist');
+                    Route::post('/{gize_channel_id}/channelvideo-revoke', [ChannelvideoAccessByAppUserController::class, 'revoke_video_access'])->name('revokeaccess');
+                    Route::post('/{gize_channel_id}/channelvideo-allow', [ChannelvideoAccessByAppUserController::class, 'allow_video_access'])->name('allowaccess');
 
-                    Route::get('my-channelvideos', [ChannelvideoAccessByAppUserController::class, 'my_video_list'])->name('channelvideo.myvideos');
+                    Route::get('/{gize_channel_id}/my-channelvideos', [ChannelvideoAccessByAppUserController::class, 'my_video_list'])->name('channelvideo.myvideos');
 
-                    Route::post('uploadhlschunk', [UploadController::class, 'uploadHLSChunk'])->name('uploadhlschunk');
-                    Route::post('uploadkeyschunk', [UploadController::class, 'uploadKeysChunk'])->name('uploadkeyschunk');
+                    Route::post('/{gize_channel_id}/uploadhlschunk', [UploadController::class, 'uploadHLSChunk'])->name('uploadhlschunk');
+                    Route::post('/{gize_channel_id}/uploadkeyschunk', [UploadController::class, 'uploadKeysChunk'])->name('uploadkeyschunk');
 
-                    Route::delete('/del-hls-files/{id}', [UploadController::class, 'deleteHLSFiles'])->name('deletehls');
-                    Route::delete('/del-keys-files/{id}', [UploadController::class, 'deleteKeysFiles'])->name('deletekeys');
+                    Route::delete('/{gize_channel_id}/del-hls-files/{id}', [UploadController::class, 'deleteHLSFiles'])->name('deletehls');
+                    Route::delete('/{gize_channel_id}/del-keys-files/{id}', [UploadController::class, 'deleteKeysFiles'])->name('deletekeys');
 
-                    Route::post('extract', [UploadController::class, 'extract'])->name('extract');
+                    Route::post('/{gize_channel_id}/extract', [UploadController::class, 'extract'])->name('extract');
 
                 });
 
                 //BATCHES
                 Route::group(['prefix' => 'batches', 'as' => 'batch.'], function () {
                     //Get All
-                    Route::get('/', [BatchController::class, 'index'])->name('index'); //->middleware(['auth:web', 'scope:read-ebook']);
+                    Route::get('/{gize_channel_id}', [BatchController::class, 'index'])->name('index'); //->middleware(['auth:web', 'scope:read-ebook']);
 
                     //add form
-                    Route::get('/create', [BatchController::class, 'addBatchForm'])->name('addform');
+                    Route::get('/{gize_channel_id}/create', [BatchController::class, 'addBatchForm'])->name('addform');
                     //add
-                    Route::post('/batch-add', [BatchController::class, 'addBatch'])->name('add');
+                    Route::post('/{gize_channel_id}/batch-add', [BatchController::class, 'addBatch'])->name('add');
                     //edit form
-                    Route::get('/edit/{id}', [BatchController::class, 'editBatchForm'])->name('editform');
+                    Route::get('/{gize_channel_id}/edit/{id}', [BatchController::class, 'editBatchForm'])->name('editform');
                     //update
-                    Route::post('/batch-update', [BatchController::class, 'updateBatch'])->name('update');
+                    Route::post('/{gize_channel_id}/batch-update', [BatchController::class, 'updateBatch'])->name('update');
 
                     //    //add
                     //     Route::post('/batch-add', [BatchController::class, 'addBatch'])->name('add');
@@ -296,47 +295,46 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
                     //     Route::post('/batch-update', [BatchController::class, 'updateBatch'])->name('update');
 
                     //get
-                    Route::get('/batches/{id}', [BatchController::class, 'getBatchById'])->name('get');
+                    Route::get('/{gize_channel_id}/batches/{id}', [BatchController::class, 'getBatchById'])->name('get');
                     //delete
-                    Route::delete('/batches/{id}', [BatchController::class, 'deleteBatch'])->name('delete');
+                    Route::delete('/{gize_channel_id}/batches/{id}', [BatchController::class, 'deleteBatch'])->name('delete');
                     //delete selected
-                    Route::delete('/batches-del-selected', [BatchController::class, 'deleteCheckedBatches'])->name('deleteSelected');
+                    Route::delete('/{gize_channel_id}/batches-del-selected', [BatchController::class, 'deleteCheckedBatches'])->name('deleteSelected');
 
                     //add subscription period
-                    Route::post('/create-period', [BatchController::class, 'addPeriod'])->name('addperiod');
-    //edit subscription period
-    Route::post('/edit-period', [BatchController::class, 'editPeriod'])->name('editperiod');
+                    Route::post('/{gize_channel_id}/create-period', [BatchController::class, 'addPeriod'])->name('addperiod');
 
-
+                    //edit subscription period
+                    Route::post('/{gize_channel_id}/edit-period', [BatchController::class, 'editPeriod'])->name('editperiod');
 
                     //BATCH_SUBSCRIPTIONS
                     Route::group(['prefix' => 'subscriptions', 'as' => 'subscription.'], function () {
                         //Get All
-                        Route::get("/{batch_id?}", [BatchUserController::class, 'index'])->name('index'); //->middleware(['auth:web', 'scope:read-ebook']);
+                        Route::get("/{gize_channel_id}/{batch_id?}", [BatchUserController::class, 'index'])->name('index'); //->middleware(['auth:web', 'scope:read-ebook']);
                         // Route::get("/{batch}", [BatchUserController::class, 'index'])->name('index.batch'); //->middleware(['auth:web', 'scope:read-ebook']);
 
                         //get unsubscribed users list
-                        Route::get("/unsubscribed-users-list/{batch_id}", [BatchUserController::class, 'unsubscribedUsersList'])->name('unsubscribedlist'); //->middleware(['auth:web', 'scope:read-ebook']);
+                        Route::get("/{gize_channel_id}/{batch_id}/unsubscribed-users-list", [BatchUserController::class, 'unsubscribedUsersList'])->name('unsubscribedlist'); //->middleware(['auth:web', 'scope:read-ebook']);
                         //add
-                        Route::post('/subscriber-add', [BatchUserController::class, 'addSubscriber'])->name('add');
+                        Route::post('/{gize_channel_id}/subscriber-add', [BatchUserController::class, 'addSubscriber'])->name('add');
 
-                        Route::put('/deactivate-subscription', [BatchUserController::class, 'deactivateBatchUser'])->name('deactivate');
-                        Route::put('/activate-subscription', [BatchUserController::class, 'activateBatchUser'])->name('activate');
-                        Route::put('/approve-subscription', [BatchUserController::class, 'approveBatchUser'])->name('approve');
+                        Route::put('/{gize_channel_id}/deactivate-subscription', [BatchUserController::class, 'deactivateBatchUser'])->name('deactivate');
+                        Route::put('/{gize_channel_id}/activate-subscription', [BatchUserController::class, 'activateBatchUser'])->name('activate');
+                        Route::put('/{gize_channel_id}/approve-subscription', [BatchUserController::class, 'approveBatchUser'])->name('approve');
 
                         //add form
-                        Route::get('/create', [BatchUserController::class, 'addBatchForm'])->name('addform');
+                        Route::get('/{gize_channel_id}/create', [BatchUserController::class, 'addBatchForm'])->name('addform');
                         //edit form
-                        Route::get('/edit/{id}', [BatchUserController::class, 'editBatchForm'])->name('editform');
+                        Route::get('/{gize_channel_id}/edit/{id}', [BatchUserController::class, 'editBatchForm'])->name('editform');
                         //update
-                        Route::post('/batch-update', [BatchUserController::class, 'updateBatch'])->name('update');
+                        Route::post('/{gize_channel_id}/batch-update', [BatchUserController::class, 'updateBatch'])->name('update');
 
                         //add payment detail
-                        Route::post('/create-payment', [BatchUserController::class, 'addPaymentDetail'])->name('addpayment');
+                        Route::post('/{gize_channel_id}/create-payment', [BatchUserController::class, 'addPaymentDetail'])->name('addpayment');
                         //edit payment detial
-                        Route::post('/edit-payment', [BatchUserController::class, 'editPaymentDetail'])->name('editpayment');
+                        Route::post('/{gize_channel_id}/edit-payment', [BatchUserController::class, 'editPaymentDetail'])->name('editpayment');
                         //delete payment detail
-                        Route::delete('/delete-payment/{batch_user_id}/{subscription_period_id}', [BatchUserController::class, 'deletePaymentDetail'])->name('deletepayment');
+                        Route::delete('/{gize_channel_id}/delete-payment/{batch_user_id}/{subscription_period_id}', [BatchUserController::class, 'deletePaymentDetail'])->name('deletepayment');
 
                         //    //add
                         //     Route::post('/batch-add', [BatchController::class, 'addBatch'])->name('add');
@@ -351,6 +349,17 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
                         // Route::delete('/batches-del-selected', [BatchUserController::class, 'deleteCheckedBatchs'])->name('deleteSelected');
                     });
 
+                    //BATCH_SCHEDULES
+                    Route::group(['prefix' => 'schedules', 'as' => 'schedule.'], function () {
+                        //Get All
+                        Route::get("/{gize_channel_id}/{batch_id?}", [BatchScheduleController::class, 'index'])->name('index');
+                        //Get All
+                        Route::get("/{gize_channel_id}/{batch_id}/load", [BatchScheduleController::class, 'loadEvent'])->name('load');
+                        //CRUD
+                        Route::post("/{gize_channel_id}/{batch_id}/ajax", [BatchScheduleController::class, 'crudCalendarEvents'])->name('crud_calendarevents');
+
+                    });
+
                 });
 
             });
@@ -362,7 +371,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
         });
 
-    //ROUTE GROUP::USER
+        //ROUTE GROUP::USER
 
         Route::group(['prefix' => 'user', 'middleware' => 'role:super-admin|user', 'as' => 'user.'], function () {
 
@@ -408,8 +417,6 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
             });
         });
 
-
-
         Route::get('/logout', function (Request $request) {
             Auth::logout();
             $request->session()->invalidate();
@@ -425,6 +432,5 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
 /** OTHER PAGES THAT SHOULD NOT BE LOCALIZED **/
 //
-
 
 Route::post('/user/payment-ipn', [PaymentController::class, 'postIPN'])->name('payment.ipn');

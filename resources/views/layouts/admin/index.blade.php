@@ -59,8 +59,10 @@
     <link rel="stylesheet" href="{{ asset('vendors/admin/plugins/summernote/summernote-bs4.min.css') }}">
 
 
-    @yield('styles')
+
+    @include('layouts.styles.globalstyles')
     <style>
+
         .dark-mode .table-success{
             color: rgb(32, 32, 32);
         }
@@ -76,6 +78,10 @@
             margin-bottom: 0;
         }
     </style>
+    @yield('styles')
+
+
+
     @include('layouts.scripts.notification_styles')
 
 </head>
@@ -197,8 +203,8 @@ hold-transition sidebar-mini layout-fixed">
 
     @stack('scripts_js')
 
-    @include('layouts.scripts.notification_scripts');
-    @include('layouts.scripts.userpreference_scripts');
+    @include('layouts.scripts.notification_scripts')
+    @include('layouts.scripts.userpreference_scripts')
 
 
     @yield('js')

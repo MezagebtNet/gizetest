@@ -1,8 +1,8 @@
-<div class="modal fade" id="lecturevideoUploadModal" tabindex="-1" aria-labelledby="lecturevideoUploadModalLabel" aria-hidden="true">
+<div class="modal fade" id="channelvideoUploadModal" tabindex="-1" aria-labelledby="channelvideoUploadModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="lecturevideoUploadModalLabel">Upload Lecture Video File</h5>
+        <h5 class="modal-title" id="channelvideoUploadModalLabel">Upload Video File</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -11,27 +11,27 @@
 
 
 
-        <input type="hidden" id="upload_lecturevideo_id" name="upload_lecturevideo_id" value="" />
-        <input type="hidden" id="lecturevideo_id" name="lecturevideo_id" value="" />
+        <input type="hidden" id="upload_channelvideo_id" name="upload_channelvideo_id" value="" />
+        <input type="hidden" id="channelvideo_id" name="channelvideo_id" value="" />
 
 
-          <!-- <form id="lecturevideoUploadForm" enctype="multipart/form-data">
+          <!-- <form id="channelvideoUploadForm" enctype="multipart/form-data">
             @csrf
-            <input type="hidden" id="lecturevideo_id" name="lecturevideo_id" value="" />
+            <input type="hidden" id="channelvideo_id" name="channelvideo_id" value="" />
             <div class="row">
-              <label for="lecturevideo_file_input">Allowed file format: 'mp4'</label>
+              <label for="channelvideo_file_input">Allowed file format: 'mp4'</label>
               <div class="col-8">
 
-                <input type="file" name="lecturevideo_file_input" class="form-control-file" id="lecturevideo_file_input" />
+                <input type="file" name="channelvideo_file_input" class="form-control-file" id="channelvideo_file_input" />
               </div>
               <div class="col-4">
-                <button id="btn_upload_lecturevideo" type="submit" class="btn btn-sm btn-primary">Upload</button>
+                <button id="btn_upload_channelvideo" type="submit" class="btn btn-sm btn-primary">Upload</button>
               </div>
             </div>
 
             <div class="form-group">
 
-                <span class="text-danger" id="lecturevideo_file_input_error"></span>
+                <span class="text-danger" id="channelvideo_file_input_error"></span>
             </div>
 
 
@@ -76,7 +76,7 @@
 
                               <div class="row">
                                 <div class="col-12  text-wrap">
-                                  <button style="margin-top: 22px;" type="button" class="btn btn-success" id="resumable-stream-browse" data-url="{{ url('admin/uploadhlschunk') }}" >Upload</button>
+                                  <button style="margin-top: 22px;" type="button" class="btn btn-success" id="resumable-stream-browse" data-url="{{ route('admin.manage.channelvideo.uploadhlschunk', $gize_channel->id) }}" >Upload</button>
 
                                 </div>
                               </div>
@@ -149,7 +149,7 @@
                                   <div class="col-4"></div>
                               </div>
 
-                              <button style="margin-top: 22px;"  type="button" class="btn btn-success" id="resumable-keys-browse" data-url="{{ url('admin/uploadkeyschunk') }}" >Upload</button>
+                              <button style="margin-top: 22px;"  type="button" class="btn btn-success" id="resumable-keys-browse" data-url="{{ route('admin.manage.channelvideo.uploadkeyschunk', $gize_channel->id) }}" >Upload</button>
 
                             </div>
 
@@ -183,7 +183,7 @@
 
 
       <div class="modal-footer">
-          <!-- <button id="btn-delete-lecturevideo" bookid="" type="button" class="btn btn-danger">Delete</button> -->
+          <!-- <button id="btn-delete-channelvideo" bookid="" type="button" class="btn btn-danger">Delete</button> -->
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>

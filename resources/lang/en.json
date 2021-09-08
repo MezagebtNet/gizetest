@@ -48,10 +48,32 @@
     "Add New Period": "Add New Period",
     "From Date": "From Date",
     "To Date": "To Date",
-    "Save": "Save",
     "Update": "Update",
     "Add": "Add",
-    "Close": "Close"
+    "Close": "Close",
+
+    "Main": "Main",
+    "Admin": "Admin",
+
+    "MANAGEMENT": "MANAGEMENT",
+    "User Accounts": "User Accounts",
+
+
+    "All Gize Channels": "All Gize Channels",
+    "CHANNELS": "CHANNELS",
+
+    "Videos": "Videos",
+    "Batches": "Batches",
+    "Subscriptions": "Subscriptions",
+    "Schedule Calendar": "Schedule Calendar",
+
+    "MY ACCOUNT": "MY ACCOUNT",
+    "My Profile": "My Profile",
+    "Logout": "Logout",
+
+    "System Administration": "System Administration",
+    "Edit Profile": "Edit Profile"
+
 
 
 

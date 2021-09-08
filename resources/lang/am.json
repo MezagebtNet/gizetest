@@ -48,9 +48,30 @@
     "Add New Period": "አዲስ ክፍለ ጊዜ ጨምር",
     "From Date": "ከቀን",
     "To Date": "እስከ ቀን",
-    "Save": "አስቀምጥ",
     "Update": "ቀይር",
     "Add": "ጨምር",
-    "Close": "ዝጋ"
+    "Close": "ዝጋ",
+
+    "Main": "ዋና",
+    "Admin": "አስተዳደር",
+
+    "MANAGEMENT": "መስተዳድር",
+    "User Accounts": "የተጠቃሚዎች መዝገብ",
+
+
+    "All Gize Channels": "ሁሉም የጊዜ ቻናሎች",
+    "CHANNELS": "ቻናሎች",
+
+    "Videos": "ቪድዮዎች",
+    "Batches": "ስብስቦች",
+    "Subscriptions": "ምዝገባዎች",
+    "Schedule Calendar": "የስርጭት ጊዜ ሰሌዳ",
+
+    "MY ACCOUNT": "የኔ መዝገብ",
+    "My Profile": "የመገለጫ መረጃ",
+    "Logout": "መውጫ",
+
+    "System Administration": "ሲስተም አስተዳደር",
+    "Edit Profile": "የመገለጫ ማስተካከያ"
 
 }

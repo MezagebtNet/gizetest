@@ -17,18 +17,7 @@
         wsPort: 6001,
         forceTLS: false,
         disableStats: false,
-    });
-
-    // window.Echo.channel('App.Models.User.'+ "{{ auth()->user()->id }}")
-    // .listen('your-event-class', (e) => {
-    //         console.log(e)
-    // });
-
-
-
-
-    // console.log("websokets in use");
-
+    })
 
 
 
@@ -55,7 +44,7 @@
                 }
 
 
-            });
+            })
 
 
         // var myVar = setInterval(myTimer, 1000 * 10);
