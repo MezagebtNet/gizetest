@@ -46,6 +46,7 @@
         <div class="card-body px-0 py-0">
             <ul class="list-group list-group-flush">
                 <li class="list-group-item"><a href="{{ route('admin.manage.batch.editform', ['gize_channel_id' => $batch->gize_channel_id, 'id' => $batch->id]) }}">Edit Batch Details</a></li>
+                <li class="list-group-item"><a href="{{ route('admin.manage.batch.schedule.index', ['gize_channel_id' => $batch->gize_channel_id, 'batch_id' => $batch->id]) }}">Edit Video Schedules</a></li>
             </ul>
         </div>
     </div>

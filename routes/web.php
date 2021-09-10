@@ -23,6 +23,10 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
+use ProtoneMedia\LaravelFFMpeg\Http\DynamicHLSPlaylist;
+use Illuminate\Support\Facades\Storage;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -47,6 +51,9 @@ use Illuminate\Support\Facades\Route;
 
 // Route::redirect('/', '/en');
 
+
+
+
 //ROUTE GROUP::LANGUAGE SELECTOR
 // Route::group(['prefix' => '{language}'], function () {
 Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
@@ -54,6 +61,9 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
     //HOME
     Route::get('/', [HomePageController::class, 'index'])->name('home');
+
+
+
 
     //ROUTE GROUP::AUTH
     Route::group(['middleware' => 'auth'], function () {
@@ -69,6 +79,10 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
             return view('profile.show');
         })->name('profile.show');
 
+
+
+
+
         //Route GROUP::WEBSITE Index page
         Route::group(['prefix' => 'web', 'middleware' => 'role:super-admin|user', 'as' => 'web.'], function () {
 
@@ -82,13 +96,51 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
         });
 
+
+
+
+        //Route GROUP::VIDEOSTREAM
+        Route::group(['prefix' => 'video', 'middleware' => 'role:super-admin|user|channel-admin|system-admin', 'as' => 'video.'], function () {
+
+            Route::get('/gize_stream/{vid_id}/{playlist?}', 'App\Http\Controllers\Students\StudentVideoController@stream')->name('stream.playlist');
+
+            Route::get('/{vid_id}/{playlist?}', function ( $vid_id, $playlist='plist.m3u8' ) {
+                $DPL = new DynamicHLSPlaylist();
+                return $DPL
+                    ->fromDisk('public')
+                    ->open('/hls/'.$vid_id.'/'.$playlist)
+                    ->setKeyUrlResolver(function ($key) use($vid_id) {
+                        return route('video.key', ['key' => $key, 'vid_id' => $vid_id]);
+                    })
+                    ->setMediaUrlResolver(function ($mediaFilename) use($vid_id) {
+                        return Storage::disk('public')->url('/hls/'.$vid_id.'/'.$mediaFilename);
+                    })
+                    ->setPlaylistUrlResolver(function ($playlistFilename) use($vid_id) {
+                        return route('video.playlist', ['vid_id' => $vid_id, 'playlist' => $playlistFilename]);
+                    });
+            })->name('playlist');
+
+            Route::get('/key/{key}/{vid_id}', function($key, $vid_id) {
+                abort_if(Auth::guest(), 403);
+                return Storage::disk('hls_secrets')->download($vid_id.'/'.$key);
+            })->name('key');
+        });
+
+
+
+
         //Route GROUP::WEBSITE Channels Landing
         Route::group(['prefix' => 'channel', 'middleware' => 'role:super-admin|user', 'as' => 'channel.'], function () {
 
             Route::get('/{slug}', [ChannelLandingPageController::class, 'find_by_slug'])->name('landing');
             Route::get('/{slug}/active-videos', [ChannelLandidngPageController::class, 'getActiveChannelVideos'])->name('activevideos');
 
+
+
         });
+
+
+
 
         //ROUTE GROUP::SUPER-ADMIN
         Route::group(['prefix' => 'admin', 'middleware' => 'role:channel-admin|super-admin', 'as' => 'admin.'], function () {
@@ -371,8 +423,10 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
         });
 
-        //ROUTE GROUP::USER
 
+
+
+        //ROUTE GROUP::USER
         Route::group(['prefix' => 'user', 'middleware' => 'role:super-admin|user', 'as' => 'user.'], function () {
 
             //MY HOME
@@ -416,6 +470,9 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
             });
         });
+
+
+
 
         Route::get('/logout', function (Request $request) {
             Auth::logout();

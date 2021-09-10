@@ -7,16 +7,58 @@
 
     <!--Video JS -->
     <link href="https://vjs.zencdn.net/7.14.3/video-js.css" rel="stylesheet" />
+    {{-- <link href="https://unpkg.com/video.js/dist/video-js.css" rel="stylesheet"> --}}
 
     <!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
     <!-- <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script> -->
-
     <style>
-        @media(max-width: 600px) {
+        .video-js .vjs-control-bar {
+            color: #fff3d3;
+            font-size: 1.1em;
+            background-color: rgb(25 20 6 / 70%);
+
+        }
+
+    </style>
+    <style>
+        /* ----------- 0 - 450px ----------- */
+        @media screen and (max-width: 450px) {
+
+            .video-card {
+                min-width: 24rem;
+                max-width: 22rem;
+            }
+            .videos-grid-wrapper {
+                padding-left: 7px !important;
+                padding-right: 7px !important;
+            }
+        }
+
+        /* ----------- 450 - 650px ----------- */
+        @media screen and (min-width: 451px) and (max-width: 650px) {
             .video-card {
                 /* min-width: 100% !important; */
-                max-width: 100% !important;
+                max-width: 30rem !important;
             }
+        }
+
+        /* ----------- 650px - 950px ----------- */
+        @media screen and (min-width: 651px) and (max-width: 950px) {}
+
+        /* ----------- 950px - 1200px ----------- */
+        @media screen and (min-width: 951px) and (max-width: 1200px) {}
+
+        /* ----------- 1200px + ----------- */
+        @media screen and (min-width: 1201px) {}
+
+        @media(max-width: 115px) {
+            .video-card {
+                /* min-width: 100% !important; */
+            }
+        }
+
+        @media(max-width: 600px) {
+
 
             .channel-logo {
                 width: 60px !important;
@@ -38,8 +80,19 @@
         }
 
         .video-card {
-            min-width: 18rem;
-            max-width: 22rem;
+            /* min-width: 24rem; */
+            /* max-width: 22rem; */
+        }
+
+        .video-card .card {
+            overflow: hidden;
+            border-radius: 12px;
+        }
+
+        .video-js {
+            border-radius: 12px 12px 12px 0px;
+            overflow: hidden;
+            filter: drop-shadow(0 0 0.2rem black);
         }
 
 
@@ -93,37 +146,45 @@
 @section('content')
 
     <div class="">
-        <section class="mb-3 pb-0 w:100 jumbotron text-center channel-banner" style=" width: 100%;
-                                background-image: linear-gradient(to bottom, #0000006b, #0000007d, #000000d6), url({{ asset('assets/image/background.jpg') }});
-                            " style="">
-            <div class="d-flex align-items-center flex-column bd-highlight ">
-                <div class="mb-auto p-2 bd-highlight">
-                    <h1 class="channel-title mb-auto">{{ $gize_channel->name }}</h1>
-                    <p class="channel-description lead">{{ __('Producer') }} - {{ $gize_channel->producer }}</p>
-                </div>
+        <section class=" mb-3 pb-0 w:100 jumbotron text-center channel-banner" style="
+            width: 100%;
+            background-image: linear-gradient(to bottom, #000000e8, #00000026, #0000), url({{ asset('assets/image/background.jpg') }});
+            background-attachment: fixed;
+            width: 100%;
+            height: 100%;
+            background-attachment: fixed;
+            background-position: center center;
+            background-size: cover;
+        }
+        ">
+        <div class="d-flex align-items-center flex-column bd-highlight ">
+            <div class="mb-auto p-2 bd-highlight">
+                <h1 class="channel-title mb-auto">{{ $gize_channel->name }}</h1>
+                <p class="channel-description lead">{{ __('Producer') }} - {{ $gize_channel->producer }}</p>
             </div>
+        </div>
 
-            <div class="d-flex align-items-center flex-column bd-highlight ">
-                <div class="pb-0 mb-n3 bd-highlight">
-                    <div class="channel-logo"></div>
-                </div>
+        <div class="d-flex align-items-center flex-column bd-highlight ">
+            <div class="pb-0 mb-n3 bd-highlight">
+                <div class="channel-logo"></div>
             </div>
-            <div class="d-flex flex-column bd-highlight ">
+        </div>
+        <div class="d-flex flex-column bd-highlight ">
 
-                <div class="dropdown channel-menu ">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Menu
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#">{{ __('Streaming Schedule') }}</a>
-                        <a class="dropdown-item" href="#">{{ __('Rentals') }}</a>
-                    </div>
+            <div class="dropdown channel-menu ">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Menu
+                </button>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#">{{ __('Streaming Schedule') }}</a>
+                    <a class="dropdown-item" href="#">{{ __('Rentals') }}</a>
                 </div>
             </div>
+        </div>
         </section>
     </div>
-    <div class="px-4 pt-4 pt-5 pb-4">
+    <div class="videos-grid-wrapper px-4 pt-4 pt-5 pb-4">
 
         {{-- @include('website.user.top-menu') --}}
 
@@ -149,15 +210,27 @@
 
 
                 <hr />
-                <div class="row grid-container">
+                <div class="grid-container">
                     {{-- <div class="justify-content-sm-center"> --}}
                     {{-- <center> --}}
-                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 ">
-                        @foreach ($activevideos as $video)
-                            <x-channels.player :vidid="'vid'.$video->id" :vidtitle="$video->title"
-                                :viddescription="$video->description" />
+                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 ">
+                        {{-- {{ dd($activevideos[0]->video->poster_image_url) }} --}}
+                        @for ($i = 0; $i < $activevideos->count(); $i++)
+                            @php
+                                $active = $activevideos[$i];
+                                $key = $i;
+                            @endphp
 
-                        @endforeach
+                            <x-channels.player :vidid="$active->video->id" :viddomid="'v'.$key.$active->video->id"
+                                :vidtitle="$active->video->title" :viddescription="$active->video->description"
+                                :vidposter="$active->video->poster_image_url"
+                                :video="$active->video"
+                                />
+
+
+
+
+                        @endfor
                     </div>
                     {{-- </center> --}}
                     {{-- </div> --}}

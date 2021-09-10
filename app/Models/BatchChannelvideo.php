@@ -30,4 +30,22 @@ class BatchChannelvideo extends Pivot
         'ends_at',
     ];
 
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'video'
+    ];
+
+    public function getVideoAttribute($value){
+        $video_id = $this->channelvideo_id;
+
+        $video_detail = Channelvideo::find($video_id);
+
+        return $video_detail;
+    }
+
+
 }

@@ -123,7 +123,7 @@
             @if (auth()->user()->isSuperAdmin() ||
                 auth()->user()->isSystemAdmin() ||
                 auth()->user()->isChannelAdmin())
-                <li class="nav-header">{{ __('MANAGEMENT') }}</li>
+                @if(!auth()->user()->isChannelAdmin())<li class="nav-header">{{ __('MANAGEMENT') }}</li>@endif
                 @canany(['system_user'])
                     <li class="nav-item">
                         <a href="{{ route('admin.manage.user.index') }}"
@@ -158,9 +158,9 @@
                     {{-- List of Channels the user can manage... --}}
                     @foreach ($user_channels as $channel)
                     {{-- {{ dd( $channel ) }} --}}
-                    <li class="nav-item {{ request()->is('*admin/manage/*' . $channel->id . '*') ? 'menu-open' : '' }}">
+                    <li class="nav-item {{ request()->is('*admin/manage/batches*' . $channel->id . '*') || request()->is('*admin/manage/channelvideos*' . $channel->id . '*') ? 'menu-open' : '' }}">
                             <a href="#"
-                                class="nav-link {{ request()->is('*admin/manage/*' . $channel->id . '*') ? 'active' : '' }}">
+                                class="nav-link {{ request()->is('*admin/manage/batches*' . $channel->id . '*') || request()->is('*admin/manage/channelvideos*' . $channel->id . '*') ? 'active' : '' }}">
                                 <i class="nav-icon fa fa-solid fa-tv"></i>
                                 <p>
                                     {{ strtoupper($channel->name) }}

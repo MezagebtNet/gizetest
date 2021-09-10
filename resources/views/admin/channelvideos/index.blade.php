@@ -61,7 +61,7 @@
 										<tr id="channelvideoid{{$channelvideo->id}}">
 											<td><input type="checkbox" name="ids" class="checkBoxClass" value="{{$channelvideo->id}}"/></td>
 											<td>
-											   <img style="border-radius: 8px;" width="130" src="{{($channelvideo->poster_image_url!=null)? asset('storage\\'.$channelvideo->poster_image_url):asset('storage\\images\\l\\thumb\\channelvideo.jpg')}}" />
+											   <img style="border-radius: 8px;" width="130" src="{{($channelvideo->thumb_image_url!=null)? asset('storage\\'.$channelvideo->thumb_image_url):asset('storage\\images\\l\\thumb\\channelvideo.jpg')}}" />
 											</td>
 											<td scope="row">{{$channelvideo->title}}</td>
 											<td>{{$channelvideo->trainer}}</td>

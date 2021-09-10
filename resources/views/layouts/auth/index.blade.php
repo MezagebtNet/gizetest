@@ -172,8 +172,8 @@
       */
 
         .inner.cover {
-            padding-left: 10%;
-            padding-right: 10%;
+            /* padding-left: 10%;
+            padding-right: 10%; */
             margin-top: 2em;
             margin-bottom: 2em;
             text-align: left;

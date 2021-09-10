@@ -29,6 +29,7 @@ class BatchUserController extends Controller
         }
         $batches = Batch::
             whereIn('status', [1, 2]) //ongoing or onhold
+            ->where('gize_channel_id', $gize_channel_id)
             ->orderBy('id', 'DESC')->get();
 
         // $batch = Batch::find(1);

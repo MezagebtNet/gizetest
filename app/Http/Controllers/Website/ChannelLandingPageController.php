@@ -61,7 +61,8 @@ $videos_in_batch = BatchChannelvideo::where('batch_id', $batch->id)
 
         }
 
-        return $channelvideos;
+return $channelvideos;
+
 
     }
 

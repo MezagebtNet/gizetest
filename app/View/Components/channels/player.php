@@ -3,6 +3,7 @@
 namespace App\View\Components\channels;
 
 use Illuminate\View\Component;
+use App\Models\Channelvideo;
 
 class player extends Component
 {
@@ -13,6 +14,22 @@ class player extends Component
      * @var string
      */
     public $vidid;
+
+    /**
+     * The player video.
+     *
+     * @var Channelvideo
+     */
+    public $video;
+
+
+
+    /**
+     * The player viddomid.
+     *
+     * @var string
+     */
+    public $viddomid;
 
     /**
      * The player vidtitle.
@@ -29,15 +46,25 @@ class player extends Component
     public $viddescription;
 
     /**
+     * The player vidposter.
+     *
+     * @var string
+     */
+    public $vidposter;
+
+    /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($vidid, $vidtitle, $viddescription)
+    public function __construct($vidid, $video, $viddomid, $vidtitle, $viddescription, $vidposter="images/l/channelvideo.png")
     {
         $this->vidid = $vidid;
+        $this->video = $video;
+        $this->viddomid = $viddomid;
         $this->vidtitle = $vidtitle;
         $this->viddescription = $viddescription;
+        $this->vidposter = $vidposter;
     }
 
     /**
