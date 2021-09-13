@@ -132,12 +132,15 @@ class User extends Authenticatable
         '.(($notification_count!=0)?'<span class="badge badge-warning navbar-badge">'.$notification_count.'</span>':'').'
       </a>';
       $show_hide = ($dropdown_state==true)?'': '';
-$renderd_data .= '<div class="dropdown-menu dropdown-menu-right ' . $show_hide . '">';
+$renderd_data .= '<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right ' . $show_hide . '">';
+
 
 
       if($notification_count > 0){
         $renderd_data .= '<span class="dropdown-item dropdown-header ">'.$notification_count.'  Notification'.(($notification_count==1)?'':'s').'';
         $renderd_data .= '<span class="float-right position-relative "><button class="btn btn-xs btn-mark-all btn-outline-secondary align-right"><i class="fa fa-check"></i> Read All</button></span></span>';
+$renderd_data .= '<div class="scroll scroll4" style="max-height:185px; overflow: hidden; overflow-y: scroll;">';
+
         for ($i=0; $i < $notification_count ; $i++) {
 
             $notification = $user->unreadNotifications[$i];
@@ -195,6 +198,8 @@ $renderd_data .= '<div class="dropdown-menu dropdown-menu-right ' . $show_hide .
             }
 
         }
+$renderd_data .= '</div>';
+
       }
 
         $renderd_data .= '<div class="dropdown-divider"></div>

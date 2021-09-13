@@ -61,8 +61,8 @@
         }
 
         @media(min-width: 768px; ) {
-            .col-md-3.sticky-top {
-                align-self: baseline;
+            .sticky-top {
+                /* align-self: baseline; */
             }
         }
 
@@ -95,7 +95,7 @@
 
 @section('content')
     <div class="row .flex-md-row-reverse">
-        <div class="col-sm-12 col-md-3 sticky-top order-sm-2">
+        <div class="col-sm-12 col-md-3 order-sm-2">
 
             @include('admin.manage.batches.schedules.sidebar')
             {{-- <div id='draggable-el' data-event='{ "title": "my event", "duration": "02:00" }'>drag me</div>

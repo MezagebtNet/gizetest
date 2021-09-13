@@ -35,6 +35,13 @@
             /* Added */
             margin-bottom: 10px;
             /* Added */
+            border-radius: 16px;
+
+            max-width: 350px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 16px;
+
         }
 
          article.card-body  {

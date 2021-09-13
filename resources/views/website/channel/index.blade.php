@@ -21,19 +21,34 @@
 
     </style>
     <style>
-        #menuTab {
-            max-width: 400px;
-            margin: 0 auto;
-        }
-
         .nav-pills .nav-link.active,
         .nav-pills .show>.nav-link {
             background-color: #3d3d3d;
+            color: white;
+        }
+
+        .dark-mode .nav-pills .nav-link.active,
+        .nav-pills .show>.nav-link {
+            /* background-color: #3d3d3d; */
+            color: orange;
+        }
+
+        .dark-mode .nav-pills .nav-link:hover,
+        .nav-pills .show>.nav-link {
+            /* background-color: #3d3d3d; */
+            color: orange;
         }
 
         .nav-pills .nav-link {
             padding-left: 2px;
             padding-right: 2px;
+        }
+
+        .spin-8 svg {
+            margin: 15px 20px;
+            opacity: 0.3;
+            width: 70px;
+            display: inline;
         }
 
         @keyframes wipe-enter {
@@ -70,20 +85,33 @@
         }
 
 
-        /* ----------- 0 - 326px ----------- */
-        @media screen and (max-width: 327px) {
+        /* ----------- 0 - 331px ----------- */
+        @media screen and (max-width: 331px) {
+            .banner-section-wrapper {
+                margin-top: 96px;
+            }
+
+            #menuTab a {
+                border-radius: 0;
+
+                /* max-width: 100% !important; */
+            }
+
             .sticky-top {
                 position: sticky;
                 position: -webkit-sticky;
                 top: 96px;
+                /* max-width: 100% !important; */
 
                 background-color: #f4f6f9;
                 box-shadow: 0 0px 12px #3b3b3bb0;
                 margin-left: -7px !important;
                 margin-right: -7px !important;
             }
+
             .dark-mode .sticky-top {
                 background-color: black;
+                box-shadow: 0 0px 12px #000;
             }
 
             .video-card {
@@ -95,22 +123,43 @@
                 padding-left: 7px !important;
                 padding-right: 7px !important;
             }
+
+            .channel-title {
+                color: aliceblue;
+                font-size: 1.5rem;
+                text-shadow: 0 1px 5px black;
+                font-weight: 400;
+            }
+
+            .channel-description {
+                color: rgb(235, 235, 235);
+                font-size: 0.8rem;
+                text-shadow: 0 1px 5px black;
+                font-weight: 300;
+            }
         }
 
-        /* ----------- 0 - 450px ----------- */
-        @media screen and (min-width: 327px) and (max-width: 450px) {
+        /* ----------- 332 - 450px ----------- */
+        @media screen and (min-width: 332px) and (max-width: 499px) {
+            #menuTab a {
+                border-radius: 0;
+                /* max-width: 100% !important; */
+            }
+
             .sticky-top {
                 position: sticky;
                 position: -webkit-sticky;
                 top: 56px;
-
+                /* width:100%; */
                 background-color: #f4f6f9;
                 box-shadow: 0 0px 12px #3b3b3bb0;
                 margin-left: -7px !important;
                 margin-right: -7px !important;
             }
+
             .dark-mode .sticky-top {
                 background-color: black;
+                box-shadow: 0 0px 12px #000;
             }
 
             .video-card {
@@ -123,6 +172,40 @@
                 padding-right: 7px !important;
             }
 
+            .channel-title {
+                color: aliceblue;
+                font-size: 1.5rem;
+                text-shadow: 0 1px 5px black;
+                font-weight: 400;
+            }
+
+            .channel-description {
+                color: rgb(235, 235, 235);
+                font-size: 0.8rem;
+                text-shadow: 0 1px 5px black;
+                font-weight: 300;
+            }
+
+        }
+
+        /* ----------- 500 -  ----------- */
+        @media screen and (min-width: 500) {
+            #menuTab {
+
+
+                max-width: 400px !important;
+                margin: 0 auto;
+            }
+        }
+
+        /* ----------- 450 - 650px ----------- */
+        @media screen and (min-width: 501px) and (max-width: 650px) {
+            #menuTab {
+
+
+                max-width: 400px !important;
+                margin: 0 auto;
+            }
         }
 
         /* ----------- 450 - 650px ----------- */
@@ -131,16 +214,96 @@
                 /* min-width: 100% !important; */
                 max-width: 30rem !important;
             }
+
+            .channel-title {
+                color: aliceblue;
+                font-size: 1.5rem;
+                text-shadow: 0 1px 5px black;
+                font-weight: 400;
+            }
+
+            .channel-description {
+                color: rgb(235, 235, 235);
+                font-size: 0.8rem;
+                text-shadow: 0 1px 5px black;
+                font-weight: 300;
+            }
         }
 
         /* ----------- 650px - 950px ----------- */
-        @media screen and (min-width: 651px) and (max-width: 950px) {}
+        @media screen and (min-width: 651px) and (max-width: 950px) {
+            .channel-title {
+                color: aliceblue;
+                font-size: 2.5rem;
+                text-shadow: 0 1px 5px black;
+                font-weight: 600;
+            }
+
+            .channel-description {
+                color: rgb(235, 235, 235);
+                font-size: 1rem;
+                text-shadow: 0 1px 5px black;
+                font-weight: 400;
+            }
+
+            #menuTab {
+
+
+                max-width: 400px !important;
+                margin: 0 auto;
+            }
+
+        }
 
         /* ----------- 950px - 1200px ----------- */
-        @media screen and (min-width: 951px) and (max-width: 1200px) {}
+        @media screen and (min-width: 951px) and (max-width: 1200px) {
+            .channel-title {
+                color: aliceblue;
+                font-size: 2.5rem;
+                text-shadow: 0 1px 5px black;
+                font-weight: 600;
+            }
+
+            .channel-description {
+                color: rgb(235, 235, 235);
+                font-size: 1rem;
+                text-shadow: 0 1px 5px black;
+                font-weight: 400;
+            }
+
+            #menuTab {
+
+
+                max-width: 400px !important;
+                margin: 0 auto;
+            }
+
+        }
 
         /* ----------- 1200px + ----------- */
-        @media screen and (min-width: 1201px) {}
+        @media screen and (min-width: 1201px) {
+            .channel-title {
+                color: aliceblue;
+                font-size: 2.5rem;
+                text-shadow: 0 1px 5px black;
+                font-weight: 600;
+            }
+
+            .channel-description {
+                color: rgb(235, 235, 235);
+                font-size: 1rem;
+                text-shadow: 0 1px 5px black;
+                font-weight: 400;
+            }
+
+            #menuTab {
+
+
+                max-width: 400px !important;
+                margin: 0 auto;
+            }
+
+        }
 
         @media(max-width: 115px) {
             .video-card {
@@ -156,6 +319,7 @@
                 height: 60px !important;
 
             }
+
         }
 
         @media(max-width: 357px) {
@@ -184,15 +348,6 @@
 
 
 
-        .channel-title {
-            color: aliceblue;
-            font-size: 1.5rem;
-        }
-
-        .channel-description {
-            color: rgb(235, 235, 235);
-            font-size: 1rem;
-        }
 
         .channel-banner {
 
@@ -216,22 +371,25 @@
         video {
             max-width: 100%;
         }
-        .slow-spin {
-  -webkit-animation: fa-spin 10s infinite linear;
-}
 
-.fa-refresh {
-  transform: scaleX(-1);
-  animation: spin-reverse 10s infinite linear;
-}
-@keyframes spin-reverse {
-  0% {
-    transform: scaleX(-1) rotate(-360deg);
-  }
-  100% {
-    transform: scaleX(-1) rotate(0deg);
-  }
-}
+        .slow-spin {
+            -webkit-animation: fa-spin 10s infinite linear;
+        }
+
+        .fa-refresh {
+            transform: scaleX(-1);
+            animation: spin-reverse 10s infinite linear;
+        }
+
+        @keyframes spin-reverse {
+            0% {
+                transform: scaleX(-1) rotate(-360deg);
+            }
+
+            100% {
+                transform: scaleX(-1) rotate(0deg);
+            }
+        }
 
     </style>
 
@@ -248,31 +406,33 @@
 
 @section('content')
 
-    <div class="">
-        <section class=" mb-3 pb-0 w:100 jumbotron text-center channel-banner" style="
-                                        width: 100%;
-                                        background-image: linear-gradient(to bottom, #000000e8, #00000026, #0000), url({{ asset('assets/image/background.jpg') }});
-                                        width: 100%;
-                                        height: 100%;
-                                        background-attachment: fixed;
-                                        background-position: center center;
-                                        background-size: cover;
-                                    }
-                                    ">
-        <div class="d-flex align-items-center flex-column bd-highlight ">
-            <div class="mb-auto p-2 bd-highlight">
-                <h1 class="channel-title mb-auto">{{ $gize_channel->name }}</h1>
-                <p class="channel-description lead">{{ __('Producer') }} - {{ $gize_channel->producer }}</p>
-            </div>
-        </div>
+    <div class="banner-section-wrapper">
+        <section style=" width: 100%; padding:0;
+                        margin-top: -1px;
+                        background-image: linear-gradient(to bottom, #000000ab, #3b3b3b63, #000000b3), url(http://localhost:8000/assets/image/Addmes_Cover.jpg);
+                        height: 186px;
+                        /* background-attachment: fixed; */
+                        background-position: center center;
+                        background-size: cover;
 
-        <div class="d-flex align-items-center flex-column bd-highlight ">
-            <div class="pb-0 mb-n3 bd-highlight">
-                <div class="channel-logo"></div>
-            </div>
-        </div>
+                                                        " class=" mb-3 pb-0 w:100 jumbotron text-center channel-banner">
+            <div style="
+                                                            >
 
-        </section>
+                                <div class="     d-flex align-items-center flex-column bd-highlight ">
+                <div class="mb-auto p-2 bd-highlight">
+                    <h1 class="channel-title mb-auto">{{ $gize_channel->name }}</h1>
+                    <p class="channel-description lead">{{ __('Producer') }} - {{ $gize_channel->producer }}</p>
+                </div>
+            </div>
+
+            <div class="d-flex align-items-center flex-column bd-highlight ">
+                <div class="pb-0 mb-n3 bd-highlight">
+                    <div class="channel-logo"></div>
+                </div>
+            </div>
+    </div>
+    </section>
     </div>
     <div class="videos-grid-wrapper px-4 pt-4 pt-5 pb-4">
 
@@ -294,7 +454,7 @@
                 <div class="row mt-n5 mb-3">
 
                 </div>
-                <ul class="nav nav-pills nav-justified sticky-top" id="menuTab" role="tablist">
+                <ul class="nav nav-pills nav-justified sticky-top" style="margin-top: -1px;" id="menuTab" role="tablist">
                     <li class="nav-item" role="presentation">
                         <a class="nav-link active" id="my-streams-tab" data-toggle="tab" href="#my-streams" role="tab"
                             aria-controls="my-streams" aria-selected="true">{{ __('My Videos') }}</a>
@@ -315,39 +475,55 @@
 
                 <div class="tab-content">
                     <div class="tab-pane active" id="my-streams" role="tabpanel" aria-labelledby="my-streams-tab">
-                        <h2 class="pt-2">{{ __('My Streamed Videos') }}
-                            <svg class="slow-spin fa-refresh" style="width: 25px; display: inline;" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="sun" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-sun fa-w-16 fa-spin fa-lg"><path fill="currentColor" d="M256 160c-52.9 0-96 43.1-96 96s43.1 96 96 96 96-43.1 96-96-43.1-96-96-96zm246.4 80.5l-94.7-47.3 33.5-100.4c4.5-13.6-8.4-26.5-21.9-21.9l-100.4 33.5-47.4-94.8c-6.4-12.8-24.6-12.8-31 0l-47.3 94.7L92.7 70.8c-13.6-4.5-26.5 8.4-21.9 21.9l33.5 100.4-94.7 47.4c-12.8 6.4-12.8 24.6 0 31l94.7 47.3-33.5 100.5c-4.5 13.6 8.4 26.5 21.9 21.9l100.4-33.5 47.3 94.7c6.4 12.8 24.6 12.8 31 0l47.3-94.7 100.4 33.5c13.6 4.5 26.5-8.4 21.9-21.9l-33.5-100.4 94.7-47.3c13-6.5 13-24.7.2-31.1zm-155.9 106c-49.9 49.9-131.1 49.9-181 0-49.9-49.9-49.9-131.1 0-181 49.9-49.9 131.1-49.9 181 0 49.9 49.9 49.9 131.1 0 181z" class=""></path></svg><div class="grid-container">
-                            </h2>
-                                    <h6 class="text-muted mb-0">{{ __('Videos available for you to watch from this channel') }}
-                                </h6>
 
-
+                        <h2 class="pt-2">{{ __('My Streamed Videos') }}</h2>
+                        <h6 class="
+                                    text-muted mb-0">
+                            {{ __('Videos available for you to watch from this channel') }}
+                        </h6>
                         <hr />
-                            {{-- <div class="justify-content-sm-center"> --}}
-                            {{-- <center> --}}
+                        <div style="text-align: center;" class="spin-8">
+                            <svg class=" slow-spin fa-refresh" aria-hidden="true" focusable="false" data-prefix="fas"
+                                data-icon="sun" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+                                class="svg-inline--fa fa-sun fa-w-16 fa-spin fa-lg">
+                                <path fill="currentColor"
+                                    d="M256 160c-52.9 0-96 43.1-96 96s43.1 96 96 96 96-43.1 96-96-43.1-96-96-96zm246.4 80.5l-94.7-47.3 33.5-100.4c4.5-13.6-8.4-26.5-21.9-21.9l-100.4 33.5-47.4-94.8c-6.4-12.8-24.6-12.8-31 0l-47.3 94.7L92.7 70.8c-13.6-4.5-26.5 8.4-21.9 21.9l33.5 100.4-94.7 47.4c-12.8 6.4-12.8 24.6 0 31l94.7 47.3-33.5 100.5c-4.5 13.6 8.4 26.5 21.9 21.9l100.4-33.5 47.3 94.7c6.4 12.8 24.6 12.8 31 0l47.3-94.7 100.4 33.5c13.6 4.5 26.5-8.4 21.9-21.9l-33.5-100.4 94.7-47.3c13-6.5 13-24.7.2-31.1zm-155.9 106c-49.9 49.9-131.1 49.9-181 0-49.9-49.9-49.9-131.1 0-181 49.9-49.9 131.1-49.9 181 0 49.9 49.9 49.9 131.1 0 181z"
+                                    class=""></path></svg>
+                                </div>
 
-                            <div id="video-cards" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 ">
-                                {{-- {{ dd($activevideos[0]->video->poster_image_url) }} --}}
+                                    <div class="
+                                    streams-container">
 
-                                @for ($i = 0; $i < $activevideos->count(); $i++)
+                                    {{-- <div class="justify-content-sm-center"> --}}
+                                    {{-- <center> --}}
+                                    <div class=" grid-container">
+                                        <div id="video-cards"
+                                            class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 ">
+                                            {{-- {{ dd($activevideos[0]->video->poster_image_url) }} --}}
 
-                                    @php
-                                        $active = $activevideos[$i];
-                                        $key = $i;
-                                    @endphp
+                                            @for ($i = 0; $i < $activevideos->count(); $i++)
 
-                                    <x-channels.player :vidid="$active->video->id" :viddomid="'v'.$key.$active->video->id"
-                                        :vidtitle="$active->video->title" :viddescription="$active->video->description"
-                                        :vidposter="$active->video->poster_image_url" :video="$active->video" />
+                                                @php
+                                                    $active = $activevideos[$i];
+                                                    $key = $i;
+                                                @endphp
+
+                                                <x-channels.player :vidid="$active->video->id"
+                                                    :viddomid="'v'.$key.$active->video->id"
+                                                    :vidtitle="$active->video->title"
+                                                    :viddescription="$active->video->description"
+                                                    :vidposter="$active->video->poster_image_url" :video="$active->video" />
 
 
 
 
-                                @endfor
-                            </div>
-                            {{-- </center> --}}
-                            {{-- </div> --}}
+                                            @endfor
+                                        </div>
+                                        {{-- </center> --}}
+                                        {{-- </div> --}}
+                                    </div>
                         </div>
+
                     </div>
                     <div class="tab-pane" id="schedule" role="tabpanel" aria-labelledby="schedule-tab">...</div>
                     <div class="tab-pane" id="rent" role="tabpanel" aria-labelledby="rent-tab">...</div>
@@ -422,13 +598,12 @@
 
         // Remove the transition class
         const square = document.querySelector('.video-card');
-        square.classList.remove('square-transition');
+        if (square != null)
+            square.classList.remove('square-transition');
 
         // Create the observer, same as before:
         const observer = new IntersectionObserver(entries => {
-            for (let i = 0; i < entries.length; i++) {
-
-            }
+            // if(entries.length){
             entries.forEach(entry => {
 
                 if (entry.isIntersecting) {
@@ -450,6 +625,14 @@
 
             observer.observe(this);
         });
+
+        $('.streams-container').hide();
+        var spinnerTimer = setTimeout(function() {
+            $('.spin-8').hide();
+            $('.streams-container').show();
+            clearTimeout(spinnerTimer);
+
+        }, 2000);
     </script>
 
 @endsection
