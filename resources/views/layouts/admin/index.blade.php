@@ -62,21 +62,33 @@
 
     @include('layouts.styles.globalstyles')
     <style>
-
-        .dark-mode .table-success{
+        .dark-mode .table-success {
             color: rgb(32, 32, 32);
         }
+
         .dark-mode .table-striped tbody tr {
             background-color: #343a40 !important;
 
         }
-        .dark-mode .table-striped tbody th{
+
+        .dark-mode .table-striped tbody th {
             background-color: #343a40c0 !important;
         }
+
         .dark-mode .table.DTFC_Cloned tr {
             background-color: #343a40;
             margin-bottom: 0;
         }
+
+        .navbar-no-expand .dropdown-menu {
+            position: fixed !important;
+            left: -0px !important;
+            width: 90% !important;
+            right: 0px !important;
+            left: -100% !important;
+            top: 96px !important;
+        }
+
     </style>
     @yield('styles')
 
@@ -86,9 +98,10 @@
 
 </head>
 
-<body class="
+<body
+    class="
 {{ auth()->user()->theme_preference == 'dark-mode' ? 'dark-mode' : '' }}
-hold-transition sidebar-mini layout-fixed">
+hold-transition sidebar-mini layout-navbar-fixed ">
     <div class="wrapper">
 
         <!-- Preloader -->

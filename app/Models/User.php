@@ -132,7 +132,8 @@ class User extends Authenticatable
         '.(($notification_count!=0)?'<span class="badge badge-warning navbar-badge">'.$notification_count.'</span>':'').'
       </a>';
       $show_hide = ($dropdown_state==true)?'': '';
-      $renderd_data .= '<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right '.$show_hide.'">';
+$renderd_data .= '<div class="dropdown-menu dropdown-menu-right ' . $show_hide . '">';
+
 
       if($notification_count > 0){
         $renderd_data .= '<span class="dropdown-item dropdown-header ">'.$notification_count.'  Notification'.(($notification_count==1)?'':'s').'';

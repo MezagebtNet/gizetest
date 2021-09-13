@@ -53,11 +53,12 @@
                     <!-- /.card-tools -->
                 </div>
 
-                <div class="card-body">
+                <div class="card-body" style="overflow-x:scroll;">
                     <table  class="table table-hover table-sm">
                         <thead>
                             <tr>
                                 <th scope="col" width="50">ID</th>
+                                <th scope="col">Photo</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Email</th>
                                 <th scope="col">Email Verified At</th>
@@ -69,6 +70,10 @@
                             @foreach ($users as $user)
                                 <tr>
                                     <td>{{ $user->id }}</td>
+
+                                    <td style="width: 40px;">
+                                        <img src="{{ $user->profile_photo_url }}" alt="{{ $user->fullName() }}"/>
+                                    </td>
 
                                     <td>{{ $user->fullName() }}</td>
 

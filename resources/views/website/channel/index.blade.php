@@ -21,17 +21,108 @@
 
     </style>
     <style>
-        /* ----------- 0 - 450px ----------- */
-        @media screen and (max-width: 450px) {
+        #menuTab {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .nav-pills .nav-link.active,
+        .nav-pills .show>.nav-link {
+            background-color: #3d3d3d;
+        }
+
+        .nav-pills .nav-link {
+            padding-left: 2px;
+            padding-right: 2px;
+        }
+
+        @keyframes wipe-enter {
+            0% {
+                transform: scale(0, .025);
+            }
+
+            50% {
+                transform: scale(1, .025);
+            }
+        }
+
+        .video-card {
+            /* min-width: 24rem; */
+            /* max-width: 22rem; */
+
+            opacity: 0;
+            transform: scale(0.85);
+        }
+
+
+        @media (prefers-reduced-motion: no-preference) {
 
             .video-card {
-                min-width: 24rem;
+                transition: opacity 1s ease, transform 0.5s ease;
+                animation-delay: 0.4s;
+            }
+
+        }
+
+        .square-transition {
+            opacity: 1;
+            transform: none;
+        }
+
+
+        /* ----------- 0 - 326px ----------- */
+        @media screen and (max-width: 327px) {
+            .sticky-top {
+                position: sticky;
+                position: -webkit-sticky;
+                top: 96px;
+
+                background-color: #f4f6f9;
+                box-shadow: 0 0px 12px #3b3b3bb0;
+                margin-left: -7px !important;
+                margin-right: -7px !important;
+            }
+            .dark-mode .sticky-top {
+                background-color: black;
+            }
+
+            .video-card {
+                min-width: 100%;
                 max-width: 22rem;
             }
+
             .videos-grid-wrapper {
                 padding-left: 7px !important;
                 padding-right: 7px !important;
             }
+        }
+
+        /* ----------- 0 - 450px ----------- */
+        @media screen and (min-width: 327px) and (max-width: 450px) {
+            .sticky-top {
+                position: sticky;
+                position: -webkit-sticky;
+                top: 56px;
+
+                background-color: #f4f6f9;
+                box-shadow: 0 0px 12px #3b3b3bb0;
+                margin-left: -7px !important;
+                margin-right: -7px !important;
+            }
+            .dark-mode .sticky-top {
+                background-color: black;
+            }
+
+            .video-card {
+                min-width: 100%;
+                max-width: 22rem;
+            }
+
+            .videos-grid-wrapper {
+                padding-left: 7px !important;
+                padding-right: 7px !important;
+            }
+
         }
 
         /* ----------- 450 - 650px ----------- */
@@ -79,10 +170,6 @@
             top: 245px;
         }
 
-        .video-card {
-            /* min-width: 24rem; */
-            /* max-width: 22rem; */
-        }
 
         .video-card .card {
             overflow: hidden;
@@ -129,6 +216,22 @@
         video {
             max-width: 100%;
         }
+        .slow-spin {
+  -webkit-animation: fa-spin 10s infinite linear;
+}
+
+.fa-refresh {
+  transform: scaleX(-1);
+  animation: spin-reverse 10s infinite linear;
+}
+@keyframes spin-reverse {
+  0% {
+    transform: scaleX(-1) rotate(-360deg);
+  }
+  100% {
+    transform: scaleX(-1) rotate(0deg);
+  }
+}
 
     </style>
 
@@ -147,16 +250,15 @@
 
     <div class="">
         <section class=" mb-3 pb-0 w:100 jumbotron text-center channel-banner" style="
-            width: 100%;
-            background-image: linear-gradient(to bottom, #000000e8, #00000026, #0000), url({{ asset('assets/image/background.jpg') }});
-            background-attachment: fixed;
-            width: 100%;
-            height: 100%;
-            background-attachment: fixed;
-            background-position: center center;
-            background-size: cover;
-        }
-        ">
+                                        width: 100%;
+                                        background-image: linear-gradient(to bottom, #000000e8, #00000026, #0000), url({{ asset('assets/image/background.jpg') }});
+                                        width: 100%;
+                                        height: 100%;
+                                        background-attachment: fixed;
+                                        background-position: center center;
+                                        background-size: cover;
+                                    }
+                                    ">
         <div class="d-flex align-items-center flex-column bd-highlight ">
             <div class="mb-auto p-2 bd-highlight">
                 <h1 class="channel-title mb-auto">{{ $gize_channel->name }}</h1>
@@ -169,19 +271,7 @@
                 <div class="channel-logo"></div>
             </div>
         </div>
-        <div class="d-flex flex-column bd-highlight ">
 
-            <div class="dropdown channel-menu ">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Menu
-                </button>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">{{ __('Streaming Schedule') }}</a>
-                    <a class="dropdown-item" href="#">{{ __('Rentals') }}</a>
-                </div>
-            </div>
-        </div>
         </section>
     </div>
     <div class="videos-grid-wrapper px-4 pt-4 pt-5 pb-4">
@@ -204,37 +294,66 @@
                 <div class="row mt-n5 mb-3">
 
                 </div>
+                <ul class="nav nav-pills nav-justified sticky-top" id="menuTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link active" id="my-streams-tab" data-toggle="tab" href="#my-streams" role="tab"
+                            aria-controls="my-streams" aria-selected="true">{{ __('My Videos') }}</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="schedule-tab" data-toggle="tab" href="#schedule" role="tab"
+                            aria-controls="schedule" aria-selected="false">{{ __('Schedule') }}</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="rent-tab" data-toggle="tab" href="#rent" role="tab"
+                            aria-controls="rent" aria-selected="false">{{ __('Rental') }}</a>
+                    </li>
+                    {{-- <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="settings-tab" data-toggle="tab" href="#settings" role="tab"
+                            aria-controls="settings" aria-selected="false">Settings</a>
+                    </li> --}}
+                </ul>
 
-                <h2 class="pt-2">{{ __('My Streamed Videos') }}</h2>
-                <h6 class="text-muted mb-0">{{ __('Videos available for you to watch from this channel') }}</h6>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="my-streams" role="tabpanel" aria-labelledby="my-streams-tab">
+                        <h2 class="pt-2">{{ __('My Streamed Videos') }}
+                            <svg class="slow-spin fa-refresh" style="width: 25px; display: inline;" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="sun" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-sun fa-w-16 fa-spin fa-lg"><path fill="currentColor" d="M256 160c-52.9 0-96 43.1-96 96s43.1 96 96 96 96-43.1 96-96-43.1-96-96-96zm246.4 80.5l-94.7-47.3 33.5-100.4c4.5-13.6-8.4-26.5-21.9-21.9l-100.4 33.5-47.4-94.8c-6.4-12.8-24.6-12.8-31 0l-47.3 94.7L92.7 70.8c-13.6-4.5-26.5 8.4-21.9 21.9l33.5 100.4-94.7 47.4c-12.8 6.4-12.8 24.6 0 31l94.7 47.3-33.5 100.5c-4.5 13.6 8.4 26.5 21.9 21.9l100.4-33.5 47.3 94.7c6.4 12.8 24.6 12.8 31 0l47.3-94.7 100.4 33.5c13.6 4.5 26.5-8.4 21.9-21.9l-33.5-100.4 94.7-47.3c13-6.5 13-24.7.2-31.1zm-155.9 106c-49.9 49.9-131.1 49.9-181 0-49.9-49.9-49.9-131.1 0-181 49.9-49.9 131.1-49.9 181 0 49.9 49.9 49.9 131.1 0 181z" class=""></path></svg><div class="grid-container">
+                            </h2>
+                                    <h6 class="text-muted mb-0">{{ __('Videos available for you to watch from this channel') }}
+                                </h6>
 
 
-                <hr />
-                <div class="grid-container">
-                    {{-- <div class="justify-content-sm-center"> --}}
-                    {{-- <center> --}}
-                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 ">
-                        {{-- {{ dd($activevideos[0]->video->poster_image_url) }} --}}
-                        @for ($i = 0; $i < $activevideos->count(); $i++)
-                            @php
-                                $active = $activevideos[$i];
-                                $key = $i;
-                            @endphp
+                        <hr />
+                            {{-- <div class="justify-content-sm-center"> --}}
+                            {{-- <center> --}}
 
-                            <x-channels.player :vidid="$active->video->id" :viddomid="'v'.$key.$active->video->id"
-                                :vidtitle="$active->video->title" :viddescription="$active->video->description"
-                                :vidposter="$active->video->poster_image_url"
-                                :video="$active->video"
-                                />
+                            <div id="video-cards" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 ">
+                                {{-- {{ dd($activevideos[0]->video->poster_image_url) }} --}}
 
+                                @for ($i = 0; $i < $activevideos->count(); $i++)
 
+                                    @php
+                                        $active = $activevideos[$i];
+                                        $key = $i;
+                                    @endphp
+
+                                    <x-channels.player :vidid="$active->video->id" :viddomid="'v'.$key.$active->video->id"
+                                        :vidtitle="$active->video->title" :viddescription="$active->video->description"
+                                        :vidposter="$active->video->poster_image_url" :video="$active->video" />
 
 
-                        @endfor
+
+
+                                @endfor
+                            </div>
+                            {{-- </center> --}}
+                            {{-- </div> --}}
+                        </div>
                     </div>
-                    {{-- </center> --}}
-                    {{-- </div> --}}
+                    <div class="tab-pane" id="schedule" role="tabpanel" aria-labelledby="schedule-tab">...</div>
+                    <div class="tab-pane" id="rent" role="tabpanel" aria-labelledby="rent-tab">...</div>
                 </div>
+
+
 
             </div>
         </div>
@@ -300,5 +419,37 @@
 
 
         });
+
+        // Remove the transition class
+        const square = document.querySelector('.video-card');
+        square.classList.remove('square-transition');
+
+        // Create the observer, same as before:
+        const observer = new IntersectionObserver(entries => {
+            for (let i = 0; i < entries.length; i++) {
+
+            }
+            entries.forEach(entry => {
+
+                if (entry.isIntersecting) {
+
+                    // $(".video-card").each(function(index){
+
+                    entry.target.classList.add('square-transition');
+
+                    // });
+
+                    return;
+                }
+
+                // square.classList.remove('square-transition');
+            });
+        });
+
+        $(".video-card").each(function(index) {
+
+            observer.observe(this);
+        });
     </script>
+
 @endsection

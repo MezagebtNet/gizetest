@@ -37,7 +37,7 @@
     "Disable": "አሰናክል",
 
     "Gize Channels": "የጊዜ ቻናሎች",
-    "My Streamed Videos": "ለኔ የተለቀቁ ቪዲዮዎች",
+    "My Streamed Videos": "ለእኔ የተለቀቁ ቪዲዮዎች",
     "Videos available for you to watch from this channel": "በዚህ ቻናል ላይ ለእርስዎ እንዲመለከቷቸው የተቀመጡ ቪዲዮዎች",
     "Producer": "አዘጋጅ",
 
@@ -72,6 +72,10 @@
     "Logout": "መውጫ",
 
     "System Administration": "ሲስተም አስተዳደር",
-    "Edit Profile": "የመገለጫ ማስተካከያ"
+    "Edit Profile": "የመገለጫ ማስተካከያ",
+
+    "My Videos": "የኔ ቪድዮዎች",
+    "Schedule": "መርሐግብር",
+    "Rental": "ኪራይ"
 
 }

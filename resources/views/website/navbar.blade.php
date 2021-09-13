@@ -1,4 +1,4 @@
-<nav class="main-header border-bottom-0 navbar navbar-expand-md navbar-dark navbar-gray-dark">
+<nav class="main-header  dropdown-legacy border-bottom-0 navbar navbar-expand-md navbar-dark navbar-gray-dark">
     <div class="container">
         <a href="{{ url('/') }}" class="navbar-brand">
             <img src="{{ asset('assets/image/logos/Gize logo banner dark.png') }}" alt="Gize"
@@ -17,9 +17,9 @@
                 <li class="nav-item">
                     <a href="{{ url('/') }}" class="nav-link">{{ __('Home') }}</a>
                 </li>
-                {{-- <li class="nav-item">
+                <li class="nav-item">
                     <a href="#" class="nav-link">Contact</a>
-                </li> --}}
+                </li>
                 {{-- <li class="nav-item">
                     <a href="{{ route('user.home') }}" class="nav-link">{{ __('Addmes') }}</a>
                 </li> --}}
@@ -58,7 +58,6 @@
                 </li> --}}
 
 
-
             </ul>
             <!-- SEARCH FORM -->
             {{-- <form class="form-inline ml-0 ml-md-3">
@@ -77,9 +76,6 @@
 
         <!-- Right navbar links -->
         <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
-
-
-
 
 
             <!-- Messages Dropdown Menu -->
@@ -164,8 +160,6 @@
                 <!-- Notifications Dropdown Menu -->
                 @include('website.navbar-notifications-dropdown')
 
-
-
                 <!-- User Dropdown Menu -->
                 @include('website.navbar-user-dropdown')
 
@@ -196,40 +190,3 @@
         </div>
     </div>
 </nav>
-{{-- <div class="row">
-				<div class="col-sm-10 col-md-8 col-lg-9 col-xs-offset-2  pt-sm-1 pt-2 align-center bg-white" style="margin: 0 auto;">
-						<div class="input-group">
-								<div class="input-group-btn search-panel">
-										<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-												<span id="search_concept">All</span> <span class="caret"></span>
-										</button>
-										<ul class="dropdown-menu scrollable-dropdown" role="menu">
-												<li><a href="#">Automotive Accesories</a></li>
-												<li><a href="#">Cell Phone Accesories</a></li>
-												<li><a href="#">Computer Accesories</a></li>
-												<li><a href="#">Health and Personal Care</a></li>
-												<li><a href="#">Automotive Accesories</a></li>
-												<li><a href="#">Cell Phone Accesories</a></li>
-												<li><a href="#">Computer Accesories</a></li>
-												<li><a href="#">Health and Personal Care</a></li>
-												<li><a href="#">Automotive Accesories</a></li>
-												<li><a href="#">Cell Phone Accesories</a></li>
-												<li><a href="#">Computer Accesories</a></li>
-												<li><a href="#">Health and Personal Care</a></li>
-												<li><a href="#">Automotive Accesories</a></li>
-												<li><a href="#">Cell Phone Accesories</a></li>
-												<li><a href="#">Computer Accesories</a></li>
-												<li><a href="#">Health and Personal Care</a></li>
-										</ul>
-								</div>
-								<input type="hidden" name="search_param" value="all" id="search_param">
-								<input type="text" class="form-control" name="x" id="search" placeholder="Search">
-								<span class="input-group-btn">
-										<button class="btn btn-default" type="button">
-												<span class="glyphicon glyphicon-search"></span>
-												<i class="fa fa-search"></i>
-										</button>
-								</span>
-						</div>
-				</div>
-		</div> --}}

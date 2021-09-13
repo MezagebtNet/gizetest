@@ -68,6 +68,49 @@
     @include('layouts.styles.globalstyles')
 
     <style>
+
+        /* ----------- 0 - 326px ----------- */
+        @media screen and (max-width: 336px) {
+            .navbar-no-expand .dropdown-menu {
+                position: fixed !important;
+                left: 0px !important;
+                width: 100% !important;
+                right: 0px !important;
+                /* left: -100% !important; */
+                top: 95px !important;
+            }
+            .dropdown-item {
+                padding-top: 10px  !important;
+                padding-bottom: 10px !important;
+            }
+
+            .sticky-top {
+                position: sticky;
+                position: -webkit-sticky;
+                top: 96px;
+
+                background-color: #f4f6f9;
+                box-shadow: 0 0px 12px #3b3b3bb0;
+                margin-left: -7px !important;
+                margin-right: -7px !important;
+            }
+            .dark-mode .sticky-top {
+                background-color: black;
+            }
+
+            .video-card {
+                min-width: 100%;
+                max-width: 22rem;
+            }
+
+            .videos-grid-wrapper {
+                padding-left: 7px !important;
+                padding-right: 7px !important;
+            }
+        }
+
+
+
         .dark-mode {
             background-color: #23252a !important;
             color: #fff;
@@ -103,6 +146,8 @@
             overflow-x: hidden;
         }
 
+
+
     </style>
 
     @yield('styles')
@@ -113,7 +158,9 @@
 
 <body class="
 {{ auth()->user()->theme_preference == 'dark-mode' ? 'dark-mode' : '' }}
-hold-transition layout-top-nav layout-navbar-fixed layout-footer-fixed">
+hold-transition layout-top-nav layout-navbar-fixed ">
+<div class="wrapper">
+
     <!-- Preloader -->
     <div style="display:none;" class="preloader dark-mode flex-column justify-content-center align-items-center">
         <img class="animation__shake" src="{{ asset('vendors/admin/dist/img/AdminLTELogo.png') }}" alt="AdminLTELogo"
@@ -221,9 +268,10 @@ hold-transition layout-top-nav layout-navbar-fixed layout-footer-fixed">
         $("input[data-bootstrap-switch]").each(function(){
             $(this).bootstrapSwitch('state', $(this).prop('checked'));
         })
+
     </script>
 
-
+</div>
     @include('layouts.scripts.notification_scripts')
     @include('layouts.scripts.userpreference_scripts')
 </body>

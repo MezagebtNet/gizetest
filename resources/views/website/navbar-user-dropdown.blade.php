@@ -1,5 +1,5 @@
 
-    <li class="nav-item dropdown">
+    <li class="nav-item dropdown ">
         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
             <img alt="{{ auth()->user()->full_name_first_chars }}" style="width: 32px; height: 32px;"
                 src="{{ auth()->user()->profile_photo_url }}"
