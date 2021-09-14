@@ -14,7 +14,7 @@
 
 
                 data-setup="{}"
-                poster="{{ isset($vidposter) && $vidposter!=null && $vidposter!=null ? asset('storage/'.$vidposter) : asset('assets/image/background.jpg') }}"
+                poster="{{ isset($video->poster_image_url) && $video->poster_image_url!=null && $video->poster_image_url!=null ? asset('storage/'.$video->poster_image_url) : asset('assets/image/background.jpg') }}"
                 responsive="true"
                 >
                 <source src="{{ route('video.playlist', ['vid_id' => $vidid ]) }}" type="application/x-mpegURL">
@@ -28,11 +28,14 @@
                 preload="auto"
                 width="auto"
                 height="264"
-                poster="{{ isset($vidposter) && $vidposter!=null && $vidposter!=null ? asset('storage/'.$vidposter) : asset('assets/image/background.jpg') }}"
+                poster="{{ isset($video->poster_image_url) && $video->poster_image_url!=null && $video->poster_image_url!=null ? asset('storage/'.$video->poster_image_url) : asset('storage/image/l/background.jpg') }}"
                 data-setup="{}"
-                {{-- poster="{{ asset('storage/images/l/'.$vidposter) }}" --}}
+                {{-- poster="{{ asset('storage/images/l/'.$video->poster_image_url) }}" --}}
                 >
-                <source src="{{ route('video.playlist', ['vid_id' => $vidid ]) }}" type="application/x-mpegURL">
+                <source src="{{ route('video.playlist', ['vid_id' =>
+                // $vidid
+                7
+                ]) }}" type="application/x-mpegURL">
 
                 {{-- <source src="MY_VIDEO.webm" type="video/webm" /> --}}
                 {{-- <p class="vjs-no-js">
@@ -49,7 +52,7 @@
 
                 </span>
 
-                {{-- <p class="card-text">{{ asset('storage/'.$vidposter) }}</p> --}}
+                {{-- <p class="card-text">{{ asset('storage/'.$video->poster_image_url) }}</p> --}}
                 {{-- <p class="card-text">{{ $viddescription}}</p> --}}
                 {{-- <a href="#" class="btn btn-primary">Go somewhere</a> --}}
             </div>

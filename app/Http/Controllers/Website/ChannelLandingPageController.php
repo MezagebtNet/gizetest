@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Website;
 use App\Http\Controllers\Controller;
 use App\Models\Batch;
 use App\Models\GizeChannel;
+use App\Models\Channelvideo;
 use App\Models\BatchChannelvideo;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -49,18 +50,20 @@ $batches_in_channel = Batch::where('gize_channel_id', $gize_channel->id)->get();
 
 $channelvideos = collect([]);
 
+$videos = Channelvideo::where('active', 1)->get();
 
         foreach ($batches_in_channel as $batch) {
 
-$videos_in_batch = BatchChannelvideo::where('batch_id', $batch->id)
-    ->whereDate('ends_at', '>=', now())
-    ->whereDate('starts_at', '<=', now())->get();
+            $videos_in_batch = BatchChannelvideo::where('batch_id', $batch->id)
+                ->whereIn('channelvideo_id', $videos->pluck('id'))
+                ->whereDate('ends_at', '>=', now())
+                ->whereDate('starts_at', '<=', now())->get();
 
 
             $channelvideos = $channelvideos->merge($videos_in_batch);
 
         }
-
+// dd($channelvideos);
 return $channelvideos;
 
 

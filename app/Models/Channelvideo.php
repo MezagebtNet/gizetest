@@ -27,6 +27,8 @@ class Channelvideo extends Model
         'file_url',
         'hls_uploaded',
         'keys_uploaded',
+        'video_available_for',
+        'is_free',
         'storage_disk',
         'file_type',
         'sample_file_url',

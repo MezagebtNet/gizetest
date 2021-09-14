@@ -1,8 +1,7 @@
 @extends('layouts.admin.index')
 
-@section('page_title', 'Users')
+@section('page_title', 'Gize Channels')
 
-@section('page_title', 'Users')
 
 @section('header_title')
 	Gize Channels Management Page
@@ -53,15 +52,26 @@
                 <div class="card-body">
                     <form method="post" action="{{ route('admin.manage.gize_channel.store') }}">
                         @csrf
-                        @method('put')
+                        @method('post')
                         <div class="px-4 py-2 sm:p-6">
 
                             <label for="name" class="">Channel Name</label>
 
                             <input class="form-control" type="text" id="name" name="name" placeholder="Channel Name"
-                                value="{{ old('firstname', '') }}" />
+                                value="{{ old('name', '') }}" />
 
                             @error('name')
+                                <p class="text-sm text-red">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div class="px-4 py-2 sm:p-6">
+
+                            <label for="name_en" class="">Channel Name (En)</label>
+
+                            <input class="form-control" type="text" id="name_en" name="name_en" placeholder="Channel Name (English)"
+                                value="{{ old('name_en', '') }}" />
+
+                            @error('name_en')
                                 <p class="text-sm text-red">{{ $message }}</p>
                             @enderror
                         </div>

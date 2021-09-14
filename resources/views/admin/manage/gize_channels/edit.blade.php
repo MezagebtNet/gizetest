@@ -1,8 +1,6 @@
 @extends('layouts.admin.index')
 
-@section('page_title', 'Users')
-
-@section('page_title', 'Users')
+@section('page_title', 'Gize Channels')
 
 @section('header_title')
 	Gize Channels Management Page
@@ -62,6 +60,17 @@
                                 value="{{ old('name', $gize_channel->name) }}" />
 
                             @error('name')
+                                <p class="text-sm text-red">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div class="px-4 py-2 sm:p-6">
+
+                            <label for="name_en" class="">Channel Name (En)</label>
+
+                            <input class="form-control" type="text" id="name_en" name="name_en" placeholder="Channel Name (English)"
+                                value="{{ old('name_en', $gize_channel->name_en) }}" />
+
+                            @error('name_en')
                                 <p class="text-sm text-red">{{ $message }}</p>
                             @enderror
                         </div>

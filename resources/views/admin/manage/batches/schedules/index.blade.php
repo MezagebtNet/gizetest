@@ -126,22 +126,22 @@
                     <h3 class="card-title">Schedule </h3>
                     @if ($batch)
                         <button type="button" class="btn btn-xs btn-secondary ml-2" data-toggle="modal"
-                            data-target="#subscriptionModal" data-id="{{ $batch ? $batch->id : '' }}"><i
+                            data-target="#scheduleModal" data-id="{{ $batch ? $batch->id : '' }}"><i
                                 class="fa fa-plus">
-                            </i> Add New</button>
+                            </i> {{ __('Add New') }}</button>
 
                         {{-- <a href="{{ route('admin.manage.batch.subscription.addform') }}" class="btn btn-xs btn-primary"><i
                         class="fa fa-plus"> </i> ADD FORM </a> --}}
 
 
                         <a href="{{ route('admin.manage.batch.schedule.index', $gize_channel->id) }}"
-                            class="btn btn-success btn-xs btn_continue" id="btnContinue">Select batch</a>
+                            class="btn btn-success btn-xs btn_continue" id="btnContinue">{{ __('Select batch') }}</a>
 
 
-                        <button type="button" class="btn btn-xs btn-secondary ml-2" data-toggle="modal"
+                        {{-- <button type="button" class="btn btn-xs btn-secondary ml-2" data-toggle="modal"
                             data-target="#periodModal" data-batch_id="{{ $batch ? $batch->id : '' }}"><i
                                 class="fa fa-plus">
-                            </i> Add Period</button>
+                            </i> Add Period</button> --}}
 
 
                     @endif
@@ -482,7 +482,15 @@
 
 
             function displayMessage(message) {
-                toastr.success(message, 'Event');
+                // toastr.success(message, 'Event');
+                Swal.fire({
+                    position: 'top-end',
+                    toast: true,
+                    icon: 'warning',
+                    title: message,
+                    showConfirmButton: false,
+                    timer: 1500
+                });
             }
         });
     </script>

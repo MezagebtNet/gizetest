@@ -16,6 +16,8 @@ class CreateGizeChannelsTable extends Migration
         Schema::create('gize_channels', function (Blueprint $table) {
             $table->id();
             $table->string('name', 100)->nullable();
+$table->string('name_en', 100)->nullable();
+
 // $table->string('name_en', 100)->nullable();
 
             $table->string('slug')->nullable()->unique();

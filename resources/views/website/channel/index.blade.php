@@ -409,7 +409,8 @@
     <div class="banner-section-wrapper">
         <section style=" width: 100%; padding:0;
                         margin-top: -1px;
-                        background-image: linear-gradient(to bottom, #000000ab, #3b3b3b63, #000000b3), url(http://localhost:8000/assets/image/Addmes_Cover.jpg);
+                        background-color: #faebd72e;
+                        background-image: linear-gradient(to bottom, #000000a6, #3b3b3b63, #0000008f), url(http://localhost:8000/assets/image/Addmes_Cover.jpg);
                         height: 186px;
                         /* background-attachment: fixed; */
                         background-position: center center;
@@ -504,16 +505,16 @@
                                             @for ($i = 0; $i < $activevideos->count(); $i++)
 
                                                 @php
-                                                    $active = $activevideos[$i];
+                                                    $active = $activevideos[$i]->video[0];
                                                     $key = $i;
                                                 @endphp
+                                                {{-- {{ dd($active->id) }} --}}
 
-                                                <x-channels.player :vidid="$active->video->id"
-                                                    :viddomid="'v'.$key.$active->video->id"
-                                                    :vidtitle="$active->video->title"
-                                                    :viddescription="$active->video->description"
-                                                    :vidposter="$active->video->poster_image_url" :video="$active->video" />
-
+                                                <x-channels.player :vidid="$active->id"
+                                                    :viddomid="'v'.$key.$active->id"
+                                                    :vidtitle="$active->title"
+                                                    :viddescription="$active->description"
+                                                    :vidposter="$active->poster_image_url" :video="$active" />
 
 
 

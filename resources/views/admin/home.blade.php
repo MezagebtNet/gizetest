@@ -46,4 +46,5 @@
 
 @section('js')
     <script src="https://vjs.zencdn.net/7.14.3/video.min.js"></script>
+
 @endsection

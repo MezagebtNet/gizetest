@@ -92,11 +92,11 @@
 													<button
 													channelvideoid = "{{$channelvideo->id}}" class="btn btn-xs btn-edit btn-info" data-toggle="modal" data-target="#channelvideoEditModal" title="Edit ChannelVideo"><i class="fa fa-edit"></i> Edit</button>
 													<button
-													channelvideoid = "{{$channelvideo->id}}" class="btn btn-xs btn-upload-channelvideo btn-success" data-toggle="modal" data-target="#channelvideoUploadModal" title="Upload Channel Video File"><i class="fa fa-upload"></i> Upload</button>
+													channelvideoid = "{{$channelvideo->id}}" class="btn btn-xs btn-upload-channelvideo d-none btn-success" data-toggle="modal" data-target="#channelvideoUploadModal" title="Upload Channel Video File"><i class="fa fa-upload"></i> Upload</button>
 												</div>
 												<div class="row d-flex justify-content-start justify-content-between p-2">
 													<button
-														channelvideoid = "{{$channelvideo->id}}" class="btn btn-xs btn-permit-channelvideo btn-primary" data-toggle="modal" data-target="#channelvideoViewersPermissionModal" title="Permissions"><i class="fa fa-check"></i> Permissions</button>
+														channelvideoid = "{{$channelvideo->id}}" class="btn btn-xs d-none btn-permit-channelvideo btn-primary" data-toggle="modal" data-target="#channelvideoViewersPermissionModal" title="Permissions"><i class="fa fa-check"></i> Permissions</button>
 													<button
 													channelvideoid = "{{$channelvideo->id}}" class="btn btn-xs btn-delete btn-danger" title="Delete"><i class="fa fa-trash"></i> Delete</button>
 
@@ -148,13 +148,13 @@
 
 	{{-- <script src="https://vjs.zencdn.net/7.11.4/video.min.js"></script> --}}
 
-
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/resumable.js/1.1.0/resumable.min.js"></script>
+
 
 	<script>
 
-		// window.addEventListener('load', function() {
-
+		window.addEventListener('load', function() {
+			// var r = new window.Resumable({
 
 			function byteLength(str) {
 				// returns the byte length of an utf8 string
@@ -509,77 +509,78 @@
 			});
 
 
-			$('#channelvideoUploadForm').submit(function(e){
-				e.preventDefault();
+			// $('#channelvideoUploadForm').submit(function(e){
+			// 	e.preventDefault();
 
-				let formData = new FormData($('#channelvideoUploadForm').get(0));
-				// formData.append("channelvideoid", );
+			// 	let formData = new FormData($('#channelvideoUploadForm').get(0));
+			// 	// formData.append("channelvideoid", );
 
-				// let channelvideo_file_input = $('#channelvideo_file_input').val();
-				let gize_channel_id = "{{ $gize_channel->id }}";
-				let url = "{{ route('admin.manage.channelvideo.upload.post', ['gize_channel_id' => ':gize_channel_id']) }}";
-				url = url.replace(':gize_channel_id', gize_channel_id);
+			// 	// let channelvideo_file_input = $('#channelvideo_file_input').val();
+			// 	let gize_channel_id = "{{ $gize_channel->id }}";
+			// 	// let url = "{{ route('admin.manage.channelvideo.upload.post', ['gize_channel_id' => ':gize_channel_id']) }}";
+			// 	let url = "{{ route('admin.manage.channelvideo.uploadhlschunk', ['gize_channel_id' => ':gize_channel_id']) }}";
+			// 	url = url.replace(':gize_channel_id', gize_channel_id);
 
-				$.ajax({
-					url: url,
-					type: "POST",
-					data: formData,
-					contentType: false,
-					processData: false,
-					success: function(res) {
-						// let msg = "";
-							// alert(res.status);
-						if(res){
-							if (res.status == "success"){
-								// msg = "Channel Video uploaded sucessfully";
-								// alertHTML = '<div class="alert alert-success alert-block">'+
-								//     ' <button type="button" class="close" data-dismiss="alert">×</button>'+
-								//     '    <strong>' + res.message + '</strong> '+
-								// '</div>';
-								// $('#alert_container').prepend(alertHTML);
-								$('#channelvideoUploadForm').hide();
-								$('#btn-delete-channelvideo').show();
+			// 	$.ajax({
+			// 		url: url,
+			// 		type: "POST",
+			// 		data: formData,
+			// 		contentType: false,
+			// 		processData: false,
+			// 		success: function(res) {
+			// 			// let msg = "";
+			// 				// alert(res.status);
+			// 			if(res){
+			// 				if (res.status == "success"){
+			// 					// msg = "Channel Video uploaded sucessfully";
+			// 					// alertHTML = '<div class="alert alert-success alert-block">'+
+			// 					//     ' <button type="button" class="close" data-dismiss="alert">×</button>'+
+			// 					//     '    <strong>' + res.message + '</strong> '+
+			// 					// '</div>';
+			// 					// $('#alert_container').prepend(alertHTML);
+			// 					$('#channelvideoUploadForm').hide();
+			// 					$('#btn-delete-channelvideo').show();
 
-								let channelvideo = res.channelvideo;
-								$('#file_url_link').html('File Location on Server: <b>'+channelvideo.file_url+'</b>');
-								$('#file_url_link').show();
+			// 					let channelvideo = res.channelvideo;
+			// 					$('#file_url_link').html('File Location on Server: <b>'+channelvideo.file_url+'</b>');
+			// 					$('#file_url_link').show();
 
-								let hasFile = false;
-								let isMP = false; // is MP4
-								if(channelvideo.file_url != null && channelvideo.file_url != '') {
-									hasFile = true;
-									if(channelvideo.file_type == 0){
-										isMP = true;
-									}
-								}
-								let tdHtml = '';
-								tdHtml +=  (hasFile && isMP) ? '<i style="color: brown;" class="fa fa-file-video"></i> <strong>MP4</strong>' +
-								'<button channelvideoid = "'+ channelvideo.id +'" class="btn btn-xs btn-play btn-info" data-toggle="modal" data-target="#channelvideoPlayerModal" title="Play ChannelVideo"><i class="fa fa-play"></i></button>' :'';
-								tdHtml +=  (hasFile && !isMP) ? '<i style="color: purple;" class="fa fa-file"></i> <strong>Other</strong>' :'';
-								tdHtml +=  (!hasFile) ? '<i style="color: lightgrey;" class="fa fa-video"></i>' :'';
+			// 					let hasFile = false;
+			// 					let isMP = false; // is MP4
+			// 					if(channelvideo.file_url != null && channelvideo.file_url != '') {
+			// 						hasFile = true;
+			// 						if(channelvideo.file_type == 0){
+			// 							isMP = true;
+			// 						}
+			// 					}
+			// 					let tdHtml = '';
+			// 					tdHtml +=  (hasFile && isMP) ? '<i style="color: brown;" class="fa fa-file-video"></i> <strong>MP4</strong>' +
+			// 					'<button channelvideoid = "'+ channelvideo.id +'" class="btn btn-xs btn-play btn-info" data-toggle="modal" data-target="#channelvideoPlayerModal" title="Play ChannelVideo"><i class="fa fa-play"></i></button>' :'';
+			// 					tdHtml +=  (hasFile && !isMP) ? '<i style="color: purple;" class="fa fa-file"></i> <strong>Other</strong>' :'';
+			// 					tdHtml +=  (!hasFile) ? '<i style="color: lightgrey;" class="fa fa-video"></i>' :'';
 
-								$('#channelvideoid' + channelvideo.id + ' td:nth-child(7)').html(tdHtml);
+			// 					$('#channelvideoid' + channelvideo.id + ' td:nth-child(7)').html(tdHtml);
 
-							}
-							else if(res.status == "fail") {
-								// msg = "Channel Video no uploaded";
-								// alertHTML = '<div class="alert alert-danger alert-block">'+
-								//     ' <button type="button" class="close" data-dismiss="alert">×</button>'+
-								//     '    <strong>' + res.message + '</strong> '+
-								// '</div>';
-								// $('#alert_container').prepend(alertHTML);
+			// 				}
+			// 				else if(res.status == "fail") {
+			// 					// msg = "Channel Video no uploaded";
+			// 					// alertHTML = '<div class="alert alert-danger alert-block">'+
+			// 					//     ' <button type="button" class="close" data-dismiss="alert">×</button>'+
+			// 					//     '    <strong>' + res.message + '</strong> '+
+			// 					// '</div>';
+			// 					// $('#alert_container').prepend(alertHTML);
 
-								$('#channelvideoUploadForm').show();
-								$('#btn-delete-channelvideo').hide();
-							}
-							// $('#alert_container').prepend(alertHTML);
-							// alert('here');
+			// 					$('#channelvideoUploadForm').show();
+			// 					$('#btn-delete-channelvideo').hide();
+			// 				}
+			// 				// $('#alert_container').prepend(alertHTML);
+			// 				// alert('here');
 
-							// $('#channelvideoUploadModal').modal('hide');
-						}
-					},
-				});
-			});
+			// 				// $('#channelvideoUploadModal').modal('hide');
+			// 			}
+			// 		},
+			// 	});
+			// });
 
 
 			$('#channelvideoForm').submit(function(e){
@@ -660,11 +661,11 @@
 							'	<button' +
 							'	channelvideoid = "' + response.id + '" class="btn btn-xs btn-edit btn-info" data-toggle="modal" data-target="#channelvideoEditModal" title="Edit ChannelVideo"><i class="fa fa-edit"></i> Edit</button>' +
 							'	<button' +
-							'	channelvideoid = "' + response.id + '" class="btn btn-xs btn-upload-channelvideo btn-success" data-toggle="modal" data-target="#channelvideoUploadModal" title="Upload Channel Video File"><i class="fa fa-upload"></i> Upload</button>' +
+							'	channelvideoid = "' + response.id + '" class="btn btn-xs btn-upload-channelvideo d-none btn-success" data-toggle="modal" data-target="#channelvideoUploadModal" title="Upload Channel Video File"><i class="fa fa-upload"></i> Upload</button>' +
 							'</div>' +
 							'<div class="row d-flex justify-content-start justify-content-between p-2">' +
 							'	<button' +
-							'		channelvideoid = "' + response.id + '" class="btn btn-xs btn-permit-channelvideo btn-primary" data-toggle="modal" data-target="#channelvideoViewersPermissionModal" title="Permissions"><i class="fa fa-check"></i> Permissions</button>' +
+							'		channelvideoid = "' + response.id + '" class="btn btn-xs d-none btn-permit-channelvideo btn-primary" data-toggle="modal" data-target="#channelvideoViewersPermissionModal" title="Permissions"><i class="fa fa-check"></i> Permissions</button>' +
 							'	<button' +
 							'	channelvideoid = "' + response.id + '" class="btn btn-xs btn-delete btn-danger" title="Delete"><i class="fa fa-trash"></i> Delete</button>' +
 							'</div></td></tr>';
@@ -1062,7 +1063,7 @@
 
 
 
-		// });
+		});
 
 
 
@@ -1174,10 +1175,13 @@
 	</script>
 
 
+{{-- <script src="{{ asset('vendors/resumable.min.js') }}"></script> --}}
 
 	<script>
+
 		//Upload Forms
 		var $ = window.$; // use the global jQuery instance
+
 
 		function round(num) {
 			var m = Number((Math.abs(num) * 100).toPrecision(15));
@@ -1185,299 +1189,307 @@
 		}
 
 
-		//STREAM...
-			var $fileUploadStream = $('#resumable-stream-browse');
-			var $fileUploadDropStream = $('#resumable-stream-drop');
-			var $uploadListStream = $("#stream-file-upload-list");
+		window.onload = function () {
 
-			if ($fileUploadStream.length > 0 && $fileUploadDropStream.length > 0) {
-				let resumableStream = new Resumable({
-					// Use chunk size that is smaller than your maximum limit due a resumable issue
-					// https://github.com/23/resumable.js/issues/51
-					chunkSize: 1 * 1024 * 1024, // 1MB
-					simultaneousUploads: 3,
-					testChunks: false,
-					fileType: ['zip'],
-					maxFiles: 1,
-					throttleProgressCallbacks: 1,
-					// Get the url from data-url tag
-					target: $fileUploadStream.data('url'),
-					// Append token to the request - required for web routes
-					query:{_token : $('input[name=_token]').val(), vid_id: "fileid"}
-				});
 
-				// Resumable.js isn't supported, fall back on a different method
-				if (!resumableStream.support) {
-					$('#resumable-stream-error').show();
-				} else {
-					// Show a place for dropping/selecting files
-					$fileUploadDropStream.show();
-					resumableStream.assignDrop($fileUploadStream[0]);
-					resumableStream.assignBrowse($fileUploadDropStream[0]);
-					// Handle file add event
-					resumableStream.on('fileAdded', function (file) {
 
-						// Show progress pabr
-						$uploadListStream.show();
-						// Show pause, hide resume
-						$('.stream-uploader .resumable-progress .progress-resume-link').hide();
-						$('.stream-uploader .resumable-progress .progress-pause-link').show();
-						// Add the file to the list
-						$uploadListStream.html('<li class="resumable-file-' + file.uniqueIdentifier + '">Uploading <span class="resumable-file-name"></span> <span class="resumable-file-progress"></span>');
-						$('.stream-uploader .resumable-file-' + file.uniqueIdentifier + ' .resumable-file-name').html(file.fileName);
-						// Actually start the upload
-						resumableStream.opts.query.vid_id = $("#channelvideo_id").val();
-						resumableStream.upload();
+			//STREAM...
+				var $fileUploadStream = $('#resumable-stream-browse');
+				var $fileUploadDropStream = $('#resumable-stream-drop');
+				var $uploadListStream = $("#stream-file-upload-list");
 
-						$('#resumable-stream-cancel').on('click', function() {
+				console.log(Resumable);
+
+				if ($fileUploadStream.length > 0 && $fileUploadDropStream.length > 0) {
+					let resumableStream = new Resumable({
+						// Use chunk size that is smaller than your maximum limit due a resumable issue
+						// https://github.com/23/resumable.js/issues/51
+						chunkSize: 1 * 1024 * 1024, // 1MB
+						simultaneousUploads: 3,
+						testChunks: false,
+						fileType: ['zip'],
+						maxFiles: 1,
+						throttleProgressCallbacks: 1,
+						// Get the url from data-url tag
+						target: $fileUploadStream.data('url'),
+						// Append token to the request - required for web routes
+						query:{_token : $('input[name=_token]').val(), vid_id: "fileid"}
+					});
+
+					// Resumable.js isn't supported, fall back on a different method
+					if (!resumableStream.support) {
+						$('#resumable-stream-error').show();
+					} else {
+						// Show a place for dropping/selecting files
+						$fileUploadDropStream.show();
+						resumableStream.assignDrop($fileUploadStream[0]);
+						resumableStream.assignBrowse($fileUploadDropStream[0]);
+						// Handle file add event
+						resumableStream.on('fileAdded', function (file) {
+
+							// Show progress pabr
+							$uploadListStream.show();
+							// Show pause, hide resume
+							$('.stream-uploader .resumable-progress .progress-resume-link').hide();
+							$('.stream-uploader .resumable-progress .progress-pause-link').show();
+							// Add the file to the list
+							$uploadListStream.html('<li class="resumable-file-' + file.uniqueIdentifier + '">Uploading <span class="resumable-file-name"></span> <span class="resumable-file-progress"></span>');
+							$('.stream-uploader .resumable-file-' + file.uniqueIdentifier + ' .resumable-file-name').html(file.fileName);
+							// Actually start the upload
+							resumableStream.opts.query.vid_id = $("#channelvideo_id").val();
+							resumableStream.upload();
+
+							$('#resumable-stream-cancel').on('click', function() {
+								resumableStream.cancel();
+								$uploadListStream.html('');
+								$("#resumable-stream-cancel").hide();
+								$("#resumable-stream-browse").show();
+							});
+							$("#resumable-stream-cancel").show();
+						});
+						resumableStream.on('fileSuccess', function (file, message) {
+							// Reflect that the file upload has completed
+							$('.stream-uploader .resumable-file-' + file.uniqueIdentifier + ' .resumable-file-progress').html('(completed)');
+						});
+						resumableStream.on('fileError', function (file, message) {
+							// Reflect that the file upload has resulted in error
+							$('.stream-uploader .resumable-file-' + file.uniqueIdentifier + ' .resumable-file-progress').html('(file could not be uploaded: ' + message + ')');
+						});
+						resumableStream.on('fileProgress', function (file) {
+							// Handle progress for both the file and the overall upload
+							$('.stream-uploader .resumable-file-' + file.uniqueIdentifier + ' .resumable-file-progress').html(Math.floor(file.progress() * 100) + '%');
+							$('.stream-uploader .progress-bar').css({width: Math.floor(resumableStream.progress() * 100) + '%'});
+							$("#resumable-stream-browse").hide();
+						});
+						resumableStream.on('complete', function () {
+							// Handle progress for both the file and the overall upload
 							resumableStream.cancel();
 							$uploadListStream.html('');
+
+
+							let id = $("#channelvideo_id").val();
+							let gize_channel_id = "{{ $gize_channel->id }}";
+							let url = "{{ route('admin.manage.channelvideo.index', ['gize_channel_id' => ':gize_channel_id']) }}";
+							url = url.replace(':gize_channel_id', gize_channel_id);
+
+							$.get(url, function(channelvideo) {
+								$('#channelvideo_id').val(channelvideo.id);
+
+
+								if(channelvideo.hls_uploaded){
+									//Show uploaded file...
+
+									$('#resumable-stream-browse').hide();
+									$('#resumable-stream-delete').show();
+									let hls_size = channelvideo.hls_size;
+									hls_measurement = ' bytes';	//display in bytes
+									if(hls_size > 1024 && hls_size <= (1024 * 1024)) { //display in kilobytes
+										hls_size = round(hls_size / 1024);
+										hls_measurement = ' KB';
+									}
+									else if(hls_size > (1024 * 1024)) { //display in megabytes
+										hls_size = round(hls_size / (1024 * 1024));
+										hls_measurement = ' MB';
+									}
+									else if(hls_size > (1024 * 1024 * 1024)) { //display in gigabytes
+										hls_size = round(hls_size / (1024 * 1024 * 1024));
+										hls_measurement = ' GB';
+									}
+
+									hls_size = hls_size + hls_measurement;
+
+									// $('#btn-delete-channelvideo').show();
+									$('#stream_file_size').html('Uploaded File Size: <b>' + hls_size + '</b>');
+									$('#stream_file_size').show();
+
+
+
+									// $('#file_url_link').html('File Location on Server: <b>'+channelvideo.file_url+'</b>');
+									// $('#file_url_link').show();
+
+
+									let tdHtml = '';
+
+									let hasHLS = channelvideo.hls_uploaded? true:false;
+									let hasKey = channelvideo.keys_uploaded? true:false;
+
+									tdHtml += (hasHLS)? '<i style="color: #029ad4; padding: 2px;" class="fa fa-video"></i>' : '<i style="color: lightgrey; padding: 2px;" class="fa fa-video"></i>';
+									tdHtml += (hasKey)? '<i style="color: #000; padding: 2px;" class="fa fa-key"></i>' : '<i style="color: lightgrey; padding: 2px;" class="fa fa-key"></i>';
+
+									$('#channelvideoid' + channelvideo.id + ' td:nth-child(7)').html(tdHtml);
+
+								}
+								else {
+									//Show file upload form...
+
+									$('#resumable-stream-browse').show();
+									$('#resumable-stream-delete').hide();
+									$('#stream_file_size').hide();
+
+								}
+
+							});
+
 							$("#resumable-stream-cancel").hide();
-							$("#resumable-stream-browse").show();
 						});
-						$("#resumable-stream-cancel").show();
-					});
-					resumableStream.on('fileSuccess', function (file, message) {
-						// Reflect that the file upload has completed
-						$('.stream-uploader .resumable-file-' + file.uniqueIdentifier + ' .resumable-file-progress').html('(completed)');
-					});
-					resumableStream.on('fileError', function (file, message) {
-						// Reflect that the file upload has resulted in error
-						$('.stream-uploader .resumable-file-' + file.uniqueIdentifier + ' .resumable-file-progress').html('(file could not be uploaded: ' + message + ')');
-					});
-					resumableStream.on('fileProgress', function (file) {
-						// Handle progress for both the file and the overall upload
-						$('.stream-uploader .resumable-file-' + file.uniqueIdentifier + ' .resumable-file-progress').html(Math.floor(file.progress() * 100) + '%');
-						$('.stream-uploader .progress-bar').css({width: Math.floor(resumableStream.progress() * 100) + '%'});
-						$("#resumable-stream-browse").hide();
-					});
-					resumableStream.on('complete', function () {
-						// Handle progress for both the file and the overall upload
-						resumableStream.cancel();
-						$uploadListStream.html('');
+					}
 
-
-						let id = $("#channelvideo_id").val();
-						let gize_channel_id = "{{ $gize_channel->id }}";
-						let url = "{{ route('admin.manage.channelvideo.deletehls', ['gize_channel_id' => ':gize_channel_id', 'id' => ':id']) }}";
-						url = url.replace(':gize_channel_id', gize_channel_id);
-						url = url.replace(':id', id);
-
-						$.get(url, function(channelvideo) {
-							$('#channelvideo_id').val(channelvideo.id);
-
-
-							if(channelvideo.hls_uploaded){
-								//Show uploaded file...
-
-								$('#resumable-stream-browse').hide();
-								$('#resumable-stream-delete').show();
-								let hls_size = channelvideo.hls_size;
-								hls_measurement = ' bytes';	//display in bytes
-								if(hls_size > 1024 && hls_size <= (1024 * 1024)) { //display in kilobytes
-									hls_size = round(hls_size / 1024);
-									hls_measurement = ' KB';
-								}
-								else if(hls_size > (1024 * 1024)) { //display in megabytes
-									hls_size = round(hls_size / (1024 * 1024));
-									hls_measurement = ' MB';
-								}
-								else if(hls_size > (1024 * 1024 * 1024)) { //display in gigabytes
-									hls_size = round(hls_size / (1024 * 1024 * 1024));
-									hls_measurement = ' GB';
-								}
-
-								hls_size = hls_size + hls_measurement;
-
-								// $('#btn-delete-channelvideo').show();
-								$('#stream_file_size').html('Uploaded File Size: <b>' + hls_size + '</b>');
-								$('#stream_file_size').show();
-
-
-
-								// $('#file_url_link').html('File Location on Server: <b>'+channelvideo.file_url+'</b>');
-								// $('#file_url_link').show();
-
-
-								let tdHtml = '';
-
-								let hasHLS = channelvideo.hls_uploaded? true:false;
-								let hasKey = channelvideo.keys_uploaded? true:false;
-
-								tdHtml += (hasHLS)? '<i style="color: #029ad4; padding: 2px;" class="fa fa-video"></i>' : '<i style="color: lightgrey; padding: 2px;" class="fa fa-video"></i>';
-								tdHtml += (hasKey)? '<i style="color: #000; padding: 2px;" class="fa fa-key"></i>' : '<i style="color: lightgrey; padding: 2px;" class="fa fa-key"></i>';
-
-								$('#channelvideoid' + channelvideo.id + ' td:nth-child(7)').html(tdHtml);
-
-							}
-							else {
-								//Show file upload form...
-
-								$('#resumable-stream-browse').show();
-								$('#resumable-stream-delete').hide();
-								$('#stream_file_size').hide();
-
-							}
-
-						});
-
-						$("#resumable-stream-cancel").hide();
-					});
 				}
 
-			}
 
 
 
 
+			//KEYS...
+				var $fileUploadKeys = $('#resumable-keys-browse');
+				var $fileUploadDropKeys = $('#resumable-keys-drop');
+				var $uploadListKeys = $("#keys-file-upload-list");
 
-		//KEYS...
-			var $fileUploadKeys = $('#resumable-keys-browse');
-			var $fileUploadDropKeys = $('#resumable-keys-drop');
-			var $uploadListKeys = $("#keys-file-upload-list");
+				if ($fileUploadKeys.length > 0 && $fileUploadDropKeys.length > 0) {
+					let resumableKeys = new Resumable({
+						// Use chunk size that is smaller than your maximum limit due a resumable issue
+						// https://github.com/23/resumable.js/issues/51
+						chunkSize: 1 * 1024 * 1024, // 1MB
+						simultaneousUploads: 3,
+						testChunks: false,
+						fileType: ['zip'],
+						maxFiles: 1,
+						throttleProgressCallbacks: 1,
+						// Get the url from data-url tag
+						target: $fileUploadKeys.data('url'),
+						// Append token to the request - required for web routes
+						query:{_token : $('input[name=_token]').val(), vid_id: "fileid"}
+					});
 
-			if ($fileUploadKeys.length > 0 && $fileUploadDropKeys.length > 0) {
-				let resumableKeys = new Resumable({
-					// Use chunk size that is smaller than your maximum limit due a resumable issue
-					// https://github.com/23/resumable.js/issues/51
-					chunkSize: 1 * 1024 * 1024, // 1MB
-					simultaneousUploads: 3,
-					testChunks: false,
-					fileType: ['zip'],
-					maxFiles: 1,
-					throttleProgressCallbacks: 1,
-					// Get the url from data-url tag
-					target: $fileUploadKeys.data('url'),
-					// Append token to the request - required for web routes
-					query:{_token : $('input[name=_token]').val(), vid_id: "fileid"}
-				});
+					// Resumable.js isn't supported, fall back on a different method
+					if (!resumableKeys.support) {
+						$('#resumable-keys-error').show();
+					} else {
+						// Show a place for dropping/selecting files
+						$fileUploadDropKeys.show();
+						resumableKeys.assignDrop($fileUploadKeys[0]);
+						resumableKeys.assignBrowse($fileUploadDropKeys[0]);
+						// Handle file add event
+						resumableKeys.on('fileAdded', function (file) {
 
-				// Resumable.js isn't supported, fall back on a different method
-				if (!resumableKeys.support) {
-					$('#resumable-keys-error').show();
-				} else {
-					// Show a place for dropping/selecting files
-					$fileUploadDropKeys.show();
-					resumableKeys.assignDrop($fileUploadKeys[0]);
-					resumableKeys.assignBrowse($fileUploadDropKeys[0]);
-					// Handle file add event
-					resumableKeys.on('fileAdded', function (file) {
+							// Show progress pabr
+							$uploadListKeys.show();
+							// Show pause, hide resume
+							$('.keys-uploader .resumable-progress .progress-resume-link').hide();
+							$('.keys-uploader .resumable-progress .progress-pause-link').show();
+							// Add the file to the list
+							$uploadListKeys.html('<li class="resumable-file-' + file.uniqueIdentifier + '">Uploading <span class="resumable-file-name"></span> <span class="resumable-file-progress"></span>');
+							$('.keys-uploader .resumable-file-' + file.uniqueIdentifier + ' .resumable-file-name').html(file.fileName);
+							// Actually start the upload
+							resumableKeys.opts.query.vid_id = $("#channelvideo_id").val();
+							resumableKeys.upload();
 
-						// Show progress pabr
-						$uploadListKeys.show();
-						// Show pause, hide resume
-						$('.keys-uploader .resumable-progress .progress-resume-link').hide();
-						$('.keys-uploader .resumable-progress .progress-pause-link').show();
-						// Add the file to the list
-						$uploadListKeys.html('<li class="resumable-file-' + file.uniqueIdentifier + '">Uploading <span class="resumable-file-name"></span> <span class="resumable-file-progress"></span>');
-						$('.keys-uploader .resumable-file-' + file.uniqueIdentifier + ' .resumable-file-name').html(file.fileName);
-						// Actually start the upload
-						resumableKeys.opts.query.vid_id = $("#channelvideo_id").val();
-						resumableKeys.upload();
-
-						$('#resumable-keys-cancel').on('click', function() {
+							$('#resumable-keys-cancel').on('click', function() {
+								resumableKeys.cancel();
+								$uploadListKeys.html('');
+								$("#resumable-keys-cancel").hide();
+								$("#resumable-keys-browse").show();
+							});
+							$("#resumable-keys-cancel").show();
+						});
+						resumableKeys.on('fileSuccess', function (file, message) {
+							// Reflect that the file upload has completed
+							$('.keys-uploader .resumable-file-' + file.uniqueIdentifier + ' .resumable-file-progress').html('(completed)');
+						});
+						resumableKeys.on('fileError', function (file, message) {
+							// Reflect that the file upload has resulted in error
+							$('.keys-uploader .resumable-file-' + file.uniqueIdentifier + ' .resumable-file-progress').html('(file could not be uploaded: ' + message + ')');
+						});
+						resumableKeys.on('fileProgress', function (file) {
+							// Handle progress for both the file and the overall upload
+							$('.keys-uploader .resumable-file-' + file.uniqueIdentifier + ' .resumable-file-progress').html(Math.floor(file.progress() * 100) + '%');
+							$('.keys-uploader .progress-bar').css({width: Math.floor(resumableKeys.progress() * 100) + '%'});
+							$("#resumable-keys-browse").hide();
+						});
+						resumableKeys.on('complete', function () {
+							// Handle progress for both the file and the overall upload
 							resumableKeys.cancel();
 							$uploadListKeys.html('');
+
+
+							let id = $("#channelvideo_id").val();
+							let gize_channel_id = "{{ $gize_channel->id }}";
+							let url = "{{ route('admin.manage.channelvideo.getById', ['gize_channel_id' => ':gize_channel_id', 'id' => ':id']) }}";
+							url = url.replace(':gize_channel_id', gize_channel_id);
+							url = url.replace(':id', id);
+
+							$.get(url, function(channelvideo) {
+								$('#channelvideo_id').val(channelvideo.id);
+
+
+								if(channelvideo.keys_uploaded){
+									//Show uploaded file...
+
+									$('#resumable-keys-browse').hide();
+									$('#resumable-keys-delete').show();
+									let keys_size = channelvideo.keys_size;
+									keys_measurement = ' bytes';	//display in bytes
+									if(keys_size > 1024 && keys_size <= (1024 * 1024)) { //display in kilobytes
+										keys_size = round(keys_size / 1024);
+										keys_measurement = ' KB';
+									}
+									else if(keys_size > (1024 * 1024)) { //display in megabytes
+										keys_size = round(keys_size / (1024 * 1024));
+										keys_measurement = ' MB';
+									}
+									else if(keys_size > (1024 * 1024 * 1024)) { //display in gigabytes
+										keys_size = round(keys_size / (1024 * 1024 * 1024));
+										keys_measurement = ' GB';
+									}
+
+									keys_size = keys_size + keys_measurement;
+
+									// $('#btn-delete-channelvideo').show();
+									$('#keys_file_size').html('Uploaded File Size: <b>' + keys_size + '</b>');
+									$('#keys_file_size').show();
+
+
+
+									// $('#file_url_link').html('File Location on Server: <b>'+channelvideo.file_url+'</b>');
+									// $('#file_url_link').show();
+
+
+									let tdHtml = '';
+
+									let hasHLS = channelvideo.hls_uploaded? true:false;
+									let hasKey = channelvideo.keys_uploaded? true:false;
+
+									tdHtml += (hasHLS)? '<i style="color: #029ad4; padding: 2px;" class="fa fa-video"></i>' : '<i style="color: lightgrey; padding: 2px;" class="fa fa-video"></i>';
+									tdHtml += (hasKey)? '<i style="color: #000; padding: 2px;" class="fa fa-key"></i>' : '<i style="color: lightgrey; padding: 2px;" class="fa fa-key"></i>';
+
+									$('#channelvideoid' + channelvideo.id + ' td:nth-child(7)').html(tdHtml);
+
+								}
+								else {
+									//Show file upload form...
+
+									$('#resumable-keys-browse').show();
+									$('#resumable-keys-delete').hide();
+									$('#keys_file_size').hide();
+
+								}
+
+							});
+
 							$("#resumable-keys-cancel").hide();
-							$("#resumable-keys-browse").show();
 						});
-						$("#resumable-keys-cancel").show();
-					});
-					resumableKeys.on('fileSuccess', function (file, message) {
-						// Reflect that the file upload has completed
-						$('.keys-uploader .resumable-file-' + file.uniqueIdentifier + ' .resumable-file-progress').html('(completed)');
-					});
-					resumableKeys.on('fileError', function (file, message) {
-						// Reflect that the file upload has resulted in error
-						$('.keys-uploader .resumable-file-' + file.uniqueIdentifier + ' .resumable-file-progress').html('(file could not be uploaded: ' + message + ')');
-					});
-					resumableKeys.on('fileProgress', function (file) {
-						// Handle progress for both the file and the overall upload
-						$('.keys-uploader .resumable-file-' + file.uniqueIdentifier + ' .resumable-file-progress').html(Math.floor(file.progress() * 100) + '%');
-						$('.keys-uploader .progress-bar').css({width: Math.floor(resumableKeys.progress() * 100) + '%'});
-						$("#resumable-keys-browse").hide();
-					});
-					resumableKeys.on('complete', function () {
-						// Handle progress for both the file and the overall upload
-						resumableKeys.cancel();
-						$uploadListKeys.html('');
+					}
 
-
-						let id = $("#channelvideo_id").val();
-						let gize_channel_id = "{{ $gize_channel->id }}";
-						let url = "{{ route('admin.manage.channelvideo.getById', ['gize_channel_id' => ':gize_channel_id', 'id' => ':id']) }}";
-						url = url.replace(':gize_channel_id', gize_channel_id);
-						url = url.replace(':id', id);
-
-						$.get(url, function(channelvideo) {
-							$('#channelvideo_id').val(channelvideo.id);
-
-
-							if(channelvideo.keys_uploaded){
-								//Show uploaded file...
-
-								$('#resumable-keys-browse').hide();
-								$('#resumable-keys-delete').show();
-								let keys_size = channelvideo.keys_size;
-								keys_measurement = ' bytes';	//display in bytes
-								if(keys_size > 1024 && keys_size <= (1024 * 1024)) { //display in kilobytes
-									keys_size = round(keys_size / 1024);
-									keys_measurement = ' KB';
-								}
-								else if(keys_size > (1024 * 1024)) { //display in megabytes
-									keys_size = round(keys_size / (1024 * 1024));
-									keys_measurement = ' MB';
-								}
-								else if(keys_size > (1024 * 1024 * 1024)) { //display in gigabytes
-									keys_size = round(keys_size / (1024 * 1024 * 1024));
-									keys_measurement = ' GB';
-								}
-
-								keys_size = keys_size + keys_measurement;
-
-								// $('#btn-delete-channelvideo').show();
-								$('#keys_file_size').html('Uploaded File Size: <b>' + keys_size + '</b>');
-								$('#keys_file_size').show();
-
-
-
-								// $('#file_url_link').html('File Location on Server: <b>'+channelvideo.file_url+'</b>');
-								// $('#file_url_link').show();
-
-
-								let tdHtml = '';
-
-								let hasHLS = channelvideo.hls_uploaded? true:false;
-								let hasKey = channelvideo.keys_uploaded? true:false;
-
-								tdHtml += (hasHLS)? '<i style="color: #029ad4; padding: 2px;" class="fa fa-video"></i>' : '<i style="color: lightgrey; padding: 2px;" class="fa fa-video"></i>';
-								tdHtml += (hasKey)? '<i style="color: #000; padding: 2px;" class="fa fa-key"></i>' : '<i style="color: lightgrey; padding: 2px;" class="fa fa-key"></i>';
-
-								$('#channelvideoid' + channelvideo.id + ' td:nth-child(7)').html(tdHtml);
-
-							}
-							else {
-								//Show file upload form...
-
-								$('#resumable-keys-browse').show();
-								$('#resumable-keys-delete').hide();
-								$('#keys_file_size').hide();
-
-							}
-
-						});
-
-						$("#resumable-keys-cancel").hide();
-					});
 				}
 
-			}
 
 
 
 
 
 
+
+		}
 	</script>
 
 

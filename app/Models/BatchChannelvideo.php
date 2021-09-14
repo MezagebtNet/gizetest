@@ -42,7 +42,8 @@ class BatchChannelvideo extends Pivot
     public function getVideoAttribute($value){
         $video_id = $this->channelvideo_id;
 
-        $video_detail = Channelvideo::find($video_id);
+$video_detail = Channelvideo::where('id', $video_id)->where('active', 1)->get();
+
 
         return $video_detail;
     }

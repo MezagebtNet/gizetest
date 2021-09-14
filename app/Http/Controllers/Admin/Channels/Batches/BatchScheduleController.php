@@ -41,7 +41,8 @@ class BatchScheduleController extends Controller
             $schedule->end = $schedule->ends_at; //Carbon::createFromFormat('Y-m-d H', $schedule->starts_at)->toDateTimeString(); // 1975-05-21 22:00:00
         }
         $events = $schedules->toArray();
-        $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->orderBy('id', 'DESC')->get();
+$channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
+
         foreach ($channelvideos as $vid) {
             $vid->text = $vid->title;
         }

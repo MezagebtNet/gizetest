@@ -137,7 +137,7 @@ class ChannelvideosTableSeeder extends Seeder
             for ($i = 1; $i <= $faker->numberBetween(1, 24); $i++) {
 
                 $channelvideo = Channelvideo::create([
-                    'title' => $faker->sentence(3),
+                    'title' => $faker->words(3, true),
                     'trainer' => 'ጤንነት ሰጠኝ (ሩፋኤል)',
                     'duration' => $faker->randomDigitNot(0) . ' ደቂቃ',
                     'host' => $faker->name('male'),  // አቅራቢ
@@ -147,6 +147,8 @@ class ChannelvideosTableSeeder extends Seeder
                     'file_url' => null,
                     'hls_uploaded' => 1,
                     'keys_uploaded' => 1,
+                    'video_available_for' => $faker->randomElement([0, 1, 2]),
+                    'is_free' => $faker->randomElement([0, 1]),
                     'storage_disk' => null,
                     'file_type' => 0,
                     'sample_file_url' => null,

@@ -35,6 +35,7 @@ class GizeChannelsTableSeeder extends Seeder
         for ($i = 1; $i <= 2; $i++) {
             $gize_channel = GizeChannel::create([
                 'name' => $faker->sentence(2),
+                'name_en' => $faker->sentence(2),
                 // 'owner' => $faker->name($gender = null|'male'|'female'), // ባለቤት
                 'producer' => $faker->randomElement([$faker->company(), 'አድሜሽ የመጽሐፍት ንግድ ሥራ']), // አዘጋጅ
                 'slug' => $faker->unique()->slug(2),

@@ -19,6 +19,7 @@ class GizeChannel extends Model
      */
     protected $fillable = [
         'name',
+        'name_en',
         'slug',
         'producer',
         'description',

@@ -143,7 +143,8 @@ $gize_channel->users()->syncWithoutDetaching($users);
         // event(new UserCreated($user));
 
 
-        return redirect()->route('admin.manage.gize_channels.index');
+return redirect()->route('admin.manage.gize_channel.index');
+
 
     }
 

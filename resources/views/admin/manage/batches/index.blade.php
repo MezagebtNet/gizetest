@@ -531,12 +531,12 @@ Channel Batches Management Page
         url = url.replace(':gize_channel_id', gize_channel_id);
         el = $(this);
 
-
         if (confirm("Do you want to delete this record?")) {
             $.ajax({
                 url: url,
                 type: 'DELETE',
                 data: {
+                    id: id,
                     _token: $("input[name=_token]").val()
                 },
                 success: function(response) {

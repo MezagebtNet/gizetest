@@ -163,7 +163,7 @@
                                 class="nav-link {{ request()->is('*admin/manage/batches*' . $channel->id . '*') || request()->is('*admin/manage/channelvideos*' . $channel->id . '*') ? 'active' : '' }}">
                                 <i class="nav-icon fa fa-solid fa-tv"></i>
                                 <p>
-                                    {{ strtoupper($channel->name) }}
+                                    {{ strtoupper($channel->name_en) }}
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>

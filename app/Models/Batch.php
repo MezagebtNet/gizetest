@@ -3,12 +3,17 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Batch extends Model
 {
+    use SoftDeletes;
     use HasFactory;
+
 
     /**
      * The attributes that are mass assignable.

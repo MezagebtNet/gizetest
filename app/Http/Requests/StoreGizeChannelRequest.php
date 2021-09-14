@@ -14,6 +14,10 @@ class StoreGizeChannelRequest extends FormRequest
                 'string',
                 'required',
             ],
+            'name_en' => [
+                'string',
+                'required',
+            ],
             'producer' => [
                 'string',
                 'required',
@@ -38,6 +42,7 @@ class StoreGizeChannelRequest extends FormRequest
 
     public function authorize()
     {
-        return Gate::allows('system_gize_channel');
+return Gate::allows('system_gize_channels');
+
     }
 }

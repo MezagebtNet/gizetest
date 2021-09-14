@@ -103,6 +103,13 @@
             </div>
         </li> --}}
 
+        <li class="nav-item d-sm-none d-inline-block">
+            <a href="{{ url('/') }}" class="nav-link"><i class="fas fa-home"></i></a>
+        </li>
+        <li class="nav-item d-sm-none d-inline-block">
+            <a href="{{ route('admin.home') }}" class="nav-link"><i class="fas fa-laptop-house"></i></a>
+        </li>
+
         <!-- Dropdown Menu -->
         @auth
 

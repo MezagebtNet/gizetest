@@ -1,6 +1,6 @@
 @extends('layouts.admin.index')
 
-@section('page_title', 'Users')
+@section('page_title', 'Gize Channels')
 
 @section('header_title')
 	Gize Channels Management Page
@@ -62,6 +62,14 @@
                             </th>
                             <td>
                                 {{ $gize_channel->name }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="col">
+                                Channel Name (English)
+                            </th>
+                            <td>
+                                {{ $gize_channel->name_en }}
                             </td>
                         </tr>
                         <tr>

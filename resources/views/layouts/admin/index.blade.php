@@ -207,6 +207,10 @@ hold-transition sidebar-mini layout-navbar-fixed ">
     <script src="{{ asset('vendors/admin/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js') }}">
     </script>
 
+    <!-- Resumable JS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/resumable.js/1.1.0/resumable.min.js"></script>
+
+
 
 
 

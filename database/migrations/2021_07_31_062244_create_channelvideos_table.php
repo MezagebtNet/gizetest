@@ -24,8 +24,9 @@ $table->string('host');
             $table->longText('description')->nullable();
             $table->integer('category_id')->nullable();
             $table->string('file_url', 255)->nullable();
-            $table->tinyInteger('hls_uploaded')->default(0);
-            $table->tinyInteger('keys_uploaded')->default(0);
+$table->tinyInteger('hls_uploaded')->default(1);
+$table->tinyInteger('keys_uploaded')->default(1);
+
             $table->string('storage_disk', 255)->nullable(); // google, s3, etc...
             $table->tinyInteger('file_type')->default(0); // 0 - mp4, 1 - other
             $table->string('sample_file_url', 255)->nullable();
@@ -33,6 +34,9 @@ $table->string('host');
             $table->string('poster_image_url', 255)->nullable();
             $table->string('thumb_image_url', 255)->nullable();
             $table->tinyInteger('active')->default(0); // 0 - inactive, 1 - active
+$table->tinyInteger('video_available_for')->default(1); //0 - public only, 1 - batches only, 2 - both
+$table->tinyInteger('is_free')->default(1); //0 - Not Free, 1 - Free
+
             $table->timestamps();
             $table->softDeletes();
         });
