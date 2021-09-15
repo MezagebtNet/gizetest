@@ -132,14 +132,14 @@ class User extends Authenticatable
         '.(($notification_count!=0)?'<span class="badge badge-warning navbar-badge">'.$notification_count.'</span>':'').'
       </a>';
       $show_hide = ($dropdown_state==true)?'': '';
-$renderd_data .= '<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right ' . $show_hide . '">';
+        $renderd_data .= '<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right ' . $show_hide . '">';
 
 
 
       if($notification_count > 0){
         $renderd_data .= '<span class="dropdown-item dropdown-header ">'.$notification_count.'  Notification'.(($notification_count==1)?'':'s').'';
         $renderd_data .= '<span class="float-right position-relative "><button class="btn btn-xs btn-mark-all btn-outline-secondary align-right"><i class="fa fa-check"></i> Read All</button></span></span>';
-$renderd_data .= '<div class="scroll scroll4" style="max-height:185px; overflow: hidden; overflow-y: scroll;">';
+        $renderd_data .= '<div class="scroll scroll4" style="max-height:185px; overflow: hidden; overflow-y: scroll;">';
 
         for ($i=0; $i < $notification_count ; $i++) {
 
@@ -198,7 +198,7 @@ $renderd_data .= '<div class="scroll scroll4" style="max-height:185px; overflow:
             }
 
         }
-$renderd_data .= '</div>';
+        $renderd_data .= '</div>';
 
       }
 
@@ -342,6 +342,46 @@ $renderd_data .= '</div>';
 
         return UserPreferencesController::changeThemePreference($this->id, $theme);
 
+    }
+
+    /**
+     * The channelvideos that belong to the ChannelvideoRental
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function channelvideos($status = null)
+    {
+        if($status != null){ //started_watching, completed..
+            //0 - filter rentals user not watched
+            //1 - filter rentals user started watching
+            //2 - filter rentals user completed watching
+            return $this->belongsToMany(Channelvideo::class, 'channelvideo_rentals', 'user_id', 'channelvideo_id')
+            ->withPivot('status', 'within_days', 'for_hours', 'started_at', 'published_at')
+            ->wherePivot('status', $status)
+            ->as ('rental_detail')
+            ->withTimestamps();
+        }
+
+        return $this->belongsToMany(Channelvideo::class, 'channelvideo_rentals', 'user_id', 'channelvideo_id')
+        ->withPivot('status', 'within_days', 'for_hours', 'started_at', 'published_at')
+        ->as ('rental_detail')
+        ->withTimestamps();
+    }
+
+
+    /*
+    * This function is used to validate rental video streaming
+    */
+
+    public function isWatchingActiveRentalVideo($channelvideo_id){
+        return true;
+        // if($user->hasRole('super-admin')){
+        //     return true;
+        // }
+        // elseif($this->users()->get()->contains($user) && $user->hasRole('channel-admin')){
+        //     return true;
+        // }
+        return false; //or abort(403);
     }
 
 }

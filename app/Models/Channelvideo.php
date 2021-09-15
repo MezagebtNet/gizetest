@@ -65,4 +65,28 @@ class Channelvideo extends Model
             ->withTimestamps();
     }
 
+    /**
+     * The users that belong to the Channelvideo
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function users($status = null)
+    {
+        if($status != null){ //started_watching, completed..
+            //0 - filter rentals user not watched
+            //1 - filter rentals user started watching
+            //2 - filter rentals user completed watching
+            return $this->belongsToMany(User::class, 'channelvideo_rentals', 'channelvideo_id', 'user_id')
+            ->withPivot('status', 'within_days', 'for_hours', 'started_at', 'published_at')
+            ->wherePivot('status', $status)
+            ->as ('rental_detail')
+            ->withTimestamps();
+        }
+
+        return $this->belongsToMany(User::class, 'channelvideo_rentals', 'channelvideo_id', 'user_id')
+        ->withPivot('status', 'within_days', 'for_hours', 'started_at')
+        ->as ('rental_detail')
+        ->withTimestamps();
+    }
+
 }

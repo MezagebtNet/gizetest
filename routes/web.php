@@ -1,31 +1,29 @@
 <?php
 
 use App\Http\Controllers\Admin\Channels\Batches\BatchController;
+use App\Http\Controllers\Admin\Channels\Batches\BatchScheduleController;
 use App\Http\Controllers\Admin\Channels\Batches\BatchUserController;
 use App\Http\Controllers\Admin\Channels\Channelvideos\ChannelvideoController;
-use App\Http\Controllers\Admin\Channels\GizeChannelController;
 // use App\Http\Controllers\Admin\Channels\GizeChannelController_;
+use App\Http\Controllers\Admin\Channels\GizeChannelController;
 use App\Http\Controllers\Admin\SystemConfigs\BookFormatController;
 use App\Http\Controllers\Admin\SystemConfigs\BookGenreController;
 use App\Http\Controllers\Admin\SystemConfigs\BookLanguageController;
 use App\Http\Controllers\Admin\SystemConfigs\BookRoyaltyRateController;
 use App\Http\Controllers\Admin\SystemConfigs\BookTypeController;
-use App\Http\Controllers\Admin\Channels\Batches\BatchScheduleController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\UserPreferencesController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\Utils\UploadController;
-use App\Http\Controllers\Utils\FullCalendarController;
 use App\Http\Controllers\Website\ChannelLandingPageController;
+use App\Http\Controllers\Website\ChannelvideoRentalController;
 use App\Http\Controllers\Website\HomePageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-
-use ProtoneMedia\LaravelFFMpeg\Http\DynamicHLSPlaylist;
 use Illuminate\Support\Facades\Storage;
-
+use ProtoneMedia\LaravelFFMpeg\Http\DynamicHLSPlaylist;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,9 +49,6 @@ use Illuminate\Support\Facades\Storage;
 
 // Route::redirect('/', '/en');
 
-
-
-
 //ROUTE GROUP::LANGUAGE SELECTOR
 // Route::group(['prefix' => '{language}'], function () {
 Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
@@ -61,9 +56,6 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
     //HOME
     Route::get('/', [HomePageController::class, 'index'])->name('home');
-
-
-
 
     //ROUTE GROUP::AUTH
     Route::group(['middleware' => 'auth'], function () {
@@ -79,10 +71,6 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
             return view('profile.show');
         })->name('profile.show');
 
-
-
-
-
         //Route GROUP::WEBSITE Index page
         Route::group(['prefix' => 'web', 'middleware' => 'role:super-admin|user', 'as' => 'web.'], function () {
 
@@ -96,50 +84,83 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
         });
 
-
-
-
         //Route GROUP::VIDEOSTREAM
         Route::group(['prefix' => 'video', 'middleware' => 'role:super-admin|user|channel-admin|system-admin', 'as' => 'video.'], function () {
 
-            Route::get('/gize_stream/{vid_id}/{playlist?}', 'App\Http\Controllers\Students\StudentVideoController@stream')->name('stream.playlist');
 
-            Route::get('/{vid_id}/{playlist?}', function ( $vid_id, $playlist='plist.m3u8' ) {
+            //HLS For Batches
+            Route::get('/b/{vid_id}/{playlist?}', function ($vid_id, $playlist = 'plist.m3u8') {
                 $DPL = new DynamicHLSPlaylist();
                 return $DPL
                     ->fromDisk('public')
-                    ->open('/hls/'.$vid_id.'/'.$playlist)
-                    ->setKeyUrlResolver(function ($key) use($vid_id) {
-                        return route('video.key', ['key' => $key, 'vid_id' => $vid_id]);
+                    ->open('/hls/' . $vid_id . '/' . $playlist)
+                    ->setKeyUrlResolver(function ($key) use ($vid_id) {
+                        return route('video.batch.key', ['key' => $key, 'vid_id' => $vid_id]);
                     })
-                    ->setMediaUrlResolver(function ($mediaFilename) use($vid_id) {
-                        return Storage::disk('public')->url('/hls/'.$vid_id.'/'.$mediaFilename);
+                    ->setMediaUrlResolver(function ($mediaFilename) use ($vid_id) {
+                        return Storage::disk('public')->url('/hls/' . $vid_id . '/' . $mediaFilename);
                     })
-                    ->setPlaylistUrlResolver(function ($playlistFilename) use($vid_id) {
-                        return route('video.playlist', ['vid_id' => $vid_id, 'playlist' => $playlistFilename]);
+                    ->setPlaylistUrlResolver(function ($playlistFilename) use ($vid_id) {
+                        return route('video.batch.playlist', ['vid_id' => $vid_id, 'playlist' => $playlistFilename]);
                     });
-            })->name('playlist');
+            })->name('batch.playlist');
 
-            Route::get('/key/{key}/{vid_id}', function($key, $vid_id) {
+            //KEYS For Batches
+            Route::get('/b/key/{key}/{vid_id}', function ($key, $vid_id) {
                 abort_if(Auth::guest(), 403);
-                return Storage::disk('hls_secrets')->download($vid_id.'/'.$key);
-            })->name('key');
+                // abort_if(!Auth::user()->isWatchingActiveRentalVideo($vid_id), 403);
+
+                return Storage::disk('hls_secrets')->download($vid_id . '/' . $key);
+            })->name('batch.key');
+
+
+            //HLS For Rentals
+            Route::get('/r/{vid_id}/{playlist?}', function ($vid_id, $playlist = 'plist.m3u8') {
+                $DPL = new DynamicHLSPlaylist();
+                return $DPL
+                    ->fromDisk('public')
+                    ->open('/hls/' . $vid_id . '/' . $playlist)
+                    ->setKeyUrlResolver(function ($key) use ($vid_id) {
+                        return route('video.rental.key', ['key' => $key, 'vid_id' => $vid_id]);
+                    })
+                    ->setMediaUrlResolver(function ($mediaFilename) use ($vid_id) {
+                        return Storage::disk('public')->url('/hls/' . $vid_id . '/' . $mediaFilename);
+                    })
+                    ->setPlaylistUrlResolver(function ($playlistFilename) use ($vid_id) {
+                        return route('video.rental.playlist', ['vid_id' => $vid_id, 'playlist' => $playlistFilename]);
+                    });
+            })->name('rental.playlist');
+
+            //KEYS For Rentals
+            Route::get('/r/key/{key}/{vid_id}', function ($key, $vid_id) {
+
+                abort_if(!Auth::user()->isWatchingActiveRentalVideo($vid_id), 403);
+
+                return Storage::disk('hls_secrets')->download($vid_id . '/' . $key);
+            })->name('rental.key');
+
         });
-
-
-
 
         //Route GROUP::WEBSITE Channels Landing
         Route::group(['prefix' => 'channel', 'middleware' => 'role:super-admin|channel-admin|user', 'as' => 'channel.'], function () {
 
             Route::get('/{slug}', [ChannelLandingPageController::class, 'find_by_slug'])->name('landing');
-            Route::get('/{slug}/active-videos', [ChannelLandidngPageController::class, 'getActiveChannelVideos'])->name('activevideos');
 
+            Route::get('/{slug}/active-batch-videos', [ChannelLandidngPageController::class, 'getActiveChannelVideos'])->name('activevideos');
 
+            Route::get('/{slug}/{user_id}/{status?}/active-rental-videos', [ChannelvideoRentalController::class, 'getActiveRentalsByUser'])->name('activerentalvideos');
 
         });
 
+        //Route GROUP::WEBSITE Rentals
+        Route::group(['prefix' => 'channel', 'middleware' => 'role:super-admin|channel-admin|user', 'as' => 'channel.'], function () {
 
+            Route::get('/{user_id}/{channelvideo_rental_id}/active-rental-videos', [ChannelvideoRentalController::class, 'markStartedAt'])->name('markstarted');
+
+            Route::get('/{user_id}/{channelvideo_rental_id}/active-rental-videos', [ChannelvideoRentalController::class, 'markCompleted'])->name('markcompleted');
+
+
+        });
 
 
         //ROUTE GROUP::SUPER-ADMIN
@@ -423,9 +444,6 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
         });
 
-
-
-
         //ROUTE GROUP::USER
         Route::group(['prefix' => 'user', 'middleware' => 'role:super-admin|user', 'as' => 'user.'], function () {
 
@@ -470,9 +488,6 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
             });
         });
-
-
-
 
         Route::get('/logout', function (Request $request) {
             Auth::logout();

@@ -51,6 +51,8 @@ class DatabaseSeeder extends Seeder
 
             GizeChannelUserSeeder::class,
 
+            ChannelvideoRentalTableSeeder::class,
+
             // BatchSubscriptionPeriodsSeeder::class,
 
 

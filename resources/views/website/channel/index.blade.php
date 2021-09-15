@@ -465,8 +465,8 @@
                             aria-controls="schedule" aria-selected="false">{{ __('Schedule') }}</a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link" id="rent-tab" data-toggle="tab" href="#rent" role="tab"
-                            aria-controls="rent" aria-selected="false">{{ __('Rental') }}</a>
+                        <a class="nav-link" id="archive-tab" data-toggle="tab" href="#archive" role="tab"
+                            aria-controls="archive" aria-selected="false">{{ __('Archive') }}</a>
                     </li>
                     {{-- <li class="nav-item" role="presentation">
                         <a class="nav-link" id="settings-tab" data-toggle="tab" href="#settings" role="tab"
@@ -527,7 +527,7 @@
 
                     </div>
                     <div class="tab-pane" id="schedule" role="tabpanel" aria-labelledby="schedule-tab">...</div>
-                    <div class="tab-pane" id="rent" role="tabpanel" aria-labelledby="rent-tab">...</div>
+                    <div class="tab-pane" id="archive" role="tabpanel" aria-labelledby="archive-tab">...</div>
                 </div>
 
 

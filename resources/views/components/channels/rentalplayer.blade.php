@@ -32,7 +32,7 @@
                 data-setup="{}"
                 {{-- poster="{{ asset('storage/images/l/'.$video->poster_image_url) }}" --}}
                 >
-                <source src="{{ route('video.batch.playlist', ['vid_id' =>
+                <source src="{{ route('video.rental.playlist', ['vid_id' =>
                 // $vidid
                 7
                 ]) }}" type="application/x-mpegURL">

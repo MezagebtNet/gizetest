@@ -23,6 +23,8 @@ class GizeChannel extends Model
         'slug',
         'producer',
         'description',
+        'banner_image_url',
+        'logo_image_url',
     ];
 
     protected $appends = [

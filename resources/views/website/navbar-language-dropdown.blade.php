@@ -1,5 +1,5 @@
 <li class="nav-item dropdown">
-    <a class="nav-link bg-secondary rounded text-sm" data-toggle="dropdown" href="#" aria-expanded="false">
+    <a class="nav-link btn-outline-secondary btn btn-flat rounded text-sm" data-toggle="dropdown" href="#" aria-expanded="false">
       {{-- <i class="flag-icon
         {{ (app()->currentLocale() == 'en') ? 'flag-icon-us': '' }}
         {{ (app()->currentLocale() == 'am') ? 'flag-icon-et': '' }}
