@@ -77,6 +77,13 @@
     "My Videos": "የኔ ቪድዮዎች",
     "Schedule": "መርሐግብር",
     "Rental": "ኪራይ",
-    "Archive": "ማህደር"
+    "Archive": "ማህደር",
+
+    "day": "ዕለት",
+    "week": "ሳምንት",
+    "month": "ወር",
+    "year": "ዓመት",
+    "all-day": "ሙሉ-ቀን"
+
 
 }

@@ -77,7 +77,13 @@
     "My Videos": "My Videos",
     "Schedule": "Schedule",
     "Rental": "Rentals",
-    "Archive": "Archive"
+    "Archive": "Archive",
+
+    "day": "day",
+    "week": "week",
+    "month": "month",
+    "year": "year",
+    "all-day": "all-day"
 
 
 

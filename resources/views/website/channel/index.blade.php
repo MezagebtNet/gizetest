@@ -7,16 +7,46 @@
 
     <!--Video JS -->
     <link href="https://vjs.zencdn.net/7.14.3/video-js.css" rel="stylesheet" />
+    <link href="{{ asset('vendors/videojs/vim.css') }}" rel="stylesheet" />
     {{-- <link href="https://unpkg.com/video.js/dist/video-js.css" rel="stylesheet"> --}}
 
     <!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
     <!-- <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script> -->
+
+    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" /> --}}
+    <link href='{{ asset('vendors/fullcalendar/main.css') }}' rel='stylesheet' />
+
     <style>
         .video-js .vjs-control-bar {
             color: #fff3d3;
-            font-size: 1.1em;
+            font-size: 0.8rem;
+            height: 40px;
             background-color: rgb(25 20 6 / 70%);
 
+        }
+
+        .vjs-menu-button-popup .vjs-menu .vjs-menu-content {
+            background-color: #2B333F;
+            background-color: rgba(31, 28, 22, 0.76);
+            position: absolute;
+            width: 100%;
+            bottom: 1.5em;
+            max-height: 20em;
+            right: 60px;
+        }
+
+        .video-js .vjs-control {
+            position: relative;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 2.7em;
+        }
+
+        #schedule_calendar {
+            max-width: 1100px;
+            margin: 0 auto;
         }
 
     </style>
@@ -61,6 +91,7 @@
             }
         }
 
+
         .video-card {
             /* min-width: 24rem; */
             /* max-width: 22rem; */
@@ -69,12 +100,21 @@
             transform: scale(0.85);
         }
 
+        .video-card .card {
+            box-shadow: 0 0 1px rgba(0, 0, 0, .125), 0 1px 4px rgba(0, 0, 0, 0.7);
+            margin-bottom: 1rem;
+        }
+
+        .dark-mode .video-card .card {
+            box-shadow: 0 0 1px rgba(0, 0, 0, .125), 0 1px 6px rgba(0, 0, 0, 1);
+            margin-bottom: 1rem;
+        }
 
         @media (prefers-reduced-motion: no-preference) {
 
             .video-card {
-                transition: opacity 1s ease, transform 0.5s ease;
-                animation-delay: 0.4s;
+                transition: opacity 1s ease, transform 0.8s ease;
+                animation-delay: 1.8s;
             }
 
         }
@@ -408,19 +448,22 @@
 
     <div class="banner-section-wrapper">
         <section style=" width: 100%; padding:0;
-                        margin-top: -1px;
-                        background-color: #faebd72e;
-                        background-image: linear-gradient(to bottom, #000000a6, #3b3b3b63, #0000008f), url(http://localhost:8000/assets/image/Addmes_Cover.jpg);
-                        height: 186px;
-                        /* background-attachment: fixed; */
-                        background-position: center center;
-                        background-size: cover;
+                                                margin-top: -1px;
+                                                background-color: #faebd72e;
+                                                background-image: linear-gradient(to bottom, #000000a6, #3b3b3b63, #0000008f), url(http://localhost:8000/assets/image/Addmes_Cover.jpg);
+                                                height: 186px;
+                                                /* background-attachment: fixed; */
+                                                background-position: center center;
+                                                background-size: cover;
 
-                                                        " class=" mb-3 pb-0 w:100 jumbotron text-center channel-banner">
+                                                                                "
+            class=" mb-3 pb-0 w:100 jumbotron text-center channel-banner">
             <div style="
-                                                            >
+                                                                                    >
 
-                                <div class="     d-flex align-items-center flex-column bd-highlight ">
+                                                        <div class="
+
+                         d-flex align-items-center flex-column bd-highlight ">
                 <div class="mb-auto p-2 bd-highlight">
                     <h1 class="channel-title mb-auto">{{ $gize_channel->name }}</h1>
                     <p class="channel-description lead">{{ __('Producer') }} - {{ $gize_channel->producer }}</p>
@@ -510,10 +553,8 @@
                                                 @endphp
                                                 {{-- {{ dd($active->id) }} --}}
 
-                                                <x-channels.player :vidid="$active->id"
-                                                    :viddomid="'v'.$key.$active->id"
-                                                    :vidtitle="$active->title"
-                                                    :viddescription="$active->description"
+                                                <x-channels.player :vidid="$active->id" :viddomid="'v'.$key.$active->id"
+                                                    :vidtitle="$active->title" :viddescription="$active->description"
                                                     :vidposter="$active->poster_image_url" :video="$active" />
 
 
@@ -526,7 +567,11 @@
                         </div>
 
                     </div>
-                    <div class="tab-pane" id="schedule" role="tabpanel" aria-labelledby="schedule-tab">...</div>
+                    <div class="tab-pane" id="schedule" role="tabpanel" aria-labelledby="schedule-tab">
+
+                        <div id="schedule_calendar"></div>
+
+                    </div>
                     <div class="tab-pane" id="archive" role="tabpanel" aria-labelledby="archive-tab">...</div>
                 </div>
 
@@ -561,7 +606,125 @@
     <script src="https://cdn.jsdelivr.net/npm/videojs-landscape-fullscreen@11.1.0/dist/videojs-landscape-fullscreen.min.js">
     </script>
 
+
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script> --}}
+    <script src='{{ asset('vendors/fullcalendar/main.js') }}'></script>
+
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script> --}}
+
     <script>
+        // alert("{{ \App::getLocale(); }}")
+        document.addEventListener('DOMContentLoaded', function() {
+            // declare var FullCalendar: any;
+
+            var calendarEl = document.getElementById('schedule_calendar');
+            console.log({!! json_encode($events) !!});
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                height: 'auto',
+                themeSystem: 'bootstrap',
+                // stickyHeaderDates: false, // for disabling
+
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'listDay,listWeek,listMonth,listYear'
+                },
+
+                locale: '{{ \App::getLocale(); }}',
+                allDayText: "{{ __('all-day') }}",
+
+                // customize the button names,
+                // otherwise they'd all just say "list"
+                views: {
+                    listDay: {
+                        buttonText: '{{ __("day") }}'
+                    },
+                    listWeek: {
+                        buttonText: "{{ __('week') }}"
+                    },
+                    listMonth: {
+                        buttonText: "{{ __('month') }}"
+                    },
+                    listYear: {
+                        buttonText: "{{ __('year') }}"
+                    }
+                },
+
+                initialView: 'listDay',
+                initialDate: moment().format('YYYY-MM-DD'),
+                navLinks: true, // can click day/week names to navigate views
+                editable: false,
+                events: {!! json_encode($events) !!}
+                    // [{
+                    //         title: 'Meeting',
+                    //         start: '2021-08-17T14:30:00',
+                    //         end: '2021-08-17T15:30:00',
+                    //         duration: '2:00',
+                    //         extendedProps: {
+                    //             status: 'done'
+                    //         }
+                    //     },
+                    //     {
+                    //         title: "Meeting",
+                    //         start: "2021-09-18T10:30:00+00:00",
+                    //         end: "2021-09-18T12:30:00+00:00",
+                    //     },
+                    //     {
+                    //         title: 'Birthday Party',
+                    //         start: '2021-09-18T07:00:00',
+                    //         backgroundColor: 'yellow',
+                    //         borderColor: 'green'
+                    //     }
+                    // ]
+                    ,
+                eventDidMount: function(info) {
+                    if (info.event.extendedProps.status === 'done') {
+
+                        // Change background color of row
+                        info.el.style.backgroundColor = 'red';
+
+                        // Change color of dot marker
+                        var dotEl = info.el.getElementsByClassName('fc-event-dot')[0];
+                        if (dotEl) {
+                            dotEl.style.backgroundColor = 'white';
+                        }
+                    }
+                },
+                // events: [{
+                //     // end: "2021-09-01 22:06:21",​​
+                //     // ends_at: "2021-09-01 22:06:21"​​,
+                //     // id: 1​​,
+                //     // start: "2021-08-27 22:06:21"​​,
+                //     // starts_at: "2021-08-27 22:06:21"​​,
+                //     title: "ipsam laboriosam a",
+                //     // title: 'repeating event 1',
+                //     daysOfWeek: [1, 2, 3],
+                //     duration: '00:30',
+                // }],
+                // [
+
+                //     {
+                //         title: 'repeating event 1',
+                //         daysOfWeek: [1, 2, 3],
+                //         duration: '00:30'
+                //     },
+                //     {
+                //         title: 'repeating event 2',
+                //         daysOfWeek: [1, 2, 3],
+                //         duration: '00:30'
+                //     },
+                //     {
+                //         title: 'repeating event 3',
+                //         daysOfWeek: [1, 2, 3],
+                //         duration: '00:30'
+                //     }
+                // ]
+            });
+
+            calendar.render();
+        });
+
+
         $(".video_player").each(function(videoIndex) {
             var videoId = $(this).attr("id");
             // plyr = videojs(videoId);

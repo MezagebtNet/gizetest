@@ -148,6 +148,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
             Route::get('/{slug}/active-batch-videos', [ChannelLandidngPageController::class, 'getActiveChannelVideos'])->name('activevideos');
 
+            Route::get('/{slug}/active-batch-videos', [ChannelLandidngPageController::class, 'loadSchedule'])->name('loadscheudle');
+
             Route::get('/{slug}/{user_id}/{status?}/active-rental-videos', [ChannelvideoRentalController::class, 'getActiveRentalsByUser'])->name('activerentalvideos');
 
         });

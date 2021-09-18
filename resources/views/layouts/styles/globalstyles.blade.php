@@ -1,4 +1,14 @@
 <style>
+
+
+    .dark-mode .fc .fc-list-sticky .fc-list-day > * {
+        background: #000;
+    }
+
+    .dark-mode .fc .fc-list-event:hover td {
+        background-color: #434343b3;
+    }
+
     .scroll4::-webkit-scrollbar {
         width: 10px;
         }

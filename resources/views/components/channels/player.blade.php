@@ -1,5 +1,5 @@
 <div class="video-card-wrapper">
-    <div class="py-0 video-card  square-animation">
+    <div class="py-0 video-card fadeIn square-animation">
         <div class="card mx-2">
             {{-- <video-js
                 style="height: inherit;"
@@ -23,7 +23,7 @@
             <video-js
                 style="height: inherit;"
                 id="{{ $viddomid }}"
-                class="video-js video_player vjs-default-skin vjs-big-play-centered vjs-fluid"
+                class="video-js vim-css video_player vjs-big-play-centered vjs-fluid"
                 controls
                 preload="auto"
                 width="auto"
@@ -67,7 +67,7 @@
                         </span>
 
                         <span class="uppercase tracking-wide text-xs text-gray-400 font-semibold">|
-                            {{ $video->created_at }}</span>
+                            {{ Jenssegers\Date\Date::createFromFormat('Y-m-d H:i:s', $video->created_at)->format('M d, Y'); }}</span>
                     </div>
                 </span>
                 {{-- <a class="" href="#">

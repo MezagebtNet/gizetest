@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\Pivot;
+use Jenssegers\Date\Date;
 
 class BatchChannelvideo extends Pivot
 {
@@ -36,17 +37,19 @@ class BatchChannelvideo extends Pivot
      * @var array
      */
     protected $appends = [
-        'video'
+        'video',
     ];
 
-    public function getVideoAttribute($value){
+    public function getVideoAttribute($value)
+    {
         $video_id = $this->channelvideo_id;
 
-$video_detail = Channelvideo::where('id', $video_id)->where('active', 1)->get();
+        $video_detail = Channelvideo::where('id', $video_id)->where('active', 1)->get();
+
 
 
         return $video_detail;
-    }
 
+    }
 
 }
