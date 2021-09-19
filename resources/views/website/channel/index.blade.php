@@ -125,10 +125,11 @@
         }
 
 
-        /* ----------- 0 - 331px ----------- */
-        @media screen and (max-width: 331px) {
+        /* ----------- 0 - 334x ----------- */
+        @media screen and (max-width: 335px) {
             .banner-section-wrapper {
-                margin-top: 96px;
+                margin-top: 96px !important;
+                ;
             }
 
             #menuTab a {
@@ -179,8 +180,8 @@
             }
         }
 
-        /* ----------- 332 - 450px ----------- */
-        @media screen and (min-width: 332px) and (max-width: 499px) {
+        /* ----------- 336 - 450px ----------- */
+        @media screen and (min-width: 336px) and (max-width: 499px) {
             #menuTab a {
                 border-radius: 0;
                 /* max-width: 100% !important; */
@@ -448,20 +449,22 @@
 
     <div class="banner-section-wrapper">
         <section style=" width: 100%; padding:0;
-                                                margin-top: -1px;
-                                                background-color: #faebd72e;
-                                                background-image: linear-gradient(to bottom, #000000a6, #3b3b3b63, #0000008f), url(http://localhost:8000/assets/image/Addmes_Cover.jpg);
-                                                height: 186px;
-                                                /* background-attachment: fixed; */
-                                                background-position: center center;
-                                                background-size: cover;
+                                                        margin-top: -1px;
+                                                        background-color: #faebd72e;
+                                                        background-image: linear-gradient(to bottom, #000000a6, #3b3b3b63, #0000008f), url(http://localhost:8000/assets/image/Addmes_Cover.jpg);
+                                                        height: 186px;
+                                                        /* background-attachment: fixed; */
+                                                        background-position: center center;
+                                                        background-size: cover;
 
-                                                                                "
+                                                                                        "
             class=" mb-3 pb-0 w:100 jumbotron text-center channel-banner">
             <div style="
-                                                                                    >
+                                                                                            >
 
-                                                        <div class="
+                                                                <div class="
+
+
 
                          d-flex align-items-center flex-column bd-highlight ">
                 <div class="mb-auto p-2 bd-highlight">
@@ -524,6 +527,9 @@
                         <h6 class="
                                     text-muted mb-0">
                             {{ __('Videos available for you to watch from this channel') }}
+                            <button class="btn btn-xs btn-dark btn-refresh float-right">
+                                <i class="fa fa-recycle"></i> {{ __('Reload') }}
+                            </button>
                         </h6>
                         <hr />
                         <div style="text-align: center;" class="spin-8">
@@ -613,7 +619,7 @@
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script> --}}
 
     <script>
-        // alert("{{ \App::getLocale(); }}")
+        // alert("{{ \App::getLocale() }}")
         document.addEventListener('DOMContentLoaded', function() {
             // declare var FullCalendar: any;
 
@@ -627,17 +633,25 @@
                 headerToolbar: {
                     left: 'prev,next today',
                     center: 'title',
-                    right: 'listDay,listWeek,listMonth,listYear'
+                    right: 'listDay,listWeek,listMonth,listYear',
+                },
+                buttonText: {
+                    today: "{{ __('today') }}",
+                    // prev: '&lt;',
+                    // next: '&gt;'
                 },
 
-                locale: '{{ \App::getLocale(); }}',
+                locale: '{{ \App::getLocale() }}',
                 allDayText: "{{ __('all-day') }}",
 
                 // customize the button names,
                 // otherwise they'd all just say "list"
                 views: {
+                    today: {
+                        buttonText: "{{ __('tday') }}"
+                    },
                     listDay: {
-                        buttonText: '{{ __("day") }}'
+                        buttonText: "{{ __('day') }}"
                     },
                     listWeek: {
                         buttonText: "{{ __('week') }}"
@@ -797,6 +811,36 @@
             clearTimeout(spinnerTimer);
 
         }, 2000);
+    </script>
+
+    <script>
+        $(function() {
+
+            // var myVar = setInterval(myTimer, 1000 * 10);
+
+            $('.btn-refresh').on('click', function() {
+                location.reload();
+            });
+
+            function myTimer() {
+                removeExpiredVideos();
+                // notifyMe();
+            }
+
+            function removeExpiredVideos() {
+                cards = $('#video-cards .video-card-wrapper');
+
+                $('#video-cards .video-card-wrapper:has(video-js#v22)').remove();
+
+            }
+
+            let rendered_vid = '<x-channels.player :vidid="$active->id" :viddomid="' +
+                '.$key.$active->id"' +
+                ' :vidtitle="$active->title" :viddescription="$active->description"' +
+                ' :vidposter="$active->poster_image_url" :video="$active" />';
+
+            // $('#video-cards').prepend("herleo");
+        });
     </script>
 
 @endsection

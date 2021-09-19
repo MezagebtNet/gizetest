@@ -83,7 +83,10 @@
     "week": "week",
     "month": "month",
     "year": "year",
-    "all-day": "all-day"
+    "all-day": "all-day",
+    "today": "today",
+
+    "Reload": "Reload"
 
 
 

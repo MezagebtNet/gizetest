@@ -83,10 +83,10 @@
             overflow-x: hidden;
         }
 
-        /* ----------- 0 - 331px ----------- */
-        @media screen and (max-width: 331px) {
+        /* ----------- 0 - 335px ----------- */
+        @media screen and (max-width: 335px) {
             .content {
-                margin-top: 96px;
+                margin-top: 96px !important  ;
             }
             .main-header.dropdown-legacy .dropdown-menu {
                 top: 96px;
