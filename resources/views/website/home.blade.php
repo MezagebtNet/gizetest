@@ -8,24 +8,28 @@
             transition: all .2s ease-in-out;
         }
 
-        .grow:hover, .grow:focus  {
+        .grow:hover,
+        .grow:focus {
             transform: scale(1.02);
         }
 
-        .channel-card:hover, .channel-card:focus {
+        .channel-card:hover,
+        .channel-card:focus {
             border-color: rgba(255, 175, 2);
             /* border: red groove ; */
             box-shadow: 0 0px 7px rgba(248, 221, 164);
             /* box-shadow: 0 0px 12px rgba(205, 200, 185, 0.09); */
             cursor: pointer;
             text-decoration: none;
-            background-color:rgba(255, 243, 134, 0.162);
+            background-color: rgba(255, 243, 134, 0.162);
             /* border:1px solid gray */
         }
-        a.channel-card-link  {
+
+        a.channel-card-link {
             text-decoration: none;
             color: black;
         }
+
         .channel-card {
             min-height: 230px;
             max-height: 230px;
@@ -44,56 +48,19 @@
 
         }
 
-         article.card-body  {
+        article.card-body {
             border-radius: 16px;
             border: 1px solid #c3c3c3;
             background-color: #fff;
         }
 
-        .dark-mode .channel-card  {
+        .dark-mode .channel-card {
             border-radius: 16px;
             border: 1px solid #545454;
         }
 
     </style>
-    {{-- <style>
-        .channel-card {
-            min-width: 340px;
-            max-width: 340px;
-            /* margin: 0 auto; */
-            /* Added */
-            float: none;
-            /* Added */
-            /* Added */
-        }
 
-
-        .chnl-card {
-            border-radius: 1.25rem;
-            overflow: hidden;
-
-            min-width: 220px;
-            max-width: 220px;
-            height: 250px;
-            margin-left: 10px;
-
-        }
-
-        .chnl-card .card-footer {
-            background-color: #3f3f3f;
-        }
-
-        .chnl-card .description-block .description-header,
-        .description-text {
-            color: #f7ffda;
-        }
-
-        .widget-user .widget-user-image > img{
-            border: 2px solid #ccc;
-            /* width: 55px; */
-        }
-
-    </style> --}}
 @endsection
 
 @section('navbar')
@@ -113,22 +80,35 @@
     <div class="container pb-4">
         <div class="row pt-4">
             <div class="col">
-                <h2 class="mb-4">{{ __('Gize Channels') }}</h2>
+                <h2 class="mb-4">Banner</h2>
             </div>
         </div>
-        <div class="grid-container">
-            <div class="justify-content-center ">
-                {{-- <center> --}}
-                <div class=" row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 ">
-                    @foreach ($gize_channels as $gize_channel)
 
-                        <x-channels.card :name="$gize_channel->name" :producer="$gize_channel->producer" :id="$gize_channel->id" :slug="$gize_channel->slug" />
-
-                    @endforeach
+        <div class="container" style="background-color: #f0f8ff14;
+        border: 1px solid #74747452;
+        border-radius: 8px;">
+            <div class="row" style="min-height: 200px;padding: 2rem 0;">
+                <div class=" col-12 col-sm-8"
+                style="padding: 1rem;display: inline-block !important;margin-top: auto;margin-bottom: auto;">
+                    <p class="h4 text-right text-center text-sm-right"
+                    style="vertical-align: middle !important;">{{ __("Have you subscribed to a regular series of 'Book of Addmes' videos?") }}</p>
+                    <p class="text-sm pb-0 mb-0 text-muted font-italic text-center text-sm-right">{{ __('For more info: ') }}<a target="_blank" href="tel:+251911448945">(+251) 911448945</a></p>
+                    <p class="text-sm pb-0 text-muted font-italic text-center text-sm-right">{{ __('Website: ') }}<a target="_blank" href="https://addmes.mezagebtnet.com/courses">https://addmes.mezagebtnet.com/courses</a></p>
+                    <p class="text-sm text-muted font-italic text-center text-sm-right">{{ __('by Addmesh Book Trading') }} </p>
                 </div>
-                {{-- </center> --}}
+                <div class="col-12 col-sm-4 d-inline-block text-center text-sm-left"
+                style="margin-top: auto;margin-bottom: auto; padding: 1rem;display: block;display: inline-block !important;">
+                    <span class=" justify-content-center align-middle"
+                   >
+                        <p style="mb-0" style="margin-bottom: 0;">{{ __('To watch the videos') }} </p>
+                        <a href="{{ route('channel.landing', 'addmes') }}" class="btn btn-block bg-gradient-warning btn-lg mx-atuo ">{{ __('Enter Here') }}!</a>
+
+                    </span>
+
+                </div>
             </div>
         </div>
+
     </div>
 
     {{-- </div> --}}

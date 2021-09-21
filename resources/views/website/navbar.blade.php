@@ -15,10 +15,10 @@
             <!-- Left navbar links -->
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a href="{{ url('/') }}" class="nav-link">{{ __('Home') }}</a>
+                    <a href="{{ route('home') }}" class="nav-link">{{ __('Home') }}</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">Contact</a>
+                    <a href="{{ route('channel.index') }}" class="nav-link">{{ __('Channels') }}</a>
                 </li>
                 {{-- <li class="nav-item">
                     <a href="{{ route('user.home') }}" class="nav-link">{{ __('Addmes') }}</a>

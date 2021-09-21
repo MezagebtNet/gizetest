@@ -4,6 +4,7 @@
     "Log in": "ግባ",
     "Register": "ይመዝገቡ",
     "Home": "ዋና ገጽ",
+    "Channels": "ቻናሎች",
     "Addmes": "አድሜስ",
 
     "Profile": "መገለጫ",
@@ -85,8 +86,20 @@
     "year": "ዓመት",
     "all-day": "ሙሉ-ቀን",
     "today": "ዛሬ",
+    "There are no schedules available.": "ምንም መርሐግብር የለም።",
 
-    "Reload": "እንደገና ጫን"
+    "Reload": "እንደገና ጫን",
+
+    "Have you subscribed to a regular series of 'Book of Addmes' videos?": "ተከታታይ የ ‹የመጽሐፈ አድሜስ› ቪዲዮዎችን በመደበኛነት ለመመልከት ተመዝግበዋል?",
+    "by Addmesh Book Trading": "በአድሜሽ የመጽሐፍት ንግድ ሥራ",
+    "To watch the videos": "ቪዲዮዎቹን ለማየት",
+    "Enter Here": "እዚህ ይግቡ",
+
+    "Videos not available for now": "ለአሁን የተቀመጠልዎ ቪድዮ የለም",
+    "If you have already subscribed please check your schedule.": "ቀድሞውኑ ተመዝግበው ከሆነ መርሐግብርዎን ይመልከቱ።",
+    "Go back to home": "ወደ ዋና ገጽ ይመለሱ",
+    "For more info: ": "ለበለጠ መረጃ: "
+
 
 
 }

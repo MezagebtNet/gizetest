@@ -23,9 +23,10 @@ class ChannelLandingPageController extends Controller
 
         $gize_channels = GizeChannel::all();
 
-        return view('website.home', compact('gize_channels'));
+        return view('website.channel.index', compact('gize_channels'));
 
     }
+
 
     public function find_by_slug($slug)
     {
@@ -34,7 +35,7 @@ class ChannelLandingPageController extends Controller
 
         $events = $this->loadSchedule($slug);
 
-        return view('website.channel.index', compact(['gize_channel', 'activevideos', 'events']));
+        return view('website.channel.landing', compact(['gize_channel', 'activevideos', 'events']));
 
     }
 

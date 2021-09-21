@@ -144,6 +144,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
         //Route GROUP::WEBSITE Channels Landing
         Route::group(['prefix' => 'channel', 'middleware' => 'role:super-admin|channel-admin|user', 'as' => 'channel.'], function () {
 
+            Route::get('/', [ChannelLandingPageController::class, 'index'])->name('index');
+
             Route::get('/{slug}', [ChannelLandingPageController::class, 'find_by_slug'])->name('landing');
 
             Route::get('/{slug}/active-batch-videos', [ChannelLandidngPageController::class, 'getActiveChannelVideos'])->name('activevideos');

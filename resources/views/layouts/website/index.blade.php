@@ -83,17 +83,14 @@
             overflow-x: hidden;
         }
 
-        /* ----------- 0 - 335px ----------- */
-        @media screen and (max-width: 335px) {
+        /* ----------- 0 - 295px ----------- */
+        @media screen and (max-width: 295px) {
             .content {
                 margin-top: 96px !important  ;
             }
             .main-header.dropdown-legacy .dropdown-menu {
                 top: 96px;
             }
-        }
-
-        @media screen and (max-width: 265px) {
 
             .navbar-no-expand .dropdown-menu {
 

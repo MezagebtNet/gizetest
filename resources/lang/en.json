@@ -4,6 +4,7 @@
     "Log in": "Log in",
     "Register": "Register",
     "Home": "Home",
+    "Channels": "Channels",
     "Addmes": "Addmes",
 
     "Profile": "Profile",
@@ -85,8 +86,19 @@
     "year": "year",
     "all-day": "all-day",
     "today": "today",
+    "There are no schedules available.": "There are no schedules available.",
 
-    "Reload": "Reload"
+    "Reload": "Reload",
+
+    "Have you subscribed to a regular series of 'Book of Addmes' videos?": "Have you subscribed to a regular series of 'Book of Addmes' videos?",
+    "by Addmesh Book Trading": "by Addmesh Book Trading",
+    "To watch the videos": "To watch the videos",
+    "Enter Here": "Enter Here",
+
+    "Videos not available for now": "Videos not available for now",
+    "If you have already subscribed please check your schedule.": "If you have already subscribed please check your schedule.",
+    "Go back to home": "Go back to home",
+    "For more info: ": "For more info: "
 
 
 
