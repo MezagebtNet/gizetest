@@ -19,44 +19,36 @@ class DatabaseSeeder extends Seeder
             //Roles and Permissions
             RolesAndPermissionsSeeder::class,
 
-            UsersTableSeeder::class,
+            // UsersTableSeeder::class,
+            BackupData\UsersTableSeeder::class,
 
-            // CustomersTableSeeder::class,
-            // ServicesTableSeeder::class,
+            // ChannelCategoriesSeeder::class,
 
-            // ClaimsServiceTableSeeder::class,
-            // RefundsTableSeeder::class,
-            // RefundServiceTableSeeder::class,
+            // ChannelvideoCategorySeeder::class,
 
-            // BookAuthorsSeeder::class,
-            ChannelCategoriesSeeder::class,
-
-            ChannelvideoCategorySeeder::class,
-
-            GizeChannelsTableSeeder::class,
+            // GizeChannelsTableSeeder::class,
+            BackupData\GizeChannelsTableSeeder::class,
 
             SubscriptionTypesSeeder::class,
 
-            BatchesSeeder::class,
+            // BatchesSeeder::class,
 
 
-            ChannelvideosTableSeeder::class,
+            // ChannelvideosTableSeeder::class,
+            BackupData\ChannelvideosTableSeeder::class,
 
 
-            BatchUserSeeder::class,
+            // BatchUserSeeder::class,
 
-            SubscriptionPeriodsSeeder::class,
+            // SubscriptionPeriodsSeeder::class,
 
-            BatchChannelvideoSeeder::class,
+            // BatchChannelvideoSeeder::class,
 
-            GizeChannelUserSeeder::class,
+            // GizeChannelUserSeeder::class,
 
-            ChannelvideoRentalTableSeeder::class,
-
-            // BatchSubscriptionPeriodsSeeder::class,
+            // ChannelvideoRentalTableSeeder::class,
 
 
-            // SubscriptionPaymentsSeeder::class,
 
             //Factory Settings..
             // FactorySettings\BookTypesSeeder::class,

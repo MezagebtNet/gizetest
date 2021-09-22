@@ -1081,7 +1081,7 @@
 			let lv_id = $(this).attr('lv_id');
 
 			let gize_channel_id = "{{ $gize_channel->id }}";
-			let url = "{{ route('admin.manage.channelvideo.revokeaccess', ['gize_channel_id' => ':gize_channel_id']) }}";
+			// let url = " route('admin.manage.channelvideo.revokeaccess', ['gize_channel_id' => ':gize_channel_id']) ";
 			url = url.replace(':gize_channel_id', gize_channel_id);
 
 
@@ -1109,7 +1109,7 @@
 			let lv_id = $(this).attr('lv_id');
 
 			let gize_channel_id = "{{ $gize_channel->id }}";
-			let url = "{{ route('admin.manage.channelvideo.allowaccess', ['gize_channel_id' => ':gize_channel_id']) }}";
+			// let url = " route('admin.manage.channelvideo.allowaccess', ['gize_channel_id' => ':gize_channel_id']) ";
 			url = url.replace(':gize_channel_id', gize_channel_id);
 
 			$.post(url,
@@ -1140,7 +1140,7 @@
 			let id = button.attr('channelvideoid');
 
 			let gize_channel_id = "{{ $gize_channel->id }}";
-			let url = "{{ route('admin.manage.channelvideo.accesslist', ['gize_channel_id' => ':gize_channel_id']) }}";
+			// let url = " route('admin.manage.channelvideo.accesslist', ['gize_channel_id' => ':gize_channel_id']) ";
 			url = url.replace(':gize_channel_id', gize_channel_id);
 
 			$.post(url, { vid_id: id})

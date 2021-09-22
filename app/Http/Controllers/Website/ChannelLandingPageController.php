@@ -8,6 +8,8 @@ use App\Models\BatchChannelvideo;
 use App\Models\BatchUser;
 use App\Models\Channelvideo;
 use App\Models\GizeChannel;
+use App\Http\Controllers\ChannelvideoRentalController;
+
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ChannelLandingPageController extends Controller
@@ -33,9 +35,10 @@ class ChannelLandingPageController extends Controller
         $gize_channel = GizeChannel::where('slug', $slug)->firstOrFail();
         $activevideos = $this->getActiveChannelVideos($slug);
 
+        $activerentals = ChannelvideoRentalController::getChannelActiveRentalsByUser($slug, \Auth::user()->id);
         $events = $this->loadSchedule($slug);
 
-        return view('website.channel.landing', compact(['gize_channel', 'activevideos', 'events']));
+        return view('website.channel.landing', compact(['gize_channel', 'activevideos', 'activerentals', 'events']));
 
     }
 
@@ -61,8 +64,12 @@ class ChannelLandingPageController extends Controller
             }
 
             // $schedule->start = $schedule->starts_at; //Carbon::createFromFormat('Y-m-d H', $schedule->starts_at)->toDateTimeString(); // 1975-05-21 22:00:00
-            $schedule->start = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $schedule->starts_at)->format('Y-m-d\TH:i:s');
-            $schedule->end = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $schedule->ends_at)->format('Y-m-d\TH:i:s');
+            $schedule->start = \Carbon\Carbon::createFromTimestamp(strtotime($schedule->starts_at))
+                ->timezone(\Config::get('app.timezone'))
+                ->toDateTimeString();
+            $schedule->end = \Carbon\Carbon::createFromTimestamp(strtotime($schedule->ends_at))
+            ->timezone(\Config::get('app.timezone'))
+            ->toDateTimeString();;
             // $schedule->end = \Carbon\Carbon::createFromTimestampMs($schedule->ends_at)->format('Y-m-d\TH:i:s.uP');
             // $schedule->end = $schedule->ends_at; //Carbon::createFromFormat('Y-m-d H', $schedule->starts_at)->toDateTimeString(); // 1975-05-21 22:00:00
         }
@@ -92,7 +99,9 @@ class ChannelLandingPageController extends Controller
 
         $channelvideos = collect([]);
 
-        $videos = Channelvideo::where('active', 1)->get();
+        $videos = Channelvideo::where('active', 1)
+            ->whereIn('video_available_for', [1, 2])
+            ->get();
 
         foreach ($batches_in_channel as $batch) {
 

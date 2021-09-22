@@ -23,6 +23,7 @@ class BatchUser extends Pivot
      * @var array
      */
     protected $fillable = [
+        'id',
         'status',
         'within_days',
         'for_hours',

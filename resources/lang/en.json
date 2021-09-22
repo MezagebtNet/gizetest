@@ -79,6 +79,7 @@
     "Schedule": "Schedule",
     "Rental": "Rentals",
     "Archive": "Archive",
+    "About Channel": "About",
 
     "day": "day",
     "week": "week",
@@ -98,7 +99,29 @@
     "Videos not available for now": "Videos not available for now",
     "If you have already subscribed please check your schedule.": "If you have already subscribed please check your schedule.",
     "Go back to home": "Go back to home",
-    "For more info: ": "For more info: "
+    "For more info": "For more info",
+    "Website": "Website",
+
+    "Phone Number": "Phone Number",
+    "Contact Address": "Contact Address",
+
+    "Rentals": "Rentals",
+    "Your rented videos from this channel": "Your rented videos from this channel",
+    "You have no rental videos available": "You have no rental videos available",
+    "If you would like to rent videos please contact the channel admin.": "If you would like to rent videos please contact the channel admin.",
+
+    "Status": "Status",
+    "Once you start playing this vidio, it will be available for": "Once you start playing this vidio, it will be available for",
+    "hours.": "hours.",
+    "Rental Expires at": "Rental Expires at",
+    "Rental Ends At": "Rental Ends At",
+    "Timezone": "Timezone",
+
+    "Copyright": "Copyright",
+    "Produced by": "Produced by"
+
+
+
 
 
 

@@ -112,6 +112,42 @@
                             @enderror
                         </div>
 
+                        <div class="px-4 py-2 sm:p-6">
+
+                            <label for="phone_number" class="">Phone Number</label>
+
+                            <textarea class="form-control" id="phone_number" name="phone_number" rows="5">{{ old('phone_number', '') }}</textarea>
+
+
+                            @error('phone_number')
+                                <p class="text-sm text-red">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="px-4 py-2 sm:p-6">
+
+                            <label for="contact_address" class="">Contact Address</label>
+
+                            <textarea class="form-control" id="contact_address" name="contact_address" rows="5">{{ old('contact_address', '') }}</textarea>
+
+
+                            @error('contact_address')
+                                <p class="text-sm text-red">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="px-4 py-2 sm:p-6">
+
+                            <label for="website" class="">Website</label>
+
+                            <textarea class="form-control" id="website" name="website" rows="5">{{ old('website', '') }}</textarea>
+
+
+                            @error('website')
+                                <p class="text-sm text-red">{{ $message }}</p>
+                            @enderror
+                        </div>
+
 
                         <div class="px-4 py-2 sm:p-6">
 

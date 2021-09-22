@@ -23,6 +23,9 @@ class GizeChannel extends Model
         'slug',
         'producer',
         'description',
+        'contact_address',
+        'phone_number',
+        'website',
         'banner_image_url',
         'logo_image_url',
     ];

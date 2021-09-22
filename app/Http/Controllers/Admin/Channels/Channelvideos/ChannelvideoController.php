@@ -74,8 +74,8 @@ class ChannelvideoController extends Controller
             $ext = $request->file('image_input')->extension();
             $storeFileName = time() . '.' . $ext;
 
-            $imagePath = 'images/l'; //local /l stands for channelvideo
-            $thumbPath = 'images/l/thumb'; //public /l stands for channelvideo
+            $imagePath = 'images/c'; //local /c stands for channelvideo
+            $thumbPath = 'images/c/thumb'; //public /c stands for channelvideo
 
             //original sized (max: 900 x 900)
             $storedImageUrl = $imagePath . '/' . $storeFileName;
@@ -147,14 +147,14 @@ class ChannelvideoController extends Controller
 
         if ($channelvideo->hls_uploaded) {
             //get filesize of directory...
-            $dir = storage_path('app/public/hls/' . $channelvideo->id);
+            $dir = storage_path('app/public/hls/c' . $gize_channel_id . '/' . $channelvideo->id);
             if (is_dir($dir)) {
                 $channelvideo->hls_size = $this->folderSize($dir);
             }
         }
         if ($channelvideo->keys_uploaded) {
             //get filesize of directory...
-            $dir = storage_path('app/files/l/' . $channelvideo->id);
+            $dir = storage_path('app/files/c/' . $gize_channel_id . '/' . $channelvideo->id);
             if (is_dir($dir)) {
                 $channelvideo->keys_size = $this->folderSize($dir);
             }
@@ -206,8 +206,8 @@ class ChannelvideoController extends Controller
             $ext = $request->file('image_input_ed')->extension();
             $storeFileName = time() . '.' . $ext;
 
-            $imagePath = 'images/l'; //local /l stands for channelvideo
-            $thumbPath = 'images/l/thumb'; //public /l stands for channelvideo
+            $imagePath = 'images/c'; //local /c stands for channelvideo
+            $thumbPath = 'images/c/thumb'; //public /c stands for channelvideo
 
             //original sized (max: 900 x 900)
             $storedImageUrl = $imagePath . '/' . $storeFileName;
@@ -289,7 +289,7 @@ class ChannelvideoController extends Controller
         $channelvideo->delete();
 
         //Delete directory
-        Storage::disk('local_disk')->deleteDirectory('l/' . $id);
+        Storage::disk('local_disk')->deleteDirectory('c/' . $gize_channel_id . '/' . $id);
 
         //Delete all video access data by users...
         ChannelvideoAccessByAppUser::where('channelvideo_id', $id)->delete();
@@ -329,9 +329,9 @@ class ChannelvideoController extends Controller
 
         try {
             $channelvideo = ChannelVideo::find($id);
-            $path = 'app/public/hls/';
+            $path = 'app/public/hls/c/';
 
-            $dir = storage_path($path . $channelvideo->id);
+            $dir = storage_path($path . $gize_channel_id . '/' . $channelvideo->id);
             if (is_dir($dir)) { //if directory exists...
                 $this->delete_files($dir);
             }
@@ -354,9 +354,9 @@ class ChannelvideoController extends Controller
 
         try {
             $channelvideo = ChannelVideo::find($id);
-            $path = 'app/files/l/';
+            $path = 'app/files/c/';
 
-            $dir = storage_path($path . $channelvideo->id);
+            $dir = storage_path($path . $gize_channel_id . '/' . $channelvideo->id);
             if (is_dir($dir)) { //if directory exists...
                 $this->delete_files($dir);
             }
@@ -422,8 +422,8 @@ class ChannelvideoController extends Controller
 
         if ($channelvideo->file_url != null || $channelvideo->file_url != '') {
             // return Storage::disk('local_disk')->exists('l/4/SampleVideo.mp4');
-            if (Storage::disk('local_disk')->exists('l/' . $channelvideo->id . '/' . $channelvideo->file_url)) {
-                Storage::disk('local_disk')->delete('l/' . $channelvideo->id . '/' . $channelvideo->file_url); //Delete ChannelVideo file
+            if (Storage::disk('local_disk')->exists('c/' . $gize_channel_id . '/' . $channelvideo->id . '/' . $channelvideo->file_url)) {
+                Storage::disk('local_disk')->delete('c/' . $gize_channel_id . '/' . $channelvideo->id . '/' . $channelvideo->file_url); //Delete ChannelVideo file
                 $channelvideo->file_url = null;
                 $channelvideo->file_type = 0; //default
                 $channelvideo->active = 0;
@@ -434,8 +434,8 @@ class ChannelvideoController extends Controller
         }
 
         if ($channelvideo->sample_file_url != null || $channelvideo->sample_file_url != '') {
-            if (Storage::disk('local_disk')->exists('l/' . $channelvideo->id . '/' . $channelvideo->sample_file_url)) {
-                Storage::disk('local_disk')->delete('l/' . $channelvideo->id . '/' . $channelvideo->sample_file_url); //Delete Sample ChannelVideo file
+            if (Storage::disk('local_disk')->exists('c/' . $gize_channel_id . '/' . $channelvideo->id . '/' . $channelvideo->sample_file_url)) {
+                Storage::disk('local_disk')->delete('c/' . $gize_channel_id . '/' . $channelvideo->id . '/' . $channelvideo->sample_file_url); //Delete Sample ChannelVideo file
                 $channelvideo->sample_file_url = null;
                 $channelvideo->sample_file_type = 0; //default
 
@@ -481,7 +481,7 @@ class ChannelvideoController extends Controller
 
             //delete all directories
             foreach ($ids as $id) {
-                Storage::disk('local_disk')->deleteDirectory('l/' . $id);
+                Storage::disk('local_disk')->deleteDirectory('c/' . $gize_channel_id . '/' . $id);
             }
 
             //delete all video access data by users..
@@ -571,8 +571,8 @@ class ChannelvideoController extends Controller
             // return 'here';
             // return $filePath;
 
-            Storage::disk('local_disk')->putFileAs('/l/', $filePath, $storeFileName);
-            // Storage::disk('local_disk')->putFileAs('/l/'.$channelvideo->id.'/', $filePath, $storeFileName);
+            Storage::disk('local_disk')->putFileAs('/c/'. $gize_channel_id . '/', $filePath, $storeFileName);
+            // Storage::disk('local_disk')->putFileAs('/c/'.$channelvideo->id.'/', $filePath, $storeFileName);
 
             $prev_url = $channelvideo->file_url;
             $storedFileUrl = "";
@@ -644,7 +644,7 @@ class ChannelvideoController extends Controller
 
         $channelvideo = ChannelVideo::find($request->channelvideo_id);
 
-        $url = $channelvideo->file_url;
+        $url = $gize_channel_id . '/' . $channelvideo->file_url;
         return asset('storage/' . $url);
     }
 

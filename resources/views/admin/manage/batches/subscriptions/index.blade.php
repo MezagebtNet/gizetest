@@ -604,9 +604,68 @@
 
             // Do this before you initialize any of your modals
             // $.fn.modal.Constructor.prototype.enforceFocus = function() {};
+            function formatState(state) {
+                if (!state.id) {
+                    return state.text;
+                }
+                var baseUrl = "{{ asset('storage/') }}";
+                var path = state.profile_photo_url;
+                var $state = $(
+                    '<span><img style="max-width:90px;" src="' +  path +
+                    '" class="img-flag" /> ' + state.text + '</span>'
+                );
+                console.log($state);
+
+                return $state;
+            };
+
+            function formatResult(result) {
+                if (!result.id) return result.text;
+
+                var myElement = $(result.element);
+
+                var baseUrl = "{{ asset('storage/') }}";
+                var path = result.profile_photo_url;
+                // var markup = '<div class="clearfix">' +
+                //     '<h4>' + result.text + '</h4>' +
+                //     '<p>' + $(myElement).data('name') + '</p>' +
+                //     '</div>';
+                var markup = '<span><img style="max-width:90px;" src="' + path +
+                    '" class="img-flag" /> ' + $(myElement).data(text) + '</span>';
+
+                return markup;
+            }
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
             $('.select-subscribers').select2({
                 theme: 'bootstrap4',
-                dropdownParent: $('#subscriptionModal')
+                dropdownParent: $('#subscriptionModal'),
+                templateResult: formatState,
+
+                ajax: {
+                    url: "{{ route('admin.search.users') }}",
+                    type: 'post',
+                    // data: {
+                    //     _token: $("input[name=_token]").val(),
+                    // },
+                    dataType: 'json',
+                    delay: 250,
+                    // Additional AJAX parameters go here; see the end of this chapter for the full code of this example
+                    processResults: function(data) {
+                        // Transforms the top-level key of the response object from 'items' to 'results'
+                        return {
+                            results: data
+                        };
+                    },
+
+                    // cache: true
+                },
+
             });
             initSubscriptionTable();
 
@@ -787,7 +846,8 @@
                 processData: false,
                 success: function(response) {
                     //Refresh page.
-                    let url = "{{ route('admin.manage.batch.subscription.index', ['gize_channel_id' => ':gize_channel_id', 'batch_id' => ':batch_id']) }}";
+                    let url =
+                        "{{ route('admin.manage.batch.subscription.index', ['gize_channel_id' => ':gize_channel_id', 'batch_id' => ':batch_id']) }}";
                     let gize_channel_id = "{{ $gize_channel->id }}";
                     url = url.replace(':gize_channel_id', gize_channel_id);
                     url = url.replace(':batch_id', batch_id);
@@ -833,7 +893,8 @@
                 success: function(response) {
                     //Refresh page.
 
-                    let url = "{{ route('admin.manage.batch.subscription.index', ['gize_channel_id' => ':gize_channel_id', 'batch_id' => ':batch_id']) }}";
+                    let url =
+                        "{{ route('admin.manage.batch.subscription.index', ['gize_channel_id' => ':gize_channel_id', 'batch_id' => ':batch_id']) }}";
                     let gize_channel_id = "{{ $gize_channel->id }}";
                     url = url.replace(':gize_channel_id', gize_channel_id);
                     url = url.replace(':batch_id', batch_id);
@@ -850,7 +911,8 @@
         $('#btnContinue').on('click', function() {
             batch_id = $('#selectBatch').val();
 
-            let url = "{{ route('admin.manage.batch.subscription.index', ['gize_channel_id' => ':gize_channel_id', 'batch_id' => ':batch_id']) }}";
+            let url =
+                "{{ route('admin.manage.batch.subscription.index', ['gize_channel_id' => ':gize_channel_id', 'batch_id' => ':batch_id']) }}";
             let gize_channel_id = "{{ $gize_channel->id }}";
             url = url.replace(':gize_channel_id', gize_channel_id);
             url = url.replace(':batch_id', batch_id);
@@ -884,7 +946,8 @@
                 _token: _token
             };
             // alert(JSON.stringify(data));
-            let routeUrl = (isActive) ? "{{ route('admin.manage.batch.subscription.deactivate', ':gize_channel_id') }}" :
+            let routeUrl = (isActive) ?
+                "{{ route('admin.manage.batch.subscription.deactivate', ':gize_channel_id') }}" :
                 "{{ route('admin.manage.batch.subscription.activate', ':gize_channel_id') }}";
 
             let gize_channel_id = "{{ $gize_channel->id }}";
@@ -1514,7 +1577,8 @@
             let gize_channel_id = "{{ $gize_channel->id }}";
 
 
-            let url = "{{ route('admin.manage.batch.subscription.unsubscribedlist', ['gize_channel_id' => ':gize_channel_id', 'batch_id' => ':batch_id']) }}";
+            let url =
+                "{{ route('admin.manage.batch.subscription.unsubscribedlist', ['gize_channel_id' => ':gize_channel_id', 'batch_id' => ':batch_id']) }}";
             url = url.replace(':gize_channel_id', gize_channel_id);
             url = url.replace(':batch_id', batch_id);
 
@@ -1528,47 +1592,47 @@
 
 
 
-            $.ajax({
-                url: url,
-                type: "GET",
-                contentType: false,
-                processData: false,
-                success: function(response) {
+            // $.ajax({
+            //     url: url,
+            //     type: "GET",
+            //     contentType: false,
+            //     processData: false,
+            //     success: function(response) {
 
-                    if (response) {
-                        // console.log(response);
-                        $('#select_subscriber').html('');
-                        response.map(function(obj) {
-                            let option = document.createElement('option')
-                            option.value = obj.id
-                            option.innerHTML = `<b>${obj.name}</b>`
-                            $('#select_subscriber').append(option)
-                        })
+            //         if (response) {
+            //             // console.log(response);
+            //             $('#select_subscriber').html('');
+            //             response.map(function(obj) {
+            //                 let option = document.createElement('option')
+            //                 option.value = obj.id
+            //                 option.innerHTML = `<b>${obj.name}</b>`
+            //                 $('#select_subscriber').append(option)
+            //             })
 
-                    }
+            //         }
 
-                },
-                error: function(xhr) {
-                    $('#validation-errors').html('');
-                    let errMsgs = "";
-                    $.each(xhr.responseJSON.errors, function(key, value) {
-                        $('#validation-errors').append('<div class="alert alert-danger">' +
-                            value + '</div');
-                        errMsgs += '' + value + '<br/>';
+            //     },
+            //     error: function(xhr) {
+            //         $('#validation-errors').html('');
+            //         let errMsgs = "";
+            //         $.each(xhr.responseJSON.errors, function(key, value) {
+            //             $('#validation-errors').append('<div class="alert alert-danger">' +
+            //                 value + '</div');
+            //             errMsgs += '' + value + '<br/>';
 
 
-                    });
-                    Swal.fire({
-                        icon: 'error',
-                        title: xhr.responseJSON.message,
-                        html: errMsgs,
-                        toast: true,
-                        position: 'top-end',
-                        showConfirmButton: false,
-                        timer: 4000
-                    })
-                }
-            });
+            //         });
+            //         Swal.fire({
+            //             icon: 'error',
+            //             title: xhr.responseJSON.message,
+            //             html: errMsgs,
+            //             toast: true,
+            //             position: 'top-end',
+            //             showConfirmButton: false,
+            //             timer: 4000
+            //         })
+            //     }
+            // });
             $('#subscriptionForm')[0].reset();
         });
 
@@ -1636,7 +1700,8 @@
 
                         let subscription_periods = 0;
                         let gize_channel_id = "{{ $gize_channel->id }}";
-                        batchUrl = "{{ route('admin.manage.batch.get', ['gize_channel_id' => ':gize_channel_id', 'id' => ':id']) }}";
+                        batchUrl =
+                            "{{ route('admin.manage.batch.get', ['gize_channel_id' => ':gize_channel_id', 'id' => ':id']) }}";
                         batchUrl = batchUrl.replace(':gize_channel_id', gize_channel_id);
                         batchUrl = batchUrl.replace(':id', response.batch_id);
 

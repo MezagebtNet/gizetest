@@ -28,6 +28,9 @@ class CreateGizeChannelsTable extends Migration
 
 
             $table->longText('description', 100)->nullable();
+            $table->longText('contact_address', 255)->nullable();
+            $table->string('phone_number', 255)->nullable();
+            $table->string('website', 255)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

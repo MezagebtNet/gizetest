@@ -80,6 +80,30 @@
 
                         <div class="px-4 py-2 sm:p-6">
 
+                            <label for="phone_number" class="">Phone Number</label>
+
+                            <input class="form-control" type="text" id="phone_number" name="phone_number" placeholder="Phone Number"
+                                value="{{ old('phone_number', '') }}" />
+
+                            @error('phone_number')
+                                <p class="text-sm text-red">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="px-4 py-2 sm:p-6">
+
+                            <label for="address" class="">Address</label>
+
+                            <input class="form-control" type="text" id="address" name="address" placeholder="Address"
+                                value="{{ old('address', '') }}" />
+
+                            @error('address')
+                                <p class="text-sm text-red">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="px-4 py-2 sm:p-6">
+
                             <label for="email" class="">Email</label>
 
                             <input class="form-control" type="text" id="email" name="email" placeholder="Email"

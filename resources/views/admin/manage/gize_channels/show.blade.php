@@ -98,6 +98,30 @@
                         </tr>
                         <tr>
                             <th scope="col">
+                                Phone Number
+                            </th>
+                            <td>
+                                {{ $gize_channel->phone_number }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="col">
+                                Contact Address
+                            </th>
+                            <td>
+                                {{ $gize_channel->contact_address }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="col">
+                                Website
+                            </th>
+                            <td>
+                                {{ $gize_channel->website }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="col">
                                 Admins
                             </th>
                             <td>

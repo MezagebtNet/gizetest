@@ -63,9 +63,9 @@ return [
             'visibility' => 'private',
         ],
 
-        'hls_secrets' => [
+        'channelvideo_secrets' => [
             'driver' => 'local',
-            'root' => storage_path('app/files/l'),
+            'root' => storage_path('app/files/c'),
             'url' => env('APP_URL') . '/storage',
             'visibility' => 'private',
         ],

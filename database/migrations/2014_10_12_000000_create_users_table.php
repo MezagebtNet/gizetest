@@ -21,25 +21,25 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
-$table->string('profile_photo_path', 2048)->nullable();
+            $table->string('profile_photo_path', 2048)->nullable();
 
-$table->string('language_preference', 15)->nullable()->default('en'); //en - English, am - Amharic, ...
-$table->string('theme_preference', 15)->nullable()->default('light-mode'); //light - Light-Mode, dark - Dark-Mode, ...
-$table->softDeletes();
+            $table->string('language_preference', 15)->nullable()->default('en'); //en - English, am - Amharic, ...
+            $table->string('theme_preference', 15)->nullable()->default('light-mode'); //light - Light-Mode, dark - Dark-Mode, ...
+            $table->softDeletes();
 
-$table->timestamps();
-
+            $table->timestamps();
 
         });
 
-Schema::table('users', function (Blueprint $table) {
-    $table->renameColumn('name', 'firstname');
-    $table->string('lastname');
-    $table->bigInteger('book_author_id')->nullable();
-    $table->bigInteger('shop_manager_id')->nullable();
-    // $table->string('email')->nullable()->change();
-});
-
+        Schema::table('users', function (Blueprint $table) {
+            $table->renameColumn('name', 'firstname');
+            $table->string('lastname');
+            $table->string('phone_number');
+            $table->string('address');
+            // $table->bigInteger('book_author_id')->nullable();
+            // $table->bigInteger('shop_manager_id')->nullable();
+            // $table->string('email')->nullable()->change();
+        });
 
     }
 

@@ -15,7 +15,31 @@
 
 @section('styles')
     @livewireStyles
+
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{{ asset('vendors/admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet"
+        href="{{ asset('vendors/admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendors/admin/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+
+    <link rel="stylesheet"
+        href="{{ asset('vendors/admin/plugins/datatables-fixedcolumns/css/fixedColumns.bootstrap4.min.css') }}">
+
+        <style>
+            th,
+            td {
+                white-space: nowrap;
+            }
+
+            div.dataTables_wrapper {
+                /* width: 800px; */
+                margin: 0 auto;
+            }
+
+        </style>
+
 @endsection
+
 
 @section('navbar')
     @include('admin.navbar')
@@ -54,63 +78,73 @@
                 </div>
 
                 <div class="card-body" style="overflow-x:scroll;">
-                    <table  class="table table-hover table-sm">
-                        <thead>
-                            <tr>
-                                <th scope="col" width="50">ID</th>
-                                <th scope="col">Photo</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Email Verified At</th>
-                                <th scope="col">Roles</th>
-                                <th scope="col" width="200"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($users as $user)
+                    <div class="dataTables_wrapper">
+
+                        <table id="userTable" class="table table-hover table-sm" style="width: 100%;">
+                            <thead>
                                 <tr>
-                                    <td>{{ $user->id }}</td>
-
-                                    <td style="width: 40px;">
-                                        <img src="{{ $user->profile_photo_url }}" alt="{{ $user->fullName() }}"/>
-                                    </td>
-
-                                    <td>{{ $user->fullName() }}</td>
-
-                                    <td>{{ $user->email }}</td>
-
-                                    <td>{{ $user->email_verified_at }}</td>
-
-                                    <td>
-                                        @foreach ($user->getRoleNames() as $role)
-                                            <span class="badge badge-secondary">{{ $role }}</span>
-                                        @endforeach
-                                    </td>
-
-                                    <td class="">
-                                        <div class="row">
-                                            <a href="{{ route('admin.manage.user.show', $user->id) }}"
-                                                class="mx-1 btn btn-xs btn-outline-success" title="View"><i
-                                                    class="fa fa-eye"></i> View</a>
-
-                                            <a href="{{ route('admin.manage.user.edit', $user->id) }}"
-                                                class="mx-1 btn btn-xs btn-outline-info" title="Edit"><i
-                                                    class="fa fa-edit"></i>
-                                                Edit</a>
-                                            <form class="inline-block"
-                                                action="{{ route('admin.manage.user.destroy', $user->id) }}" method="POST"
-                                                onsubmit="return confirm('Are you sure?');">
-                                                <input type="hidden" name="_method" value="DELETE">
-                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                <input type="submit" class="mx-1 btn btn-xs btn-outline-danger"
-                                                    title="Delete" value="Delete">
-                                            </form>
-                                        </div>
-                                    </td>
+                                    <th scope="col" width="50">ID</th>
+                                    <th scope="col">Photo</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Phone</th>
+                                    <th scope="col">Address</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Email Verified At</th>
+                                    <th scope="col">Roles</th>
+                                    <th scope="col" width="200"></th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @foreach ($users as $user)
+                                    <tr>
+                                        <td>{{ $user->id }}</td>
+
+                                        <td style="width: 40px;">
+                                            <img style="max-wdith: 64px !important;" width="64" src="{{ $user->profile_photo_url }}" alt="{{ $user->fullName() }}"/>
+                                        </td>
+
+                                        <td>{{ $user->fullName() }}</td>
+
+                                        <td>{{ $user->phone_number }}</td>
+
+                                        <td>{{ $user->address }}</td>
+
+                                        <td>{{ $user->email }}</td>
+
+                                        <td>{{ $user->email_verified_at }}</td>
+
+                                        <td>
+                                            @foreach ($user->getRoleNames() as $role)
+                                                <span class="badge badge-secondary">{{ $role }}</span>
+                                            @endforeach
+                                        </td>
+
+                                        <td class="">
+                                            <div class="row">
+                                                <a href="{{ route('admin.manage.user.show', $user->id) }}"
+                                                    class="mx-1 btn btn-xs btn-outline-success" title="View"><i
+                                                        class="fa fa-eye"></i> View</a>
+
+                                                <a href="{{ route('admin.manage.user.edit', $user->id) }}"
+                                                    class="mx-1 btn btn-xs btn-outline-info" title="Edit"><i
+                                                        class="fa fa-edit"></i>
+                                                    Edit</a>
+                                                <form class="inline-block"
+                                                    action="{{ route('admin.manage.user.destroy', $user->id) }}" method="POST"
+                                                    onsubmit="return confirm('Are you sure?');">
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                    <input type="submit" class="mx-1 btn btn-xs btn-outline-danger"
+                                                        title="Delete" value="Delete">
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+
+                    </div>
                 </div>
 
             </div>
@@ -122,4 +156,34 @@
 @section('js')
 
     @livewireScripts
+
+<!-- DataTables  & Plugins -->
+<script src="{{ asset('vendors/admin/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('vendors/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('vendors/admin/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('vendors/admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('vendors/admin/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('vendors/admin/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('vendors/admin/plugins/jszip/jszip.min.js') }}"></script>
+<script src="{{ asset('vendors/admin/plugins/pdfmake/pdfmake.min.js') }}"></script>
+<script src="{{ asset('vendors/admin/plugins/pdfmake/vfs_fonts.js') }}"></script>
+<script src="{{ asset('vendors/admin/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('vendors/admin/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+<script src="{{ asset('vendors/admin/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+
+<script src="{{ asset('vendors/admin/plugins/datatables-fixedcolumns/js/dataTables.fixedColumns.js') }}"></script>
+<script src="{{ asset('vendors/admin/plugins/datatables-fixedcolumns/js/fixedColumns.bootstrap4.min.js') }}">
+</script>
+
+<script>
+$(function() {
+    $("#userTable").DataTable({
+            // scrollY:        "100px",
+            scrollX: true,
+            // scrollCollapse: true,
+            paging: true,
+        }).buttons().container().appendTo('#userTable_wrapper .col-md-6:eq(0)');
+
+});
+</script>
 @endsection

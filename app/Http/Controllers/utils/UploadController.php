@@ -49,7 +49,7 @@ class UploadController extends Controller
             // not using move, you need to manually delete the file by unlink($save->getFile()->getPathname())
             $vid_id = $request->vid_id;
             // $vid_id = 12;
-            $location = "app/files/l/";
+            $location = "app/files/c/" . $gize_channel_id . "/";
 
             if($this->saveFile($gize_channel_id, $save->getFile(), $location, $vid_id)){
                 //Extract Zip Archive
@@ -96,7 +96,7 @@ class UploadController extends Controller
             $vid_id = $request->vid_id;
 
             // $location = "app/files/l/";
-            $location = "app/public/hls/";
+            $location = "app/public/hls/c/" . $gize_channel_id . "/";
 
             if($this->saveFile($gize_channel_id, $save->getFile(), $location, $vid_id)){
                 //Extract Zip Archive
@@ -156,7 +156,7 @@ class UploadController extends Controller
             // not using move, you need to manually delete the file by unlink($save->getFile()->getPathname())
             $vid_id = $request->vid_id;
 
-            $location = "app/files/l/";
+            $location = "app/files/c/" . $gize_channel_id ."/";
             // $location = "app/public/hls/";
 
             if($this->saveFile($gize_channel_id, $save->getFile(), $location, $vid_id)){
@@ -229,7 +229,7 @@ class UploadController extends Controller
 
         // try {
             $channelvideo = Channelvideo::find($id);
-            $path = 'app/public/hls/';
+            $path = 'app/public/hls/c/' . $gize_channel_id . "/";
 
             $dir = storage_path($path.$channelvideo->id);
             if(is_dir($dir)){ //if directory exists...
@@ -256,7 +256,7 @@ class UploadController extends Controller
 
         try {
             $channelvideo = Channelvideo::find($id);
-            $path = 'app/files/l/';
+            $path = 'app/files/c/' . $gize_channel_id . '/';
 
             $dir = storage_path($path.$channelvideo->id);
             if(is_dir($dir)){ //if directory exists...
@@ -302,7 +302,7 @@ class UploadController extends Controller
             // not using move, you need to manually delete the file by unlink($save->getFile()->getPathname())
             $vid_id = $request->vid_id;
 
-            $location = "app/files/l/";
+            $location = "app/files/c/" . $gize_channel_id . "/";
             // $location = "app/public/video/";
 
             if($this->saveFile($gize_channel_id, $save->getFile(), $location, $vid_id)){

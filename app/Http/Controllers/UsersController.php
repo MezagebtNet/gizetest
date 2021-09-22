@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Gate;
 use SPatie\Permission\Models\Role;
+use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 
@@ -133,6 +134,22 @@ class UsersController extends Controller
         return 'success';
 
 
+    }
+
+    public function search(Request $request){
+        $term = $request->term;
+        // if($q != trim("")) {
+
+            $result = User::where('firstname','like','%'.$term.'%')->limit(5)->get();
+            foreach ($result as $res) {
+                $res->text = $res->name;
+            }
+
+            $result = $result->toArray();
+
+
+            return ($result);
+        // }
     }
 
 

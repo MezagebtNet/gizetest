@@ -61,6 +61,9 @@
                                 <th scope="col">Slug</th>
                                 <th scope="col">Producer</th>
                                 <th scope="col">Description</th>
+                                <th scope="col">Phone Number</th>
+                                <th scope="col">Contact Address</th>
+                                <th scope="col">Website</th>
                                 <th scope="col">Admins</th>
                                 <th scope="col" width="200"></th>
                             </tr>
@@ -79,6 +82,12 @@
                                     <td>{{ $channel->producer }}</td>
 
                                     <td>{{ $channel->description }}</td>
+
+                                    <td>{{ $channel->phone_number }}</td>
+
+                                    <td>{{ $channel->contact_address }}</td>
+
+                                    <td>{{ $channel->website }}</td>
 
                                     <td>
                                         @foreach ($channel->users()->get() as $channel_admin)

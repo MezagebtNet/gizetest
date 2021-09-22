@@ -16,7 +16,7 @@ use App\Http\Controllers\UserPreferencesController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\Utils\UploadController;
 use App\Http\Controllers\Website\ChannelLandingPageController;
-use App\Http\Controllers\Website\ChannelvideoRentalController;
+use App\Http\Controllers\ChannelvideoRentalController;
 use App\Http\Controllers\Website\HomePageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -89,54 +89,54 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
 
             //HLS For Batches
-            Route::get('/b/{vid_id}/{playlist?}', function ($vid_id, $playlist = 'plist.m3u8') {
+            Route::get('/b/{gize_channel_id}/{vid_id}/{playlist?}', function ($gize_channel_id, $vid_id, $playlist = 'plist.m3u8') {
                 $DPL = new DynamicHLSPlaylist();
                 return $DPL
                     ->fromDisk('public')
-                    ->open('/hls/' . $vid_id . '/' . $playlist)
-                    ->setKeyUrlResolver(function ($key) use ($vid_id) {
-                        return route('video.batch.key', ['key' => $key, 'vid_id' => $vid_id]);
+                    ->open('/hls/c/' . $gize_channel_id . '/' . $vid_id . '/' . $playlist)
+                    ->setKeyUrlResolver(function ($key) use ($gize_channel_id, $vid_id) {
+                        return route('video.batch.key', ['key' => $key, 'gize_channel_id' => $gize_channel_id,  'vid_id' => $vid_id]);
                     })
-                    ->setMediaUrlResolver(function ($mediaFilename) use ($vid_id) {
-                        return Storage::disk('public')->url('/hls/' . $vid_id . '/' . $mediaFilename);
+                    ->setMediaUrlResolver(function ($mediaFilename) use ($gize_channel_id, $vid_id) {
+                        return Storage::disk('public')->url('/hls/c/' . $gize_channel_id . '/' . $vid_id . '/' . $mediaFilename);
                     })
-                    ->setPlaylistUrlResolver(function ($playlistFilename) use ($vid_id) {
-                        return route('video.batch.playlist', ['vid_id' => $vid_id, 'playlist' => $playlistFilename]);
+                    ->setPlaylistUrlResolver(function ($playlistFilename) use ($gize_channel_id, $vid_id) {
+                        return route('video.batch.playlist', ['gize_channel_id' => $gize_channel_id, 'vid_id' => $vid_id, 'playlist' => $playlistFilename]);
                     });
             })->name('batch.playlist');
 
             //KEYS For Batches
-            Route::get('/b/key/{key}/{vid_id}', function ($key, $vid_id) {
+            Route::get('/b/key/{gize_channel_id}/{vid_id}/{key}', function ($gize_channel_id, $vid_id, $key) {
                 abort_if(Auth::guest(), 403);
                 // abort_if(!Auth::user()->isWatchingActiveRentalVideo($vid_id), 403);
 
-                return Storage::disk('hls_secrets')->download($vid_id . '/' . $key);
+                return Storage::disk('channelvideo_secrets')->download($gize_channel_id . '/'. $vid_id . '/' . $key);
             })->name('batch.key');
 
 
             //HLS For Rentals
-            Route::get('/r/{vid_id}/{playlist?}', function ($vid_id, $playlist = 'plist.m3u8') {
+            Route::get('/r/{gize_channel_id}/{vid_id}/{playlist?}', function ($gize_channel_id, $vid_id, $playlist = 'plist.m3u8') {
                 $DPL = new DynamicHLSPlaylist();
                 return $DPL
                     ->fromDisk('public')
-                    ->open('/hls/' . $vid_id . '/' . $playlist)
-                    ->setKeyUrlResolver(function ($key) use ($vid_id) {
-                        return route('video.rental.key', ['key' => $key, 'vid_id' => $vid_id]);
+                    ->open('/hls/c/' . $gize_channel_id . '/' . $vid_id . '/' . $playlist)
+                    ->setKeyUrlResolver(function ($key) use ($gize_channel_id, $vid_id) {
+                        return route('video.rental.key', ['key' => $key, 'gize_channel_id' => $gize_channel_id, 'vid_id' => $vid_id]);
                     })
-                    ->setMediaUrlResolver(function ($mediaFilename) use ($vid_id) {
-                        return Storage::disk('public')->url('/hls/' . $vid_id . '/' . $mediaFilename);
+                    ->setMediaUrlResolver(function ($mediaFilename) use ($gize_channel_id, $vid_id) {
+                        return Storage::disk('public')->url('/hls/c/'. $gize_channel_id . '/' . $vid_id . '/' . $mediaFilename);
                     })
-                    ->setPlaylistUrlResolver(function ($playlistFilename) use ($vid_id) {
-                        return route('video.rental.playlist', ['vid_id' => $vid_id, 'playlist' => $playlistFilename]);
+                    ->setPlaylistUrlResolver(function ($playlistFilename) use ($gize_channel_id, $vid_id) {
+                        return route('video.rental.playlist', ['vid_id' => $vid_id, 'gize_channel_id' => $gize_channel_id, 'playlist' => $playlistFilename]);
                     });
             })->name('rental.playlist');
 
             //KEYS For Rentals
-            Route::get('/r/key/{key}/{vid_id}', function ($key, $vid_id) {
+            Route::get('/r/key/{gize_channel_id}/{vid_id}/{key}', function ($gize_channel_id, $vid_id, $key) {
 
                 abort_if(!Auth::user()->isWatchingActiveRentalVideo($vid_id), 403);
 
-                return Storage::disk('hls_secrets')->download($vid_id . '/' . $key);
+                return Storage::disk('channelvideo_secrets')->download( $gize_channel_id .'/' . $vid_id . '/' . $key);
             })->name('rental.key');
 
         });
@@ -148,20 +148,22 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
             Route::get('/{slug}', [ChannelLandingPageController::class, 'find_by_slug'])->name('landing');
 
-            Route::get('/{slug}/active-batch-videos', [ChannelLandidngPageController::class, 'getActiveChannelVideos'])->name('activevideos');
+            Route::get('/{slug}/active-batch-videos', [ChannelLandingPageController::class, 'getActiveChannelVideos'])->name('activevideos');
 
-            Route::get('/{slug}/active-batch-videos', [ChannelLandidngPageController::class, 'loadSchedule'])->name('loadscheudle');
+            Route::get('/{slug}/active-batch-videos', [ChannelLandingPageController::class, 'loadSchedule'])->name('loadscheudle');
 
-            Route::get('/{slug}/{user_id}/{status?}/active-rental-videos', [ChannelvideoRentalController::class, 'getActiveRentalsByUser'])->name('activerentalvideos');
+            Route::get('/{slug}/{user_id}/{status?}/active-rental-videos', [ChannelvideoRentalController::class, 'getChannelActiveRentalsByUser'])->name('activerentalvideos');
 
         });
 
         //Route GROUP::WEBSITE Rentals
-        Route::group(['prefix' => 'channel', 'middleware' => 'role:super-admin|channel-admin|user', 'as' => 'channel.'], function () {
+        Route::group(['prefix' => 'rental', 'middleware' => 'role:super-admin|channel-admin|user', 'as' => 'rental.'], function () {
 
-            Route::get('/{user_id}/{channelvideo_rental_id}/active-rental-videos', [ChannelvideoRentalController::class, 'markStartedAt'])->name('markstarted');
+            // Route::post('/{user_id}/{channelvideo_rental_id}/active-rental-videos', [ChannelvideoRentalController::class, 'markStartedAt'])->name('markstarted');
 
-            Route::get('/{user_id}/{channelvideo_rental_id}/active-rental-videos', [ChannelvideoRentalController::class, 'markCompleted'])->name('markcompleted');
+            Route::post('/{user_id}/{channelvideo_rental_id}/mark-started', [ChannelvideoRentalController::class, 'markStartedAt'])->name('markstarted');
+            Route::post('/{user_id}/{channelvideo_rental_id}/mark-completed', [ChannelvideoRentalController::class, 'markCompleted'])->name('markcompleted');
+            Route::post('/{user_id}/{channelvideo_rental_id}/get-endtime', [ChannelvideoRentalController::class, 'getEndingTime'])->name('getendtime');
 
 
         });
@@ -275,6 +277,15 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
             });
 
+            //SEARCH::Models
+            Route::group(['prefix' => 'search', 'as' => 'search.'], function () {
+
+                //USERS
+                Route::post('/users', [\App\Http\Controllers\UsersController::class, 'search'])->name('users');
+
+            });
+
+
             //ROUTE GROUP::ADMIN/MANAGE
             Route::group(['prefix' => 'manage', 'as' => 'manage.'], function () {
 
@@ -334,13 +345,13 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
                     // Route::get('file-upload', [ChannelvideoController::class, 'fileUpload'])->name('channelvideo.upload');
                     Route::post('/{gize_channel_id}/channelvideo-file-upload', [ChannelvideoController::class, 'fileUploadPost'])->name('upload.post');
                     // Route::post('channelvideo-file-delete', [ChannelvideoController::class, 'fileDeletePost'])->name('channelvideo.delete.post');
-                    Route::post('/{gize_channel_id}/channelvideo-file-read', [ChannelvidjeoController::class, 'fileRead'])->name('read');
+                    Route::post('/{gize_channel_id}/channelvideo-file-read', [ChannelvideoController::class, 'fileRead'])->name('read');
 
-                    Route::post('/{gize_channel_id}/video-access-list', [ChannelvideoAccessByAppUserController::class, 'video_access_list'])->name('accesslist');
-                    Route::post('/{gize_channel_id}/channelvideo-revoke', [ChannelvideoAccessByAppUserController::class, 'revoke_video_access'])->name('revokeaccess');
-                    Route::post('/{gize_channel_id}/channelvideo-allow', [ChannelvideoAccessByAppUserController::class, 'allow_video_access'])->name('allowaccess');
+                    // Route::post('/{gize_channel_id}/video-access-list', [ChannelvideoAccessByAppUserController::class, 'video_access_list'])->name('accesslist');
+                    // Route::post('/{gize_channel_id}/channelvideo-revoke', [ChannelvideoAccessByAppUserController::class, 'revoke_video_access'])->name('revokeaccess');
+                    // Route::post('/{gize_channel_id}/channelvideo-allow', [ChannelvideoAccessByAppUserController::class, 'allow_video_access'])->name('allowaccess');
 
-                    Route::get('/{gize_channel_id}/my-channelvideos', [ChannelvideoAccessByAppUserController::class, 'my_video_list'])->name('channelvideo.myvideos');
+                    // Route::get('/{gize_channel_id}/my-channelvideos', [ChannelvideoAccessByAppUserController::class, 'my_video_list'])->name('channelvideo.myvideos');
 
                     Route::post('/{gize_channel_id}/uploadhlschunk', [UploadController::class, 'uploadHLSChunk'])->name('uploadhlschunk');
                     Route::post('/{gize_channel_id}/uploadkeyschunk', [UploadController::class, 'uploadKeysChunk'])->name('uploadkeyschunk');

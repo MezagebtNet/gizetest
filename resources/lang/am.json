@@ -79,6 +79,7 @@
     "Schedule": "መርሐግብር",
     "Rental": "ኪራይ",
     "Archive": "ማህደር",
+    "About Channel": "ስለቻናሉ",
 
     "day": "ዕለት",
     "week": "ሳምንት",
@@ -98,8 +99,25 @@
     "Videos not available for now": "ለአሁን የተቀመጠልዎ ቪድዮ የለም",
     "If you have already subscribed please check your schedule.": "ቀድሞውኑ ተመዝግበው ከሆነ መርሐግብርዎን ይመልከቱ።",
     "Go back to home": "ወደ ዋና ገጽ ይመለሱ",
-    "For more info: ": "ለበለጠ መረጃ: "
+    "For more info": "ለበለጠ መረጃ",
+    "Website": "ድረ ገጽ",
 
+    "Phone Number": "ስልክ ቁጥር",
+    "Contact Address": "አድራሻ",
 
+    "Rentals": "ኪራዮች",
+    "Your rented videos from this channel": "የዚህ ቻናል የኪራይ ቪድዮዎች",
+    "You have no rental videos available": "የተከራየ ቪድዮ የለም",
+    "If you would like to rent videos please contact the channel admin.": "ቪድዮዎችን መከራየት ከፈለጉ የቻናሉን አስተዳዳሪ ያነጋግሩ።",
+
+    "Status": "ሁኔታ",
+    "Once you start playing this vidio, it will be available for": "ይህ ቪድዮ መጫወት ከጀመረ በኋላ የሚቆየው ለ",
+    "hours.": "ሰዓታት ነው።",
+    "Rental Expires at": "የኪራይ ጊዜው የሚያበቃበት",
+    "Rental Ends At": "ኪራይ የሚያልቅበት",
+    "Timezone": "የጊዜ ክልል",
+
+    "Copyright": "Copyright",
+    "Produced by": "Produced by"
 
 }

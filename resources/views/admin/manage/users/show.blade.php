@@ -66,6 +66,22 @@
                         </tr>
                         <tr>
                             <th scope="col">
+                                Phone Number
+                            </th>
+                            <td>
+                                {{ $user->phone_number }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="col">
+                                Address
+                            </th>
+                            <td>
+                                {{ $user->address }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="col">
                                 Email
                             </th>
                             <td>
