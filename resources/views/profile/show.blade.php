@@ -12,7 +12,7 @@
 
 @section('content')
     {{-- <div class="row"> --}}
-    <div class="container mb-4">
+    <div class="container mb-4 pt-3">
         <div class="row mt-4">
             <div class="col">
                 <h2 class="mb-4">{{ __('Edit Profile') }}</h2>
@@ -24,9 +24,8 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-12">
-
                                 @if (Laravel\Fortify\Features::canUpdateProfileInformation())
-                                    @livewire('profile.update-profile-information-form')
+                                        @livewire('profile.update-profile-information-form')
 
                                 @endif
                                 @if (Laravel\Fortify\Features::enabled(Laravel\Fortify\Features::updatePasswords()))

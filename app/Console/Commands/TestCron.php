@@ -37,10 +37,10 @@ class TestCron extends Command
      */
     public function handle()
     {
-        \Log::info("Cron is working fine!");
-\Artisan::call("websockets:serve");
+        \Log::info("Started Websockets serve!");
+        \Artisan::call("websockets:serve");
 
-// cd /home2/mezagebt/gizetest && php artisan test:cron > /dev/null 2>&1
+        // cd /home2/mezagebt/gizetest && php artisan test:cron > /dev/null 2>&1
 
         /*
 

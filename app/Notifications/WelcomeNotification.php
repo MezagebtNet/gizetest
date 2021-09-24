@@ -58,8 +58,9 @@ return ['database', 'broadcast'];
     {
         return [
             'type' => 'user_welcome',
-            'message' => 'Hello ' . $this->user->fullName() . ', Welcome to ' . env('APP_NAME') . '.',
+            'message' => __('Hello') . ' ' . $this->user->fullName() . __(', Welcome.'),
             'user_id' => $this->user->id,
+            'user_name' => $this->user->fullName(),
         ];
     }
 }

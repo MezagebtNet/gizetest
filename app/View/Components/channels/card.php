@@ -3,6 +3,7 @@
 namespace App\View\Components\channels;
 
 use Illuminate\View\Component;
+use App\Models\GizeChannel;
 
 class card extends Component
 {
@@ -36,12 +37,20 @@ class card extends Component
     public $producer;
 
     /**
+    * The player producer.
+    *
+    * @var GizeChannel
+    */
+   public $channel;
+
+    /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($id, $slug, $name, $producer)
+    public function __construct($channel, $id, $slug, $name, $producer)
     {
+        $this->channel = $channel;
         $this->id = $id;
         $this->slug = $slug;
         $this->name = $name;

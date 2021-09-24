@@ -1,8 +1,78 @@
 <style>
+    .dark-mode .ribbon-wrapper, .ribbon-wrapper {
+        right: 0px;
+        top: 0px;
+    }
+
+    .ribbon-wrapper .ribbon, .ribbon {
+/*
+        box-shadow: 4px 3px 3px rgba(0,0,0,.6) !important;
+        background-color: #80aa74 !important; */
+        box-shadow: 4px 3px 3px rgba(0,0,0,.6) !important;
+        background-color: #717363 !important;
+        border-top: 6px solid #abd2a591;
+        padding: 3px 0 6px 0 !important;
+    }
+    .fc-widget-header {
+        background: none;
+    }
+    .dark-mode .fc-unthemed td.fc-today {
+    background: #fcf8e32e;
+}
+    .dark-mode .alert-success {
+        color: #343232;
+        }
+
+
+    .dropdown-menu {
+        margin: 0.5rem 0;
+    }
+
+    /* Modal Player */
+    .remodal-close {}
+
+    .remodal {
+        max-width: 1250px;
+        background: transparent !important;
+    }
+
+    @media only screen and (max-width: 600px) {
+        .remodal {
+            padding: 2px;
+        }
+
+        .remodal-close {
+            top: -31px;
+            left: -9px;
+        }
+
+    }
+
+    .remodal,
+    .remodal-wrapper,
+
+    video {
+        width: 100vw;
+        max-height: 100vh;
+    }
+
+    /*  End of Modal Player */
+
+
+    .dark-mode .dropdown-item:hover {
+        background:none;
+        background-color: #3f474e !important;
+    }
+
+    .dark-mode .dropdown-item .btn {
+        color: white;
+    }
+
 
     hr {
         border-top: 1px solid rgba(145, 140, 140, 0.26);
     }
+
     .dark-mode .fc .fc-list-sticky .fc-list-day>* {
         background: #000;
     }
@@ -64,6 +134,7 @@
         padding-right: 0.6rem;
         padding-left: 0.6rem;
     }
+
     @media screen and (max-width: 295px) {
         .sticky-top {
             top: 96px;
@@ -87,7 +158,7 @@
 
     }
 
-    @media screen and (min-width: 296px) and (max-width: 501px)  {
+    @media screen and (min-width: 296px) and (max-width: 501px) {
 
         .sticky-top {
             position: sticky;
@@ -165,11 +236,12 @@
 
     /* ----------- 0 - 436px ----------- */
     @media screen and (max-width: 436px) {
-        .navbar-no-expand .nav-link{
+        .navbar-no-expand .nav-link {
             padding-left: 0.6rem !important;
             padding-right: 0.6rem !important;
 
         }
+
         .dropdown-menu-lg {
             min-width: 60vw !important;
             right: 0 !important;

@@ -6,6 +6,12 @@
 	<!-- <link rel="stylesheet" href="./css/admin_custom.css"> -->
 	<link href="https://vjs.zencdn.net/7.11.4/video-js.css" rel="stylesheet" />
 
+	<style>
+		.activate-deactivate {
+			font-size: 1.5rem;
+			font-weight: 600;
+		}
+	</style>
 @endsection
 
 @section('header_title')
@@ -82,9 +88,9 @@
 											</td>
 											<td style="text-align: center;">
 												@if ($channelvideo->active === 1)
-													<a href="javascript:void(0)" channelvideoid="{{$channelvideo->id}}" class="btn-toggle-active active"><i style="color: green;" class="fa fa-check"></i></a>
+													<a href="javascript:void(0)" channelvideoid="{{$channelvideo->id}}" class="btn-toggle-active active"><i style="color: green;" class="fa fa-check activate-deactivate"></i></a>
 												@else
-													<a href="javascript:void(0)" channelvideoid="{{$channelvideo->id}}" class="btn-toggle-active"><i style="color: red;" class="fa fa-times"></i></a>
+													<a href="javascript:void(0)" channelvideoid="{{$channelvideo->id}}" class="btn-toggle-active"><i style="color: red;" class="fa fa-times activate-deactivate"></i></a>
 												@endif
 											</td>
 											<td id="{{$channelvideo->id}}">
@@ -96,7 +102,7 @@
 												</div>
 												<div class="row d-flex justify-content-start justify-content-between p-2">
 													<button
-														channelvideoid = "{{$channelvideo->id}}" class="btn btn-xs d-none btn-permit-channelvideo btn-primary" data-toggle="modal" data-target="#channelvideoViewersPermissionModal" title="Permissions"><i class="fa fa-check"></i> Permissions</button>
+														channelvideoid = "{{$channelvideo->id}}" class="btn btn-xs d-none btn-permit-channelvideo btn-primary" data-toggle="modal" data-target="#channelvideoViewersPermissionModal" title="Permissions"><i class="fa fa-check activate-deactivate"></i> Permissions</button>
 													<button
 													channelvideoid = "{{$channelvideo->id}}" class="btn btn-xs btn-delete btn-danger" title="Delete"><i class="fa fa-trash"></i> Delete</button>
 
@@ -442,7 +448,7 @@
 
 
 									$('#channelvideoid' + channelvideoid + ' td:nth-child(7)').html(tdHtml);
-									$('#channelvideoid' + channelvideoid + ' td:nth-child(8)').html('<a href="javascript:void(0)" channelvideoid="' + channelvideoid + '" class="btn-toggle-active"><i style="color: red;" class="fa fa-times"></i></a>');
+									$('#channelvideoid' + channelvideoid + ' td:nth-child(8)').html('<a href="javascript:void(0)" channelvideoid="' + channelvideoid + '" class="btn-toggle-active"><i style="color: red;" class="fa fa-times activate-deactivate"></i></a>');
 
 								}
 								else if(response.status == 'fail'){
@@ -494,7 +500,7 @@
 
 
 									$('#channelvideoid' + channelvideoid + ' td:nth-child(7)').html(tdHtml);
-									$('#channelvideoid' + channelvideoid + ' td:nth-child(8)').html('<a href="javascript:void(0)" channelvideoid="' + channelvideoid + '" class="btn-toggle-active"><i style="color: red;" class="fa fa-times"></i></a>');
+									$('#channelvideoid' + channelvideoid + ' td:nth-child(8)').html('<a href="javascript:void(0)" channelvideoid="' + channelvideoid + '" class="btn-toggle-active"><i style="color: red;" class="fa fa-times activate-deactivate"></i></a>');
 
 								}
 								else if(response.status == 'fail'){
@@ -654,8 +660,8 @@
 							// tableRowHtml +=  (!hasFile) ? '<i style="color: lightgrey;" class="fa fa-video"></i>' :'';
 
 							tableRowHtml +=  '</td><td style="text-align:center;">';
-							tableRowHtml += (response.active) ? '<a href="javascript:void(0)" channelvideoid="' + response.id + '" class="btn-toggle-active active"><i style="color: green;" class="fa fa-check"></i></a>' : '' +
-								'<a href="javascript:void(0)" channelvideoid="' + response.id + '" class="btn-toggle-active"><i style="color: red;" class="fa fa-times"></i></a>' +'</td><td style="text-align: center;">';
+							tableRowHtml += (response.active) ? '<a href="javascript:void(0)" channelvideoid="' + response.id + '" class="btn-toggle-active active"><i style="color: green;" class="fa fa-check activate-deactivate"></i></a>' : '' +
+								'<a href="javascript:void(0)" channelvideoid="' + response.id + '" class="btn-toggle-active"><i style="color: red;" class="fa fa-times activate-deactivate"></i></a>' +'</td><td style="text-align: center;">';
 
 							tableRowHtml+= '<div class="row d-flex justify-content-start justify-content-between p-2">' +
 							'	<button' +
@@ -665,7 +671,7 @@
 							'</div>' +
 							'<div class="row d-flex justify-content-start justify-content-between p-2">' +
 							'	<button' +
-							'		channelvideoid = "' + response.id + '" class="btn btn-xs d-none btn-permit-channelvideo btn-primary" data-toggle="modal" data-target="#channelvideoViewersPermissionModal" title="Permissions"><i class="fa fa-check"></i> Permissions</button>' +
+							'		channelvideoid = "' + response.id + '" class="btn btn-xs d-none btn-permit-channelvideo btn-primary" data-toggle="modal" data-target="#channelvideoViewersPermissionModal" title="Permissions"><i class="fa fa-check activate-deactivate"></i> Permissions</button>' +
 							'	<button' +
 							'	channelvideoid = "' + response.id + '" class="btn btn-xs btn-delete btn-danger" title="Delete"><i class="fa fa-trash"></i> Delete</button>' +
 							'</div></td></tr>';
@@ -806,8 +812,8 @@
 							tdHtml += (hasKey)? '<i style="color: #000; padding: 2px;" class="fa fa-key"></i>' : '<i style="color: lightgrey; padding: 2px;" class="fa fa-key"></i>';
 
 							$('#channelvideoid' + response.id + ' td:nth-child(7)').html(tdHtml);
-							$('#channelvideoid' + response.id + ' td:nth-child(8)').html((response.active) ? '<a href="javascript:void(0)" channelvideoid="' + response.id + '" class="btn-toggle-active active"><i style="color: green;" class="fa fa-check"></i></a>' : '' +
-								'<a href="javascript:void(0)" channelvideoid="' + response.id + '" class="btn-toggle-active"><i style="color: red;" class="fa fa-times"></i></a>');
+							$('#channelvideoid' + response.id + ' td:nth-child(8)').html((response.active) ? '<a href="javascript:void(0)" channelvideoid="' + response.id + '" class="btn-toggle-active active"><i style="color: green;" class="fa fa-check activate-deactivate"></i></a>' : '' +
+								'<a href="javascript:void(0)" channelvideoid="' + response.id + '" class="btn-toggle-active"><i style="color: red;" class="fa fa-times activate-deactivate"></i></a>');
 
 							// $('#channelvideoTable tbody').prepend('<tr><td>'+ response.title +'</td><td>'+ response.trainer +'</td><td>'+ response.price +'</td></tr>')
 							$('#channelvideoEditModal').modal('toggle');
@@ -1009,15 +1015,15 @@
 							let channelvideo = response.channelvideo;
 							let imgUrl = "{{ asset('storage/:_imgUrl') }}";
 
-							if(channelvideo.poster_image_url!=null){
-								imgUrl = imgUrl.replace(':_imgUrl', channelvideo.poster_image_url);
+							if(channelvideo.thumb_image_url!=null){
+								imgUrl = imgUrl.replace(':_imgUrl', channelvideo.thumb_image_url);
 							}
 							else {
 								imgUrl = imgUrl.replace(':_imgUrl', 'images/l/thumb/channelvideo.jpg');
 							}
 
 							$('#channelvideoid' + channelvideo.id + ' td:nth-child(1)').html('<input type="checkbox" name="ids" class="checkBoxClass" value="' + channelvideo.id + '"/>');
-							$('#channelvideoid' + channelvideo.id + ' td:nth-child(2)').html('<img style="border-radius: 8px;" width="130" src="'+imgUrl+'" />');
+							// $('#channelvideoid' + channelvideo.id + ' td:nth-child(2)').html('<img style="border-radius: 8px;" width="130" src="'+imgUrl+'" />');
 							$('#channelvideoid' + channelvideo.id + ' td:nth-child(3)').text(channelvideo.title);
 							$('#channelvideoid' + channelvideo.id + ' td:nth-child(4)').text(channelvideo.trainer);
 							$('#channelvideoid' + channelvideo.id + ' td:nth-child(5)').text(channelvideo.duration);
@@ -1049,8 +1055,8 @@
 
 
 							$('#channelvideoid' + channelvideo.id + ' td:nth-child(7)').html(tdHtml);
-							$('#channelvideoid' + channelvideo.id + ' td:nth-child(8)').html((channelvideo.active) ? '<a href="javascript:void(0)" channelvideoid="' + channelvideo.id + '" class="btn-toggle-active active"><i style="color: green;" class="fa fa-check"></i></a>' : '' +
-								'<a href="javascript:void(0)" channelvideoid="' + channelvideo.id + '" class="btn-toggle-active"><i style="color: red;" class="fa fa-times"></i></a>');
+							$('#channelvideoid' + channelvideo.id + ' td:nth-child(8)').html((channelvideo.active) ? '<a href="javascript:void(0)" channelvideoid="' + channelvideo.id + '" class="btn-toggle-active active"><i style="color: green;" class="fa fa-check activate-deactivate"></i></a>' : '' +
+								'<a href="javascript:void(0)" channelvideoid="' + channelvideo.id + '" class="btn-toggle-active"><i style="color: red;" class="fa fa-times activate-deactivate"></i></a>');
 
 						}
 						else if(response.status == 'fail'){

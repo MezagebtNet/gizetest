@@ -22,6 +22,13 @@ class EventServiceProvider extends ServiceProvider
         ],
         \App\Events\UserCreatedEvent::class => [
             \App\Listeners\UserCreatedListener::class,
+            // \App\Listeners\UserUpdatedListener::class,
+            // \App\Listeners\Listener::class,
+        ],
+        \App\Events\UserUpdatedEvent::class => [
+            \App\Listeners\UserUpdatedListener::class,
+            // \App\Listeners\UserUpdatedListener::class,
+            // \App\Listeners\Listener::class,
         ]
     ];
 

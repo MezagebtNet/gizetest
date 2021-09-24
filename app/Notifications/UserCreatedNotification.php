@@ -31,10 +31,8 @@ class UserCreatedNotification extends Notification
      */
     public function via($notifiable)
     {
-// return ['database'];
-return ['database', 'broadcast'];
-
-
+        // return ['database'];
+        return ['database', 'broadcast'];
 
     }
 
@@ -62,38 +60,40 @@ return ['database', 'broadcast'];
     {
         return [
             'type' => 'admin_user_account',
+            'message' => $this->user->fullName() . __('has just registered.'),
             'user_id' => $this->user->id,
-            'name' => $this->user->fullName(),
+            'user_name' => $this->user->fullName(),
             'email' => $this->user->email,
+            'link' => route('admin.manage.user.show', $this->user),
+
         ];
     }
 
-/* Get the broadcastable representation of the notification.
- *
- * @param  mixed  $notifiable
- * @return BroadcastMessage
- */
-public function toBroadcast($notifiable)
-{
-    return new BroadcastMessage([
-        'type' => 'admin_user_account',
-        'message' => $this->user->fullName() . ' has just joined ' . env('APP_NAME') . '.',
-        'user_id' => $this->user->id,
-        'name' => $this->user->fullName(),
-        'email' => $this->user->email,
-    ]);
-}
+    /* Get the broadcastable representation of the notification.
+    *
+    * @param  mixed  $notifiable
+    * @return BroadcastMessage
+    */
+    public function toBroadcast($notifiable)
+    {
+        return new BroadcastMessage([
+            'type' => 'admin_user_account',
+            'message' => $this->user->fullName() . ' '.__('has just registered.'),
+            'user_id' => $this->user->id,
+            'name' => $this->user->fullName(),
+            'email' => $this->user->email,
+            'link' => route('admin.manage.user.show', $this->user),
+        ]);
+    }
 
-
-/**
- * Get the type of the notification being broadcast.
- *
- * @return string
- */
-public function broadcastType()
-{
-    return 'broadcast.message';
-}
-
+    /**
+     * Get the type of the notification being broadcast.
+     *
+     * @return string
+     */
+    public function broadcastType()
+    {
+        return 'broadcast.message';
+    }
 
 }

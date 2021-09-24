@@ -11,7 +11,7 @@
     window.Echo = new Echo({
         broadcaster: 'pusher',
         key: 'pusherkey',
-        // cluster: 'mt1',
+        cluster: 'mt1',
         // encrypted: true,
         wsHost: window.location.hostname,
         wsPort: 6001,
@@ -28,6 +28,7 @@
 
         window.Echo.private('App.Models.User.' + '{{ auth()->user()->id }}')
             .notification((notification) => {
+                console.log(notification);
                 if (notification.type == "broadcast.message") {
                     Swal.fire({
                         position: 'bottom-end',
@@ -47,10 +48,14 @@
             })
 
 
-        // var myVar = setInterval(myTimer, 1000 * 10);
+        var myVar = setInterval(myTimer, 1000 * 10);
 
         function myTimer() {
-            renderNotifications();
+            //check if dropdown is open
+            var is_open = $('.notifications-dropdown .dropdown-menu').hasClass('show');
+            if(!is_open) {
+                renderNotifications();
+            }
             // notifyMe();
         }
 

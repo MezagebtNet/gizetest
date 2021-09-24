@@ -118,6 +118,24 @@
     "Timezone": "የጊዜ ክልል",
 
     "Copyright": "Copyright",
-    "Produced by": "Produced by"
+    "Produced by": "Produced by",
+
+    "notifications": "{0} የማሳወቂያ መልእክት የለዎትም|{1} :count የማሳወቂያ መልእክት አለዎት|[2,*] :count የማሳወቂያ መልእክቶች አለዎት",
+    "has just registered.": "አሁን ተመዝግበው ተቀላቅለዋል።",
+    "Hello": "ሰላም",
+    ", Welcome.": "፤ እንኳን ደህና መጡ።",
+    "New User": "አዲስ ተጠቃሚ",
+    "Your Account Details updated successfully.": "የአካውንትዎ መረጃ ማስተካከያ በተሳካ ሁኔታ ተከናውኗል።",
+    "Read All": "ሁሉም ተነቧል",
+    "Read": "ተነቧል",
+    "View": "ክፈት",
+    "Account Update": "የአካውንት መገለጫ መረጃ ማስተካከያ",
+    "has updated user details.": "የአካውንት መረጃቸውን ቀይረዋል።",
+    "Scheduled Video Now Available": "መርሐግብር ላይ የነበረ ቪድዮ አሁን ክፍት ሆኗል",
+    "Available From": "ክፍት የሚሆነው ከ",
+    "Until": "እስከ",
+
+    "Free": "በነፃ",
+    "Video archives from this channel": "የዚህ ቻናል የቪድዮ ማህደር"
 
 }

@@ -66,11 +66,21 @@
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset('vendors/admin/plugins/summernote/summernote-bs4.min.css') }}">
 
+    <!-- remodal-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remodal/1.1.0/remodal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remodal/1.1.0/remodal-default-theme.min.css">
+
+    <!-- animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+
     @include('layouts.styles.globalstyles')
 
     <style>
 
-
+        .navbar .badge {
+            right: 4px !important;
+        }
 
         .searchbar-container {
             margin-top: 5%;
@@ -215,7 +225,11 @@ hold-transition layout-top-nav layout-navbar-fixed ">
     <!-- Bootstrap Switch -->
     <script src="{{ asset('vendors/admin/plugins/bootstrap-switch/js/bootstrap-switch.min.js') }}"></script>
 
+    <!-- Remodal -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/remodal/1.1.0/remodal.min.js"></script>
 
+    <!-- JQuery Fitvids -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fitvids/1.2.0/jquery.fitvids.min.js"></script>
 
     @yield('modals')
 

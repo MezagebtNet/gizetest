@@ -3,10 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\Facades\Schema;
-
 use Illuminate\Support\ServiceProvider;
 use NascentAfrica\Jetstrap\JetstrapFacade;
-
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,8 +25,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-JetstrapFacade::useAdminLte3();
-Schema::defaultStringLength(125);
+        JetstrapFacade::useAdminLte3();
+        Schema::defaultStringLength(125);
 
     }
 }

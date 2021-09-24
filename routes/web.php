@@ -146,7 +146,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
             Route::get('/', [ChannelLandingPageController::class, 'index'])->name('index');
 
-            Route::get('/{slug}', [ChannelLandingPageController::class, 'find_by_slug'])->name('landing');
+            Route::get('/{slug}', [ChannelLandingPageController::class, 'loadChannel'])->name('landing');
 
             Route::get('/{slug}/active-batch-videos', [ChannelLandingPageController::class, 'getActiveChannelVideos'])->name('activevideos');
 

@@ -23,7 +23,7 @@ class ChannelLandingPageController extends Controller
     public function index()
     {
 
-        $gize_channels = GizeChannel::all();
+        $gize_channels = GizeChannel::where('active', 1)->get();
 
         return view('website.channel.index', compact('gize_channels'));
 
@@ -33,12 +33,32 @@ class ChannelLandingPageController extends Controller
     public function find_by_slug($slug)
     {
         $gize_channel = GizeChannel::where('slug', $slug)->firstOrFail();
+
+        return $gize_channel;
+    }
+
+    public function getChannelArchive($slug){
+        $gize_channel = $this->find_by_slug($slug);
+
+        $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel->id)
+            ->where('active', 1)
+            ->whereIn('video_available_for', [0, 2])->get(); //Where video is available for public.
+
+        return $channelvideos;
+    }
+
+    public function loadChannel($slug){
+        $gize_channel = $this->find_by_slug($slug);
+
         $activevideos = $this->getActiveChannelVideos($slug);
 
         $activerentals = ChannelvideoRentalController::getChannelActiveRentalsByUser($slug, \Auth::user()->id);
+
+        $archives = $this->getChannelArchive($slug);
+
         $events = $this->loadSchedule($slug);
 
-        return view('website.channel.landing', compact(['gize_channel', 'activevideos', 'activerentals', 'events']));
+        return view('website.channel.landing', compact(['gize_channel', 'activevideos', 'activerentals', 'events', 'archives']));
 
     }
 

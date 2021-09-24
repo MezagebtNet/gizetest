@@ -25,7 +25,8 @@ class CreateGizeChannelsTable extends Migration
             // $table->string('host', 100)->nullable();
             $table->string('banner_image_url', 255)->nullable();
             $table->string('logo_image_url', 255)->nullable();
-
+            $table->tinyInteger('has_batch_videos')->default(1); //0 - Channel Doesn't support batch feature, 1 - has batch feature
+            $table->tinyInteger('active')->default(0); //0 - Not Active, 1 - Active
 
             $table->longText('description', 100)->nullable();
             $table->longText('contact_address', 255)->nullable();

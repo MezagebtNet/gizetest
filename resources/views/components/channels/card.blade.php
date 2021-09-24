@@ -10,7 +10,7 @@
             <figure class="text-center">
                 {{-- <span class="rounded-circle icon-md bg-danger"><i class="fa fa-play white"></i></span> --}}
                 <img style="border-radius: 0px; width:64px;" class="img-circle bg-black"
-                    src="{{ asset('assets/image/Addmes Logo.png') }}" alt="Addmes Channel">
+                    src="{{ asset('storage/'.$channel->logo_image_url) }}" alt="Addmes Channel">
 
                 <figcaption class="pt-4">
                     <h5 class="title text-bold">{{ $name }}</h5>

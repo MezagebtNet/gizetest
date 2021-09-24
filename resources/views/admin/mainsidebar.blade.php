@@ -183,6 +183,7 @@
                                         <p>{{ __('Videos') }} </p>
                                     </a>
                                 </li>
+                                @if($channel->producer != null || $channel->producer != '')
                                 <li class="nav-item">
                                     <a href="{{ route('admin.manage.batch.index', $channel->id) }}"
                                         class="nav-link  {{ request()->is('*admin/manage/batches/'. $channel->id .'*') || request()->is('*admin/manage/batches/'. $channel->id .'/create') || request()->is('*admin/manage/batches/'. $channel->id .'/edit/*') ? 'active' : '' }}">
@@ -211,6 +212,7 @@
                                         <p>{{ __('Schedule Calendar') }} </p>
                                     </a>
                                 </li>
+                                @endif
 
                             </ul>
 

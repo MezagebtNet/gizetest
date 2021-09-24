@@ -17,7 +17,7 @@ class UserPreferencesController extends Controller
             $user->language_preference = $lang;
         }
 
-        $user->save();
+        $user->saveQuietly();
 
         return true;
 
@@ -32,7 +32,7 @@ class UserPreferencesController extends Controller
             $user->theme_preference = $theme;
         }
 
-        $user->save();
+        $user->saveQuietly();
 
         return $theme;
 

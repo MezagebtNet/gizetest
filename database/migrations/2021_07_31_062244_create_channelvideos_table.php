@@ -34,8 +34,8 @@ class CreateChannelvideosTable extends Migration
             $table->string('poster_image_url', 255)->nullable();
             $table->string('thumb_image_url', 255)->nullable();
             $table->tinyInteger('active')->default(0); // 0 - inactive, 1 - active
-            $table->tinyInteger('video_available_for')->default(1); //0 - public only, 1 - batches only, 2 - public and batch
-            $table->tinyInteger('is_free')->default(1); //0 - Not Free, 1 - Free
+            $table->tinyInteger('video_available_for')->default(2); //0 - public only, 1 - batches only, 2 - public and batch
+            $table->tinyInteger('is_free')->default(0); //0 - Not Free, 1 - Free
 
             $table->timestamps();
             $table->softDeletes();

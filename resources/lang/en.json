@@ -1,5 +1,5 @@
 {
-    "Hello": "Hello",
+    "Hello,": "Hello",
 
     "Log in": "Log in",
     "Register": "Register",
@@ -118,14 +118,25 @@
     "Timezone": "Timezone",
 
     "Copyright": "Copyright",
-    "Produced by": "Produced by"
+    "Produced by": "Produced by",
 
+    "notifications": "{0} You have no notification|{1} You have :count Notification|[2,*] You have :count notifications",
+    "has just registered.": "has just registered.",
+    "Hello": "Hello",
+    ", Welcome.": ", Welcome.",
+    "new user": "new user",
+    "Your Account Details updated successfully.": "Your Account Details updated successfully.",
+    "Read All": "Read All",
+    "Read": "Read",
+    "View": "View",
+    "Account Update": "Account Profile Update",
+    "has updated user details.": "has updated user details.",
+    "Scheduled Video Now Available": "Scheduled Video Now Available",
+    "Available From": "Available From",
+    "Until": "Until",
 
-
-
-
-
-
+    "Free": "Free",
+    "Video archives from this channel": "Video archives from this channel"
 
 
 

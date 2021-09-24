@@ -14,6 +14,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Commands\TestCron::class,
+        Commands\ScheduledVideoNotifications::class,
     ];
 
     /**
@@ -26,6 +27,8 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         $schedule->command('test:cron')
+            ->everyMinute();
+        $schedule->command('notify:started_scheduled_videos')
             ->everyMinute();
 
     }

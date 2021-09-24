@@ -71,6 +71,20 @@
                 <x-jet-input-error for="lastname" />
             </div>
 
+            <!-- Phone Number -->
+            <div class="form-group">
+                <x-jet-label for="phone_number" value="{{ __('Phone Number') }}" />
+                <x-jet-input id="phone_number" type="text" class="{{ $errors->has('phone_number') ? 'is-invalid' : '' }}" wire:model.defer="state.phone_number" autocomplete="phone_number" />
+                <x-jet-input-error for="phone_number" />
+            </div>
+
+            <!-- Address -->
+            <div class="form-group">
+                <x-jet-label for="address" value="{{ __('Address') }}" />
+                <x-jet-input id="address" type="text" class="{{ $errors->has('address') ? 'is-invalid' : '' }}" wire:model.defer="state.address" autocomplete="address" />
+                <x-jet-input-error for="address" />
+            </div>
+
             <!-- Email -->
             <div class="form-group">
                 <x-jet-label for="email" value="{{ __('Email') }}" />
