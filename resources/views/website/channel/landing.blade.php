@@ -1361,15 +1361,15 @@
                         // toast: true,
                         icon: 'warning',
                         title: window.modal_vidtitle,
-                        html: "(" + window.modal_vidduration + ") by " + window.modal_vidhost +
+                        html: "(" + vidduration + ") {{ __('by') }} " + vidhost +
                             "<br/>  " +
                             ` <div>
-                                            <p>Wluld you like to watch this video?</p>
+                                            <p>{{ __('Would you like to watch this video?') }}</p>
                                             <hr/>
                                             <p class="px-2 ">
-                                                <u>Contact us</u><br/>
-                                                <span>Phone Number: {{ $gize_channel->phone_number }}</span><br/>
-                                                <span>Address: {{ $gize_channel->contact_address }}</span>
+                                                <u>{{ __('Contact us') }}</u><br/>
+                                                <span>{{ __('Phone Numbe') }}r: {{ $gize_channel->phone_number }}</span><br/>
+                                                <span>{{ __('Address') }}: {{ $gize_channel->contact_address }}</span>
                                             </p>
 
                                         </div>`,
