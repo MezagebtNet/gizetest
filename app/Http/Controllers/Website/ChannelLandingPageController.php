@@ -40,7 +40,8 @@ class ChannelLandingPageController extends Controller
     public function getChannelArchive($slug){
         $gize_channel = $this->find_by_slug($slug);
 
-        $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel->id)
+        $channelvideos = Channelvideo::with('gizeChannel')
+            ->where('gize_channel_id', $gize_channel->id)
             ->where('active', 1)
             ->whereIn('video_available_for', [0, 2])->get(); //Where video is available for public.
 

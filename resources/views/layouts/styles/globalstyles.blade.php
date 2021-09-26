@@ -1,4 +1,18 @@
 <style>
+    .dark-mode .btn-refresh.btn-outline-info:hover {
+        color: #fff;
+        background-color: #db8a34;
+        border-color: #dba934;
+    }
+    .dark-mode .btn-refresh.btn-outline-info {
+        color: #fff;
+
+        border-color: #dba934;
+    }
+
+    .dark-mode .card-title, .dark-mode .card-date {
+        color: white !important;
+    }
     .dark-mode .ribbon-wrapper, .ribbon-wrapper {
         right: 0px;
         top: 0px;
@@ -9,9 +23,14 @@
         box-shadow: 4px 3px 3px rgba(0,0,0,.6) !important;
         background-color: #80aa74 !important; */
         box-shadow: 4px 3px 3px rgba(0,0,0,.6) !important;
-        background-color: #717363 !important;
-        border-top: 6px solid #abd2a591;
-        padding: 3px 0 6px 0 !important;
+        background-color: #eccf6f !important;
+        border-top: 6px solid #b27f49;
+        /* padding: 3px 0 6px 0 !important; */
+        color: black;
+        text-shadow: none;
+        font-weight: 900;
+        padding: 0px 0px 1px 0px !important;
+        margin: 0 3px;
     }
     .fc-widget-header {
         background: none;

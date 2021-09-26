@@ -165,6 +165,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
             Route::post('/{user_id}/{channelvideo_rental_id}/mark-completed', [ChannelvideoRentalController::class, 'markCompleted'])->name('markcompleted');
             Route::post('/{user_id}/{channelvideo_rental_id}/get-endtime', [ChannelvideoRentalController::class, 'getEndingTime'])->name('getendtime');
 
+            Route::get('/{user_id}/{channelvideo_rental_id}/check', [ChannelvideoRentalController::class, 'checkRentalValidity'])->name('check');
+
 
         });
 

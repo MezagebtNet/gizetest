@@ -49,7 +49,7 @@
             top: 1px;
             width: 25%;
             left: 0px;
-            color: #ff4242 !important;
+            color: #ffce71 !important;
             text-shadow: 0px 0 1px #000, 0px 0 3px #fff;
             /* bottom: 2px; */
             /* bottom: 0px; */
@@ -788,7 +788,10 @@
                                         <a href="javascript: void(0);" class="archivevid isfree"
                                             vid_id="{{ $archive->id }}" vid_title="{{ $archive->title }}"
                                             vid_duration="{{ $archive->duration }}" vid_host="{{ $archive->trainer }}"
-                                            vid_image_url="{{ asset('storage/' . $archive->thumb_image_url) }}">
+                                            vid_image_url="{{ asset('storage/' . $archive->thumb_image_url) }}"
+                                            vid_channel = "{{ $archive->gize_channel_id }}"
+                                            vid_channel_name = "{{ $archive->gizeChannel->name }}"
+                                            vid_channel_logo = "{{ $archive->gizeChannel->logo_image_url }}">
 
                                             <x-channels.archivecard :archivevid="$archive" />
 
@@ -798,7 +801,11 @@
                                         <a href="javascript: void(0);" class="archivevid"
                                             vid_title="{{ $archive->title }}" vid_duration="{{ $archive->duration }}"
                                             vid_host="{{ $archive->trainer }}"
-                                            vid_image_url="{{ asset('storage/' . $archive->thumb_image_url) }}">
+                                            vid_image_url="{{ asset('storage/' . $archive->thumb_image_url) }}"
+                                            vid_channel = "{{ $archive->gize_channel_id }}"
+                                            vid_channel_name = "{{ $archive->gizeChannel->name }}"
+                                            vid_channel_logo = "{{ $archive->gizeChannel->logo_image_url }}">
+
                                             <x-channels.archivecard :archivevid="$archive" />
                                         </a>
                                     @endif
@@ -912,7 +919,7 @@
             var calendarEl = document.getElementById('calendar');
 
             var calendarEl = document.getElementById('schedule_calendar');
-            console.log({!! json_encode($events) !!});
+            // console.log({!! json_encode($events) !!});
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 height: 'auto',
                 themeSystem: 'bootstrap',
@@ -1263,9 +1270,9 @@
 
                 source =
                     `{{ route('video.batch.playlist', [
-    'vid_id' => ':vidid',
-    'gize_channel_id' => $gize_channel->id,
-]) }}`;
+                        'vid_id' => ':vidid',
+                        'gize_channel_id' => $gize_channel->id,
+                    ]) }}`;
 
                 source = source.replace(':vidid', vidid);
                 new_vidid = moment.now();
@@ -1273,7 +1280,7 @@
                 html = `<video-js
                                 style="height: inherit;"
                                 id="f${new_vidid}"
-                                class="video-js free-video vim-css video_player vjs-big-play-centered vjs-fluid"
+                                class="video-js free-video vim-css  vjs-big-play-centered vjs-fluid"
                                 controls
                                 preload="auto"
                                 width="auto"
@@ -1294,7 +1301,7 @@
                     // videojs(oldPlayer).dispose();
 
                     Swal.fire({
-                        title: vidtitle,
+                        title: '<span style="font-size: 0.55em;color: #b7b6b6;font-weight: 600;">'+vidtitle+'</span>',
                         // background: `#fff url(${vidimage_url}) `,
                         allowOutsideClick: false,
                         showCloseButton: true,
@@ -1304,6 +1311,7 @@
                             rgba(0,0,0,0.88)
                         `,
                         html: html,
+
 
                         showClass: {
                             popup: 'animate__faster animate__animated animate__fadeIn'
@@ -1315,18 +1323,23 @@
 
                     var parent_modal = $("#f" + new_vidid).parents('.swal2-popup .swal2-modal');
                     $("#f" + new_vidid).parents('.swal2-popup').css({
-                        "background-color": "transparent"
-                    });
-                    parent_modal.css({
+                        "background-color": "transparent",
+                        "padding": "0",
+
                         "width": "100%",
-                        "font-size": "200%",
+                        "max-width": "50em"
+                    });
+                    $("#f" + new_vidid).parents('.swal2-popup .swal2-content').css({
+                        // "height": "100%",
+                        // "font-size": "200%",
                         "padding": "0"
                     });
-                    parent_modal.find('.swal2-content').css({
-                        "padding": "0 !important"
+                    $("#f" + new_vidid).parents('.swal2-popup').find('swal2-content').css({
+                        "padding": "0 !important",
+                        "width": "100%",
                     });
-                    parent_modal.find('.swal2-title').css({
-                        "color": "#c7c7c7"
+                    $("#f" + new_vidid).parents('.swal2-popup').find('.swal2-title').css({
+                        "color": "#eee"
                     });
 
 
@@ -1341,16 +1354,16 @@
 
                         this.on("play", function(e) {
 
-                            // $(".video_player").each(function(index) {
-                            //     if (!this.player.paused()) {
-                            //         // this.posterImage.show();
-                            //         this.player.pause();
+                            $(".video_player").not(".free_video").each(function(index) {
+                                if (!this.player.paused()) {
+                                    // this.posterImage.show();
+                                    this.player.pause();
 
-                            //         // some_player_is_playing = true;
-                            //         $(".video-playing-indicator").addClass('d-none');
+                                    // some_player_is_playing = true;
+                                    $(".video-playing-indicator").addClass('d-none');
 
-                            //     }
-                            // });
+                                }
+                            });
                         });
                     });
 
@@ -1361,6 +1374,8 @@
                         // toast: true,
                         icon: 'warning',
                         title: window.modal_vidtitle,
+                        confirmButtonText: "{{ __('OK') }}",
+
                         html: "(" + vidduration + ") {{ __('by') }} " + vidhost +
                             "<br/>  " +
                             ` <div>
@@ -1368,7 +1383,7 @@
                                             <hr/>
                                             <p class="px-2 ">
                                                 <u>{{ __('Contact us') }}</u><br/>
-                                                <span>{{ __('Phone Numbe') }}r: {{ $gize_channel->phone_number }}</span><br/>
+                                                <span>{{ __('Phone Number') }}: {{ $gize_channel->phone_number }}</span><br/>
                                                 <span>{{ __('Address') }}: {{ $gize_channel->contact_address }}</span>
                                             </p>
 
@@ -1421,21 +1436,94 @@
             window.addEventListener('hashchange', onHashChange, false);
             onHashChange();
 
-            // var myVar = setInterval(myTimer, 1000 * 10);
+            if({!! $activerentals->count() !!}){
+                var rentalcheker = setInterval(chkRentalTimer, 1000 * 3);
+                var endtimecheker = setInterval(updateEndingTime, 1000 * 3);
+
+            }
 
             $('.btn-refresh').on('click', function() {
                 location.reload();
             });
 
-            function myTimer() {
-                removeExpiredVideos();
+            function updateEndingTime(rid){
+                let user_id = "{{ auth()->user()->id }}";
+                let rental_vids = $(".rental_player");
+                // console.log(rental_vids);
+                rental_vids.each(function(i) {
+                    channelvideo_rental_id = $(this).attr('rid');
+
+                    let url =
+                        " {{ route('rental.getendtime', ['user_id' => ':user_id', 'channelvideo_rental_id' => ':channelvideo_rental_id']) }}";
+                    url = url.replace(':user_id', user_id);
+                    url = url.replace(':channelvideo_rental_id', channelvideo_rental_id);
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+                    $.ajax({
+                        url: url,
+                        delay: 250,
+                        type: 'POST',
+                        success: function(res) {
+                            console.log(res);
+                            $("video-js[rid='" + channelvideo_rental_id + "']")
+                                .parents('.card').find(' .endtime')
+                                .html(res);
+
+
+                        }
+                    });
+                });
+            }
+
+            function chkRentalTimer() {
+                // console.log("remoing");
+                let rental_vids = $(".rental_player");
+                // console.log(rental_vids);
+                rental_vids.each(function(i) {
+
+                    rid = $(this).attr('rid');
+
+                    let url = "{{ route('rental.check', ['user_id'=> auth()->user()->id, 'channelvideo_rental_id'=> ':channelvideo_rental_id']) }}";
+                    url = url.replace(':channelvideo_rental_id', rid);
+
+                    let that = this;
+                    console.log(url);
+                    $.ajax({
+                        type: 'GET',
+                        url: url,
+
+
+                        success: function(response){
+                            console.log(response);
+							if(response == "0"){
+                                console.log('clearing');
+                                $(that).parents('.video-card').remove();
+                                // removeExpiredVideos(rid);
+                                clearInterval(chkRentalTimer);
+                                clearInterval(endtimecheker);
+
+                            }
+                        }
+
+                    });
+
+                } );
+
+
+
                 // notifyMe();
             }
 
-            function removeExpiredVideos() {
-                cards = $('#video-cards .video-card-wrapper');
+            function removeExpiredVideos(rid=0) {
+                if(rid){
 
-                $('#video-cards .video-card-wrapper:has(video-js#v22)').remove();
+                    cards = $('#video-cards .video-card-wrapper');
+
+                    $("#video-cards .video-card-wrapper:has(video-js[rid='"+ rid + "'])").remove();
+                }
 
             }
 

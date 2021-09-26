@@ -1,10 +1,273 @@
-$channelvideo_id = 1;
-Channelvideo::find($channelvideo_id)->vale('gize_channel_id');
-$channelvideo_id = 1;
-Channelvideo::find($channelvideo_id)->value('gize_channel_id');
-$channelvideo_id = 2;
-Channelvideo::find($channelvideo_id)->value('gize_channel_id');
-$channelvideo_id = 2;
-Channelvideo::find($channelvideo_id)->first()->value('gize_channel_id');
-$channelvideo_id = 2;
-GizeChannel::find(Channelvideo::find($channelvideo_id)->first()->value('gize_channel_id'));
+User::find(2)->channelvideos()
+User::find(2)->channelvideos()->get()
+User::find(2)->channelvideos()
+  ->where('rental_detail.id', 10)->get()
+User::find(2)->channelvideos()->get()
+User::find(2)->channelvideos()->rental_detail->get()
+User::find(2)->channelvideos()->rental_detail
+User::find(2)->channelvideos()->rental_detail->get()
+User::find(2)->channelvideos()->rental_detail->first()
+User::find(2)->channelvideos()->first()->rental_detail->first()
+$q = User::find(2)->channelvideos();
+$rid = 10;
+
+$found = false;
+foreach($q as $query){
+  if($query->first()->rental_detail == $rid){
+	$found = true;
+  }
+	
+	
+}
+  
+  return $found;
+$q = User::find(2)->channelvideos();
+$rid = 10;
+
+$found = false;
+foreach($q as $query){
+  if($query->first()->rental_detail->get() == $rid){
+	$found = true;
+  }
+	
+	
+}
+  
+  return $found;
+$q = User::find(2)->channelvideos();
+$rid = 10;
+
+$found = false;
+foreach($q as $query){
+  if($query->first()->rental_detail->first()->value('rid') == $rid){
+	$found = true;
+  }
+	
+	
+}
+  
+  return $found;
+$q = User::find(2)->channelvideos();
+$rid = 10;
+
+$found = false;
+foreach($q as $query){
+  if($query->first()->rental_detail()->value('rid') == $rid){
+	$found = true;
+  }
+	
+	
+}
+  
+  return $found;
+$q = User::find(2)->channelvideos();
+$rid = 10;
+
+$found = false;
+foreach($q as $query){
+  if($query->first()->rental_detail->value('rid') == $rid){
+	$found = true;
+  }
+	
+	
+}
+  
+  return $found;
+$q = User::find(2)->channelvideos();
+$rid = 10;
+
+$found = false;
+foreach($q as $query){
+  if($query->rental_detail->value('rid') == $rid){
+	$found = true;
+  }
+	
+	
+}
+  
+  return $found;
+$q = User::find(2)->channelvideos();
+$rid = 10;
+
+$found = false;
+foreach($q as $query){
+  if($query->rental_detail->first()->value('rid') == $rid){
+	$found = true;
+  }
+	
+	
+}
+  
+  return $found;
+$q = User::find(2)->channelvideos();
+$rid = 10;
+
+$found = false;
+foreach($q as $query){
+  if($query->rental_detail->rid == $rid){
+	$found = true;
+  }
+	
+	
+}
+  
+  return $found;
+$q = User::find(2)->channelvideos();
+$rid = 10;
+
+$found = false;
+foreach($q as $query){
+  if($query->get()->rental_detail->rid == $rid){
+	$found = true;
+  }
+	
+	
+}
+  
+  return $found;
+$q = User::find(2)->channelvideos()->get();
+$rid = 10;
+
+$found = false;
+foreach($q as $query){
+  if($query->rental_detail->rid == $rid){
+	$found = true;
+  }
+	
+	
+}
+  
+  return $found;
+$q = User::find(2)->channelvideos()->get();
+$rid = 10;
+
+$found = false;
+foreach($q as $query){
+  echo $query->rental_detail->rid;
+  if($query->rental_detail->rid == $rid){
+	$found = true;
+  }
+	
+	
+}
+  
+  return $found;
+$q = User::find(2)->channelvideos()->get();
+$rid = 10;
+
+$found = false;
+return $q;
+foreach($q as $query){
+  echo $query->rental_detail->rid;
+  if($query->rental_detail->rid == $rid){
+	$found = true;
+  }
+	
+	
+}
+  
+  return $found;
+$q = User::find(2)->channelvideos()->get();
+$rid = 10;
+
+return $q->first();
+$found = false;
+return $q;
+foreach($q as $query){
+  echo $query->rental_detail->rid;
+  if($query->rental_detail->rid == $rid){
+	$found = true;
+  }
+	
+	
+}
+  
+  return $found;
+$q = User::find(2)->channelvideos()->get();
+$rid = 10;
+
+return $q->first()->rental_detail;
+$found = false;
+return $q;
+foreach($q as $query){
+  echo $query->rental_detail->rid;
+  if($query->rental_detail->rid == $rid){
+	$found = true;
+  }
+	
+	
+}
+  
+  return $found;
+$q = User::find(2)->channelvideos()->get();
+$rid = 10;
+
+return $q->first()->rental_detail->get();
+$found = false;
+return $q;
+foreach($q as $query){
+  echo $query->rental_detail->rid;
+  if($query->rental_detail->rid == $rid){
+	$found = true;
+  }
+	
+	
+}
+  
+  return $found;
+$q = User::find(2)->channelvideos()->get();
+$rid = 10;
+
+return $q->first()->rental_detail->id;
+$found = false;
+return $q;
+foreach($q as $query){
+  echo $query->rental_detail->rid;
+  if($query->rental_detail->rid == $rid){
+	$found = true;
+  }
+	
+	
+}
+  
+  return $found;
+$q = User::find(2)->channelvideos()->get();
+$rid = 10;
+
+$found = false;
+foreach($q as $query){
+  echo $query->rental_detail->id;
+  if($query->rental_detail->id == $rid){
+	$found = true;
+  }
+	
+	
+}
+  
+  return $found;
+$q = User::find(2)->channelvideos()->get();
+$rid = 11;
+
+$found = false;
+foreach($q as $query){
+  if($query->rental_detail->id == $rid){
+	$found = true;
+  }
+	
+	
+}
+  
+  return $found;
+$q = User::find(2)->channelvideos()->get();
+$rid = 10;
+
+$found = false;
+foreach($q as $query){
+  if($query->rental_detail->id == $rid){
+	$found = true;
+  }
+	
+	
+}
+  
+  return $found;

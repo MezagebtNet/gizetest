@@ -64,15 +64,15 @@
 
                             <span>{{ __('Once you start playing this vidio, it will be available for') }} {{ $video->rental_detail->for_hours }} {{ __('hours.') }}</span>
                             <br/>
-                            <span class="show-expiretime"><strong>{{ __('Rental Expires at') }}:</strong>
+                            <span class=" show-expiretime"><strong>{{ __('Rental Expires at') }}:</strong>
                                 {{ Jenssegers\Date\Date::createFromFormat('Y-m-d H:i:s', $video->rental_detail->published_at)->add($video->rental_detail->within_days . ' days')->setTimezone(\Config::get('app.timezone'))->format('M d, Y H:i A') }}
                             </span>
-                            <br  class="show-expiretime"/><span class="show-expiretime">{{ __('Timezone') }}: {{ \Config::get('app.timezone') }}</span>
+                            <br  class="show-expiretime"/><span class="badge badge-secondary show-expiretime">{{ __('Timezone') }}: {{ \Config::get('app.timezone') }}</span>
                         </dd>
                     @endif
                     <dt class="show-endtime d-none">{{ __('Rental Ends At') }}</dt>
                     <dd class="show-endtime d-none">
-                        <span class="time">
+                        <span class="time endtime">
                         </span>
                         <br /><span>{{ __('Timezone') }}: {{ \Config::get('app.timezone') }}</span>
                     </dd>
@@ -84,10 +84,11 @@
                         </dd>
                         <dt>{{ __('Rental Ends At') }}</dt>
                         <dd>
-                            <span>
+                            <span class="endtime">
                                 {{ Jenssegers\Date\Date::createFromFormat('Y-m-d H:i:s', $video->rental_detail->started_at)->addHours($video->rental_detail->for_hours)->setTimezone(\Config::get('app.timezone'))->format('M d, Y H:i A') }}
+                                ({{ Jenssegers\Date\Date::createFromFormat('Y-m-d H:i:s', $video->rental_detail->started_at)->addHours($video->rental_detail->for_hours)->setTimezone(\Config::get('app.timezone'))->diffForHumans() }})
                             </span>
-                            <br /><span>{{ __('Timezone') }}: {{ \Config::get('app.timezone') }}</span>
+                            <br /><span class="badge badge-secondary ">{{ __('Timezone') }}: {{ \Config::get('app.timezone') }}</span>
 
                         </dd>
                     @endif

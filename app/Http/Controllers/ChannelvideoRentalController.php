@@ -7,8 +7,8 @@ use App\Models\Channelvideo;
 use App\Models\GizeChannel;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
-use Symfony\Component\HttpFoundation\Response;
 use Jenssegers\Date\Date;
+use Symfony\Component\HttpFoundation\Response;
 
 class ChannelvideoRentalController extends Controller
 {
@@ -16,6 +16,28 @@ class ChannelvideoRentalController extends Controller
     public function getAllRentals()
     {
         //
+    }
+
+    public function checkRentalValidity($user_id, $channelvideo_rental_id = 0)
+    {
+        // return false;
+        $q = $this::getChannelActiveRentalsByUser(null, $user_id);
+
+        $rid = $channelvideo_rental_id;
+
+        $found = 0;
+
+        foreach ($q as $query) {
+            if ($query->rental_detail->id == $rid) {
+                $found = 1;
+            }
+
+        }
+
+        return $found;
+
+        return response()->json(["status" => $found]);
+
     }
 
     /**
@@ -27,13 +49,15 @@ class ChannelvideoRentalController extends Controller
     public static function getChannelActiveRentalsByUser($slug, $user_id, $status = null)
     {
 
-        $gize_channel = GizeChannel::where('slug', $slug)->firstOrFail();
+        if($slug != null){
+            $gize_channel = GizeChannel::where('slug', $slug)->firstOrFail();
+            $gize_channel_id = $gize_channel->id;
+        }
 
         $now = \Carbon\Carbon::now();
 
         $user_id = \Auth::user()->id;
 
-        $gize_channel_id = $gize_channel->id;
 
         $user_batches = BatchUser::where('user_id', $user_id)
             ->where('active', 1)
@@ -47,9 +71,17 @@ class ChannelvideoRentalController extends Controller
 
         $active_channelvideo_ids = $videos->pluck('id');
 
-        $result = User::find($user_id)->channelvideos()
+        if($slug != null) {
+            $result = User::find($user_id)->channelvideos()
             ->whereIn('channelvideos.id', $active_channelvideo_ids)
             ->where('gize_channel_id', $gize_channel_id)->get();
+        }
+        else {
+            $result = User::find($user_id)->channelvideos()
+            ->whereIn('channelvideos.id', $active_channelvideo_ids)
+            ->get();
+        }
+
 
         $rentals = collect([]);
 
@@ -106,7 +138,6 @@ class ChannelvideoRentalController extends Controller
         $user = User::find($user_id);
         abort_if(\Auth::user()->id != $user_id, Response::HTTP_FORBIDDEN, 'Forbidden');
 
-
         DB::table('channelvideo_rentals')
             ->where('id', $channelvideo_rental_id)
             ->whereNotNull('started_at')
@@ -121,17 +152,17 @@ class ChannelvideoRentalController extends Controller
         $user = User::find($user_id);
         abort_if(\Auth::user()->id != $user_id, Response::HTTP_FORBIDDEN, 'Forbidden');
 
-
         $started_at = DB::table('channelvideo_rentals')
             ->select('started_at')
-			->where('id', $channelvideo_rental_id)->value('started_at');
+            ->where('id', $channelvideo_rental_id)->value('started_at');
         $for_hours = DB::table('channelvideo_rentals')
             ->select('for_hours')
-			->where('id', $channelvideo_rental_id)->value('for_hours');
+            ->where('id', $channelvideo_rental_id)->value('for_hours');
 
-        $ends_at = Date::createFromFormat('Y-m-d H:i:s', $started_at)->addHours($for_hours)->setTimezone(\Config::get('app.timezone'))->format('M d, Y H:i A');
+        $ends_at = Date::createFromFormat('Y-m-d H:i:s', $started_at)->addHours($for_hours)->setTimezone(\Config::get('app.timezone'));
 
-        return $ends_at;
+        return $ends_at->format('M d, Y H:i A') . ' (' . $ends_at->diffForHumans() . ')';
 
     }
+
 }
