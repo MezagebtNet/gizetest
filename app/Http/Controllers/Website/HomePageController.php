@@ -21,13 +21,15 @@ class HomePageController extends Controller
         if (!\Auth::check()) {
             return view('welcome');
         }
-        // $gize_channels = GizeChannel::all();
+
+        $gize_channels = GizeChannel::where('active', 1)->orderBy('id', 'ASC')->take(4)->get();
+
         $featured_videos = Channelvideo::with('gizeChannel')->where('active', 1)
             ->where('is_featured', 1)
             ->orderBy("is_free")
             ->get();
 
-        return view('website.home', compact('featured_videos'));
+        return view('website.home', compact('featured_videos','gize_channels'));
 
     }
 

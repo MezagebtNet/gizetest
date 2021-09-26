@@ -13,10 +13,65 @@ use Symfony\Component\HttpFoundation\Response;
 class ChannelvideoRentalController extends Controller
 {
     //
-    public function getAllRentals()
+    public function index($gize_channel_id)
     {
-        //
+        $users = User::all();
+        $rentals = collect([]);
+
+        $gize_channel = GizeChannel::find($gize_channel_id);
+
+        $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
+
+        foreach ($channelvideos as $vid) {
+            $vid->text = $vid->title;
+        }
+
+        $users = [];
+        try {
+
+            $users = User::all()->pluck('user_id');
+
+        } catch (\Trhowable $e) {}
+        // return $users;
+
+        //get batches of the channel
+        // $user_id = \Auth::user()->id;
+
+
+        foreach ($users as $user){
+                $rentals = $rentals->merge($user->channelvideos()->where('gize_channel_id', $gize_channel->id)->get());
+        }
+
+        return view('admin.manage.rentals.index', compact('rentals', 'gize_channel', 'channelvideos', 'usres'));
+
+
     }
+
+    public function addRental($gize_channel_id, Request $request)
+    {
+        $user = User::find($request->user_id);
+
+        $channelvideo_id = $request->channelvideo_id;
+
+        $within_days = $request->within_days;
+        $for_hours = $request->for_hours;
+        $published_at = $request->published_at;
+
+        $user->attach($channelvideo_id, [
+            'status' => 0,
+            'within_days' => $within_days,
+            'for_hours' => $for_hours,
+            'published_at' => $published_at
+        ]);
+
+        //last inserted
+        $last_inserted = $user->channelvideos()->first()->rental_detail->orderBy('id', 'desc')->first();
+
+
+        return response()->json($last_inserted);
+    }
+
+
 
     public function checkRentalValidity($user_id, $channelvideo_rental_id = 0)
     {

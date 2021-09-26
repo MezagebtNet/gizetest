@@ -1,4 +1,7 @@
 <style>
+    .card-title {
+        font-size: 0.85rem;
+    }
     .dark-mode .btn-refresh.btn-outline-info:hover {
         color: #fff;
         background-color: #db8a34;
@@ -197,12 +200,12 @@
 
     @media screen and (max-width: 265px) {
 
-        .dropdown-menu-lg {
+        /* .dropdown-menu-lg {
             min-width: 60vw !important;
             right: 0 !important;
             position: absolute;
             margin-right: -100% !important;
-        }
+        } */
 
         .navbar-no-expand .dropdown-menu {
             position: fixed !important;
@@ -245,12 +248,12 @@
     }
 
     @media screen and (min-width: 266px) and (max-width: 570px) {
-        .dropdown-menu-lg {
+        /* .dropdown-menu-lg {
             min-width: 60vw !important;
             right: 0 !important;
             position: absolute;
             margin-right: -100% !important;
-        }
+        } */
     }
 
     /* ----------- 0 - 436px ----------- */
@@ -262,10 +265,8 @@
         }
 
         .dropdown-menu-lg {
-            min-width: 60vw !important;
-            right: 0 !important;
-            position: absolute;
-            margin-right: -100% !important;
+            /* width: 100% !important; */
+
         }
 
         .navbar-no-expand .dropdown-menu {

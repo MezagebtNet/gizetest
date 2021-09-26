@@ -2855,6 +2855,48 @@ class UsersTableSeeder extends Seeder
                 // "teacher_qualifications" => null,
                 // "last_login" => null,
             ],
+            [
+                "id"=>"142",
+                "name"=>"Alemseged Negash",
+                "email"=>"abity58@gmail.com",
+                "email_verified_at"=>null,
+                "password"=>'$2y$10$Z6idqzXG8HofG9votXH8ZedE7L69v2e.2/XTUpsFw222xVMuYUhde',
+                "two_factor_secret"=>null,
+                "two_factor_recovery_codes"=>null,
+                "remember_token"=>null,
+                "current_team_id"=>null,
+                "profile_photo_path"=>null,
+                "created_at"=>"2021-09-21 15:47:57",
+                "updated_at"=>"2021-09-21 15:47:57",
+                // "role_id"=>"2",
+                "address"=>"Hawassa",
+                "phone_number"=>"0913656756",
+                // "licence_number"=>null,
+                // "teacher_qualifications"=>null,
+                // "last_login"=>null
+            ],
+
+            [
+                "id"=>"143",
+                "name"=>"Yoseph kifle-giorgis",
+                "email"=>"yosephkg@msn.com",
+                "email_verified_at"=>null,
+                "password"=>'$2y$10$WMEPsXvH.yq2.A9cDWRjmOcBTB0/ZCs/w0yqkiQEqqRCqTogv1XWK',
+                "two_factor_secret"=>null,
+                "two_factor_recovery_codes"=>null,
+                "remember_token"=>null,
+                "current_team_id"=>null,
+                "profile_photo_path"=>null,
+                "created_at"=>"2021-09-23 21:20:00",
+                "updated_at"=>"2021-09-23 21:20:00",
+                // "role_id"=>"2",
+                "address"=>"82 Thomas Hardy House, Commerce Road",
+                "phone_number"=>"07850818787",
+                // "licence_number"=>null,
+                // "teacher_qualifications"=>null,
+                // "last_login"=>null
+            ]
+
         ];
 
         User::insert($imported_users);

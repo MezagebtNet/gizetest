@@ -452,6 +452,24 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
                 });
 
+                //RENTALS
+                Route::group(['prefix' => 'rentals', 'as' => 'rental.'], function () {
+                    //Get All
+                    Route::get("/{gize_channel_id}", [ChannelvideoRentalController::class, 'index'])->name('index');
+
+                    //add
+                    Route::post('/{gize_channel_id}/rental-add', [ChannelvideoRentalController::class, 'addRental'])->name('add');
+                    //update
+                    // Route::post('/{gize_channel_id}/rental-update', [ChannelvideoRentalController::class, 'updateRental'])->name('update');
+                    //get
+                    // Route::get('/{gize_channel_id}/rentals/{id}', [ChannelvideoRentalController::class, 'getRentalById'])->name('get');
+                    //delete
+                    // Route::delete('/{gize_channel_id}/rentals/{id}', [ChannelvideoRentalController::class, 'deleteRental'])->name('delete');
+                    //delete selected
+                    // Route::delete('/{gize_channel_id}/rentals-del-selected', [ChannelvideoRentalController::class, 'deleteCheckedRentals'])->name('deleteSelected');
+
+                });
+
             });
 
             // Route::resource('tests', \App\Http\Controllers\TestsController::class);

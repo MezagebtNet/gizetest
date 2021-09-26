@@ -1025,7 +1025,8 @@ class ChannelvideosTableSeeder extends Seeder
                 "active"=>"0",
                 "created_at"=>"2021-09-15 09:29:38",
                 "updated_at"=>"2021-09-19 14:55:08"
-            ]
+            ],
+
         ];
         Channelvideo::insert($channelvideos);
 
