@@ -26,23 +26,26 @@ class ChannelvideoRentalController extends Controller
             $vid->text = $vid->title;
         }
 
-        $users = [];
-        try {
 
-            $users = User::all()->pluck('user_id');
+        foreach ($users as $user) {
 
-        } catch (\Trhowable $e) {}
-        // return $users;
+            $rental_details = $user->channelvideos()->where('gize_channel_id', $gize_channel_id)->get();
+            foreach ($rental_details as $rental_detail) {
+                $rental_detail->user = $user;
+                $rental_detail->channelvideo = Channelvideo::find($rental_detail->id);
 
-        //get batches of the channel
-        // $user_id = \Auth::user()->id;
+                $published_at = Date::createFromFormat('Y-m-d H:i:s', $rental_detail->rental_detail->published_at)->setTimezone(\Config::get('app.timezone'))->format('M d, Y H:i A');
+                $rental_detail->published_at_formatted = $published_at;
 
+                $rental_detail->validity= $this->checkRentalValidity($user->id, $rental_detail->rental_detail->id);
 
-        foreach ($users as $user){
-                $rentals = $rentals->merge($user->channelvideos()->where('gize_channel_id', $gize_channel->id)->get());
+            }
+
+            $rentals = $rentals->merge($rental_details);
+
         }
 
-        return view('admin.manage.rentals.index', compact('rentals', 'gize_channel', 'channelvideos', 'usres'));
+        return view('admin.manage.rentals.index', compact('rentals', 'gize_channel', 'channelvideos', 'users'));
 
 
     }
@@ -91,7 +94,7 @@ class ChannelvideoRentalController extends Controller
 
         return $found;
 
-        return response()->json(["status" => $found]);
+        // return response()->json(["status" => $found]);
 
     }
 

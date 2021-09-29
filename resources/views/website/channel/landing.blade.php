@@ -613,6 +613,9 @@
                                                                 href="{{ route('web.home') }}">
                                                                 {{ __('Go back to home') }}
                                                             </a>
+                                                            <button class="btn btn-refresh btn-sm btn-outline-secondary" >
+                                                                {{ __('Reload') }}
+                                                            </button>
                                                         </p>
 
                                                     </div>
@@ -671,6 +674,9 @@
                                                         href="{{ route('web.home') }}">
                                                         {{ __('Go back to home') }}
                                                     </a>
+                                                    <button class="btn btn-refresh btn-sm btn-outline-secondary" >
+                                                        {{ __('Reload') }}
+                                                    </button>
                                                 </p>
 
                                             </div>
@@ -760,6 +766,9 @@
                                         <a class="btn btn-sm btn-outline-secondary" href="{{ route('web.home') }}">
                                             {{ __('Go back to home') }}
                                         </a>
+                                        <button class="btn btn-refresh btn-sm btn-outline-secondary" >
+                                            {{ __('Reload') }}
+                                        </button>
                                     </p>
 
                                 </div>

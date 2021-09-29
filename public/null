@@ -73,3 +73,179 @@ $user = User::find(2);
 $user = User::find(2);
 
         return $user->channelvideos()->first()->rental_detail->orderBy('id', 'desc')->first();
+User::find(1)
+User::find(2)
+User::find(1)
+User::find(2)
+User::find(2)-chanelvideos()
+User::find(2)->chanelvideos()
+User::find(2)->chanelvideos()->get()
+User::find(2)->get()->chanelvideos()->get()
+User::find(2)->get()->chanelvideos()
+User::find(2)->get()->chanelvideos()
+User::find(2)->chanelvideos()
+User::find(2)->channelvideos()
+User::find(2)->channelvideos()->get()
+User::find(2)->channelvideos(0)->get()
+User::all()
+User::all()->pluck('id')
+User::all()->pluck('id');
+
+ foreach ($user_ids as $user_id) {
+           echo find($user_id)->channelvideos()->get();
+        }
+User::all()->pluck('id');
+
+ foreach ($user_ids as $user_id) {
+           echo User::find($user_id)->channelvideos()->get();
+        }
+User::all()->pluck('id');
+
+ foreach ($user_ids as $key=>$user_id) {
+           echo User::find($user_id)->channelvideos()->get();
+        }
+User::all()->pluck('id');
+
+ foreach ($user_ids as $key=>$user_id) {
+           echo User::find($user_id)->channelvideos()->get();
+        }
+User::all()->pluck('id');
+
+ foreach ($user_ids as $user_id) {
+           echo User::find($user_id)->channelvideos()->get();
+        }
+User::all()->pluck('id');
+
+ foreach ($user_ids as $user_id) {
+           echo User::find($user_id)->channelvideos()->get();
+        }
+User::all()->pluck('id');
+
+ foreach ($user_ids as $user_id) {
+                   }
+$users = User::all()->pluck('id');
+foreach ($users as $user) {
+            echo $user->channelvideos()->get()
+        }
+$users = User::all()->pluck('id');
+foreach ($users as $user) {
+            echo $user->channelvideos()->get();
+        }
+$users = User::all();
+foreach ($users as $user) {
+            echo $user->channelvideos()->get();
+        }
+return App\Http\Controllers\ChannelvideoRentalController::index(1);
+$x = new App\Http\Controllers\ChannelvideoRentalController;
+$x->index(1);
+$gize_channel_id = 1;
+
+$users = User::all();
+        $rentals = collect([]);
+
+        $gize_channel = GizeChannel::find($gize_channel_id);
+
+        $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
+
+        foreach ($channelvideos as $vid) {
+            $vid->text = $vid->title;
+        }
+
+
+        foreach ($users as $user) {
+
+            $rentalUser = $user->channelvideos()->where('gize_channel_id', $gize_channel_id)->get();
+
+            $rentals = $rentals->merge($rentalUser);
+
+        }
+return $rentals;
+$gize_channel_id = 1;
+
+$users = User::all();
+        $rentals = collect([]);
+
+        $gize_channel = GizeChannel::find($gize_channel_id);
+
+        $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
+
+        foreach ($channelvideos as $vid) {
+            $vid->text = $vid->title;
+        }
+
+
+        foreach ($users as $user) {
+
+            $rentalUser = $user->channelvideos()->where('gize_channel_id', $gize_channel_id)->get();
+
+            $rentals = $rentals->merge($rentalUser);
+
+        }
+return $rentals[0];
+$gize_channel_id = 1;
+
+$users = User::all();
+        $rentals = collect([]);
+
+        $gize_channel = GizeChannel::find($gize_channel_id);
+
+        $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
+
+        foreach ($channelvideos as $vid) {
+            $vid->text = $vid->title;
+        }
+
+
+        foreach ($users as $user) {
+
+            $rentalUser = $user->channelvideos()->where('gize_channel_id', $gize_channel_id)->get();
+
+            $rentals = $rentals->merge($rentalUser);
+
+        }
+return $rentals[0]->rental_detail;
+$gize_channel_id = 1;
+
+$users = User::all();
+        $rentals = collect([]);
+
+        $gize_channel = GizeChannel::find($gize_channel_id);
+
+        $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
+
+        foreach ($channelvideos as $vid) {
+            $vid->text = $vid->title;
+        }
+
+
+        foreach ($users as $user) {
+
+            $rentalUser = $user->channelvideos()->where('gize_channel_id', $gize_channel_id)->get();
+
+            $rentals = $rentals->merge($rentalUser);
+
+        }
+return $rentals[0]->rental_detail->id;
+$gize_channel_id = 1;
+
+$users = User::all();
+        $rentals = collect([]);
+
+        $gize_channel = GizeChannel::find($gize_channel_id);
+
+        $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
+
+        foreach ($channelvideos as $vid) {
+            $vid->text = $vid->title;
+        }
+
+
+        foreach ($users as $user) {
+
+            $rentalUser = $user->channelvideos()->where('gize_channel_id', $gize_channel_id)->get();
+
+            $rentals = $rentals->merge($rentalUser);
+
+        }
+return $rentals;
+return $rentals[0]->rental_detail->id;

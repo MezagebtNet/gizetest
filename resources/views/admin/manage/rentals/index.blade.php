@@ -63,21 +63,39 @@
                                 <th scope="col">For Hours</th>
                                 <th scope="col">Pubish Date</th>
                                 <th scope="col">Status</th>
-                                <th scope="col"></th>
+                                <th scope="col">Validity</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($rentals as $rental)
-                                <tr id="rentalID{{ $rental->id }}">
+                                <tr id="rentalID{{ $rental->rental_detail->id }}">
                                     <td><input type="checkbox" name="ids" class="checkBoxClass"
-                                            value="{{ $rental->id }}" /></td>
-                                    <th scope="row"> {{ $rental->id }}</th>
-                                    <td>{{ $rental->channelvideo_id }}</td>
-                                    <td>{{ $rental->user_id }}</td>
-                                    <td>{{ $rental->within_days }}</td>
-                                    <td>{{ $rental->for_hours }}</td>
-                                    <td>{{ $rental->publish_date }}</td>
-                                    <td>{{ $rental->status }}</td>
+                                            value="{{ $rental->rental_detail->id }}" /></td>
+                                    <th scope="row"> {{ $rental->rental_detail->id }}</th>
+                                    <td>{{ $rental->channelvideo->title }}</td>
+                                    <td>{{ $rental->user->name }}</td>
+                                    <td>{{ $rental->rental_detail->within_days }}</td>
+                                    <td>{{ $rental->rental_detail->for_hours }}</td>
+                                    <td>{{ $rental->published_at_formatted }}</td>
+                                    <td>
+                                        @if( $rental->rental_detail->status == 0 )
+                                            <i class="fa fa-circle text-danger"></i> Not Watched
+                                        @elseif( $rental->rental_detail->status == 1)
+                                            <i class="fa fa-circle text-warning"></i> Started Watching
+
+                                        @elseif ($rental->rental_detail->status == 2)
+                                            <i class="fa fa-circle text-success"></i> Completed Watching
+
+                                        @endif
+
+                                    </td>
+                                    <td>
+                                        @if( $rental->validity == 0 )
+                                            <span class=" text-danger"><i class="fa fa-times"></i> Expired</span>
+                                        @elseif( $rental->validity == 1)
+                                            <span class=" text-success"><i class="fa fa-check"></i> Active</span>
+                                        @endif
+                                    </td>
 
                                 </tr>
 
@@ -113,6 +131,22 @@
 
 
 @section('js')
+    <!-- DataTables  & Plugins -->
+    <script src="{{ asset('vendors/admin/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('vendors/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('vendors/admin/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('vendors/admin/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('vendors/admin/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('vendors/admin/plugins/jszip/jszip.min.js') }}"></script>
+    <script src="{{ asset('vendors/admin/plugins/pdfmake/pdfmake.min.js') }}"></script>
+    <script src="{{ asset('vendors/admin/plugins/pdfmake/vfs_fonts.js') }}"></script>
+    <script src="{{ asset('vendors/admin/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('vendors/admin/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('vendors/admin/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+
+    <script src="{{ asset('vendors/admin/plugins/datatables-fixedcolumns/js/dataTables.fixedColumns.js') }}"></script>
+    <script src="{{ asset('vendors/admin/plugins/datatables-fixedcolumns/js/fixedColumns.bootstrap4.min.js') }}">
+    </script>
 
     <script>
         $(document).ready(function() {
@@ -163,7 +197,7 @@
 
             $('.select-subscribers').select2({
                 theme: 'bootstrap4',
-                dropdownParent: $('#subscriptionModal'),
+                dropdownParent: $('#rentalModal'),
                 templateResult: formatState,
 
                 ajax: {
@@ -188,7 +222,7 @@
             });
 
 
-            initSubscriptionTable();
+            initRentalTable();
             initdatetimePicker();
 
 
@@ -235,7 +269,7 @@
                 formData.append('type', 'create');
                 // formData.append('name', name);
 
-                let url = "route('admin.rental.add', ['gize_channel_id' => ':gize_channel_id'])";
+                let url = "route('admin.manage.rental.add', ['gize_channel_id' => ':gize_channel_id'])";
                 url = url.replace(':gize_channel_id', "{{ $gize_channel->id }}");
 
                 $.ajax({
@@ -287,23 +321,24 @@
                 });
             }
 
-            function initSubscriptionTable() {
+            function initRentalTable() {
                 $("#rentalTable").DataTable({
 
-                'createdRow': function(row, data, dataIndex) {
+                    'createdRow': function(row, data, dataIndex) {
 
-                    if ($(' th:nth-child(2)', row).html() != undefined) {
-                        idAttribute = 'rentalid' + $(' th:nth-child(2)', row).html().toString().replace(
-                            ' ', '');
-                        $(row).attr('id', idAttribute);
-                    }
+                        if ($(' th:nth-child(2)', row).html() != undefined) {
+                            idAttribute = 'rentalid' + $(' th:nth-child(2)', row).html().toString().replace(
+                                ' ', '');
+                            $(row).attr('id', idAttribute);
+                        }
 
-                },
-                order: [
-                    [1, 'desc']
-                ],
-            }).buttons().container().appendTo('#rentalTable_wrapper .col-md-6:eq(0)');
+                    },
 
+                    order: [
+                        [1, 'desc']
+                    ],
+                }).buttons().container().appendTo('#rentalTable_wrapper .col-md-6:eq(0)');
+            }
 
         });
 
@@ -368,7 +403,7 @@
             formData.append("publish_date", publish_date);
             formData.append("_token", _token);
 
-            let url = "{{ route('admin.rentals.add', ['gize_channel_id' => ':gize_channel_id']) }}";
+            let url = "{{ route('admin.manage.rental.add', ['gize_channel_id' => ':gize_channel_id']) }}";
             url = url.replace(':gize_channel_id', "{{ $gize_channel->id }}");
 
 

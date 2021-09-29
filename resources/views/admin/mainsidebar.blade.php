@@ -212,6 +212,13 @@
                                         <p>{{ __('Schedule Calendar') }} </p>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.manage.rental.index', $channel->id) }}"
+                                        class="nav-link {{ request()->is('*admin/manage/rentals/'. $channel->id .'*') ? 'active' : '' }}">
+                                        <i class="far fa fa-calendar-alt nav-icon"></i>
+                                        <p>{{ __('Rental') }} </p>
+                                    </a>
+                                </li>
                                 @endif
 
                             </ul>
