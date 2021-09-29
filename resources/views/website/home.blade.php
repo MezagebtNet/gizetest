@@ -260,7 +260,7 @@
                     e.preventDefault();
                     vidtitle = $(this).attr('vid_title');
                     vidid = $(this).attr('vid_id');
-                    vidid = 7;
+                    // vidid = 7;
                     // alert( $(this).attr('vid_title'));
                     vidduration = $(this).attr('vid_title');
                     vidhost = $(this).attr('vid_host');

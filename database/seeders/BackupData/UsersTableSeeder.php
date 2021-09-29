@@ -2895,7 +2895,68 @@ class UsersTableSeeder extends Seeder
                 // "licence_number"=>null,
                 // "teacher_qualifications"=>null,
                 // "last_login"=>null
+            ],
+            [
+                "id"=>"144",
+                "name"=>"Kalkidan melaku",
+                "email"=>"Kalkidanmelaku799@gmail.com",
+                "email_verified_at"=>null,
+                "password"=>"$2y$10$2iIAUrPf6VxXEN3L\/YajxO1XRszeNuExUGAWz5.9S9fmSGBHBa1dq",
+                "two_factor_secret"=>null,
+                "two_factor_recovery_codes"=>null,
+                "remember_token"=>null,
+                "current_team_id"=>null,
+                "profile_photo_path"=>null,
+                "created_at"=>"2021-09-27 23:07:21",
+                "updated_at"=>"2021-09-27 23:07:21",
+                // "role_id"=>"2",
+                "address"=>"Addis abeba",
+                "phone_number"=>"0947738756",
+                // "licence_number"=>null,
+                // "teacher_qualifications"=>null,
+                // "last_login"=>null
+            ],
+            [
+                "id"=>"145",
+                "name"=>"Getnet Mekonnen",
+                "email"=>"mygetye2000@gmail.com",
+                "email_verified_at"=>null,
+                "password"=>"$2y$10$wx.RWWv\/yLylyV74ZhV16ufPDnGEueMiNx0Tu6aGAaa9KPZOM\/XiS",
+                "two_factor_secret"=>null,
+                "two_factor_recovery_codes"=>null,
+                "remember_token"=>null,
+                "current_team_id"=>null,
+                "profile_photo_path"=>null,
+                "created_at"=>"2021-09-28 18:39:02",
+                "updated_at"=>"2021-09-28 18:39:02",
+                // "role_id"=>"2",
+                "address"=>"Addis Abeba",
+                "phone_number"=>"0912106099",
+                // "licence_number"=>null,
+                // "teacher_qualifications"=>null,
+                // "last_login"=>null
+            ],
+            [
+                "id"=>"146",
+                "name"=>"Tilahun",
+                "email"=>"tilahunyelma@emil.com",
+                "email_verified_at"=>null,
+                "password"=>"$2y$10$if8s2UyQEKUCCYPVmRTRSeu2nR4NV2VKa7yTZNvAbPuY4x0vXT8b2",
+                "two_factor_secret"=>null,
+                "two_factor_recovery_codes"=>null,
+                "remember_token"=>null,
+                "current_team_id"=>null,
+                "profile_photo_path"=>null,
+                "created_at"=>"2021-09-29 06:18:22",
+                "updated_at"=>"2021-09-29 06:19:44",
+                // "role_id"=>"2",
+                "address"=>"Addis abeba",
+                "phone_number"=>"0911307932",
+                // "licence_number"=>null,
+                // "teacher_qualifications"=>null,
+                // "last_login"=>null
             ]
+
 
         ];
 
