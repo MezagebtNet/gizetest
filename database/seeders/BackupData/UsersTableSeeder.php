@@ -2857,7 +2857,8 @@ class UsersTableSeeder extends Seeder
             ],
             [
                 "id"=>"142",
-                "name"=>"Alemseged Negash",
+                "firstname"=>"Alemseged",
+                "lastname"=>"Negash",
                 "email"=>"abity58@gmail.com",
                 "email_verified_at"=>null,
                 "password"=>'$2y$10$Z6idqzXG8HofG9votXH8ZedE7L69v2e.2/XTUpsFw222xVMuYUhde',
@@ -2878,7 +2879,8 @@ class UsersTableSeeder extends Seeder
 
             [
                 "id"=>"143",
-                "name"=>"Yoseph kifle-giorgis",
+                "firstname"=>"Yoseph",
+                "lastname"=>"kifle-giorgis",
                 "email"=>"yosephkg@msn.com",
                 "email_verified_at"=>null,
                 "password"=>'$2y$10$WMEPsXvH.yq2.A9cDWRjmOcBTB0/ZCs/w0yqkiQEqqRCqTogv1XWK',
@@ -2898,7 +2900,8 @@ class UsersTableSeeder extends Seeder
             ],
             [
                 "id"=>"144",
-                "name"=>"Kalkidan melaku",
+                "firstname"=>"Kalkidan",
+                "lastname"=>"melaku",
                 "email"=>"Kalkidanmelaku799@gmail.com",
                 "email_verified_at"=>null,
                 "password"=>'$2y$10$2iIAUrPf6VxXEN3L\/YajxO1XRszeNuExUGAWz5.9S9fmSGBHBa1dq',
@@ -2918,7 +2921,8 @@ class UsersTableSeeder extends Seeder
             ],
             [
                 "id"=>"145",
-                "name"=>"Getnet Mekonnen",
+                "firstname"=>"Getnet",
+                "lastname"=>"Mekonnen",
                 "email"=>"mygetye2000@gmail.com",
                 "email_verified_at"=>null,
                 "password"=>'$2y$10$wx.RWWv\/yLylyV74ZhV16ufPDnGEueMiNx0Tu6aGAaa9KPZOM\/XiS',
@@ -2938,7 +2942,8 @@ class UsersTableSeeder extends Seeder
             ],
             [
                 "id"=>"146",
-                "name"=>"Tilahun",
+                "firstname"=>"Tilahun",
+                "lastname"=>"",
                 "email"=>"tilahunyelma@emil.com",
                 "email_verified_at"=>null,
                 "password"=>'$2y$10$if8s2UyQEKUCCYPVmRTRSeu2nR4NV2VKa7yTZNvAbPuY4x0vXT8b2',
