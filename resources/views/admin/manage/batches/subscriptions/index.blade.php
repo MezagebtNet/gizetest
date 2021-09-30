@@ -94,10 +94,10 @@
                             <div class="col-md-6 mb-3">
                                 {{-- <label for="selectBatch">Batch</label> --}}
                                 <select class="custom-select" id="selectBatch" required>
-                                    <option selected disabled value="">Choose...</option>
+                                    <option selected="selected"  value="">Choose...</option>
                                     @foreach ($batches as $b)
 
-                                        <option value="{{ $b->id }}" @if ($loop->first) selected="selected" @endif>
+                                        <option value="{{ $b->id }}" @if ($loop->first) @endif>
                                             {{ $b->code_name }} ({{ $b->currency }})</option>
 
                                     @endforeach
@@ -910,13 +910,14 @@
 
         $('#btnContinue').on('click', function() {
             batch_id = $('#selectBatch').val();
-
-            let url =
+            if(batch_id!=""){
+                let url =
                 "{{ route('admin.manage.batch.subscription.index', ['gize_channel_id' => ':gize_channel_id', 'batch_id' => ':batch_id']) }}";
-            let gize_channel_id = "{{ $gize_channel->id }}";
-            url = url.replace(':gize_channel_id', gize_channel_id);
-            url = url.replace(':batch_id', batch_id);
-            window.location.replace(url);
+                let gize_channel_id = "{{ $gize_channel->id }}";
+                url = url.replace(':gize_channel_id', gize_channel_id);
+                url = url.replace(':batch_id', batch_id);
+                window.location.replace(url);
+            }
 
         });
 

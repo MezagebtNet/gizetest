@@ -1,251 +1,3041 @@
-$users = User::all();
-        $rentals = $user->channelvideos();
+$slug = 'addmes';
 
-return $rentals
-$users = User::all();
-        $rentals = $user->channelvideos();
+$gize_channel = GizeChannel::where('slug', $slug)->firstOrFail();
+        $user_id = 2;
 
-return $rentals;
-$users = User::all();
-        $rentals = $user->channelvideos()->get();
+        $user_batches = BatchUser::where('user_id', $user_id)
+            ->where('active', 1)
+            ->get()->pluck('batch_id');
 
-return $rentals;
-$users = User::all();
-$rentals = collect([]);
-foreach ($users as $user){
-        $rentals = $rentals->merge($user->channelvideos()->get());
-  
-  
+        $active_batches = Batch::whereIn('id', $user_batches)->where('status', 1);
+        
+        $batches = $active_batches->where('gize_channel_id', $gize_channel->id)->get();
+        $schedules = collect([]);
+
+foreach($batches as $batch){
+	$schedule = Batch::find($batch->id)->first()->channelvideos()->get();
+  	echo $schedule;
+}
+$slug = 'addmes';
+
+$gize_channel = GizeChannel::where('slug', $slug)->firstOrFail();
+        $user_id = 2;
+
+        $user_batches = BatchUser::where('user_id', $user_id)
+            ->where('active', 1)
+            ->get()->pluck('batch_id');
+
+        $active_batches = Batch::whereIn('id', $user_batches)->where('status', 1);
+        
+        $batches = $active_batches->where('gize_channel_id', $gize_channel->id)->get();
+        $schedules = collect([]);
+
+foreach($batches as $batch){
+	$schedule = Batch::find($batch->id)->first()->channelvideos()->get();
+  	$schedules = $schedules->merge($schedule);
 }
 
-return $rentals;
-$user = User::find(2);
+return $schedules;
+$slug = 'addmes';
 
-        $user->channelvideo()->rental_details->last();
-$user = User::find(2);
+$gize_channel = GizeChannel::where('slug', $slug)->firstOrFail();
+        $user_id = 2;
 
-        return $user->channelvideo()->rental_details->last();
-$user = User::find(2);
+        $user_batches = BatchUser::where('user_id', $user_id)
+            ->where('active', 1)
+            ->get()->pluck('batch_id');
 
-        return $user->channelvideos()->rental_details->last();
-$user = User::find(2);
+        $active_batches = Batch::whereIn('id', $user_batches)->where('status', 1);
+        
+        $batches = $active_batches->where('gize_channel_id', $gize_channel->id)->get();
+        $schedules = collect([]);
 
-        return $user->channelvideos()->rental_details;
-$user = User::find(2);
+foreach($batches as $batch){
+	$schedule = Batch::find($batch->id)->first()->channelvideos()->get();
+   	$schedule->start = \Carbon\Carbon::createFromTimestamp(strtotime($schedule->pivot->starts_at))
+                ->timezone(\Config::get('app.timezone'))
+                ->toDateTimeString();
+ 	$schedule->end = \Carbon\Carbon::createFromTimestamp(strtotime($schedule->pivot->ends_at))
+                ->timezone(\Config::get('app.timezone'))
+                ->toDateTimeString();
 
-        return $user->channelvideos()->last()->rental_details;
-$user = User::find(2);
+  	$schedules = $schedules->merge($schedule);
+}
 
-        return $user->channelvideos()->last()->rental_details->get();
-$user = User::find(2);
+return $schedules;
+$slug = 'addmes';
 
-        return $user->channelvideos()->get();
-$user = User::find(2);
+$gize_channel = GizeChannel::where('slug', $slug)->firstOrFail();
+        $user_id = 2;
 
-        return $user->channelvideos()->last()->rental_detail;
-$user = User::find(2);
+        $user_batches = BatchUser::where('user_id', $user_id)
+            ->where('active', 1)
+            ->get()->pluck('batch_id');
 
-        return $user->channelvideos()->last()->rental_detail->get();
-$user = User::find(2);
+        $active_batches = Batch::whereIn('id', $user_batches)->where('status', 1);
+        
+        $batches = $active_batches->where('gize_channel_id', $gize_channel->id)->get();
+        $schedules = collect([]);
 
-        return $user->channelvideos()->rental_detail->get();
-$user = User::find(2);
+foreach($batches as $batch){
+	$schedule = Batch::find($batch->id)->first()->channelvideos();
+   	$schedule->start = \Carbon\Carbon::createFromTimestamp(strtotime($schedule->pivot->starts_at))
+                ->timezone(\Config::get('app.timezone'))
+                ->toDateTimeString();
+ 	$schedule->end = \Carbon\Carbon::createFromTimestamp(strtotime($schedule->pivot->ends_at))
+                ->timezone(\Config::get('app.timezone'))
+                ->toDateTimeString();
 
-        return $user->channelvideos()->first()->rental_detail->get();
-$user = User::find(2);
+  	$schedules = $schedules->merge($schedule);
+}
 
-        return $user->channelvideos()->last()->rental_detail->get();
-$user = User::find(2);
+return $schedules;
+$slug = 'addmes';
 
-        return $user->channelvideos()->first()->rental_detail->get();
-$user = User::find(2);
+$gize_channel = GizeChannel::where('slug', $slug)->firstOrFail();
+        $user_id = 2;
 
-        return $user->channelvideos()->order_by('id', 'desc')->first()->rental_detail->get();
-$user = User::find(2);
+        $user_batches = BatchUser::where('user_id', $user_id)
+            ->where('active', 1)
+            ->get()->pluck('batch_id');
 
-        return $user->channelvideos()->first()->rental_detail->get()->order_by('id', 'desc');
-$user = User::find(2);
+        $active_batches = Batch::whereIn('id', $user_batches)->where('status', 1);
+        
+        $batches = $active_batches->where('gize_channel_id', $gize_channel->id)->get();
+        $schedules = collect([]);
 
-        return $user->channelvideos()->first()->rental_detail->order_by('id', 'desc')->get();
-$user = User::find(2);
+foreach($batches as $batch){
+	$schedule = Batch::find($batch->id)->first()->channelvideos()->first();
+   	$schedule->start = \Carbon\Carbon::createFromTimestamp(strtotime($schedule->pivot->starts_at))
+                ->timezone(\Config::get('app.timezone'))
+                ->toDateTimeString();
+ 	$schedule->end = \Carbon\Carbon::createFromTimestamp(strtotime($schedule->pivot->ends_at))
+                ->timezone(\Config::get('app.timezone'))
+                ->toDateTimeString();
 
-        return $user->channelvideos()->first()->rental_detail->orderBy('id', 'desc')->get();
-$user = User::find(2);
+  	$schedules = $schedules->merge($schedule);
+}
 
-        return $user->channelvideos()->first()->rental_detail->orderBy('id', 'desc')->first();
-User::find(1)
-User::find(2)
-User::find(1)
-User::find(2)
-User::find(2)-chanelvideos()
-User::find(2)->chanelvideos()
-User::find(2)->chanelvideos()->get()
-User::find(2)->get()->chanelvideos()->get()
-User::find(2)->get()->chanelvideos()
-User::find(2)->get()->chanelvideos()
-User::find(2)->chanelvideos()
-User::find(2)->channelvideos()
-User::find(2)->channelvideos()->get()
-User::find(2)->channelvideos(0)->get()
-User::all()
-User::all()->pluck('id')
-User::all()->pluck('id');
+return $schedules;
+$slug = 'addmes';
 
- foreach ($user_ids as $user_id) {
-           echo find($user_id)->channelvideos()->get();
-        }
-User::all()->pluck('id');
+$gize_channel = GizeChannel::where('slug', $slug)->firstOrFail();
+        $user_id = 2;
 
- foreach ($user_ids as $user_id) {
-           echo User::find($user_id)->channelvideos()->get();
-        }
-User::all()->pluck('id');
+        $user_batches = BatchUser::where('user_id', $user_id)
+            ->where('active', 1)
+            ->get()->pluck('batch_id');
 
- foreach ($user_ids as $key=>$user_id) {
-           echo User::find($user_id)->channelvideos()->get();
-        }
-User::all()->pluck('id');
+        $active_batches = Batch::whereIn('id', $user_batches)->where('status', 1);
+        
+        $batches = $active_batches->where('gize_channel_id', $gize_channel->id)->get();
+        $schedules = collect([]);
 
- foreach ($user_ids as $key=>$user_id) {
-           echo User::find($user_id)->channelvideos()->get();
-        }
-User::all()->pluck('id');
+foreach($batches as $batch){
+	$schedule = Batch::find($batch->id)->first()->channelvideos()->get();
+   	$schedule->start = \Carbon\Carbon::createFromTimestamp(strtotime($schedule->pivot->starts_at))
+                ->timezone(\Config::get('app.timezone'))
+                ->toDateTimeString();
+ 	$schedule->end = \Carbon\Carbon::createFromTimestamp(strtotime($schedule->pivot->ends_at))
+                ->timezone(\Config::get('app.timezone'))
+                ->toDateTimeString();
 
- foreach ($user_ids as $user_id) {
-           echo User::find($user_id)->channelvideos()->get();
-        }
-User::all()->pluck('id');
+  	$schedules = $schedules->merge($schedule);
+}
 
- foreach ($user_ids as $user_id) {
-           echo User::find($user_id)->channelvideos()->get();
-        }
-User::all()->pluck('id');
+return $schedules;
+$slug = 'addmes';
 
- foreach ($user_ids as $user_id) {
-                   }
-$users = User::all()->pluck('id');
-foreach ($users as $user) {
-            echo $user->channelvideos()->get()
-        }
-$users = User::all()->pluck('id');
-foreach ($users as $user) {
-            echo $user->channelvideos()->get();
-        }
-$users = User::all();
-foreach ($users as $user) {
-            echo $user->channelvideos()->get();
-        }
-return App\Http\Controllers\ChannelvideoRentalController::index(1);
-$x = new App\Http\Controllers\ChannelvideoRentalController;
-$x->index(1);
-$gize_channel_id = 1;
+$gize_channel = GizeChannel::where('slug', $slug)->firstOrFail();
+        $user_id = 2;
 
-$users = User::all();
-        $rentals = collect([]);
+        $user_batches = BatchUser::where('user_id', $user_id)
+            ->where('active', 1)
+            ->get()->pluck('batch_id');
 
-        $gize_channel = GizeChannel::find($gize_channel_id);
+        $active_batches = Batch::whereIn('id', $user_batches)->where('status', 1);
+        
+        $batches = $active_batches->where('gize_channel_id', $gize_channel->id)->get();
+        $events = collect([]);
+
+foreach($batches as $batch){
+	$video_schedules = Batch::find($batch->id)->first()->channelvideos()->get();
+  	foreach($video_schedules as $event){
+	 	$event->start = \Carbon\Carbon::createFromTimestamp(strtotime($schedule->pivot->starts_at))
+                ->timezone(\Config::get('app.timezone'))
+                ->toDateTimeString();
+		$event->end = \Carbon\Carbon::createFromTimestamp(strtotime($schedule->pivot->ends_at))
+                ->timezone(\Config::get('app.timezone'))
+                ->toDateTimeString();
+	}
+   	
+
+  	$events = $events->merge($event);
+}
+
+return $events;
+$slug = 'addmes';
+
+$gize_channel = GizeChannel::where('slug', $slug)->firstOrFail();
+        $user_id = 2;
+
+        $user_batches = BatchUser::where('user_id', $user_id)
+            ->where('active', 1)
+            ->get()->pluck('batch_id');
+
+        $active_batches = Batch::whereIn('id', $user_batches)->where('status', 1);
+        
+        $batches = $active_batches->where('gize_channel_id', $gize_channel->id)->get();
+        $events = collect([]);
+
+foreach($batches as $batch){
+	$video_schedules = Batch::find($batch->id)->first()->channelvideos();
+  	foreach($video_schedules as $event){
+	 	$event->start = \Carbon\Carbon::createFromTimestamp(strtotime($schedule->pivot->starts_at))
+                ->timezone(\Config::get('app.timezone'))
+                ->toDateTimeString();
+		$event->end = \Carbon\Carbon::createFromTimestamp(strtotime($schedule->pivot->ends_at))
+                ->timezone(\Config::get('app.timezone'))
+                ->toDateTimeString();
+	}
+   	
+
+  	$events = $events->merge($event);
+}
+
+return $events;
+$slug = 'addmes';
+
+$gize_channel = GizeChannel::where('slug', $slug)->firstOrFail();
+        $user_id = 2;
+
+        $user_batches = BatchUser::where('user_id', $user_id)
+            ->where('active', 1)
+            ->get()->pluck('batch_id');
+
+        $active_batches = Batch::whereIn('id', $user_batches)->where('status', 1);
+        
+        $batches = $active_batches->where('gize_channel_id', $gize_channel->id)->get();
+        $events = collect([]);
+
+foreach($batches as $batch){
+	$video_schedules = Batch::find($batch->id)->first()->channelvideos()->toArray();
+  	foreach($video_schedules as $event){
+	 	$event->start = \Carbon\Carbon::createFromTimestamp(strtotime($schedule->pivot->starts_at))
+                ->timezone(\Config::get('app.timezone'))
+                ->toDateTimeString();
+		$event->end = \Carbon\Carbon::createFromTimestamp(strtotime($schedule->pivot->ends_at))
+                ->timezone(\Config::get('app.timezone'))
+                ->toDateTimeString();
+	}
+   	
+
+  	$events = $events->merge($event);
+}
+
+return $events;
+$slug = 'addmes';
+
+$gize_channel = GizeChannel::where('slug', $slug)->firstOrFail();
+        $user_id = 2;
+
+        $user_batches = BatchUser::where('user_id', $user_id)
+            ->where('active', 1)
+            ->get()->pluck('batch_id');
+
+        $active_batches = Batch::whereIn('id', $user_batches)->where('status', 1);
+        
+        $batches = $active_batches->where('gize_channel_id', $gize_channel->id)->get();
+        $events = collect([]);
+
+foreach($batches as $batch){
+	$video_schedules = Batch::find($batch->id)->first()->channelvideos();
+  	foreach($video_schedules as $event){
+	 	$event->first()->start = \Carbon\Carbon::createFromTimestamp(strtotime($schedule->pivot->starts_at))
+                ->timezone(\Config::get('app.timezone'))
+                ->toDateTimeString();
+		$event->first()->end = \Carbon\Carbon::createFromTimestamp(strtotime($schedule->pivot->ends_at))
+                ->timezone(\Config::get('app.timezone'))
+                ->toDateTimeString();
+	}
+   	
+
+  	$events = $events->merge($event);
+}
+
+return $events;
+$slug = 'addmes';
+
+$gize_channel = GizeChannel::where('slug', $slug)->firstOrFail();
+        $user_id = 2;
+
+        $user_batches = BatchUser::where('user_id', $user_id)
+            ->where('active', 1)
+            ->get()->pluck('batch_id');
+
+        $active_batches = Batch::whereIn('id', $user_batches)->where('status', 1);
+        
+
+        $batches = $active_batches->where('gize_channel_id', $gize_channel->id)->get();
+        $events = collect([]);
+
+foreach($batches as $batch){
+	$video_schedules = Batch::find($batch->id)->first()->channelvideos();
+  	foreach($video_schedules as $event){
+	 	$event->first()->start = \Carbon\Carbon::createFromTimestamp(strtotime($schedule->pivot->starts_at))
+                ->timezone(\Config::get('app.timezone'))
+                ->toDateTimeString();
+		$event->first()->end = \Carbon\Carbon::createFromTimestamp(strtotime($schedule->pivot->ends_at))
+                ->timezone(\Config::get('app.timezone'))
+                ->toDateTimeString();
+	}
+   	
+
+  	$events = $events->merge($event);
+}
+
+return $events;
+$slug = 'addmes';
+
+$gize_channel = GizeChannel::where('slug', $slug)->firstOrFail();
+        $user_id = 2;
+
+        $user_batches = BatchUser::where('user_id', $user_id)
+            ->where('active', 1)
+            ->get()->pluck('batch_id');
+
+        $active_batches = Batch::whereIn('id', $user_batches)->where('status', 1);
+        
+
+        $batches = $active_batches->where('gize_channel_id', $gize_channel->id)->get();
+        $events = collect([]);
+
+foreach($batches as $batch){
+	$video_schedules = Batch::find($batch->id)->first()->channelvideos();
+  	foreach($video_schedules as $event){
+	 	$event->start = \Carbon\Carbon::createFromTimestamp(strtotime($event->pivot->starts_at))
+                ->timezone(\Config::get('app.timezone'))
+                ->toDateTimeString();
+		$event->end = \Carbon\Carbon::createFromTimestamp(strtotime($event->pivot->ends_at))
+                ->timezone(\Config::get('app.timezone'))
+                ->toDateTimeString();
+	}
+   	
+
+  	$events = $events->merge($event);
+}
+
+return $events;
+$slug = 'addmes';
+
+$gize_channel = GizeChannel::where('slug', $slug)->firstOrFail();
+        $user_id = 2;
+
+        $user_batches = BatchUser::where('user_id', $user_id)
+            ->where('active', 1)
+            ->get()->pluck('batch_id');
+
+        $active_batches = Batch::whereIn('id', $user_batches)->where('status', 1);
+        
+
+        $batches = $active_batches->where('gize_channel_id', $gize_channel->id)->get();
+        $events = collect([]);
+
+foreach($batches as $batch){
+	$video_schedules = Batch::find($batch->id)->first()->channelvideos();
+  	foreach($video_schedules as $event){
+	 	$event->start = \Carbon\Carbon::createFromTimestamp(strtotime($event->first()->pivot->starts_at))
+                ->timezone(\Config::get('app.timezone'))
+                ->toDateTimeString();
+		$event->end = \Carbon\Carbon::createFromTimestamp(strtotime($event->first()->pivot->ends_at))
+                ->timezone(\Config::get('app.timezone'))
+                ->toDateTimeString();
+	}
+   	
+
+  	$events = $events->merge($event);
+}
+
+return $events;
+$slug = 'addmes';
+
+$gize_channel = GizeChannel::where('slug', $slug)->firstOrFail();
+        $user_id = 2;
+
+        $user_batches = BatchUser::where('user_id', $user_id)
+            ->where('active', 1)
+            ->get()->pluck('batch_id');
+
+        $active_batches = Batch::whereIn('id', $user_batches)->where('status', 1);
+        
+
+        $batches = $active_batches->where('gize_channel_id', $gize_channel->id)->get();
+        $events = collect([]);
+
+foreach($batches as $batch){
+	$video_schedules = Batch::find($batch->id)->first()->channelvideos();
+  	foreach($video_schedules as $event){
+	 	$event->start = \Carbon\Carbon::createFromTimestamp(strtotime($event->pivot->starts_at))
+                ->timezone(\Config::get('app.timezone'))
+                ->toDateTimeString();
+		$event->end = \Carbon\Carbon::createFromTimestamp(strtotime($event->first()->pivot->ends_at))
+                ->timezone(\Config::get('app.timezone'))
+                ->toDateTimeString();
+	}
+   	
+
+  	$events = $events->merge($event);
+}
+
+return $events;
+$slug = 'addmes';
+
+$gize_channel = GizeChannel::where('slug', $slug)->firstOrFail();
+        $user_id = 2;
+
+        $user_batches = BatchUser::where('user_id', $user_id)
+            ->where('active', 1)
+            ->get()->pluck('batch_id');
+
+        $active_batches = Batch::whereIn('id', $user_batches)->where('status', 1);
+        
+
+        $batches = $active_batches->where('gize_channel_id', $gize_channel->id)->get();
+        $events = collect([]);
+
+foreach($batches as $batch){
+	$video_schedules = Batch::find($batch->id)->first()->channelvideos();
+  	foreach($video_schedules as $event){
+	 	$event->start = \Carbon\Carbon::createFromTimestamp(strtotime($event->starts_at))
+                ->timezone(\Config::get('app.timezone'))
+                ->toDateTimeString();
+		$event->end = \Carbon\Carbon::createFromTimestamp(strtotime($event->first()->pivot->ends_at))
+                ->timezone(\Config::get('app.timezone'))
+                ->toDateTimeString();
+	}
+   	
+
+  	$events = $events->merge($event);
+}
+
+return $events;
+$slug = 'addmes';
+
+$gize_channel = GizeChannel::where('slug', $slug)->firstOrFail();
+        $user_id = 2;
+
+        $user_batches = BatchUser::where('user_id', $user_id)
+            ->where('active', 1)
+            ->get()->pluck('batch_id');
+
+        $active_batches = Batch::whereIn('id', $user_batches)->where('status', 1);
+        
+
+        $batches = $active_batches->where('gize_channel_id', $gize_channel->id)->get();
+        $events = collect([]);
+
+foreach($batches as $batch){
+	$video_schedules = Batch::find($batch->id)->first()->channelvideos();
+  	foreach($video_schedules as $event){
+	 	$event->start = \Carbon\Carbon::createFromTimestamp(strtotime($event->starts_at))
+                ->timezone(\Config::get('app.timezone'))
+                ->toDateTimeString();
+		$event->end = \Carbon\Carbon::createFromTimestamp(strtotime($event->first()->ends_at))
+                ->timezone(\Config::get('app.timezone'))
+                ->toDateTimeString();
+	}
+   	
+
+  	$events = $events->merge($event);
+}
+
+return $events;
+$slug = 'addmes';
+
+$gize_channel = GizeChannel::where('slug', $slug)->firstOrFail();
+        $user_id = 2;
+
+        $user_batches = BatchUser::where('user_id', $user_id)
+            ->where('active', 1)
+            ->get()->pluck('batch_id');
+
+        $active_batches = Batch::whereIn('id', $user_batches)->where('status', 1);
+        
+
+        $batches = $active_batches->where('gize_channel_id', $gize_channel->id)->get();
+        $events = collect([]);
+
+foreach($batches as $batch){
+	$video_schedules = Batch::find($batch->id)->first()->channelvideos();
+  	foreach($video_schedules as $event){
+	  dd($event);
+	 	$event->start = \Carbon\Carbon::createFromTimestamp(strtotime($event->starts_at))
+                ->timezone(\Config::get('app.timezone'))
+                ->toDateTimeString();
+		$event->end = \Carbon\Carbon::createFromTimestamp(strtotime($event->first()->ends_at))
+                ->timezone(\Config::get('app.timezone'))
+                ->toDateTimeString();
+	}
+   	
+
+  	$events = $events->merge($event);
+}
+
+return $events;
+$slug = 'addmes';
+
+$gize_channel = GizeChannel::where('slug', $slug)->firstOrFail();
+        $user_id = 2;
+
+        $user_batches = BatchUser::where('user_id', $user_id)
+            ->where('active', 1)
+            ->get()->pluck('batch_id');
+
+        $active_batches = Batch::whereIn('id', $user_batches)->where('status', 1);
+        
+
+        $batches = $active_batches->where('gize_channel_id', $gize_channel->id)->get();
+        $events = collect([]);
+
+foreach($batches as $batch){
+	$video_schedules = Batch::find($batch->id)->first()->channelvideos();
+  	foreach($video_schedules as $event){
+	  echo($event);
+	 	$event->start = \Carbon\Carbon::createFromTimestamp(strtotime($event->starts_at))
+                ->timezone(\Config::get('app.timezone'))
+                ->toDateTimeString();
+		$event->end = \Carbon\Carbon::createFromTimestamp(strtotime($event->first()->ends_at))
+                ->timezone(\Config::get('app.timezone'))
+                ->toDateTimeString();
+	}
+   	
+
+  	$events = $events->merge($event);
+}
+
+return $events;
+$slug = 'addmes';
+
+$gize_channel = GizeChannel::where('slug', $slug)->firstOrFail();
+        $user_id = 2;
+
+        $user_batches = BatchUser::where('user_id', $user_id)
+            ->where('active', 1)
+            ->get()->pluck('batch_id');
+
+        $active_batches = Batch::whereIn('id', $user_batches)->where('status', 1);
+        
+
+        $batches = $active_batches->where('gize_channel_id', $gize_channel->id)->get();
+        $events = collect([]);
+
+foreach($batches as $batch){
+	$video_schedules = Batch::find($batch->id)->first()->channelvideos()->get();
+  	foreach($video_schedules as $event){
+	  echo($event);
+	 	$event->start = \Carbon\Carbon::createFromTimestamp(strtotime($event->starts_at))
+                ->timezone(\Config::get('app.timezone'))
+                ->toDateTimeString();
+		$event->end = \Carbon\Carbon::createFromTimestamp(strtotime($event->first()->ends_at))
+                ->timezone(\Config::get('app.timezone'))
+                ->toDateTimeString();
+	}
+   	
+
+  	$events = $events->merge($event);
+}
+
+return $events;
+$slug = 'addmes';
+
+$gize_channel = GizeChannel::where('slug', $slug)->firstOrFail();
+        $user_id = 2;
+
+        $user_batches = BatchUser::where('user_id', $user_id)
+            ->where('active', 1)
+            ->get()->pluck('batch_id');
+
+        $active_batches = Batch::whereIn('id', $user_batches)->where('status', 1);
+        
+
+        $batches = $active_batches->where('gize_channel_id', $gize_channel->id)->get();
+        $events = collect([]);
+
+foreach($batches as $batch){
+	$video_schedules = Batch::find($batch->id)->first()->channelvideos()->get();
+  	foreach($video_schedules as $event){
+	  
+	 	$event->start = \Carbon\Carbon::createFromTimestamp(strtotime($event->starts_at))
+                ->timezone(\Config::get('app.timezone'))
+                ->toDateTimeString();
+		$event->end = \Carbon\Carbon::createFromTimestamp(strtotime($event->first()->ends_at))
+                ->timezone(\Config::get('app.timezone'))
+                ->toDateTimeString();
+	}
+   	
+
+  	$events = $events->merge($event);
+}
+
+return $events;
+$slug = 'addmes';
+
+$gize_channel = GizeChannel::where('slug', $slug)->firstOrFail();
+        $user_id = 2;
+
+        $user_batches = BatchUser::where('user_id', $user_id)
+            ->where('active', 1)
+            ->get()->pluck('batch_id');
+
+        $active_batches = Batch::whereIn('id', $user_batches)->where('status', 1);
+        
+
+        $batches = $active_batches->where('gize_channel_id', $gize_channel->id)->get();
+        $events = collect([]);
+
+foreach($batches as $batch){
+  echo $batch;
+	$video_schedules = Batch::find($batch->id)->first()->channelvideos()->get();
+  	foreach($video_schedules as $event){
+	  
+	 	$event->start = \Carbon\Carbon::createFromTimestamp(strtotime($event->starts_at))
+                ->timezone(\Config::get('app.timezone'))
+                ->toDateTimeString();
+		$event->end = \Carbon\Carbon::createFromTimestamp(strtotime($event->first()->ends_at))
+                ->timezone(\Config::get('app.timezone'))
+                ->toDateTimeString();
+	}
+   	
+
+  	$events = $events->merge($event);
+}
+
+return $events;
+$slug = 'addmes';
+
+$gize_channel = GizeChannel::where('slug', $slug)->firstOrFail();
+        $user_id = 2;
+
+        $user_batches = BatchUser::where('user_id', $user_id)
+            ->where('active', 1)
+            ->get()->pluck('batch_id');
+
+        $active_batches = Batch::whereIn('id', $user_batches)->where('status', 1);
+        
+
+        $batches = $active_batches->where('gize_channel_id', $gize_channel->id)->get();
+        $events = collect([]);
+
+foreach($batches as $batch){
+  echo $batch;
+	$video_schedules = Batch::find($batch->id)->channelvideos()->get();
+  	foreach($video_schedules as $event){
+	  
+	 	$event->start = \Carbon\Carbon::createFromTimestamp(strtotime($event->starts_at))
+                ->timezone(\Config::get('app.timezone'))
+                ->toDateTimeString();
+		$event->end = \Carbon\Carbon::createFromTimestamp(strtotime($event->first()->ends_at))
+                ->timezone(\Config::get('app.timezone'))
+                ->toDateTimeString();
+	}
+   	
+
+  	$events = $events->merge($event);
+}
+
+return $events;
+$slug = 'addmes';
+
+$gize_channel = GizeChannel::where('slug', $slug)->firstOrFail();
+        $user_id = 2;
+
+        $user_batches = BatchUser::where('user_id', $user_id)
+            ->where('active', 1)
+            ->get()->pluck('batch_id');
+
+        $active_batches = Batch::whereIn('id', $user_batches)->where('status', 1);
+        
+
+        $batches = $active_batches->where('gize_channel_id', $gize_channel->id)->get();
+        $events = collect([]);
+
+foreach($batches as $batch){
+  	$video_schedules = Batch::find($batch->id)->channelvideos()->get();
+  	foreach($video_schedules as $event){
+	  
+	 	$event->start = \Carbon\Carbon::createFromTimestamp(strtotime($event->starts_at))
+                ->timezone(\Config::get('app.timezone'))
+                ->toDateTimeString();
+		$event->end = \Carbon\Carbon::createFromTimestamp(strtotime($event->first()->ends_at))
+                ->timezone(\Config::get('app.timezone'))
+                ->toDateTimeString();
+	}
+   	
+
+  	$events = $events->merge($event);
+}
+
+return $events;
+$slug = 'addmes';
+
+$gize_channel = GizeChannel::where('slug', $slug)->firstOrFail();
+        $user_id = 2;
+
+        $user_batches = BatchUser::where('user_id', $user_id)
+            ->where('active', 1)
+            ->get()->pluck('batch_id');
+
+        $active_batches = Batch::whereIn('id', $user_batches)->where('status', 1);
+        
+
+        $batches = $active_batches->where('gize_channel_id', $gize_channel->id)->get();
+        $events = collect([]);
+
+foreach($batches as $batch){
+  	$video_schedules = Batch::find($batch->id)->channelvideos()->get();
+  	foreach($video_schedules as $event){
+	  
+	 	$event->start = \Carbon\Carbon::createFromTimestamp(strtotime($event->starts_at))
+                ->timezone(\Config::get('app.timezone'))
+                ->toDateTimeString();
+		$event->end = \Carbon\Carbon::createFromTimestamp(strtotime($event->ends_at))
+                ->timezone(\Config::get('app.timezone'))
+                ->toDateTimeString();
+	}
+   	
+
+  	$events = $events->merge($event);
+}
+
+return $events;
+$slug = 'addmes';
+
+$gize_channel = GizeChannel::where('slug', $slug)->firstOrFail();
+        $user_id = 2;
+
+        $user_batches = BatchUser::where('user_id', $user_id)
+            ->where('active', 1)
+            ->get()->pluck('batch_id');
+
+        $active_batches = Batch::whereIn('id', $user_batches)->where('status', 1);
+        
+
+        $batches = $active_batches->where('gize_channel_id', $gize_channel->id)->get();
+        $events = collect([]);
+
+foreach($batches as $batch){
+  	$video_schedules = Batch::find($batch->id)->channelvideos()->get();
+  	
+   	
+
+  	$events = $events->merge($event);
+}
+
+return $events;
+$slug = 'addmes';
+
+$gize_channel = GizeChannel::where('slug', $slug)->firstOrFail();
+        $user_id = 2;
+
+        $user_batches = BatchUser::where('user_id', $user_id)
+            ->where('active', 1)
+            ->get()->pluck('batch_id');
+
+        $active_batches = Batch::whereIn('id', $user_batches)->where('status', 1);
+        
+
+        $batches = $active_batches->where('gize_channel_id', $gize_channel->id)->get();
+        $events = collect([]);
+
+foreach($batches as $batch){
+  	$video_schedules = Batch::find($batch->id)->channelvideos()->get();
+  	
+  $event = $video_schedules;
+   	
+
+  	$events = $events->merge($event);
+}
+
+return $events;
+$gize_channel = 1;
+		$batch_id = 1;
+        abort_if(!$gize_channel->isPermittedEditor(\Auth::user()), Response::HTTP_FORBIDDEN, 'Forbidden');
+
+
+        $batches = Batch::
+            where('gize_channel_id', $gize_channel_id)
+            ->whereIn('status', [1, 2])             ->orderBy('id', 'DESC')->get();
+
+        $batch = null;
+        $schedules = collect([]);
+
+        if (isset($batch_id)) {
+            $batch = Batch::where('gize_channel_id', $gize_channel_id)
+                ->where('id', $batch_id)->get();
+
+
+            $schedules = Batch::find($batch_id)->first()->channelvideos()
+                ->wherePivot('batch_id', $batch_id)
+                ->where('gize_channel_id', $gize_channel_id)->get();
+            foreach($schedules as $schedule){
+                                $schedule->start = $schedule->pivot->starts_at;                 $schedule->end = $schedule->pivot->ends_at; 
+            }
+                        $batch = $batch[0];
+
+        }   
+
+                                        
+                                $events = $schedules->toArray();
 
         $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
-
         foreach ($channelvideos as $vid) {
             $vid->text = $vid->title;
         }
 
+        $channelvideos = $channelvideos->toArray();
+$gize_channel = 1;
+		$batch_id = 1;
 
-        foreach ($users as $user) {
 
-            $rentalUser = $user->channelvideos()->where('gize_channel_id', $gize_channel_id)->get();
 
-            $rentals = $rentals->merge($rentalUser);
+        $batches = Batch::
+            where('gize_channel_id', $gize_channel_id)
+            ->whereIn('status', [1, 2])             ->orderBy('id', 'DESC')->get();
 
-        }
-return $rentals;
-$gize_channel_id = 1;
+        $batch = null;
+        $schedules = collect([]);
 
-$users = User::all();
-        $rentals = collect([]);
+        if (isset($batch_id)) {
+            $batch = Batch::where('gize_channel_id', $gize_channel_id)
+                ->where('id', $batch_id)->get();
 
-        $gize_channel = GizeChannel::find($gize_channel_id);
+
+            $schedules = Batch::find($batch_id)->first()->channelvideos()
+                ->wherePivot('batch_id', $batch_id)
+                ->where('gize_channel_id', $gize_channel_id)->get();
+            foreach($schedules as $schedule){
+                                $schedule->start = $schedule->pivot->starts_at;                 $schedule->end = $schedule->pivot->ends_at; 
+            }
+                        $batch = $batch[0];
+
+        }   
+
+                                        
+                                $events = $schedules->toArray();
 
         $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
-
         foreach ($channelvideos as $vid) {
             $vid->text = $vid->title;
         }
 
+        $channelvideos = $channelvideos->toArray();
+$gize_channel = 1;
+		$batch_id = 1;
 
-        foreach ($users as $user) {
 
-            $rentalUser = $user->channelvideos()->where('gize_channel_id', $gize_channel_id)->get();
 
-            $rentals = $rentals->merge($rentalUser);
+        $batches = Batch::
+            where('gize_channel_id', $gize_channel_id)
+            ->whereIn('status', [1, 2])             ->orderBy('id', 'DESC')->get();
 
-        }
-return $rentals[0];
-$gize_channel_id = 1;
+        $batch = null;
+        $schedules = collect([]);
 
-$users = User::all();
-        $rentals = collect([]);
+        if (isset($batch_id)) {
+            $batch = Batch::where('gize_channel_id', $gize_channel_id)
+                ->where('id', $batch_id)->get();
 
-        $gize_channel = GizeChannel::find($gize_channel_id);
+
+            $schedules = Batch::find($batch_id)->first()->channelvideos()
+                ->wherePivot('batch_id', $batch_id)
+                ->where('gize_channel_id', $gize_channel_id)->get();
+            foreach($schedules as $schedule){
+                                $schedule->start = $schedule->pivot->starts_at;                 $schedule->end = $schedule->pivot->ends_at; 
+            }
+                        $batch = $batch[0];
+
+        }   
+
+                                        
+                                $events = $schedules->toArray();
 
         $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
-
         foreach ($channelvideos as $vid) {
             $vid->text = $vid->title;
         }
 
+        $channelvideos = $channelvideos->toArray();
 
-        foreach ($users as $user) {
 
-            $rentalUser = $user->channelvideos()->where('gize_channel_id', $gize_channel_id)->get();
+return $events;
+$gize_channel = 1;
+		$batch_id = 1;
 
-            $rentals = $rentals->merge($rentalUser);
 
-        }
-return $rentals[0]->rental_detail;
-$gize_channel_id = 1;
 
-$users = User::all();
-        $rentals = collect([]);
+        $batches = Batch::
+            where('gize_channel_id', $gize_channel_id)
+            ->whereIn('status', [1, 2])             ->orderBy('id', 'DESC')->get();
 
-        $gize_channel = GizeChannel::find($gize_channel_id);
+        $batch = null;
+        $schedules = collect([]);
+
+        if (isset($batch_id)) {
+            $batch = Batch::where('gize_channel_id', $gize_channel_id)
+                ->where('id', $batch_id)->get();
+
+
+            $schedules = Batch::find($batch_id)->first()->channelvideos()
+                ->wherePivot('batch_id', $batch_id)
+                ->where('gize_channel_id', $gize_channel_id)->get();
+            foreach($schedules as $schedule){
+                                $schedule->start = $schedule->pivot->starts_at; 
+			  
+                $schedule->end = $schedule->pivot->ends_at; 
+
+            }
+                        $batch = $batch[0];
+
+        }   
+
+        $events = $schedules->toArray();
 
         $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
-
         foreach ($channelvideos as $vid) {
             $vid->text = $vid->title;
         }
 
+        $channelvideos = $channelvideos->toArray();
 
-        foreach ($users as $user) {
 
-            $rentalUser = $user->channelvideos()->where('gize_channel_id', $gize_channel_id)->get();
+return $batch;
+$gize_channel = 1;
+		$batch_id = 1;
 
-            $rentals = $rentals->merge($rentalUser);
 
-        }
-return $rentals[0]->rental_detail->id;
-$gize_channel_id = 1;
 
-$users = User::all();
-        $rentals = collect([]);
+        $batches = Batch::
+            where('gize_channel_id', $gize_channel_id)
+            ->whereIn('status', [1, 2])             ->orderBy('id', 'DESC')->get();
 
-        $gize_channel = GizeChannel::find($gize_channel_id);
+        $batch = null;
+        $schedules = collect([]);
+
+        if (isset($batch_id)) {
+		  echo 'here';
+            $batch = Batch::where('gize_channel_id', $gize_channel_id)
+                ->where('id', $batch_id)->get();
+
+
+            $schedules = Batch::find($batch_id)->first()->channelvideos()
+                ->wherePivot('batch_id', $batch_id)
+                ->where('gize_channel_id', $gize_channel_id)->get();
+            foreach($schedules as $schedule){
+                                $schedule->start = $schedule->pivot->starts_at; 
+			  
+                $schedule->end = $schedule->pivot->ends_at; 
+
+            }
+                        $batch = $batch[0];
+
+        }   
+
+        $events = $schedules->toArray();
 
         $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
-
         foreach ($channelvideos as $vid) {
             $vid->text = $vid->title;
         }
 
+        $channelvideos = $channelvideos->toArray();
 
-        foreach ($users as $user) {
 
-            $rentalUser = $user->channelvideos()->where('gize_channel_id', $gize_channel_id)->get();
+return $batch;
+$gize_channel = 1;
+		
 
-            $rentals = $rentals->merge($rentalUser);
 
+        $batches = Batch::
+            where('gize_channel_id', $gize_channel_id)
+            ->whereIn('status', [1, 2])             ->orderBy('id', 'DESC')->get();
+
+        $batch = null;
+        $schedules = collect([]);
+
+        if (isset($batch_id)) {
+		  echo 'here';
+            $batch = Batch::where('gize_channel_id', $gize_channel_id)
+                ->where('id', $batch_id)->get();
+
+
+            $schedules = Batch::find($batch_id)->first()->channelvideos()
+                ->wherePivot('batch_id', $batch_id)
+                ->where('gize_channel_id', $gize_channel_id)->get();
+            foreach($schedules as $schedule){
+                                $schedule->start = $schedule->pivot->starts_at; 
+			  
+                $schedule->end = $schedule->pivot->ends_at; 
+
+            }
+                        $batch = $batch[0];
+
+        }   
+
+        $events = $schedules->toArray();
+
+        $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
+        foreach ($channelvideos as $vid) {
+            $vid->text = $vid->title;
         }
-return $rentals;
-return $rentals[0]->rental_detail->id;
+
+        $channelvideos = $channelvideos->toArray();
+
+
+return $batch;
+$gize_channel = 1;
+		$batch_id = 1;
+
+
+
+        $batches = Batch::
+            where('gize_channel_id', $gize_channel_id)
+            ->whereIn('status', [1, 2])             ->orderBy('id', 'DESC')->get();
+
+        $batch = null;
+        $schedules = collect([]);
+
+        if (isset($batch_id)) {
+		  echo 'here';
+            $batch = Batch::where('gize_channel_id', $gize_channel_id)
+                ->where('id', $batch_id)->get();
+
+
+            $schedules = Batch::find($batch_id)->first()->channelvideos()
+                ->wherePivot('batch_id', $batch_id)
+                ->where('gize_channel_id', $gize_channel_id)->get();
+            foreach($schedules as $schedule){
+                                $schedule->start = $schedule->pivot->starts_at; 
+			  
+                $schedule->end = $schedule->pivot->ends_at; 
+
+            }
+                        $batch = $batch[0];
+
+        }   
+
+        $events = $schedules->toArray();
+
+        $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
+        foreach ($channelvideos as $vid) {
+            $vid->text = $vid->title;
+        }
+
+        $channelvideos = $channelvideos->toArray();
+
+
+return $channelvideos;
+$gize_channel = 1;
+		$batch_id = 1;
+
+
+
+        $batches = Batch::
+            where('gize_channel_id', $gize_channel_id)
+            ->whereIn('status', [1, 2])             ->orderBy('id', 'DESC')->get();
+
+        $batch = null;
+        $schedules = collect([]);
+
+        if (isset($batch_id)) {
+            $batch = Batch::where('gize_channel_id', $gize_channel_id)
+                ->where('id', $batch_id)->get();
+
+		  echo $batch;
+            $schedules = Batch::find($batch_id)->first()->channelvideos()
+                ->wherePivot('batch_id', $batch_id)
+                ->where('gize_channel_id', $gize_channel_id)->get();
+            foreach($schedules as $schedule){
+                                $schedule->start = $schedule->pivot->starts_at; 
+			  
+                $schedule->end = $schedule->pivot->ends_at; 
+
+            }
+                        $batch = $batch[0];
+
+        }   
+
+        $events = $schedules->toArray();
+
+        $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
+        foreach ($channelvideos as $vid) {
+            $vid->text = $vid->title;
+        }
+
+        $channelvideos = $channelvideos->toArray();
+
+
+return $channelvideos;
+$gize_channel = 1;
+		$batch_id = 1;
+
+
+
+        $batches = Batch::
+            where('gize_channel_id', $gize_channel_id)
+            ->whereIn('status', [1, 2])             ->orderBy('id', 'DESC')->get();
+
+        $batch = null;
+        $schedules = collect([]);
+
+        if (isset($batch_id)) {
+            $batch = Batch::where('gize_channel_id', $gize_channel_id)
+                ->where('id', $batch_id)->get();
+
+		  	return $batch_id;
+		  
+            $schedules = Batch::find($batch_id)->first()->channelvideos()
+                ->wherePivot('batch_id', $batch_id)
+                ->where('gize_channel_id', $gize_channel_id)->get();
+		  
+            foreach($schedules as $schedule){
+                                $schedule->start = $schedule->pivot->starts_at; 
+			  
+                $schedule->end = $schedule->pivot->ends_at; 
+
+            }
+                        $batch = $batch[0];
+
+        }   
+
+        $events = $schedules->toArray();
+
+        $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
+        foreach ($channelvideos as $vid) {
+            $vid->text = $vid->title;
+        }
+
+        $channelvideos = $channelvideos->toArray();
+
+
+return $channelvideos;
+$gize_channel = 1;
+		$batch_id = 1;
+
+
+
+        $batches = Batch::
+            where('gize_channel_id', $gize_channel_id)
+            ->whereIn('status', [1, 2])             ->orderBy('id', 'DESC')->get();
+
+        $batch = null;
+        $schedules = collect([]);
+
+        if (isset($batch_id)) {
+            $batch = Batch::where('gize_channel_id', $gize_channel_id)
+                ->where('id', $batch_id)->get();
+
+		  
+            $schedules = Batch::find($batch_id)->first()->channelvideos()
+                ->wherePivot('batch_id', $batch_id)
+                ->where('gize_channel_id', $gize_channel_id)->get();
+			
+		    return $schedules;
+
+            foreach($schedules as $schedule){
+                                $schedule->start = $schedule->pivot->starts_at; 
+			  
+                $schedule->end = $schedule->pivot->ends_at; 
+
+            }
+                        $batch = $batch[0];
+
+        }   
+
+        $events = $schedules->toArray();
+
+        $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
+        foreach ($channelvideos as $vid) {
+            $vid->text = $vid->title;
+        }
+
+        $channelvideos = $channelvideos->toArray();
+
+
+return $channelvideos;
+$gize_channel = 1;
+		$batch_id = 2;
+
+
+
+        $batches = Batch::
+            where('gize_channel_id', $gize_channel_id)
+            ->whereIn('status', [1, 2])             ->orderBy('id', 'DESC')->get();
+
+        $batch = null;
+        $schedules = collect([]);
+
+        if (isset($batch_id)) {
+            $batch = Batch::where('gize_channel_id', $gize_channel_id)
+                ->where('id', $batch_id)->get();
+
+		  
+            $schedules = Batch::find($batch_id)->first()->channelvideos()
+                ->wherePivot('batch_id', $batch_id)
+                ->where('gize_channel_id', $gize_channel_id)->get();
+			
+		    return $schedules;
+
+            foreach($schedules as $schedule){
+                                $schedule->start = $schedule->pivot->starts_at; 
+			  
+                $schedule->end = $schedule->pivot->ends_at; 
+
+            }
+                        $batch = $batch[0];
+
+        }   
+
+        $events = $schedules->toArray();
+
+        $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
+        foreach ($channelvideos as $vid) {
+            $vid->text = $vid->title;
+        }
+
+        $channelvideos = $channelvideos->toArray();
+
+
+return $channelvideos;
+$gize_channel = 1;
+		$batch_id = 2;
+
+
+
+        $batches = Batch::
+            where('gize_channel_id', $gize_channel_id)
+            ->whereIn('status', [1, 2])             ->orderBy('id', 'DESC')->get();
+
+        $batch = null;
+        $schedules = collect([]);
+
+        if (isset($batch_id)) {
+            $batch = Batch::where('gize_channel_id', $gize_channel_id)
+                ->where('id', $batch_id)->get();
+
+		  
+            $schedules = Batch::find($batch_id)->first()->channelvideos()
+                ->wherePivot('batch_id', $batch_id)
+                ->where('gize_channel_id', $gize_channel_id)->get();
+			
+		    return $schedules;
+
+            foreach($schedules as $schedule){
+                                $schedule->start = $schedule->pivot->starts_at; 
+			  
+                $schedule->end = $schedule->pivot->ends_at; 
+
+            }
+                        $batch = $batch[0];
+
+        }   
+
+        $events = $schedules->toArray();
+
+        $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
+        foreach ($channelvideos as $vid) {
+            $vid->text = $vid->title;
+        }
+
+        $channelvideos = $channelvideos->toArray();
+
+
+return $channelvideos;
+$gize_channel = 1;
+		$batch_id = 2;
+
+
+
+        $batches = Batch::
+            where('gize_channel_id', $gize_channel_id)
+            ->whereIn('status', [1, 2])             ->orderBy('id', 'DESC')->get();
+
+        $batch = null;
+        $schedules = collect([]);
+
+        if (isset($batch_id)) {
+            $batch = Batch::where('gize_channel_id', $gize_channel_id)
+                ->where('id', $batch_id)->get();
+
+		  
+            $schedules = Batch::find($batch_id)->channelvideos()
+                ->wherePivot('batch_id', $batch_id)
+                ->where('gize_channel_id', $gize_channel_id)->get();
+			
+		    return $schedules;
+
+            foreach($schedules as $schedule){
+                                $schedule->start = $schedule->pivot->starts_at; 
+			  
+                $schedule->end = $schedule->pivot->ends_at; 
+
+            }
+                        $batch = $batch[0];
+
+        }   
+
+        $events = $schedules->toArray();
+
+        $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
+        foreach ($channelvideos as $vid) {
+            $vid->text = $vid->title;
+        }
+
+        $channelvideos = $channelvideos->toArray();
+
+
+return $channelvideos;
+$gize_channel = 1;
+		$batch_id = 2;
+
+
+
+        $batches = Batch::
+            where('gize_channel_id', $gize_channel_id)
+            ->whereIn('status', [1, 2])             ->orderBy('id', 'DESC')->get();
+
+        $batch = null;
+        $schedules = collect([]);
+
+        if (isset($batch_id)) {
+            $batch = Batch::where('gize_channel_id', $gize_channel_id)
+                ->where('id', $batch_id)->get();
+
+		  
+            $schedules = Batch::find($batch_id)->channelvideos()
+                ->where('gize_channel_id', $gize_channel_id)->get();
+			
+		    return $schedules;
+
+            foreach($schedules as $schedule){
+                                $schedule->start = $schedule->pivot->starts_at; 
+			  
+                $schedule->end = $schedule->pivot->ends_at; 
+
+            }
+                        $batch = $batch[0];
+
+        }   
+
+        $events = $schedules->toArray();
+
+        $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
+        foreach ($channelvideos as $vid) {
+            $vid->text = $vid->title;
+        }
+
+        $channelvideos = $channelvideos->toArray();
+
+
+return $channelvideos;
+$gize_channel = 1;
+		$batch_id = 2;
+
+
+
+        $batches = Batch::
+            where('gize_channel_id', $gize_channel_id)
+            ->whereIn('status', [1, 2])             ->orderBy('id', 'DESC')->get();
+
+        $batch = null;
+        $schedules = collect([]);
+
+        if (isset($batch_id)) {
+            $batch = Batch::where('gize_channel_id', $gize_channel_id)
+                ->where('id', $batch_id)->get();
+
+		  
+            $schedules = BatchChannelvideo::where('batch_id', $batch_id)
+                ->where('gize_channel_id', $gize_channel_id)->get();
+			
+		    return $schedules;
+
+            foreach($schedules as $schedule){
+                                $schedule->start = $schedule->pivot->starts_at; 
+			  
+                $schedule->end = $schedule->pivot->ends_at; 
+
+            }
+                        $batch = $batch[0];
+
+        }   
+
+        $events = $schedules->toArray();
+
+        $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
+        foreach ($channelvideos as $vid) {
+            $vid->text = $vid->title;
+        }
+
+        $channelvideos = $channelvideos->toArray();
+
+
+return $channelvideos;
+$gize_channel = 1;
+		$batch_id = 2;
+$gize_channel_id = 1;
+
+
+
+        $batches = Batch::
+            where('gize_channel_id', $gize_channel_id)
+            ->whereIn('status', [1, 2])             ->orderBy('id', 'DESC')->get();
+
+        $batch = null;
+        $schedules = collect([]);
+
+        if (isset($batch_id)) {
+            $batch = Batch::where('gize_channel_id', $gize_channel_id)
+                ->where('id', $batch_id)->get();
+
+		  
+            $schedules = BatchChannelvideo::where('batch_id', $batch_id)
+                ->where('gize_channel_id', $gize_channel_id)->get();
+			
+		    return $schedules;
+
+            foreach($schedules as $schedule){
+                                $schedule->start = $schedule->pivot->starts_at; 
+			  
+                $schedule->end = $schedule->pivot->ends_at; 
+
+            }
+                        $batch = $batch[0];
+
+        }   
+
+        $events = $schedules->toArray();
+
+        $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
+        foreach ($channelvideos as $vid) {
+            $vid->text = $vid->title;
+        }
+
+        $channelvideos = $channelvideos->toArray();
+
+
+return $channelvideos;
+$gize_channel = 1;
+		$batch_id = 2;
+$gize_channel_id = 1;
+
+
+
+        $batches = Batch::
+            where('gize_channel_id', $gize_channel_id)
+            ->whereIn('status', [1, 2])             ->orderBy('id', 'DESC')->get();
+
+        $batch = null;
+        $schedules = collect([]);
+
+        if (isset($batch_id)) {
+		  	$channelvideos = Channelvideo::where('active', 1)->get()->pluck('id');
+            $batch = Batch::whereIn('channelvideo_id', $channelvideos)
+                ->where('id', $batch_id)->get();
+
+		  
+            $schedules = BatchChannelvideo::where('batch_id', $batch_id)
+                ->where('gize_channel_id', $gize_channel_id)->get();
+			
+		    return $schedules;
+
+            foreach($schedules as $schedule){
+                                $schedule->start = $schedule->pivot->starts_at; 
+			  
+                $schedule->end = $schedule->pivot->ends_at; 
+
+            }
+                        $batch = $batch[0];
+
+        }   
+
+        $events = $schedules->toArray();
+
+        $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
+        foreach ($channelvideos as $vid) {
+            $vid->text = $vid->title;
+        }
+
+        $channelvideos = $channelvideos->toArray();
+
+
+return $channelvideos;
+$gize_channel = 1;
+		$batch_id = 2;
+$gize_channel_id = 1;
+
+
+
+        $batches = Batch::
+            where('gize_channel_id', $gize_channel_id)
+            ->whereIn('status', [1, 2])             ->orderBy('id', 'DESC')->get();
+
+        $batch = null;
+        $schedules = collect([]);
+
+        if (isset($batch_id)) {
+		  	$channelvideos = Channelvideo::where('active', 1)->get()->pluck('id');
+            $batch = Batch::whereIn('channelvideo_id', $channelvideos)
+                ->where('id', $batch_id)->get();
+
+		  
+            $schedules = BatchChannelvideo::where('batch_id', $batch_id)
+                ->where('gize_channel_id', $gize_channel_id)->get();
+			
+		    return $schedules;
+
+            foreach($schedules as $schedule){
+                                $schedule->start = $schedule->pivot->starts_at; 
+			  
+                $schedule->end = $schedule->pivot->ends_at; 
+
+            }
+                        $batch = $batch[0];
+
+        }   
+
+        $events = $schedules->toArray();
+
+        $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
+        foreach ($channelvideos as $vid) {
+            $vid->text = $vid->title;
+        }
+
+        $channelvideos = $channelvideos->toArray();
+
+
+return $channelvideos;
+$gize_channel = 1;
+		$batch_id = 2;
+$gize_channel_id = 1;
+
+
+
+        $batches = Batch::
+            where('gize_channel_id', $gize_channel_id)
+            ->whereIn('status', [1, 2])             ->orderBy('id', 'DESC')->get();
+
+        $batch = null;
+        $schedules = collect([]);
+
+        if (isset($batch_id)) {
+		  	$channelvideos = Channelvideo::where('active', 1)->get()->pluck('id');
+            $batch = Batch::whereIn('channelvideo_id', $channelvideos)
+                ->where('id', $batch_id)->get();
+
+		  
+            $schedules = BatchChannelvideo::where('batch_id', $batch_id)
+                ->where('gize_channel_id', $gize_channel_id)->get();
+			
+		    return $schedules;
+
+            foreach($schedules as $schedule){
+                                $schedule->start = $schedule->pivot->starts_at; 
+			  
+                $schedule->end = $schedule->pivot->ends_at; 
+
+            }
+                        $batch = $batch[0];
+
+        }   
+
+        $events = $schedules->toArray();
+
+        $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
+        foreach ($channelvideos as $vid) {
+            $vid->text = $vid->title;
+        }
+
+        $channelvideos = $channelvideos->toArray();
+
+
+return $channelvideos;
+$gize_channel = 1;
+		$batch_id = 2;
+$gize_channel_id = 1;
+
+
+
+        $batches = Batch::
+            where('gize_channel_id', $gize_channel_id)
+            ->whereIn('status', [1, 2])             ->orderBy('id', 'DESC')->get();
+
+        $batch = null;
+        $schedules = collect([]);
+
+        if (isset($batch_id)) {
+		  	$channelvideos = Channelvideo::where('active', 1)->pluck('id');
+            $batch = Batch::whereIn('channelvideo_id', $channelvideos)
+                ->where('id', $batch_id)->get();
+
+		  
+            $schedules = BatchChannelvideo::where('batch_id', $batch_id)
+                ->where('gize_channel_id', $gize_channel_id)->get();
+			
+		    return $schedules;
+
+            foreach($schedules as $schedule){
+                                $schedule->start = $schedule->pivot->starts_at; 
+			  
+                $schedule->end = $schedule->pivot->ends_at; 
+
+            }
+                        $batch = $batch[0];
+
+        }   
+
+        $events = $schedules->toArray();
+
+        $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
+        foreach ($channelvideos as $vid) {
+            $vid->text = $vid->title;
+        }
+
+        $channelvideos = $channelvideos->toArray();
+
+
+return $channelvideos;
+$gize_channel = 1;
+		$batch_id = 2;
+$gize_channel_id = 1;
+
+
+
+        $batches = Batch::
+            where('gize_channel_id', $gize_channel_id)
+            ->whereIn('status', [1, 2])             ->orderBy('id', 'DESC')->get();
+
+        $batch = null;
+        $schedules = collect([]);
+
+        if (isset($batch_id)) {
+		  	$channelvideos = Channelvideo::where('active', 1)->get()->pluck('id');
+            $batch = Batch::whereIn('channelvideo_id', $channelvideos)
+                ->where('id', $batch_id)->get();
+
+		  	
+            $schedules = BatchChannelvideo::where('batch_id', $batch_id)
+                ->where('gize_channel_id', $gize_channel_id)->get();
+			
+		    return $channelvideos;
+
+            foreach($schedules as $schedule){
+                                $schedule->start = $schedule->pivot->starts_at; 
+			  
+                $schedule->end = $schedule->pivot->ends_at; 
+
+            }
+                        $batch = $batch[0];
+
+        }   
+
+        $events = $schedules->toArray();
+
+        $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
+        foreach ($channelvideos as $vid) {
+            $vid->text = $vid->title;
+        }
+
+        $channelvideos = $channelvideos->toArray();
+
+
+return $channelvideos;
+$gize_channel = 1;
+		$batch_id = 2;
+$gize_channel_id = 1;
+
+
+
+        $batches = Batch::
+            where('gize_channel_id', $gize_channel_id)
+            ->whereIn('status', [1, 2])             ->orderBy('id', 'DESC')->get();
+
+        $batch = null;
+        $schedules = collect([]);
+
+        if (isset($batch_id)) {
+		  	$channelvideos = Channelvideo::where('active', 1)->get()->pluck('id');
+            $batch = Batch::whereIn('channelvideo_id', $channelvideos)
+                ->where('id', $batch_id)->get();
+
+		  	
+            $schedules = BatchChannelvideo::where('batch_id', $batch_id)
+                ->where('gize_channel_id', $gize_channel_id)->get();
+			
+		    return $channelvideos;
+
+            foreach($schedules as $schedule){
+                                $schedule->start = $schedule->pivot->starts_at; 
+			  
+                $schedule->end = $schedule->pivot->ends_at; 
+
+            }
+                        $batch = $batch[0];
+
+        }   
+
+        $events = $schedules->toArray();
+
+        $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
+        foreach ($channelvideos as $vid) {
+            $vid->text = $vid->title;
+        }
+
+        $channelvideos = $channelvideos->toArray();
+
+
+return $channelvideos;
+$gize_channel = 1;
+		$batch_id = 2;
+$gize_channel_id = 1;
+
+
+
+        $batches = Batch::
+            where('gize_channel_id', $gize_channel_id)
+            ->whereIn('status', [1, 2])             ->orderBy('id', 'DESC')->get();
+
+        $batch = null;
+        $schedules = collect([]);
+
+        if (isset($batch_id)) {
+		  	$channelvideos = Channelvideo::where('active', 1)->get();
+            $batch = Batch::whereIn('channelvideo_id', $channelvideos)
+                ->where('id', $batch_id)->get();
+
+		  	
+            $schedules = BatchChannelvideo::where('batch_id', $batch_id)
+                ->where('gize_channel_id', $gize_channel_id)->get();
+			
+		    return $channelvideos;
+
+            foreach($schedules as $schedule){
+                                $schedule->start = $schedule->pivot->starts_at; 
+			  
+                $schedule->end = $schedule->pivot->ends_at; 
+
+            }
+                        $batch = $batch[0];
+
+        }   
+
+        $events = $schedules->toArray();
+
+        $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
+        foreach ($channelvideos as $vid) {
+            $vid->text = $vid->title;
+        }
+
+        $channelvideos = $channelvideos->toArray();
+
+
+return $channelvideos;
+$gize_channel = 1;
+		$batch_id = 2;
+$gize_channel_id = 1;
+
+
+
+        $batches = Batch::
+            where('gize_channel_id', $gize_channel_id)
+            ->whereIn('status', [1, 2])             ->orderBy('id', 'DESC')->get();
+
+        $batch = null;
+        $schedules = collect([]);
+
+        if (isset($batch_id)) {
+		  	return $channelvideos = Channelvideo::where('active', 1)->get();
+            $batch = Batch::whereIn('channelvideo_id', $channelvideos)
+                ->where('id', $batch_id)->get();
+
+		  	
+            $schedules = BatchChannelvideo::where('batch_id', $batch_id)
+                ->where('gize_channel_id', $gize_channel_id)->get();
+			
+		    return $channelvideos;
+
+            foreach($schedules as $schedule){
+                                $schedule->start = $schedule->pivot->starts_at; 
+			  
+                $schedule->end = $schedule->pivot->ends_at; 
+
+            }
+                        $batch = $batch[0];
+
+        }   
+
+        $events = $schedules->toArray();
+
+        $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
+        foreach ($channelvideos as $vid) {
+            $vid->text = $vid->title;
+        }
+
+        $channelvideos = $channelvideos->toArray();
+
+
+return $channelvideos;
+$gize_channel = 1;
+		$batch_id = 2;
+$gize_channel_id = 1;
+
+
+
+        $batches = Batch::
+            where('gize_channel_id', $gize_channel_id)
+            ->whereIn('status', [1, 2])             ->orderBy('id', 'DESC')->get();
+
+        $batch = null;
+        $schedules = collect([]);
+		  	return $channelvideos = Channelvideo::where('active', 1)->get();
+        if (isset($batch_id)) {
+            $batch = Batch::whereIn('channelvideo_id', $channelvideos)
+                ->where('id', $batch_id)->get();
+
+		  	
+            $schedules = BatchChannelvideo::where('batch_id', $batch_id)
+                ->where('gize_channel_id', $gize_channel_id)->get();
+			
+		    return $channelvideos;
+
+            foreach($schedules as $schedule){
+                                $schedule->start = $schedule->pivot->starts_at; 
+			  
+                $schedule->end = $schedule->pivot->ends_at; 
+
+            }
+                        $batch = $batch[0];
+
+        }   
+
+        $events = $schedules->toArray();
+
+        $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
+        foreach ($channelvideos as $vid) {
+            $vid->text = $vid->title;
+        }
+
+        $channelvideos = $channelvideos->toArray();
+
+
+return $channelvideos;
+$gize_channel = 1;
+		$batch_id = 2;
+$gize_channel_id = 1;
+
+
+
+        $batches = Batch::
+            where('gize_channel_id', $gize_channel_id)
+            ->whereIn('status', [1, 2])             ->orderBy('id', 'DESC')->get();
+
+        $batch = null;
+        $schedules = collect([]);
+		  	return $channelvideos = Channelvideo::where('active', 1)->get()->pluck('id');
+        if (isset($batch_id)) {
+            $batch = Batch::whereIn('channelvideo_id', $channelvideos)
+                ->where('id', $batch_id)->get();
+
+		  	
+            $schedules = BatchChannelvideo::where('batch_id', $batch_id)
+                ->where('gize_channel_id', $gize_channel_id)->get();
+			
+		    return $channelvideos;
+
+            foreach($schedules as $schedule){
+                                $schedule->start = $schedule->pivot->starts_at; 
+			  
+                $schedule->end = $schedule->pivot->ends_at; 
+
+            }
+                        $batch = $batch[0];
+
+        }   
+
+        $events = $schedules->toArray();
+
+        $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
+        foreach ($channelvideos as $vid) {
+            $vid->text = $vid->title;
+        }
+
+        $channelvideos = $channelvideos->toArray();
+
+
+return $channelvideos;
+$gize_channel = 1;
+		$batch_id = 2;
+$gize_channel_id = 1;
+
+
+
+        $batches = Batch::
+            where('gize_channel_id', $gize_channel_id)
+            ->whereIn('status', [1, 2])             ->orderBy('id', 'DESC')->get();
+
+        $batch = null;
+        $schedules = collect([]);
+		$channelvideos = Channelvideo::where('active', 1)->get()->pluck('id');
+
+        if (isset($batch_id)) {
+            $batch = Batch::whereIn('channelvideo_id', $channelvideos)
+                ->where('id', $batch_id)->get();
+
+		  	return $batch;
+            $schedules = BatchChannelvideo::where('batch_id', $batch_id)
+                ->where('gize_channel_id', $gize_channel_id)->get();
+			
+		    return $channelvideos;
+
+            foreach($schedules as $schedule){
+                                $schedule->start = $schedule->pivot->starts_at; 
+			  
+                $schedule->end = $schedule->pivot->ends_at; 
+
+            }
+                        $batch = $batch[0];
+
+        }   
+
+        $events = $schedules->toArray();
+
+        $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
+        foreach ($channelvideos as $vid) {
+            $vid->text = $vid->title;
+        }
+
+        $channelvideos = $channelvideos->toArray();
+
+
+return $channelvideos;
+$gize_channel = 1;
+		$batch_id = 2;
+$gize_channel_id = 1;
+
+
+
+        $batches = Batch::
+            where('gize_channel_id', $gize_channel_id)
+            ->whereIn('status', [1, 2])             ->orderBy('id', 'DESC')->get();
+
+        $batch = null;
+        $schedules = collect([]);
+		$channelvideos = Channelvideo::where('active', 1)->get()->pluck('id');
+
+        if (isset($batch_id)) {
+            $batch = BatchChannelvideo::whereIn('channelvideo_id', $channelvideos)
+                ->where('id', $batch_id)->get();
+
+		  	return $batch;
+            $schedules = BatchChannelvideo::where('batch_id', $batch_id)
+                ->where('gize_channel_id', $gize_channel_id)->get();
+			
+		    return $channelvideos;
+
+            foreach($schedules as $schedule){
+                                $schedule->start = $schedule->pivot->starts_at; 
+			  
+                $schedule->end = $schedule->pivot->ends_at; 
+
+            }
+                        $batch = $batch[0];
+
+        }   
+
+        $events = $schedules->toArray();
+
+        $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
+        foreach ($channelvideos as $vid) {
+            $vid->text = $vid->title;
+        }
+
+        $channelvideos = $channelvideos->toArray();
+
+
+return $channelvideos;
+$gize_channel = 1;
+		$batch_id = 2;
+$gize_channel_id = 1;
+
+
+
+        $batches = Batch::
+            where('gize_channel_id', $gize_channel_id)
+            ->whereIn('status', [1, 2])             ->orderBy('id', 'DESC')->get();
+
+        $batch = null;
+        $schedules = collect([]);
+		$channelvideos = Channelvideo::where('active', 1)->get()->pluck('id');
+
+        if (isset($batch_id)) {
+            $batch = BatchChannelvideo::where('video.channelvideo_id', $gize_channel_id)
+                ->where('id', $batch_id)->get();
+
+		  	return $batch;
+            $schedules = BatchChannelvideo::where('batch_id', $batch_id)
+                ->where('gize_channel_id', $gize_channel_id)->get();
+			
+		    return $channelvideos;
+
+            foreach($schedules as $schedule){
+                                $schedule->start = $schedule->pivot->starts_at; 
+			  
+                $schedule->end = $schedule->pivot->ends_at; 
+
+            }
+                        $batch = $batch[0];
+
+        }   
+
+        $events = $schedules->toArray();
+
+        $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
+        foreach ($channelvideos as $vid) {
+            $vid->text = $vid->title;
+        }
+
+        $channelvideos = $channelvideos->toArray();
+
+
+return $channelvideos;
+$gize_channel = 1;
+		$batch_id = 2;
+$gize_channel_id = 1;
+
+
+
+        $batches = Batch::
+            where('gize_channel_id', $gize_channel_id)
+            ->whereIn('status', [1, 2])             ->orderBy('id', 'DESC')->get();
+
+        $batch = null;
+        $schedules = collect([]);
+		$channelvideos = Channelvideo::where('active', 1)->get()->pluck('id');
+
+        if (isset($batch_id)) {
+            $batch = BatchChannelvideo::where('video.channelvideo_id', $gize_channel_id)->get();
+
+		  	return $batch;
+            $schedules = BatchChannelvideo::where('batch_id', $batch_id)
+                ->where('gize_channel_id', $gize_channel_id)->get();
+			
+		    return $channelvideos;
+
+            foreach($schedules as $schedule){
+                                $schedule->start = $schedule->pivot->starts_at; 
+			  
+                $schedule->end = $schedule->pivot->ends_at; 
+
+            }
+                        $batch = $batch[0];
+
+        }   
+
+        $events = $schedules->toArray();
+
+        $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
+        foreach ($channelvideos as $vid) {
+            $vid->text = $vid->title;
+        }
+
+        $channelvideos = $channelvideos->toArray();
+
+
+return $channelvideos;
+$gize_channel = 1;
+		$batch_id = 2;
+$gize_channel_id = 1;
+
+
+
+        $batches = Batch::
+            where('gize_channel_id', $gize_channel_id)
+            ->whereIn('status', [1, 2])             ->orderBy('id', 'DESC')->get();
+
+        $batch = null;
+        $schedules = collect([]);
+		$channelvideos = Channelvideo::where('active', 1)->get()->pluck('id');
+
+        if (isset($batch_id)) {
+            $batch = BatchChannelvideo::whereIn('channelvideo_id', $channelvideos)
+                ->where('id', $batch_id)->get();
+
+		  	return $batch;
+            $schedules = BatchChannelvideo::where('batch_id', $batch_id)
+                ->where('gize_channel_id', $gize_channel_id)->get();
+			
+		    return $channelvideos;
+
+            foreach($schedules as $schedule){
+                                $schedule->start = $schedule->pivot->starts_at; 
+			  
+                $schedule->end = $schedule->pivot->ends_at; 
+
+            }
+                        $batch = $batch[0];
+
+        }   
+
+        $events = $schedules->toArray();
+
+        $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
+        foreach ($channelvideos as $vid) {
+            $vid->text = $vid->title;
+        }
+
+        $channelvideos = $channelvideos->toArray();
+
+
+return $channelvideos;
+$gize_channel = 1;
+		$batch_id = 2;
+$gize_channel_id = 1;
+
+
+
+        $batches = Batch::
+            where('gize_channel_id', $gize_channel_id)
+            ->whereIn('status', [1, 2])             ->orderBy('id', 'DESC')->get();
+
+        $batch = null;
+        $schedules = collect([]);
+		$channelvideos = Channelvideo::where('active', 1)->get()->pluck('id');
+
+        if (isset($batch_id)) {
+            $batch = BatchChannelvideo::whereIn('channelvideo_id', $channelvideos)
+                ->get();
+
+		  	return $batch;
+            $schedules = BatchChannelvideo::where('batch_id', $batch_id)
+                ->where('gize_channel_id', $gize_channel_id)->get();
+			
+		    return $channelvideos;
+
+            foreach($schedules as $schedule){
+                                $schedule->start = $schedule->pivot->starts_at; 
+			  
+                $schedule->end = $schedule->pivot->ends_at; 
+
+            }
+                        $batch = $batch[0];
+
+        }   
+
+        $events = $schedules->toArray();
+
+        $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
+        foreach ($channelvideos as $vid) {
+            $vid->text = $vid->title;
+        }
+
+        $channelvideos = $channelvideos->toArray();
+
+
+return $channelvideos;
+$gize_channel = 1;
+		$batch_id = 1;
+$gize_channel_id = 1;
+
+
+
+        $batches = Batch::
+            where('gize_channel_id', $gize_channel_id)
+            ->whereIn('status', [1, 2])             ->orderBy('id', 'DESC')->get();
+
+        $batch = null;
+        $schedules = collect([]);
+		$channelvideos = Channelvideo::where('active', 1)->get()->pluck('id');
+
+        if (isset($batch_id)) {
+            $batch = BatchChannelvideo::whereIn('channelvideo_id', $channelvideos)
+                ->get();
+
+		  	return $batch;
+            $schedules = BatchChannelvideo::where('batch_id', $batch_id)
+                ->where('gize_channel_id', $gize_channel_id)->get();
+			
+		    return $channelvideos;
+
+            foreach($schedules as $schedule){
+                                $schedule->start = $schedule->pivot->starts_at; 
+			  
+                $schedule->end = $schedule->pivot->ends_at; 
+
+            }
+                        $batch = $batch[0];
+
+        }   
+
+        $events = $schedules->toArray();
+
+        $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
+        foreach ($channelvideos as $vid) {
+            $vid->text = $vid->title;
+        }
+
+        $channelvideos = $channelvideos->toArray();
+
+
+return $channelvideos;
+$gize_channel = 1;
+		$batch_id = 2;
+$gize_channel_id = 1;
+
+
+
+        $batches = Batch::
+            where('gize_channel_id', $gize_channel_id)
+            ->whereIn('status', [1, 2])             ->orderBy('id', 'DESC')->get();
+
+        $batch = null;
+        $schedules = collect([]);
+		$channelvideos = Channelvideo::where('active', 1)->get()->pluck('id');
+
+        if (isset($batch_id)) {
+            $batch = BatchChannelvideo::whereIn('channelvideo_id', $channelvideos)
+                ->where('batch_id', $batch_id)->get();
+
+		  	return $batch;
+            $schedules = BatchChannelvideo::where('batch_id', $batch_id)
+                ->where('gize_channel_id', $gize_channel_id)->get();
+			
+		    return $channelvideos;
+
+            foreach($schedules as $schedule){
+                                $schedule->start = $schedule->pivot->starts_at; 
+			  
+                $schedule->end = $schedule->pivot->ends_at; 
+
+            }
+                        $batch = $batch[0];
+
+        }   
+
+        $events = $schedules->toArray();
+
+        $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
+        foreach ($channelvideos as $vid) {
+            $vid->text = $vid->title;
+        }
+
+        $channelvideos = $channelvideos->toArray();
+
+
+return $channelvideos;
+$gize_channel = 1;
+		$batch_id = 1;
+$gize_channel_id = 1;
+
+
+
+        $batches = Batch::
+            where('gize_channel_id', $gize_channel_id)
+            ->whereIn('status', [1, 2])             ->orderBy('id', 'DESC')->get();
+
+        $batch = null;
+        $schedules = collect([]);
+		$channelvideos = Channelvideo::where('active', 1)->get()->pluck('id');
+
+        if (isset($batch_id)) {
+            $batch = BatchChannelvideo::whereIn('channelvideo_id', $channelvideos)
+                ->where('batch_id', $batch_id)->get();
+
+		  	return $batch;
+            $schedules = BatchChannelvideo::where('batch_id', $batch_id)
+                ->where('gize_channel_id', $gize_channel_id)->get();
+			
+		    return $channelvideos;
+
+            foreach($schedules as $schedule){
+                                $schedule->start = $schedule->pivot->starts_at; 
+			  
+                $schedule->end = $schedule->pivot->ends_at; 
+
+            }
+                        $batch = $batch[0];
+
+        }   
+
+        $events = $schedules->toArray();
+
+        $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
+        foreach ($channelvideos as $vid) {
+            $vid->text = $vid->title;
+        }
+
+        $channelvideos = $channelvideos->toArray();
+
+
+return $channelvideos;
+$gize_channel = 1;
+		$batch_id = 2;
+$gize_channel_id = 1;
+
+
+
+        $batches = Batch::
+            where('gize_channel_id', $gize_channel_id)
+            ->whereIn('status', [1, 2])             ->orderBy('id', 'DESC')->get();
+
+        $batch = null;
+        $schedules = collect([]);
+		$channelvideos = Channelvideo::where('active', 1)->get()->pluck('id');
+
+        if (isset($batch_id)) {
+            $batch = BatchChannelvideo::whereIn('channelvideo_id', $channelvideos)
+                ->where('batch_id', $batch_id)->get();
+
+		  	return $batch;
+            $schedules = BatchChannelvideo::where('batch_id', $batch_id)
+                ->where('gize_channel_id', $gize_channel_id)->get();
+			
+		    return $channelvideos;
+
+            foreach($schedules as $schedule){
+                                $schedule->start = $schedule->pivot->starts_at; 
+			  
+                $schedule->end = $schedule->pivot->ends_at; 
+
+            }
+                        $batch = $batch[0];
+
+        }   
+
+        $events = $schedules->toArray();
+
+        $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
+        foreach ($channelvideos as $vid) {
+            $vid->text = $vid->title;
+        }
+
+        $channelvideos = $channelvideos->toArray();
+
+
+return $channelvideos;
+$gize_channel = 1;
+		$batch_id = 1;
+$gize_channel_id = 1;
+
+
+
+        $batches = Batch::
+            where('gize_channel_id', $gize_channel_id)
+            ->whereIn('status', [1, 2])             ->orderBy('id', 'DESC')->get();
+
+        $batch = null;
+        $schedules = collect([]);
+		$channelvideos = Channelvideo::where('active', 1)->get()->pluck('id');
+
+        if (isset($batch_id)) {
+            $batch = BatchChannelvideo::whereIn('channelvideo_id', $channelvideos)
+                ->where('batch_id', $batch_id)->get();
+
+		  	return $batch;
+            $schedules = BatchChannelvideo::where('batch_id', $batch_id)
+                ->where('gize_channel_id', $gize_channel_id)->get();
+			
+		    return $channelvideos;
+
+            foreach($schedules as $schedule){
+                                $schedule->start = $schedule->pivot->starts_at; 
+			  
+                $schedule->end = $schedule->pivot->ends_at; 
+
+            }
+                        $batch = $batch[0];
+
+        }   
+
+        $events = $schedules->toArray();
+
+        $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
+        foreach ($channelvideos as $vid) {
+            $vid->text = $vid->title;
+        }
+
+        $channelvideos = $channelvideos->toArray();
+
+
+return $channelvideos;
+$gize_channel = 1;
+		$batch_id = 1;
+$gize_channel_id = 1;
+
+
+
+        $batches = Batch::
+            where('gize_channel_id', $gize_channel_id)
+            ->whereIn('status', [1, 2])             ->orderBy('id', 'DESC')->get();
+
+        $batch = null;
+        $schedules = collect([]);
+		$channelvideos = Channelvideo::where('active', 1)->get()->pluck('id');
+
+        if (isset($batch_id)) {
+            $event = BatchChannelvideo::whereIn('channelvideo_id', $channelvideos)
+                ->where('batch_id', $batch_id)->get();
+
+		  	return $event;
+            $schedules = BatchChannelvideo::where('batch_id', $batch_id)
+                ->where('gize_channel_id', $gize_channel_id)->get();
+			
+		    return $channelvideos;
+
+            foreach($schedules as $schedule){
+                                $schedule->start = $schedule->pivot->starts_at; 
+			  
+                $schedule->end = $schedule->pivot->ends_at; 
+
+            }
+                        $batch = $batch[0];
+
+        }   
+
+        $events = $schedules->toArray();
+
+        $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
+        foreach ($channelvideos as $vid) {
+            $vid->text = $vid->title;
+        }
+
+        $channelvideos = $channelvideos->toArray();
+
+
+return $channelvideos;
+$gize_channel = 1;
+		$batch_id = 1;
+$gize_channel_id = 1;
+
+
+
+        $batches = Batch::
+            where('gize_channel_id', $gize_channel_id)
+            ->whereIn('status', [1, 2])             ->orderBy('id', 'DESC')->get();
+
+        $batch = null;
+        $schedules = collect([]);
+		$channelvideos = Channelvideo::where('active', 1)->get()->pluck('id');
+
+$batch_channelvideos = collect([]);
+        if (isset($batch_id)) {
+		  
+            $batch_channelvideos = BatchChannelvideo::whereIn('channelvideo_id', $channelvideos)
+                ->where('batch_id', $batch_id)->get();
+		  	foreach($batch_channelvideos as $event){
+				$event->start = $event->starts_at; 
+
+				$event->end = $event->ends_at; 
+			  
+				$batch_channelvideos = $batch_channelvideos->merge($event);
+			}
+
+		  	return $batch_channelvideos;
+            $schedules = BatchChannelvideo::where('batch_id', $batch_id)
+                ->where('gize_channel_id', $gize_channel_id)->get();
+			
+		    return $channelvideos;
+
+            foreach($schedules as $schedule){
+                                $schedule->start = $schedule->pivot->starts_at; 
+			  
+                $schedule->end = $schedule->pivot->ends_at; 
+
+            }
+                        $batch = $batch[0];
+
+        }   
+
+        $events = $schedules->toArray();
+
+        $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
+        foreach ($channelvideos as $vid) {
+            $vid->text = $vid->title;
+        }
+
+        $channelvideos = $channelvideos->toArray();
+
+
+return $channelvideos;
+$gize_channel = 1;
+		$batch_id = 1;
+$gize_channel_id = 1;
+
+
+
+        $batches = Batch::
+            where('gize_channel_id', $gize_channel_id)
+            ->whereIn('status', [1, 2])             ->orderBy('id', 'DESC')->get();
+
+        $batch = null;
+        $schedules = collect([]);
+		$channelvideos = Channelvideo::where('active', 1)->get()->pluck('id');
+
+$batch_channelvideos = collect([]);
+        if (isset($batch_id)) {
+		  
+            $batch_channelvideos = BatchChannelvideo::whereIn('channelvideo_id', $channelvideos)
+                ->where('batch_id', $batch_id)->get();
+		  
+		  	foreach($batch_channelvideos as $event){
+				$event->start = $event->starts_at; 
+
+				$event->end = $event->ends_at; 
+			  
+							}
+
+		  	return $batch_channelvideos;
+            $schedules = BatchChannelvideo::where('batch_id', $batch_id)
+                ->where('gize_channel_id', $gize_channel_id)->get();
+			
+		    return $channelvideos;
+
+            foreach($schedules as $schedule){
+                                $schedule->start = $schedule->pivot->starts_at; 
+			  
+                $schedule->end = $schedule->pivot->ends_at; 
+
+            }
+                        $batch = $batch[0];
+
+        }   
+
+        $events = $schedules->toArray();
+
+        $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
+        foreach ($channelvideos as $vid) {
+            $vid->text = $vid->title;
+        }
+
+        $channelvideos = $channelvideos->toArray();
+
+
+return $channelvideos;
+$gize_channel = 1;
+		$batch_id = 1;
+$gize_channel_id = 1;
+
+
+
+        $batches = Batch::
+            where('gize_channel_id', $gize_channel_id)
+            ->whereIn('status', [1, 2])             ->orderBy('id', 'DESC')->get();
+
+        $batch = null;
+        $schedules = collect([]);
+		$channelvideos = Channelvideo::where('active', 1)->get()->pluck('id');
+
+$batch_channelvideos = new Collection([]);
+        if (isset($batch_id)) {
+		  
+            $batch_channelvideos = BatchChannelvideo::whereIn('channelvideo_id', $channelvideos)
+                ->where('batch_id', $batch_id)->get();
+		  
+		  	foreach($batch_channelvideos as $event){
+				$event->start = $event->starts_at; 
+
+				$event->end = $event->ends_at; 
+			  
+							}
+
+		  	return $batch_channelvideos;
+            $schedules = BatchChannelvideo::where('batch_id', $batch_id)
+                ->where('gize_channel_id', $gize_channel_id)->get();
+			
+		    return $channelvideos;
+
+            foreach($schedules as $schedule){
+                                $schedule->start = $schedule->pivot->starts_at; 
+			  
+                $schedule->end = $schedule->pivot->ends_at; 
+
+            }
+                        $batch = $batch[0];
+
+        }   
+
+        $events = $schedules->toArray();
+
+        $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
+        foreach ($channelvideos as $vid) {
+            $vid->text = $vid->title;
+        }
+
+        $channelvideos = $channelvideos->toArray();
+
+
+return $channelvideos;
+$gize_channel = 1;
+		$batch_id = 1;
+$gize_channel_id = 1;
+
+
+
+        $batches = Batch::
+            where('gize_channel_id', $gize_channel_id)
+            ->whereIn('status', [1, 2])             ->orderBy('id', 'DESC')->get();
+
+        $batch = null;
+        $schedules = collect([]);
+		$channelvideos = Channelvideo::where('active', 1)->get()->pluck('id');
+
+$batch_channelvideos = collect([]);
+        if (isset($batch_id)) {
+		  
+            $batch_channelvideos = BatchChannelvideo::whereIn('channelvideo_id', $channelvideos)
+                ->where('batch_id', $batch_id)->get();
+		  
+		  	foreach($batch_channelvideos as $event){
+				$event->start = $event->starts_at; 
+
+				$event->end = $event->ends_at; 
+			  
+							}
+
+		  	return $batch_channelvideos;
+            $schedules = BatchChannelvideo::where('batch_id', $batch_id)
+                ->where('gize_channel_id', $gize_channel_id)->get();
+			
+		    return $channelvideos;
+
+            foreach($schedules as $schedule){
+                                $schedule->start = $schedule->pivot->starts_at; 
+			  
+                $schedule->end = $schedule->pivot->ends_at; 
+
+            }
+                        $batch = $batch[0];
+
+        }   
+
+        $events = $schedules->toArray();
+
+        $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
+        foreach ($channelvideos as $vid) {
+            $vid->text = $vid->title;
+        }
+
+        $channelvideos = $channelvideos->toArray();
+
+
+return $channelvideos;
+$gize_channel = 1;
+		$batch_id = 1;
+$gize_channel_id = 1;
+
+
+
+        $batches = Batch::
+            where('gize_channel_id', $gize_channel_id)
+            ->whereIn('status', [1, 2])             ->orderBy('id', 'DESC')->get();
+
+        $batch = null;
+        $schedules = collect([]);
+		$channelvideos = Channelvideo::where('active', 1)->get()->pluck('id');
+
+$batch_channelvideos = collect([]);
+        if (isset($batch_id)) {
+		  
+            $batch_channelvideos = BatchChannelvideo::whereIn('channelvideo_id', $channelvideos)
+                ->where('batch_id', $batch_id)->get();
+		  
+		  	foreach($batch_channelvideos as $event){
+				$event->start = $event->starts_at; 
+
+				$event->end = $event->ends_at; 
+				$event->title = $event->video->first()->title; 
+
+			  
+							}
+
+		  	return $batch_channelvideos;
+            $schedules = BatchChannelvideo::where('batch_id', $batch_id)
+                ->where('gize_channel_id', $gize_channel_id)->get();
+			
+		    return $channelvideos;
+
+            foreach($schedules as $schedule){
+                                $schedule->start = $schedule->pivot->starts_at; 
+			  
+                $schedule->end = $schedule->pivot->ends_at; 
+
+            }
+                        $batch = $batch[0];
+
+        }   
+
+        $events = $schedules->toArray();
+
+        $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
+        foreach ($channelvideos as $vid) {
+            $vid->text = $vid->title;
+        }
+
+        $channelvideos = $channelvideos->toArray();
+
+
+return $channelvideos;
+$gize_channel = 1;
+		$batch_id = 1;
+$gize_channel_id = 1;
+
+
+
+        $batches = Batch::
+            where('gize_channel_id', $gize_channel_id)
+            ->whereIn('status', [1, 2])             ->orderBy('id', 'DESC')->get();
+
+        $batch = null;
+        $schedules = collect([]);
+		$channelvideos = Channelvideo::where('active', 1)->get()->pluck('id');
+
+$events = collect([]);
+        if (isset($batch_id)) {
+		  
+            $events = BatchChannelvideo::whereIn('channelvideo_id', $channelvideos)
+                ->where('batch_id', $batch_id)->get();
+		  
+		  	foreach($events as $event){
+				$event->start = $event->starts_at; 
+
+				$event->end = $event->ends_at; 
+				$event->title = $event->video->first()->title; 
+
+			  
+							}
+
+		  	return $events;
+            
+                        $batch = $batch[0];
+
+        }   
+
+        $events = $schedules->toArray();
+
+        $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
+        foreach ($channelvideos as $vid) {
+            $vid->text = $vid->title;
+        }
+
+        $channelvideos = $channelvideos->toArray();
+
+
+return $channelvideos;
+$gize_channel = 1;
+		$batch_id = 1;
+$gize_channel_id = 1;
+
+
+
+        $batches = Batch::
+            where('gize_channel_id', $gize_channel_id)
+            ->whereIn('status', [1, 2])             ->orderBy('id', 'DESC')->get();
+
+        $batch = null;
+        $schedules = collect([]);
+		$channelvideos = Channelvideo::where('active', 1)->get()->pluck('id');
+
+$events = collect([]);
+        if (isset($batch_id)) {
+		  
+            $events = BatchChannelvideo::whereIn('channelvideo_id', $channelvideos)
+                ->where('batch_id', $batch_id)->get();
+		  
+		  	foreach($events as $event){
+				$event->start = $event->starts_at; 
+
+				$event->end = $event->ends_at; 
+				$event->title = $event->video->first()->title; 
+
+			  
+							}
+
+            
+                        $batch = Batch::find($batch_id);
+
+        }   
+
+        $events = $schedules->toArray();
+
+        $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
+        foreach ($channelvideos as $vid) {
+            $vid->text = $vid->title;
+        }
+
+        $channelvideos = $channelvideos->toArray();
+
+
+return $channelvideos;
+$gize_channel = 1;
+		$batch_id = 1;
+$gize_channel_id = 1;
+
+
+
+        $batches = Batch::
+            where('gize_channel_id', $gize_channel_id)
+            ->whereIn('status', [1, 2])             ->orderBy('id', 'DESC')->get();
+
+        $batch = null;
+        $schedules = collect([]);
+		$channelvideos = Channelvideo::where('active', 1)->get()->pluck('id');
+
+$events = collect([]);
+        if (isset($batch_id)) {
+		  
+            $events = BatchChannelvideo::whereIn('channelvideo_id', $channelvideos)
+                ->where('batch_id', $batch_id)->get();
+		  
+		  	foreach($events as $event){
+				$event->start = $event->starts_at; 
+
+				$event->end = $event->ends_at; 
+				$event->title = $event->video->first()->title; 
+
+			  
+							}
+
+            
+                        $batch = Batch::find($batch_id);
+
+        }   
+
+        $events = $schedules->toArray();
+
+        $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
+        foreach ($channelvideos as $vid) {
+            $vid->text = $vid->title;
+        }
+
+        $channelvideos = $channelvideos->toArray();
+
+return $batch;
+$gize_channel = 1;
+		$batch_id = 1;
+$gize_channel_id = 1;
+
+
+
+        $batches = Batch::
+            where('gize_channel_id', $gize_channel_id)
+            ->whereIn('status', [1, 2])             ->orderBy('id', 'DESC')->get();
+
+        $batch = null;
+        $schedules = collect([]);
+		$channelvideos = Channelvideo::where('active', 1)->get()->pluck('id');
+
+$events = collect([]);
+        if (isset($batch_id)) {
+		  
+            $events = BatchChannelvideo::whereIn('channelvideo_id', $channelvideos)
+                ->where('batch_id', $batch_id)->get();
+		  
+		  	foreach($events as $event){
+				$event->start = $event->starts_at; 
+
+				$event->end = $event->ends_at; 
+				$event->title = $event->video->first()->title; 
+
+			  
+							}
+
+            
+                        $batch = Batch::find($batch_id);
+
+        }   
+
+        $events = $schedules->toArray();
+
+        $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
+        foreach ($channelvideos as $vid) {
+            $vid->text = $vid->title;
+        }
+
+        $channelvideos = $channelvideos->toArray();
+
+return $events;
+$gize_channel = 1;
+		$batch_id = 1;
+$gize_channel_id = 1;
+
+
+
+        $batches = Batch::
+            where('gize_channel_id', $gize_channel_id)
+            ->whereIn('status', [1, 2])             ->orderBy('id', 'DESC')->get();
+
+        $batch = null;
+        $schedules = collect([]);
+		$channelvideos = Channelvideo::where('active', 1)->get()->pluck('id');
+
+$events = collect([]);
+        if (isset($batch_id)) {
+		  
+            $events = BatchChannelvideo::whereIn('channelvideo_id', $channelvideos)
+                ->where('batch_id', $batch_id)->get();
+		  
+		  	foreach($events as $event){
+				$event->start = $event->starts_at; 
+
+				$event->end = $event->ends_at; 
+				$event->title = $event->video->first()->title; 
+
+			  
+							}
+
+            
+                        $batch = Batch::find($batch_id);
+
+        }   
+
+        $events = $events->toArray();
+
+        $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
+        foreach ($channelvideos as $vid) {
+            $vid->text = $vid->title;
+        }
+
+        $channelvideos = $channelvideos->toArray();
+
+return $events;
+$gize_channel = 1;
+		$batch_id = 1;
+$gize_channel_id = 1;
+
+
+
+        $batches = Batch::
+            where('gize_channel_id', $gize_channel_id)
+            ->whereIn('status', [1, 2])             ->orderBy('id', 'DESC')->get();
+
+        $batch = null;
+        $schedules = collect([]);
+		$channelvideos = Channelvideo::where('active', 1)->get()->pluck('id');
+
+$events = collect([]);
+        if (isset($batch_id)) {
+		  
+            $events = BatchChannelvideo::whereIn('channelvideo_id', $channelvideos)
+                ->where('batch_id', $batch_id)->get();
+		  
+		  	foreach($events as $event){
+				$event->start = $event->starts_at; 
+
+				$event->end = $event->ends_at; 
+				$event->title = $event->video->first()->title; 
+
+			  
+							}
+
+            
+                        $batch = Batch::find($batch_id);
+
+        }   
+
+        $events = $events->toArray();
+
+        $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
+        foreach ($channelvideos as $vid) {
+            $vid->text = $vid->title;
+        }
+
+        $channelvideos = $channelvideos->toArray();
+
+return $batches;
+$gize_channel = 1;
+		$batch_id = 1;
+$gize_channel_id = 1;
+
+
+
+        $batches = Batch::
+            where('gize_channel_id', $gize_channel_id)
+            ->whereIn('status', [1, 2])             ->orderBy('id', 'DESC')->get();
+
+        $batch = null;
+        $schedules = collect([]);
+		$channelvideos = Channelvideo::where('active', 1)->get()->pluck('id');
+
+$events = collect([]);
+        if (isset($batch_id)) {
+		  
+            $events = BatchChannelvideo::whereIn('channelvideo_id', $channelvideos)
+                ->where('batch_id', $batch_id)->get();
+		  
+		  	foreach($events as $event){
+				$event->start = $event->starts_at; 
+
+				$event->end = $event->ends_at; 
+				$event->title = $event->video->first()->title; 
+
+			  
+							}
+
+            
+                        $batch = Batch::find($batch_id);
+
+        }   
+
+        $events = $events->toArray();
+
+        $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
+        foreach ($channelvideos as $vid) {
+            $vid->text = $vid->title;
+        }
+
+        $channelvideos = $channelvideos->toArray();
+
+return $gize_channel;
+$gize_channel_id = 1;
+		$batch_id = 1;
+        $gize_channel = GizeChannel::find($gize_channel_id);
+
+
+
+
+        $batches = Batch::
+            where('gize_channel_id', $gize_channel_id)
+            ->whereIn('status', [1, 2])             ->orderBy('id', 'DESC')->get();
+
+        $batch = null;
+        $schedules = collect([]);
+		$channelvideos = Channelvideo::where('active', 1)->get()->pluck('id');
+
+$events = collect([]);
+        if (isset($batch_id)) {
+		  
+            $events = BatchChannelvideo::whereIn('channelvideo_id', $channelvideos)
+                ->where('batch_id', $batch_id)->get();
+		  
+		  	foreach($events as $event){
+				$event->start = $event->starts_at; 
+
+				$event->end = $event->ends_at; 
+				$event->title = $event->video->first()->title; 
+
+			  
+							}
+
+            
+                        $batch = Batch::find($batch_id);
+
+        }   
+
+        $events = $events->toArray();
+
+        $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
+        foreach ($channelvideos as $vid) {
+            $vid->text = $vid->title;
+        }
+
+        $channelvideos = $channelvideos->toArray();
+
+return $gize_channel;

@@ -21,34 +21,43 @@ class BatchScheduleController extends Controller
         $gize_channel = GizeChannel::find($gize_channel_id);
         abort_if(!$gize_channel->isPermittedEditor(\Auth::user()), Response::HTTP_FORBIDDEN, 'Forbidden');
 
-        $batch = null;
-        if (isset($batch_id)) {
-            $batch = Batch::where('gize_channel_id', $gize_channel_id)
-                ->where('id', $batch_id)->first();
-        }
         $batches = Batch::
             where('gize_channel_id', $gize_channel_id)
             ->whereIn('status', [1, 2]) //ongoing or onhold
             ->orderBy('id', 'DESC')->get();
 
-        $schedules = BatchChannelvideo::whereIn('batch_id', $batches->pluck('id'))->get();
-        foreach ($schedules as $schedule) {
-            if (Channelvideo::find($schedule->channelvideo_id)) {
-                $schedule->title = Channelvideo::find($schedule->channelvideo_id)->title;
+        $batch = null;
+        $schedules = collect([]);
+        $channelvideos = Channelvideo::where('active', 1)->get()->pluck('id');
+
+        $events = collect([]);
+        if (isset($batch_id)) {
+
+            $events = BatchChannelvideo::whereIn('channelvideo_id', $channelvideos)
+                ->where('batch_id', $batch_id)->get();
+
+            foreach ($events as $event) {
+                $event->start = $event->starts_at;
+
+                $event->end = $event->ends_at;
+                $event->title = $event->video->first()->title;
+
+                //$batch_channelvideos = $batch_channelvideos->merge($event);
             }
 
-            $schedule->start = $schedule->starts_at; //Carbon::createFromFormat('Y-m-d H', $schedule->starts_at)->toDateTimeString(); // 1975-05-21 22:00:00
-            $schedule->end = $schedule->ends_at; //Carbon::createFromFormat('Y-m-d H', $schedule->starts_at)->toDateTimeString(); // 1975-05-21 22:00:00
-        }
-        $events = $schedules->toArray();
-        $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
+            // dd($schedules->toArray());
+            $batch = Batch::find($batch_id);
 
+        }
+
+        $events = $events->toArray();
+
+        $channelvideos = Channelvideo::where('gize_channel_id', $gize_channel_id)->where('active', 1)->orderBy('id', 'DESC')->get();
         foreach ($channelvideos as $vid) {
             $vid->text = $vid->title;
         }
 
         $channelvideos = $channelvideos->toArray();
-        // $channelvideos = array('channelvideos' => json_decode($channelvideos));
 
         return view('admin.manage.batches.schedules.index', compact(
             'events',

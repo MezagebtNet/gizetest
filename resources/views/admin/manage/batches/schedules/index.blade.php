@@ -27,7 +27,7 @@
             width: 100%;
             padding: 0 10px;
             /* border: 1px solid #ccc;
-                            background: #eee; */
+                                background: #eee; */
             text-align: left;
         }
 
@@ -165,10 +165,10 @@
                                     <div class="col-md-6 mb-3">
                                         {{-- <label for="selectBatch">Batch</label> --}}
                                         <select class="custom-select" id="selectBatch" required>
-                                            <option selected disabled value="">Choose...</option>
+                                            <option  selected="selected"  value="">Choose...</option>
                                             @foreach ($batches as $b)
 
-                                                <option value="{{ $b->id }}" @if ($loop->first) selected="selected" @endif>
+                                                <option value="{{ $b->id }}" @if ($loop->first) @endif>
                                                     {{ $b->code_name }} ({{ $b->currency }})</option>
 
                                             @endforeach
@@ -245,7 +245,6 @@
             });
 
         });
-
     </script>
     <script>
         $(document).ready(function() {
@@ -258,14 +257,16 @@
                 // format: "L"
             });
 
-            function formatState (state) {
+            function formatState(state) {
                 if (!state.id) {
                     return state.text;
                 }
                 var baseUrl = "{{ asset('storage/') }}";
-                var path = state.poster_image_url != null? state.poster_image_url : "images/l/thumb/channelvideo.jpg";
+                var path = state.poster_image_url != null ? state.poster_image_url :
+                    "images/l/thumb/channelvideo.jpg";
                 var $state = $(
-                    '<span><img style="max-width:90px;" src="' + baseUrl + '/' + path + '" class="img-flag" /> ' + state.text + '</span>'
+                    '<span><img style="max-width:90px;" src="' + baseUrl + '/' + path +
+                    '" class="img-flag" /> ' + state.text + '</span>'
                 );
                 return $state;
             };
@@ -285,7 +286,8 @@
             let batch_id = "{{ $batch ? $batch->id : '' }}";
             let gize_channel_id = "{{ $gize_channel->id }}";
 
-            let ajaxUrl = "{{ route('admin.manage.batch.schedule.crud_calendarevents', ['gize_channel_id' => ':gize_channel_id', 'batch_id' => ':batch_id']) }}";
+            let ajaxUrl =
+                "{{ route('admin.manage.batch.schedule.crud_calendarevents', ['gize_channel_id' => ':gize_channel_id', 'batch_id' => ':batch_id']) }}";
             ajaxUrl = ajaxUrl.replace(':batch_id', batch_id);
             ajaxUrl = ajaxUrl.replace(':gize_channel_id', gize_channel_id);
 
@@ -383,13 +385,16 @@
 
             $('#btnContinue').on('click', function() {
                 batch_id = $('#selectBatch').val();
-                let gize_channel_id = "{{ $gize_channel->id }}";
-                let url = "{{ route('admin.manage.batch.schedule.index', ['gize_channel_id' => ':gize_channel_id', 'batch_id' => ':batch_id']) }}";
-                url = url.replace(':gize_channel_id', gize_channel_id);
-                url = url.replace(':batch_id', batch_id);
-                // alert(url);
+                if (batch_id != "") {
+                    let gize_channel_id = "{{ $gize_channel->id }}";
+                    let url =
+                        "{{ route('admin.manage.batch.schedule.index', ['gize_channel_id' => ':gize_channel_id', 'batch_id' => ':batch_id']) }}";
+                    url = url.replace(':gize_channel_id', gize_channel_id);
+                    url = url.replace(':batch_id', batch_id);
+                    // alert(url);
 
-                window.location.replace(url);
+                    window.location.replace(url);
+                }
             });
 
             $('#scheduleModal').on('hide.bs.modal', function(event) {

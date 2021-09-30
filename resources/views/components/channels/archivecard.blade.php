@@ -1,7 +1,7 @@
 
 
   <div title="{{ $archivevid->title }}"  class="card mx-2 p-1 my-2  bg-gradient-dark" style="">
-    <img class="card-img-top"  src="{{ asset('storage/'. $archivevid->thumb_image_url) }}" alt="{{ $archivevid->title }}">
+    <img class="card-img-top"  src="{{ asset('storage/'. $archivevid->poster_image_url) }}" alt="{{ $archivevid->title }}">
 
     @if($archivevid->is_free)
       <div class="ribbon-wrapper ribbon-sm">
@@ -30,7 +30,7 @@
           {{-- </a> --}}
         </div>
         <div class="d-flex flex-column bd-highlight ml-2">
-          <h5 class="card-title text-dark ">{{ mb_strimwidth($archivevid->title, 0, 20, "..."); }}</h5>
+          <h5 class="card-title text-dark ">{{ mb_strimwidth($archivevid->trainer, 0, 20, "..."); }} - {{ mb_strimwidth($archivevid->title, 0, 10, "..."); }}</h5>
           {{-- <p class="card-text text-white pb-2 d-sm-none dpt-1">{{ mb_strimwidth($archivevid->title, 0, 10, "..."); }}</p> --}}
           <span class="card-date text-secondary text-sm">
                 {{ Jenssegers\Date\Date::createFromFormat('Y-m-d H:i:s', $archivevid->created_at)->format('M d, Y'); }}</span>

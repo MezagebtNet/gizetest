@@ -158,9 +158,12 @@
                     {{-- List of Channels the user can manage... --}}
                     @foreach ($user_channels as $channel)
                     {{-- {{ dd( $channel ) }} --}}
-                    <li class="nav-item {{ request()->is('*admin/manage/batches*' . $channel->id . '*') || request()->is('*admin/manage/channelvideos*' . $channel->id . '*') ? 'menu-open' : '' }}">
+                    <li class="nav-item {{ request()->is('*admin/manage/batches/' . $channel->id . '*') || request()->is('*admin/manage/channelvideos*' . $channel->id . '*') ? 'menu-open' : '' }}">
                             <a href="#"
-                                class="nav-link {{ request()->is('*admin/manage/batches*' . $channel->id . '*') || request()->is('*admin/manage/channelvideos*' . $channel->id . '*') ? 'active' : '' }}">
+                                class="nav-link {{ request()->is('*admin/manage/batches/' . $channel->id . '*') ||
+                                request()->is('*admin/manage/batches/schedules/' . $channel->id . '*') ||
+                                request()->is('*admin/manage/batches/subscriptions/' . $channel->id . '*') ||
+                                request()->is('*admin/manage/rentals/' . $channel->id . '*') ||request()->is('*admin/manage/channelvideos*' . $channel->id . '*') ? 'active' : '' }}">
                                 <i class="nav-icon fa fa-solid fa-tv"></i>
                                 <p>
                                     {{ strtoupper($channel->name_en) }}
