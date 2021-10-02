@@ -137,7 +137,7 @@
                   <div class="carousel-item active">
                     {{-- <img src="..." class="d-block w-100" alt="..."> --}}
                     <div class="mt-5 mt-5  bd-highlight">
-                        <h4 class="px-5 text-center channel-title   text-white">{{ __('Welcome.banner_text_1') }}</h4>
+                        <h4 class="px-5 text-center channel-title   text-white">{{ __('banner_text_1') }}</h4>
 
                         <p class="channel-description lead text-white"></p>
 
@@ -145,7 +145,7 @@
                   </div>
                   <div class="carousel-item">
                     <div class="mt-5 mt-5  bd-highlight">
-                        <h4 class="px-5 text-center channel-title   text-white">{{ __('Welcome.banner_text_2') }}</h4>
+                        <h4 class="px-5 text-center channel-title   text-white">{{ __('banner_text_2') }}</h4>
 
                         <p class="channel-description lead text-white"></p>
 
@@ -154,7 +154,7 @@
 
                   <div class="carousel-item">
                     <div class="mt-5 mt-5  bd-highlight">
-                        <h4 class="px-5 text-center channel-title   text-white">{{ __('Welcome.banner_text_3') }}</h4>
+                        <h4 class="px-5 text-center channel-title   text-white">{{ __('banner_text_3') }}</h4>
 
                         <p class="channel-description lead text-white"></p>
 
