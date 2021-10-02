@@ -595,8 +595,7 @@
                                             class=""></path></svg>
                         </div>
 
-                        <div class="
-                                            streams-container">
+                        <div class="streams-container">
 
                                             {{-- <div class="justify-content-sm-center"> --}}
                                             {{-- <center> --}}
@@ -628,7 +627,7 @@
                                                     @for ($i = 0; $i < $activevideos->count(); $i++)
 
                                                         @php
-                                                            $active = $activevideos[$i]->video[0];
+                                                            $active = $activevideos[$i];
                                                             $key = $i;
                                                         @endphp
                                                         {{-- {{ dd($active->id) }} --}}
@@ -1146,6 +1145,7 @@
                         if (parentCardEl.find('.status-indicator').hasClass('text-danger')) {
                             parentCardEl.find('.status-indicator').removeClass('text-danger');
                             parentCardEl.find('.status-indicator').addClass('text-warning');
+                            parentCardEl.find('.status-text').html("{{ __('Started Watching') }}");
 
                             parentCardEl.find('.show-expiretime').addClass('d-none');
                             let url =
@@ -1446,10 +1446,14 @@
             onHashChange();
 
             if({!! $activerentals->count() !!}){
-                var rentalcheker = setInterval(chkRentalTimer, 1000 * 3);
+                var rentalcheker = setInterval(chkRentalTimer, 1000 * 10);
                 var endtimecheker = setInterval(updateEndingTime, 1000 * 3);
 
             }
+
+
+            var validStreamcheker = setInterval(chkValidStreamTimer, 1000 * 20);
+
 
             $('.btn-refresh').on('click', function() {
                 location.reload();
@@ -1459,6 +1463,7 @@
                 let user_id = "{{ auth()->user()->id }}";
                 let rental_vids = $(".rental_player");
                 // console.log(rental_vids);
+
                 rental_vids.each(function(i) {
                     channelvideo_rental_id = $(this).attr('rid');
 
@@ -1487,9 +1492,79 @@
                 });
             }
 
+            function chkValidStreamTimer() {
+                // alert('here');
+                let batch_stream_vids = $(".batch_player");
+
+                active_vids=[];
+                batch_stream_vids.each(function(i){
+                    active_vids.push($(this).attr('bsid'));
+                });
+                // console.log(active_vids);
+
+                batch_stream_vids.each(function(i){
+
+                    batch_channelvideo_id = $(this).attr('bsid');
+                    // alert(batch_channelvideo_id);
+
+                    slug = '{{ $gize_channel->slug }}';
+                    let url = "{{ route('channel.validstream.check', ['slug' => ':slug', 'batch_channelvideo_id' => ':batch_channelvideo_id']) }}";
+                    url = url.replace(':batch_channelvideo_id', batch_channelvideo_id);
+                    url = url.replace(':slug', slug);
+
+                    let that = this;
+
+                    $.ajax({
+                        type: 'GET',
+                        url: url,
+
+                        success: function (response){
+                            if(response == 0){
+                                target = $(that).parents('.video-card-wrapper');
+                                target.hide('slow', function(){ target.remove(); });
+                                // .remove();
+                                // removeExpiredVideos(rid);
+                                // clearInterval(validStreamcheker);
+                                // console.log(active_vids.length);
+                                if(active_vids.length == 1) { //if the removed one is the last one....
+                                    text = `<div>
+
+                                        <p class="text-center text-muted">
+                                            {{ __('Videos not available for now') }}<br />
+                                            {{ __('If you have already subscribed please check your schedule.') }}
+                                        </p>
+                                        <p class="text-center text-muted">
+                                            <a class="btn btn-sm btn-outline-secondary"
+                                                href="{{ route('web.home') }}">
+                                                {{ __('Go back to home') }}
+                                            </a>
+                                            <button class="btn btn-refresh btn-sm btn-outline-secondary" >
+                                                {{ __('Reload') }}
+                                            </button>
+                                        </p>
+
+                                        </div>`;
+                                    $('.streams-container').html(text);
+                                }
+
+                            }
+                        }
+                    });
+
+                });
+
+
+            }
+
             function chkRentalTimer() {
                 // console.log("remoing");
                 let rental_vids = $(".rental_player");
+
+                active_rental_vids=[];
+                batch_stream_vids.each(function(i){
+                    active_rental_vids.push($(this).attr('rid'));
+                });
+
                 // console.log(rental_vids);
                 rental_vids.each(function(i) {
 
@@ -1510,9 +1585,30 @@
 							if(response == "0"){
                                 console.log('clearing');
                                 $(that).parents('.video-card').remove();
+
+                                if(active_rental_vids.length == 1) { //if the removed one is the last one....
+                                    text = `<div>
+
+                                            <p class="text-center text-muted">
+                                                {{ __('You have no rental videos available') }}<br />
+                                                {{ __('If you would like to rent videos please contact the channel admin.') }}
+                                            </p>
+                                            <p class="text-center text-muted">
+                                                <a class="btn btn-sm btn-outline-secondary"
+                                                    href="{{ route('web.home') }}">
+                                                    {{ __('Go back to home') }}
+                                                </a>
+                                                <button class="btn btn-refresh btn-sm btn-outline-secondary" >
+                                                    {{ __('Reload') }}
+                                                </button>
+                                            </p>
+
+                                            </div>`;
+                                    $('.rentals-container').html(text);
+                                }
                                 // removeExpiredVideos(rid);
-                                clearInterval(chkRentalTimer);
-                                clearInterval(endtimecheker);
+                                // clearInterval(chkRentalTimer);
+                                // clearInterval(endtimecheker);
 
                             }
                         }

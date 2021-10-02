@@ -152,9 +152,10 @@
         $(document).ready(function() {
 
             //Initialize datetimepicker
-            $('#pubilsh_date').datetimepicker({
-                // format: "L"
+            $('#pubilsh_date input').datetimepicker({
+                format: 'LT'
             });
+            // $('#pubilsh_date input').datetimepicker('date', moment());
 
             function formatState(state) {
                 if (!state.id) {
@@ -393,14 +394,15 @@
             let channelvideo_id = $('#select_video').val();
             let for_hours = $('#for_hours').val();
             let within_days = $('#within_days').val();
-            let publish_date = $('#publish_date').val();
+            let publish_date = $('#publish_date').datetimepicker('date').format('YYYY-MM-DD HH:mm:ss');
+
             let _token = $('input[name=_token]').val();
 
             formData.append("user_id", user_id);
             formData.append("channelvideo_id", channelvideo_id);
             formData.append("for_hours", for_hours);
             formData.append("within_days", within_days);
-            formData.append("publish_date", publish_date);
+            formData.append("published_at", publish_date);
             formData.append("_token", _token);
 
             let url = "{{ route('admin.manage.rental.add', ['gize_channel_id' => ':gize_channel_id']) }}";
@@ -434,7 +436,7 @@
                         $('#rentalTable tbody').append(tableRowHtml);
 
                         $('#rentalForm')[0].reset();
-                        // $('#rentalModal').modal('hide');
+                        $('#rentalModal').modal('hide');
 
                         //bug fix.. for not hiding modal window
                         // $('.modal').hide();

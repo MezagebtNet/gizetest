@@ -29,8 +29,8 @@
                 <source
                     src="{{ route('video.rental.playlist', [
     'vid_id' =>
-        $vidid,
-        // 7,
+        // $vidid,
+        7,
     'gize_channel_id' => $video->gize_channel_id,
 ]) }}"
                     type="application/x-mpegURL">
@@ -58,7 +58,7 @@
             <div class="card-footer bg-transparent">
                 <dl>
                     @if ($video->rental_detail->status == 0 && $video->rental_detail->started_at == null)
-                        <dt>{{ __('Status') }} <i class="status-indicator fa fa-circle text-danger"></i> </dt>
+                        <dt>{{ __('Status') }}:- <i class="status-indicator text-sm pl- fa fa-circle text-danger"></i> <span style="font-weight: 100" class="text-sm status-text">{{ __('Not Watched') }}</span></dt>
                         <dd>
                             {{-- <span>Video Not Played Yet</span> --}}
 
@@ -78,7 +78,7 @@
                     </dd>
 
                     @if ($video->rental_detail->status != 0 && $video->rental_detail->started_at != null)
-                        <dt>{{ __('Status') }} <i class="status-indicator fa fa-circle {{ $video->rental_detail->status == 1 ? 'text-warning' : 'text-success'}}"></i> </dt>
+                        <dt>{{ __('Status') }}:- <i class="status-indicator text-sm pl- fa fa-circle {{ $video->rental_detail->status == 1 ? 'text-warning' : 'text-success'}}"></i> <span style="font-weight: 100" class="text-sm status-text">{{ $video->rental_detail->status == 1 ? __('Started Watching') : __('Watched') }}</span></dt>
                         <dd>
 
                         </dd>

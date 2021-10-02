@@ -154,6 +154,10 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
             Route::get('/{slug}/{user_id}/{status?}/active-rental-videos', [ChannelvideoRentalController::class, 'getChannelActiveRentalsByUser'])->name('activerentalvideos');
 
+            Route::get('/{slug}/{batch_channelvideo_id}/check', [ChannelLandingPageController::class, 'checkBatchChannelvideoValidity'])->name('validstream.check');
+
+            Route::get('/{slug}/{batch_channelvideo_id}/check-for-new', [ChannelLandingPageController::class, 'checkNewBatchChannelvideo'])->name('validstream.checknew');
+
         });
 
         //Route GROUP::WEBSITE Rentals
@@ -539,5 +543,11 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
 /** OTHER PAGES THAT SHOULD NOT BE LOCALIZED **/
 //
+
+
+//Redirect from old website
+//https://gize.mezagebtnet.com/student/videos
+// Route::get('/student/videos', [HomePageController::class, 'index']);
+Route::redirect('/student/videos', '/login');
 
 Route::post('/user/payment-ipn', [PaymentController::class, 'postIPN'])->name('payment.ipn');

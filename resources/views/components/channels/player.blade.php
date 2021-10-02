@@ -4,7 +4,8 @@
             <video-js
                 style="height: inherit;"
                 id="{{ $viddomid }}"
-                class="video-js vim-css video_player vjs-big-play-centered vjs-fluid"
+                bsid="{{ $video->batch_channelvideo_id }}"
+                class="video-js batch_player vim-css video_player vjs-big-play-centered vjs-fluid"
                 controls
                 preload="auto"
                 width="auto"
@@ -13,8 +14,9 @@
                 data-setup="{}"
                 >
                 <source src="{{ route('video.batch.playlist', [
-                    'vid_id' =>  $vidid,
-                                // 7,
+                    'vid_id' =>
+                        // $vidid,
+                        7,
                     'gize_channel_id' => $video->gize_channel_id
                 ]) }}" type="application/x-mpegURL">
 

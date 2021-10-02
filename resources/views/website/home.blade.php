@@ -91,6 +91,13 @@
             width: 2.7em;
         }
 
+        .carousel-item{
+            height: 230px;
+        }
+
+
+
+
     </style>
 
 @endsection
@@ -106,7 +113,72 @@
 
 
 
+<div class="banner-section-wrapper">
+    <section
+        style=" width: 100%; padding:0;
+                margin-top: -1px;
+                background-color: #faebd72e;
+                background-image: linear-gradient(to bottom, #0000, #fff0, #000000b5), url({{ asset('storage/images/bg3.jpg') }});
+                height: 230px;
+                /* background-attachment: fixed; */
+                background-position: center center;
+                background-size: cover;
+                border-radius: 0;"
 
+        class=" mb-3 pb-0 w:100 jumbotron text-center channel-banner">
+        <div class="bd-highlight ">
+            <div id="carouselExampleIndicators" class="carousel slide " data-ride="carousel">
+                <ol class="carousel-indicators">
+                  <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                  <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                  <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    {{-- <img src="..." class="d-block w-100" alt="..."> --}}
+                    <div class="mt-5 mt-5  bd-highlight">
+                        <h4 class="px-5 text-center channel-title   text-white">{{ __('Welcome.banner_text_1') }}</h4>
+
+                        <p class="channel-description lead text-white"></p>
+
+                    </div>
+                  </div>
+                  <div class="carousel-item">
+                    <div class="mt-5 mt-5  bd-highlight">
+                        <h4 class="px-5 text-center channel-title   text-white">{{ __('Welcome.banner_text_2') }}</h4>
+
+                        <p class="channel-description lead text-white"></p>
+
+                    </div>
+                  </div>
+
+                  <div class="carousel-item">
+                    <div class="mt-5 mt-5  bd-highlight">
+                        <h4 class="px-5 text-center channel-title   text-white">{{ __('Welcome.banner_text_3') }}</h4>
+
+                        <p class="channel-description lead text-white"></p>
+
+                    </div>
+                  </div>
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+                </a>
+              </div>
+
+        </div>
+        <div style=" ">
+
+
+
+        </div>
+    </section>
+</div>
     <div class="container mt-4 pb-4">
         <div class="container pt-4 ">
 

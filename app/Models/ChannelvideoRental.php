@@ -27,6 +27,7 @@ class BatchUser extends Pivot
         'status',
         'within_days',
         'for_hours',
+        'published_at',
         'started_at',
     ];
 

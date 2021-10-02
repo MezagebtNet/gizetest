@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Jenssegers\Date\Date;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\Request;
 
 class ChannelvideoRentalController extends Controller
 {
@@ -60,7 +61,7 @@ class ChannelvideoRentalController extends Controller
         $for_hours = $request->for_hours;
         $published_at = $request->published_at;
 
-        $user->attach($channelvideo_id, [
+        $user->channelvideos()->attach($channelvideo_id, [
             'status' => 0,
             'within_days' => $within_days,
             'for_hours' => $for_hours,

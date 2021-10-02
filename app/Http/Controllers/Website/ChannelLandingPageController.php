@@ -66,6 +66,7 @@ class ChannelLandingPageController extends Controller
     public function loadSchedule($slug)
     {
 
+        $tz = \Config::get('app.timezone');
         $gize_channel = GizeChannel::where('slug', $slug)->firstOrFail();
         $user_id = \Auth::user()->id;
 
@@ -86,10 +87,10 @@ class ChannelLandingPageController extends Controller
 
             // $schedule->start = $schedule->starts_at; //Carbon::createFromFormat('Y-m-d H', $schedule->starts_at)->toDateTimeString(); // 1975-05-21 22:00:00
             $schedule->start = \Carbon\Carbon::createFromTimestamp(strtotime($schedule->starts_at))
-                ->timezone(\Config::get('app.timezone'))
+                ->timezone($tz)
                 ->toDateTimeString();
             $schedule->end = \Carbon\Carbon::createFromTimestamp(strtotime($schedule->ends_at))
-            ->timezone(\Config::get('app.timezone'))
+            ->timezone($tz)
             ->toDateTimeString();;
             // $schedule->end = \Carbon\Carbon::createFromTimestampMs($schedule->ends_at)->format('Y-m-d\TH:i:s.uP');
             // $schedule->end = $schedule->ends_at; //Carbon::createFromFormat('Y-m-d H', $schedule->starts_at)->toDateTimeString(); // 1975-05-21 22:00:00
@@ -103,18 +104,27 @@ class ChannelLandingPageController extends Controller
 
     public function getActiveChannelVideos($slug)
     {
+        // $slug = 'addmes';
         $user = \Auth::user();
+        $tz = \Config::get('app.timezone'); //timezone;
+
+        //Check Batch stream time slot
+        $now = new \DateTime("now", new \DateTimeZone($tz) );
+
+        // echo $now->format('Y-m-d H:i:s');
+        //$now = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s',  '2021-10-02 13:10:00');
+        //return  $today->format('Y-m-d H:i:s');
 
         $gize_channel = GizeChannel::where('slug', $slug)->firstOrFail();
+
         //get batches of the channel
-        $user_id = \Auth::user()->id;
+        $user_id = $user->id;
 
         $user_batches = BatchUser::where('user_id', $user_id)
             ->where('active', 1)
             ->get()->pluck('batch_id');
 
         $active_batches = Batch::whereIn('id', $user_batches)->where('status', 1);
-        // dd($batches->get()->pluck('id'));
 
         $batches_in_channel = $active_batches->where('gize_channel_id', $gize_channel->id)->get();
 
@@ -124,19 +134,59 @@ class ChannelLandingPageController extends Controller
             ->whereIn('video_available_for', [1, 2])
             ->get();
 
+
+
         foreach ($batches_in_channel as $batch) {
 
             $videos_in_batch = BatchChannelvideo::where('batch_id', $batch->id)
                 ->whereIn('channelvideo_id', $videos->pluck('id'))
-                ->whereDate('ends_at', '>=', now())
-                ->whereDate('starts_at', '<=', now())->get();
+			  ->get();
 
-            $channelvideos = $channelvideos->merge($videos_in_batch);
+
+		  	foreach($videos_in_batch as $videos){
+			  foreach($videos->video as $vid){
+				if($vid->active == 1) {
+				  	$batch_channelvideo_id = $videos->id;
+				    $starts_at = $videos->starts_at;
+				    $ends_at = $videos->ends_at;
+				    $batch_id = $videos->batch_id;
+				  	$vid->starts_at = $starts_at;
+				  	$vid->ends_at = $ends_at;
+				  	$vid->batch_id = $batch_id;
+					$vid->batch_channelvideo_id = $batch_channelvideo_id;
+
+					if(
+					  \Carbon\Carbon::createFromFormat('Y-m-d H:i:s',  $starts_at, $tz)->lte($now) &&
+					  \Carbon\Carbon::createFromFormat('Y-m-d H:i:s',  $ends_at, $tz)->gte($now)
+					)
+					$channelvideos = $channelvideos->add($vid);
+
+				}
+			  }
+
+			}
 
         }
+
         // dd($channelvideos);
         return $channelvideos;
 
+    }
+
+    public function checkNewBatchChannelvideo($slug, $current_vids){
+        // Check for newly added videos...
+    }
+
+    public function checkBatchChannelvideoValidity($slug, $batch_channelvideo_id){
+        $activevideos = $this->getActiveChannelVideos($slug);
+        $validity = false;
+        foreach ($activevideos as $vid) {
+            if($vid->batch_channelvideo_id == $batch_channelvideo_id){
+                $validity = true;
+            }
+        }
+
+        return $validity;
     }
 
     public function renderVideoCard()
