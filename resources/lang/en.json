@@ -149,7 +149,11 @@
 
     "Not Watched": "Not Watched",
     "Started Watching": "Started Watching",
-    "Watched": "Watched"
+    "Watched": "Watched",
+
+    "banner_text_1": "Watch various videos on Gize website.",
+    "banner_text_2": "Videos will be rented for 7 days. They remain open 24 hours after you start watching.",
+    "banner_text_3": "Watch videos for daily sessions with a schedule viewer."
 
 
 
