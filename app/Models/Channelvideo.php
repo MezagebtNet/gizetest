@@ -4,6 +4,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Hashids\Hashids;
 
 
 
@@ -35,7 +36,27 @@ class Channelvideo extends Model
         'sample_file_type',
         'poster_image_url',
         'thumb_image_url',
+        'active',
+        'is_featured',
+
     ];
+
+    protected $appends = [
+        'hashid'
+    ];
+
+    public function getHashidAttribute($value){
+        $id = $this->id;
+        $hashids = new Hashids();
+        $hashid = $hashids->encode($id);
+        return $hashid;
+    }
+
+    public static function decodeHashID($hashid){
+        $hashids = new Hashids();
+        $id = $hashids->decode($hashid);
+        return $id;
+    }
 
     public function channelvideoCategories()
     {

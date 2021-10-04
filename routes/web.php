@@ -18,6 +18,7 @@ use App\Http\Controllers\Utils\UploadController;
 use App\Http\Controllers\Website\ChannelLandingPageController;
 use App\Http\Controllers\ChannelvideoRentalController;
 use App\Http\Controllers\Website\HomePageController;
+use App\Http\Controllers\Website\Play\PlayPageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
@@ -84,6 +85,14 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
         });
 
+        //Route GROUP::PLAYER
+        Route::group(['prefix' => 'play', 'middleware' => 'role:super-admin|user|channel-admin|system-admin', 'as' => 'play.'], function () {
+
+            //index
+            Route::get('/', [PlayPageController::class, 'index'])->name('index');
+
+        });
+
         //Route GROUP::VIDEOSTREAM
         Route::group(['prefix' => 'video', 'middleware' => 'role:super-admin|user|channel-admin|system-admin', 'as' => 'video.'], function () {
 
@@ -138,6 +147,33 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
                 return Storage::disk('channelvideo_secrets')->download( $gize_channel_id .'/' . $vid_id . '/' . $key);
             })->name('rental.key');
+
+            //HLS For All Free Videos
+            Route::get('/v/{gize_channel_id}/{vid_id}/{playlist?}', function ($gize_channel_id, $vid_id, $playlist = 'plist.m3u8') {
+                $DPL = new DynamicHLSPlaylist();
+                $vid_id = Channelvideo::decodeHashID($vid_id);
+                return $DPL
+                    ->fromDisk('public')
+                    ->open('/hls/c/' . $gize_channel_id . '/' . $vid_id . '/' . $playlist)
+                    ->setKeyUrlResolver(function ($key) use ($gize_channel_id, $vid_id) {
+                        return route('video.play.key', ['key' => $key, 'gize_channel_id' => $gize_channel_id, 'vid_id' => $vid_id]);
+                    })
+                    ->setMediaUrlResolver(function ($mediaFilename) use ($gize_channel_id, $vid_id) {
+                        return Storage::disk('public')->url('/hls/c/'. $gize_channel_id . '/' . $vid_id . '/' . $mediaFilename);
+                    })
+                    ->setPlaylistUrlResolver(function ($playlistFilename) use ($gize_channel_id, $vid_id) {
+                        return route('video.play.playlist', ['vid_id' => $vid_id, 'gize_channel_id' => $gize_channel_id, 'playlist' => $playlistFilename]);
+                    });
+            })->name('play.playlist');
+
+            //KEYS For All Free Videos
+            Route::get('/v/key/{gize_channel_id}/{vid_id}/{key}', function ($gize_channel_id, $vid_id, $key) {
+                $vid_id = Channelvideo::decodeHashID($vid_id);
+
+                abort_if(!Auth::user()->isWatchingActiveRentalVideo($vid_id), 403);
+
+                return Storage::disk('channelvideo_secrets')->download( $gize_channel_id .'/' . $vid_id . '/' . $key);
+            })->name('play.key');
 
         });
 

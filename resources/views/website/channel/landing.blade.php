@@ -1561,9 +1561,7 @@
                 let rental_vids = $(".rental_player");
 
                 active_rental_vids=[];
-                batch_stream_vids.each(function(i){
-                    active_rental_vids.push($(this).attr('rid'));
-                });
+
 
                 // console.log(rental_vids);
                 rental_vids.each(function(i) {
@@ -1585,8 +1583,9 @@
 							if(response == "0"){
                                 console.log('clearing');
                                 $(that).parents('.video-card').remove();
+                                console.log('active_rental_vids.length: ' + active_rental_vids.length);
 
-                                if(active_rental_vids.length == 1) { //if the removed one is the last one....
+                                if(active_rental_vids.length == 0) { //if the removed one is the last one....
                                     text = `<div>
 
                                             <p class="text-center text-muted">

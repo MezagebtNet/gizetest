@@ -257,17 +257,20 @@
                 // format: "L"
             });
 
-            function formatState(state) {
+            function formatVideosResult(state) {
                 if (!state.id) {
                     return state.text;
                 }
                 var baseUrl = "{{ asset('storage/') }}";
-                var path = state.poster_image_url != null ? state.poster_image_url :
-                    "images/l/thumb/channelvideo.jpg";
+                // var path = "images/c/thumb/channelvideo.jpg";
+                var path = state.thumb_image_url != null ? state.thumb_image_url :
+                    "images/c/thumb/channelvideo.jpg";
                 var $state = $(
                     '<span><img style="max-width:90px;" src="' + baseUrl + '/' + path +
                     '" class="img-flag" /> ' + state.text + '</span>'
                 );
+                console.log($state);
+
                 return $state;
             };
 
@@ -379,7 +382,7 @@
             $('.select-videos').select2({
                 theme: 'bootstrap4',
                 data: list,
-                templateResult: formatState,
+                templateResult: formatVideosResult,
                 dropdownParent: $('#scheduleModal')
             });
 

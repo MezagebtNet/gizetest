@@ -1,6 +1,6 @@
 @extends('layouts.website.index')
 
-@section('title', 'Home')
+@section('title', 'Play')
 
 @section('styles')
     <!--Video JS -->
@@ -91,12 +91,9 @@
             width: 2.7em;
         }
 
-        .carousel-item{
+        .carousel-item {
             height: 230px;
         }
-
-
-
 
     </style>
 
@@ -113,192 +110,88 @@
 
 
 
-<div class="banner-section-wrapper">
-    <section
-        style=" width: 100%; padding:0;
-                margin-top: -1px;
-                background-color: #faebd72e;
-                background-image: linear-gradient(to bottom, #0000, #fff0, #000000b5), url({{ asset('storage/images/bg3.jpg') }});
-                height: 230px;
-                /* background-attachment: fixed; */
-                background-position: center center;
-                background-size: cover;
-                border-radius: 0;"
-
-        class=" mb-3 pb-0 w:100 jumbotron text-center channel-banner">
-        <div class="bd-highlight ">
-            <div id="carouselExampleIndicators" class="carousel slide " data-ride="carousel">
-                <ol class="carousel-indicators">
-                  <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                  <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                  <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                </ol>
-                <div class="carousel-inner">
-                  <div class="carousel-item active">
-                    {{-- <img src="..." class="d-block w-100" alt="..."> --}}
-                    <div class="mt-5 mt-5  bd-highlight">
-                        <h4 class="px-5 text-center channel-title   text-white">{{ __('banner_text_1') }}</h4>
-
-                        <p class="channel-description lead text-white"></p>
-
-                    </div>
-                  </div>
-                  <div class="carousel-item">
-                    <div class="mt-5 mt-5  bd-highlight">
-                        <h4 class="px-5 text-center channel-title   text-white">{{ __('banner_text_2') }}</h4>
-
-                        <p class="channel-description lead text-white"></p>
-
-                    </div>
-                  </div>
-
-                  <div class="carousel-item">
-                    <div class="mt-5 mt-5  bd-highlight">
-                        <h4 class="px-5 text-center channel-title   text-white">{{ __('banner_text_3') }}</h4>
-
-                        <p class="channel-description lead text-white"></p>
-
-                    </div>
-                  </div>
-                </div>
-                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                  <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                  <span class="sr-only">Next</span>
-                </a>
-              </div>
-
-        </div>
-        <div style=" ">
-
-
-
-        </div>
-    </section>
-</div>
     <div class="container mt-4 pb-4">
-        <div class="container pt-4 ">
+        <div class=" pt-4 mb-4">
+            <div class="row">
+                <div class="col-md-9">
+                    <video-js style="height: inherit;" id="player_1"
+                        class="video-js  vim-css video_player vjs-big-play-centered vjs-fluid" controls preload="auto" width="auto"
+                        height="264" poster="" data-setup="{}">
+                        <source
+                            src="{{ route('video.batch.playlist', [
+                                'vid_id' =>
+                                    // $vidid,
+                                    7,
+                                'gize_channel_id' => 1,
+                            ]) }}"
+                            type="application/x-mpegURL"/>
 
-            <div class="container mt-2" style="background-color: #f0f8ff14;
-                border: 1px solid #74747452;
-                border-radius: 8px;">
 
-
-                <div class="row" style="min-height: 200px;padding: 2rem 0;">
-                    <div class=" col-12 col-sm-8"
-                        style="padding: 1rem;display: inline-block !important;margin-top: auto;margin-bottom: auto;">
-                        <p class="h4 text-right text-center text-sm-right" style="vertical-align: middle !important;">
-                            {{ __("Have you subscribed to a regular series of 'Book of Addmes' videos?") }}</p>
-                        <p class="text-sm pb-0 mb-0 text-muted font-italic text-center text-sm-right">
-                            {{ __('For more info') }}: <a target="_blank" href="tel:+251911448945">(+251) 911448945</a>
-                        </p>
-                        <p class="text-sm pb-0 text-muted font-italic text-center text-sm-right">{{ __('Website') }}: <a
-                                target="_blank"
-                                href="https://addmes.mezagebtnet.com/courses">https://addmes.mezagebtnet.com/courses</a></p>
-                        <p class="text-sm text-muted font-italic text-center text-sm-right">
-                            {{ __('by Addmesh Book Trading') }} </p>
+                    </video-js>
+                </div>
+                <div class="col-md-3">
+                    <div class="col">
+                        <h5 class="">{{ __('Featured') }}</h5>
                     </div>
-                    <div class="col-12 col-sm-4 d-inline-block text-center text-sm-left"
-                        style="margin-top: auto;margin-bottom: auto; padding: 1rem;display: block;display: inline-block !important;">
-                        <span class=" justify-content-center align-middle">
-                            <p style="mb-0" style="margin-bottom: 0;">{{ __('To watch the videos') }} </p>
-                            <a href="{{ route('channel.landing', 'addmes') }}"
-                                class="btn btn-block bg-gradient-warning btn-lg mx-atuo ">{{ __('Enter Here') }}!</a>
 
-                        </span>
+                    <div id="archive-cards" class="row row-cols-1 row-cols-sm-1 row-cols-md-1 row-cols-lg-1 ">
+                                {{-- {{ dd($activevideos[0]->video->poster_image_url) }} --}}
+                                {{-- {{ dd($activerentals[0]->title) }} --}}
 
+
+                                @for ($i = 0; $i < $featured_videos->count(); $i++)
+                                    @php
+                                        $archive = $featured_videos[$i];
+                                        $key = $i;
+                                    @endphp
+                                    {{-- {{ dd($active->id) }} --}}
+                                    @if ($archive->is_free)
+                                        {{-- <a href="#modal"
+                                            data-vid_title = "{{ $archive->title }}"
+                                            data-vid_duration = "{{ $archive->duration }}"
+                                            data-vid_host = "{{ $archive->trainer }}">
+                                            <x-channels.archivecard :archivevid="$archive"/>
+                                        </a> --}}
+
+                                        <a href="javascript: void(0);" class="archivevid isfree" vid_id="{{ $archive->id }}"
+                                            vid_title="{{ $archive->title }}" vid_duration="{{ $archive->duration }}"
+                                            vid_host="{{ $archive->trainer }}" vid_channel="{{ $archive->gize_channel_id }}"
+                                            vid_channel_name="{{ $archive->gizeChannel->name }}"
+                                            vid_channel_logo="{{ $archive->gizeChannel->logo_image_url }}"
+                                            vid_channel_phone_number="{{ $archive->gizeChannel->phone_number }}"
+                                            vid_channel_contact_address="{{ $archive->gizeChannel->contact_address }}"
+                                            vid_channel_website="{{ $archive->gizeChannel->website }}"
+                                            vid_image_url="{{ asset('storage/' . $archive->thumb_image_url) }}">
+
+                                            <x-channels.archivecard :archivevid="$archive" />
+
+                                        </a>
+
+                                    @else
+                                        <a href="javascript: void(0);" class="archivevid" vid_title="{{ $archive->title }}"
+                                            vid_duration="{{ $archive->duration }}" vid_host="{{ $archive->trainer }}"
+                                            vid_channel="{{ $archive->gize_channel_id }}"
+                                            vid_channel_name="{{ $archive->gizeChannel->name }}"
+                                            vid_channel_phone_number="{{ $archive->gizeChannel->phone_number }}"
+                                            vid_channel_contact_address="{{ $archive->gizeChannel->contact_address }}"
+                                            vid_channel_website="{{ $archive->gizeChannel->website }}"
+                                            vid_image_url="{{ asset('storage/' . $archive->thumb_image_url) }}">
+
+                                            <x-channels.archivecard :archivevid="$archive" />
+                                        </a>
+                                    @endif
+
+
+
+                                @endfor
+                        </div>
                     </div>
                 </div>
-
-
             </div>
 
-            <div class="row pt-4">
-                <div class="col">
-                    <h2 class="mb-4">{{ __('Gize Channels') }}</h2>
-                </div>
-            </div>
-            <div class="grid-container">
-                <div class="justify-content-center ">
-                    {{-- <center> --}}
-                    <div class=" row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 ">
-                        @foreach ($gize_channels as $gize_channel)
-
-                            <x-channels.card :channel="$gize_channel" :name="$gize_channel->name"
-                                :producer="$gize_channel->producer" :id="$gize_channel->id" :slug="$gize_channel->slug" />
-
-                        @endforeach
-                    </div>
-                    {{-- </center> --}}
-                </div>
-            </div>
-        </div>
-
-
-        <div class=" mb-4">
-            <div class="row pt-4">
-                <div class="col">
-                    <h2 class="">{{ __('Featured') }}</h2>
-                </div>
-                {{-- <a href="{{ route('play.index', ['v'=>'7']); }}">Play</a> --}}
-            </div>
-
-            <div id=" archive-cards" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 ">
-                        {{-- {{ dd($activevideos[0]->video->poster_image_url) }} --}}
-                        {{-- {{ dd($activerentals[0]->title) }} --}}
-
-
-                        @for ($i = 0; $i < $featured_videos->count(); $i++)
-                            @php
-                                $archive = $featured_videos[$i];
-                                $key = $i;
-                            @endphp
-                            {{-- {{ dd($active->id) }} --}}
-                            @if ($archive->is_free)
-                                {{-- <a href="#modal"
-                                                data-vid_title = "{{ $archive->title }}"
-                                                data-vid_duration = "{{ $archive->duration }}"
-                                                data-vid_host = "{{ $archive->trainer }}">
-
-                                                <x-channels.archivecard :archivevid="$archive"/>
-
-                                            </a> --}}
-                                <a href="javascript: void(0);" class="archivevid isfree" vid_id="{{ $archive->id }}"
-                                    vid_title="{{ $archive->title }}" vid_duration="{{ $archive->duration }}"
-                                    vid_host="{{ $archive->trainer }}" vid_channel="{{ $archive->gize_channel_id }}"
-                                    vid_channel_name="{{ $archive->gizeChannel->name }}"
-                                    vid_channel_logo="{{ $archive->gizeChannel->logo_image_url }}"
-                                    vid_channel_phone_number="{{ $archive->gizeChannel->phone_number }}"
-                                    vid_channel_contact_address="{{ $archive->gizeChannel->contact_address }}"
-                                    vid_channel_website="{{ $archive->gizeChannel->website }}"
-                                    vid_image_url="{{ asset('storage/' . $archive->thumb_image_url) }}">
-
-                                    <x-channels.archivecard :archivevid="$archive" />
-
-                                </a>
-
-                            @else
-                                <a href="javascript: void(0);" class="archivevid" vid_title="{{ $archive->title }}"
-                                    vid_duration="{{ $archive->duration }}" vid_host="{{ $archive->trainer }}"
-                                    vid_channel="{{ $archive->gize_channel_id }}"
-                                    vid_channel_name="{{ $archive->gizeChannel->name }}"
-                                    vid_channel_phone_number="{{ $archive->gizeChannel->phone_number }}"
-                                    vid_channel_contact_address="{{ $archive->gizeChannel->contact_address }}"
-                                    vid_channel_website="{{ $archive->gizeChannel->website }}"
-                                    vid_image_url="{{ asset('storage/' . $archive->thumb_image_url) }}">
-
-                                    <x-channels.archivecard :archivevid="$archive" />
-                                </a>
-                            @endif
 
 
 
-                        @endfor
-                </div>
-            </div>
 
 
 

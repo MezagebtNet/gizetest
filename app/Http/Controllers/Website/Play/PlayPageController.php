@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Website;
+namespace App\Http\Controllers\Website\Play;
 
 use App\Http\Controllers\Controller;
 use App\Models\Batch;
@@ -12,7 +12,7 @@ use App\Http\Controllers\ChannelvideoRentalController;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ChannelLandingPageController extends Controller
+class PlayPageController extends Controller
 {
     use SoftDeletes;
     /**
@@ -25,7 +25,14 @@ class ChannelLandingPageController extends Controller
 
         $gize_channels = GizeChannel::where('active', 1)->get();
 
-        return view('website.channel.index', compact('gize_channels'));
+        $featured_videos = Channelvideo::with('gizeChannel')
+                    ->where('active', 1)
+                    ->where('is_free', 1)
+                    ->orderBy("is_featured", "Desc")
+                    ->orderBy("is_free", "Asc")
+                    ->get();
+
+        return view('website.play.index', compact('featured_videos'));
 
     }
 
@@ -106,7 +113,7 @@ class ChannelLandingPageController extends Controller
 
     public function getActiveChannelVideos($slug)
     {
-        $slug = 'addmes';
+        // $slug = 'addmes';
         $user = \Auth::user();
         $tz = \Config::get('app.timezone'); //timezone;
 
@@ -125,10 +132,8 @@ class ChannelLandingPageController extends Controller
         $user_batches = BatchUser::where('user_id', $user_id)
             ->where('active', 1)
             ->get()->pluck('batch_id');
-//return $user_batches;
 
         $active_batches = Batch::whereIn('id', $user_batches)->where('status', 1);
-//return $active_batches->get();
 
         $batches_in_channel = $active_batches->where('gize_channel_id', $gize_channel->id)->get();
 
@@ -139,19 +144,17 @@ class ChannelLandingPageController extends Controller
             ->get();
 
 
-		$video_ids = $videos->pluck('id');
 
         foreach ($batches_in_channel as $batch) {
 
             $videos_in_batch = BatchChannelvideo::where('batch_id', $batch->id)
-                ->whereIn('channelvideo_id', $video_ids)
+                ->whereIn('channelvideo_id', $videos->pluck('id'))
 			  ->get();
-
 
 
 		  	foreach($videos_in_batch as $videos){
 			  foreach($videos->video as $vid){
-
+				if($vid->active == 1) {
 				  	$batch_channelvideo_id = $videos->id;
 				    $starts_at = $videos->starts_at;
 				    $ends_at = $videos->ends_at;
@@ -164,21 +167,10 @@ class ChannelLandingPageController extends Controller
 					if(
 					  \Carbon\Carbon::createFromFormat('Y-m-d H:i:s',  $starts_at, $tz)->lte($now) &&
 					  \Carbon\Carbon::createFromFormat('Y-m-d H:i:s',  $ends_at, $tz)->gte($now)
-					){
-					  // return $vid->id;
-					//   if($vid->id == 41){
-					// 	echo $ends_at;
-					// 	echo \Carbon\Carbon::createFromFormat('Y-m-d H:i:s',  $ends_at, $tz)->gte($now);
-					//   }
+					)
+					$channelvideos = $channelvideos->add($vid);
 
-
-						$new = $channelvideos->add($vid);
-						$channelvideos = $new;
-
-					}
-
-
-
+				}
 			  }
 
 			}

@@ -612,7 +612,7 @@
                 var path = state.profile_photo_url;
                 var $state = $(
                     '<span><img style="max-width:90px;" src="' +  path +
-                    '" class="img-flag" /> ' + state.text + '</span>'
+                    '" class="img-flag" /> '+ state.id + '  - ' + state.text + ' ('+ state.email +')' +  ' | '+ state.phone_number +'</span>'
                 );
                 console.log($state);
 

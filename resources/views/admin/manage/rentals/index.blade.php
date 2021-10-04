@@ -157,7 +157,24 @@
             });
             // $('#pubilsh_date input').datetimepicker('date', moment());
 
-            function formatState(state) {
+            function formatVideosResult(state) {
+                if (!state.id) {
+                    return state.text;
+                }
+                var baseUrl = "{{ asset('storage/') }}";
+                // var path = "images/c/thumb/channelvideo.jpg";
+                var path = state.thumb_image_url != null ? state.thumb_image_url :
+                    "images/c/thumb/channelvideo.jpg";
+                var $state = $(
+                    '<span><img style="max-width:90px;" src="' + baseUrl + '/' + path +
+                    '" class="img-flag" /> ' + state.text + '</span>'
+                );
+                console.log($state);
+
+                return $state;
+            };
+
+            function formatUsersResult(state) {
                 if (!state.id) {
                     return state.text;
                 }
@@ -165,7 +182,7 @@
                 var path = state.profile_photo_url;
                 var $state = $(
                     '<span><img style="max-width:90px;" src="' +  path +
-                    '" class="img-flag" /> ' + state.text + '</span>'
+                    '" class="img-flag" /> '+ state.id + '  - ' + state.text + ' ('+ state.email +')' +  ' | '+ state.phone_number +'</span>'
                 );
                 console.log($state);
 
@@ -199,7 +216,7 @@
             $('.select-subscribers').select2({
                 theme: 'bootstrap4',
                 dropdownParent: $('#rentalModal'),
-                templateResult: formatState,
+                templateResult: formatUsersResult,
 
                 ajax: {
                     url: "{{ route('admin.search.users') }}",
@@ -232,7 +249,7 @@
             $('.select-videos').select2({
                 theme: 'bootstrap4',
                 data: list,
-                templateResult: formatState,
+                templateResult: formatVideosResult,
                 dropdownParent: $('#rentalModal')
             });
 
@@ -317,9 +334,7 @@
             });
 
             function initdatetimePicker() {
-                $('#publish_date').datetimepicker({
-                    format: "L"
-                });
+                $('#publish_date').datetimepicker();
             }
 
             function initRentalTable() {
