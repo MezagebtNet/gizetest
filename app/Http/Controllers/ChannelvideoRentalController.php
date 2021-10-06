@@ -35,8 +35,16 @@ class ChannelvideoRentalController extends Controller
                 $rental_detail->user = $user;
                 $rental_detail->channelvideo = Channelvideo::find($rental_detail->id);
 
-                $published_at = Date::createFromFormat('Y-m-d H:i:s', $rental_detail->rental_detail->published_at)->setTimezone(\Config::get('app.timezone'))->format('M d, Y H:i A');
+                $published_at = Date::createFromFormat('Y-m-d H:i:s', $rental_detail->rental_detail->published_at)->setTimezone(\Config::get('app.timezone'))->format('M d, Y h:i A');
                 $rental_detail->published_at_formatted = $published_at;
+
+                $started_at = "-";
+
+                if($rental_detail->rental_detail->started_at != null){
+                    $started_at = Date::createFromFormat('Y-m-d H:i:s', $rental_detail->rental_detail->started_at)->setTimezone(\Config::get('app.timezone'))->format('M d, Y h:i A');
+
+                }
+                $rental_detail->started_at_formatted = $started_at;
 
                 $rental_detail->validity= $this->checkRentalValidity($user->id, $rental_detail->rental_detail->id);
 
@@ -70,7 +78,20 @@ class ChannelvideoRentalController extends Controller
 
         //last inserted
         $last_inserted = $user->channelvideos()->first()->rental_detail->orderBy('id', 'desc')->first();
+        $last_inserted->user = User::find($user->id);
+        $last_inserted->channelvideo = Channelvideo::find($last_inserted->channelvideo_id);
 
+        $published_at = Date::createFromFormat('Y-m-d H:i:s', $last_inserted->published_at)->setTimezone(\Config::get('app.timezone'))->format('M d, Y h:i A');
+        $last_inserted->published_at_formatted = $published_at;
+
+        $started_at = "-";
+
+        if($last_inserted->started_at != null){
+            $started_at = Date::createFromFormat('Y-m-d H:i:s', $last_inserted->started_at)->setTimezone(\Config::get('app.timezone'))->format('M d, Y h:i A');
+        }
+        $last_inserted->started_at_formatted = $started_at;
+
+        $last_inserted->validity= $this->checkRentalValidity($user->id, $last_inserted->id);
 
         return response()->json($last_inserted);
     }
@@ -79,6 +100,8 @@ class ChannelvideoRentalController extends Controller
 
     public function checkRentalValidity($user_id, $channelvideo_rental_id = 0)
     {
+
+
         // return false;
         $q = $this::getChannelActiveRentalsByUser(null, $user_id);
 
@@ -115,7 +138,9 @@ class ChannelvideoRentalController extends Controller
 
         $now = \Carbon\Carbon::now();
 
-        $user_id = \Auth::user()->id;
+        if($user_id == null){
+            $user_id = \Auth::user()->id;
+        }
 
 
         $user_batches = BatchUser::where('user_id', $user_id)

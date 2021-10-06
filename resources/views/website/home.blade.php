@@ -215,10 +215,20 @@
 
 
             </div>
+            {{-- <video
+  id="vid1"
+  class="video-js vjs-default-skin"
+  controls
+  autoplay
+  width="640" height="264"
+  data-setup='{ "techOrder": ["youtube"], "sources": [{ "type": "video/youtube", "src": "https://www.youtube.com/watch?v=xjS6SftYQaQ"}], "youtube": { "customVars": { "wmode": "transparent" } } }'
+>
+</video> --}}
 
             <div class="row pt-4">
                 <div class="col">
-                    <h2 class="mb-4">{{ __('Gize Channels') }}</h2>
+                    <h3 class="mt-2">{{ __('Gize Channels') }}</h3>
+                    <hr class="mt-0"/>
                 </div>
             </div>
             <div class="grid-container">
@@ -235,13 +245,15 @@
                     {{-- </center> --}}
                 </div>
             </div>
+
         </div>
 
 
         <div class=" mb-4">
             <div class="row pt-4">
                 <div class="col">
-                    <h2 class="">{{ __('Featured') }}</h2>
+                    <h3 class="mt-2 ">{{ __('Featured') }}</h3>
+                    <hr class="mt-0"/>
                 </div>
                 {{-- <a href="{{ route('play.index', ['v'=>'7']); }}">Play</a> --}}
             </div>
@@ -314,6 +326,8 @@
         <!-- Video JS -->
 
         <script src="https://vjs.zencdn.net/7.14.3/video.min.js"></script>
+        <script src="{{ asset('assets/js/dist/Youtube.min.js') }}"></script>
+
 
         <script src="https://unpkg.com/@videojs/http-streaming@2.8.0/dist/videojs-http-streaming.min.js"></script>
 
@@ -325,6 +339,9 @@
 
         <script src="https://cdn.jsdelivr.net/npm/videojs-landscape-fullscreen@11.1.0/dist/videojs-landscape-fullscreen.min.js">
         </script>
+
+
+
 
         <script>
             $(function() {

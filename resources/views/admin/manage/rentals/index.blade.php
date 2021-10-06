@@ -26,10 +26,10 @@
 
 @section('content')
     <div class="row .flex-md-row-reverse">
-        <div class="col-sm-3  order-sm-2">
+        {{-- <div class="col-sm-3  order-sm-2">
 
-        </div>
-        <div class="col-sm-9  order-sm-1">
+        </div> --}}
+        <div class="col-sm-12  order-sm-1">
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">Video Rentals </h3>
@@ -62,6 +62,7 @@
                                 <th scope="col">Within Days</th>
                                 <th scope="col">For Hours</th>
                                 <th scope="col">Pubish Date</th>
+                                <th scope="col">Started At</th>
                                 <th scope="col">Status</th>
                                 <th scope="col">Validity</th>
                             </tr>
@@ -77,6 +78,7 @@
                                     <td>{{ $rental->rental_detail->within_days }}</td>
                                     <td>{{ $rental->rental_detail->for_hours }}</td>
                                     <td>{{ $rental->published_at_formatted }}</td>
+                                    <td>{{ $rental->started_at_formatted }}</td>
                                     <td>
                                         @if( $rental->rental_detail->status == 0 )
                                             <i class="fa fa-circle text-danger"></i> Not Watched
@@ -365,6 +367,8 @@
 
         $('#rentalModal').on('show.bs.modal', function(event) {
             // $('#rentalForm')[0].reset();
+            $('.btn-submit').removeClass('disabled');
+
         });
 
 
@@ -402,6 +406,7 @@
 
         $('#rentalForm').submit(function(e) {
             e.preventDefault();
+            $('.btn-submit').addClass('disabled');
 
             let formData = new FormData($('#rentalForm').get(0));
 
@@ -434,21 +439,43 @@
                 success: function(response) {
 
                     if (response) {
+
                         let tableRowHtml = '<tr id="rentalID' + response.id +
                             '"><td><input type="checkbox" name="ids" class="checkBoxClass" value="' +
                             response.id + '"/></td>' +
                             '<th>';
 
                         tableRowHtml += response.id + '</th>';
-                        tableRowHtml += '<td>' + response.channelvideo_id + '</td>';
-                        tableRowHtml += '<td>' + response.user_id + '</td>';
+                        tableRowHtml += '<td>' + response.channelvideo.title + '</td>';
+                        tableRowHtml += '<td>' + response.user.name + '</td>';
                         tableRowHtml += '<td>' + response.within_days + '</td>';
                         tableRowHtml += '<td>' + response.for_hours + '</td>';
-                        tableRowHtml += '<td>' + response.publish_date + '</td>';
-                        tableRowHtml += '<td>' + response.status + '</td>';
+                        tableRowHtml += '<td>' + response.published_at_formatted + '</td>';
+                        tableRowHtml += '<td>' + response.started_at_formatted + '</td>';
+
+                        let status = "";
+                        if(response.status == 0) {
+                            status = '<i class="fa fa-circle text-danger"></i> Not Watched';
+                        }
+                        else if(response.status == 1) {
+                            status = '<i class="fa fa-circle text-warning"></i> Started Watching';
+                        }
+                        else if(response.status == 2) {
+                            status = '<i class="fa fa-circle text-success"></i> Completed Watching';
+                        }
+                        tableRowHtml += '<td>' + status + '</td>';
+
+                        let validity = "";
+                        if(response.validity == 0) {
+                            validity = '<span class=" text-danger"><i class="fa fa-times"></i> Expired</span>';
+                        }
+                        if(response.validity == 1) {
+                            validity = '<span class=" text-success"><i class="fa fa-check"></i> Active</span>';
+                        }
+                        tableRowHtml += '<td>' + validity + '</td>';
 
 
-                        $('#rentalTable tbody').append(tableRowHtml);
+                        $('#rentalTable tbody').prepend(tableRowHtml);
 
                         $('#rentalForm')[0].reset();
                         $('#rentalModal').modal('hide');

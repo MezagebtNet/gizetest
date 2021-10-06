@@ -114,20 +114,84 @@
         <div class=" pt-4 mb-4">
             <div class="row">
                 <div class="col-md-9">
+                    @if($channelvideo->file_url == null)
                     <video-js style="height: inherit;" id="player_1"
                         class="video-js  vim-css video_player vjs-big-play-centered vjs-fluid" controls preload="auto" width="auto"
                         height="264" poster="" data-setup="{}">
                         <source
-                            src="{{ route('video.batch.playlist', [
-                                'vid_id' =>
-                                    // $vidid,
-                                    7,
-                                'gize_channel_id' => 1,
+                            src="{{ route('video.play.playlist', [
+                                'hashid' =>
+                                    // 'p2',
+                                    $channelvideo->hashid ,
+                                'gize_channel_id' =>
+                                    //  1,
+                                    $channelvideo->gize_channel_id ,
                             ]) }}"
                             type="application/x-mpegURL"/>
 
 
                     </video-js>
+                    @else
+                    <video
+                        id="vid1"
+                        class="video-js  vim-css video_player vjs-big-play-centered vjs-fluid" controls preload="auto" width="auto"
+                        height="264" poster=""
+                        data-setup='{ "techOrder": ["youtube"], "sources": [{ "type": "video/youtube", "src": "{{ $channelvideo->file_url }}"}], "youtube": { "customVars": { "wmode": "transparent" } } }'
+                        >
+                    </video>
+
+                    @endif
+                    <div style="border: 1px solid red;">
+                        <div class="row pt-1 d-flex align-content-start flex-wrap mr-3 ml-0 mb-1"
+                            style="
+                            ">
+                            <div class="  align-self-center">
+                            <a href="{{ route('channel.landing', ['slug' => $gize_channel->slug]) }}#archive">
+                                <img title="{{ $gize_channel->name }}" alt="{{ $gize_channel->name }}" class="border:1px solid gray;" src="{{ asset('storage/'.$gize_channel->logo_image_url) }}" width="60"/>
+                            </a>
+                            </div>
+                            <div class="d-flex flex-column bd-highlight ml-2">
+                            <div class="text-dark h4 mb-0 pb-0 ">{{ mb_strimwidth($channelvideo->trainer, 0, 20, "..."); }} - {{ mb_strimwidth($channelvideo->title, 0, 35, "..."); }}</div>
+                            {{-- <p class="card-text text-white pb-2 d-sm-none dpt-1">{{ mb_strimwidth($channelvideo->title, 0, 10, "..."); }}</p> --}}
+                            <span class="card-date text-secondary text-sm">
+                                    {{ Jenssegers\Date\Date::createFromFormat('Y-m-d H:i:s', $channelvideo->created_at)->format('M d, Y'); }}</span>
+
+                                </div>
+
+                                <div class="col-2 pr-social-share d-flex flex-row">
+                                    <!-- Sharingbutton Facebook -->
+                                    <a class=" mx-3 resp-sharing-button__link" href="https://facebook.com/sharer/sharer.php?u='{{ url('/play?v='.$channelvideo->hashid) }}'" target="_blank" aria-label="">
+                                        <div class="resp-sharing-button resp-sharing-button--facebook resp-sharing-button--small">
+                                        <div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+                                            <span class="text-xl text-primary"><i class="fab fa-facebook"></i></span>
+                                        </div>
+                                        </div>
+                                    </a>
+                                    <!-- Sharingbutton Twitter -->
+                                    <a class=" mx-3 resp-sharing-button__link" href="https://twitter.com/intent/tweet/?text={{ $channelvideo->title }}&amp;url='{{ url('/play?v='.$channelvideo->hashid) }}'" target="_blank" aria-label="">
+                                        <div class="resp-sharing-button resp-sharing-button--twitter resp-sharing-button--small">
+                                        <div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+                                            <span class="text-xl text-info"><i class="fab fa-twitter"></i></span>
+                                        </div>
+                                        </div>
+                                    </a>
+                                    <!-- Sharingbutton LinkedIn -->
+                                    <a class=" mx-3 resp-sharing-button__link" href="https://www.linkedin.com/shareArticle?mini=true&amp;url='{{ url('/play?v='.$channelvideo->hashid) }}'&amp;title={{ $channelvideo->title }}&amp;summary={{ $channelvideo->title }}&amp;source=@Model.Item.DefaultUrl" target="_blank" aria-label="">
+                                        <div class="resp-sharing-button resp-sharing-button--linkedin resp-sharing-button--small">
+                                        <div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+                                            <span class="text-xl text-danger"><i class="fab fa-linkedin"></i></span>
+                                        </div>
+                                        </div>
+                                    </a>
+                                    </div>
+
+                        </div>
+                        <div style="border: 1px solid yellow;">
+                            <div class="row"></div>
+                        </div>
+                        <div style="border: 1px solid black;">{{ $channelvideo->description }}</div>
+
+                    </div>
                 </div>
                 <div class="col-md-3">
                     <div class="col">
@@ -153,7 +217,8 @@
                                             <x-channels.archivecard :archivevid="$archive"/>
                                         </a> --}}
 
-                                        <a href="javascript: void(0);" class="archivevid isfree" vid_id="{{ $archive->id }}"
+                                        <a href="{{ url('/play?v='.$archive->hashid) }}" class=" "
+                                            hashid="{{ $archive->hashid }}"
                                             vid_title="{{ $archive->title }}" vid_duration="{{ $archive->duration }}"
                                             vid_host="{{ $archive->trainer }}" vid_channel="{{ $archive->gize_channel_id }}"
                                             vid_channel_name="{{ $archive->gizeChannel->name }}"
@@ -207,6 +272,7 @@
         <!-- Video JS -->
 
         <script src="https://vjs.zencdn.net/7.14.3/video.min.js"></script>
+        <script src="{{ asset('assets/js/dist/Youtube.min.js') }}"></script>
 
         <script src="https://unpkg.com/@videojs/http-streaming@2.8.0/dist/videojs-http-streaming.min.js"></script>
 
@@ -219,12 +285,13 @@
         <script src="https://cdn.jsdelivr.net/npm/videojs-landscape-fullscreen@11.1.0/dist/videojs-landscape-fullscreen.min.js">
         </script>
 
+
         <script>
             $(function() {
                 $('.archivevid').on('click', function(e) {
                     e.preventDefault();
                     vidtitle = $(this).attr('vid_title');
-                    vidid = $(this).attr('vid_id');
+                    hashid = $(this).attr('hashid');
                     // vidid = 7;
                     // alert( $(this).attr('vid_title'));
                     vidduration = $(this).attr('vid_title');
@@ -241,38 +308,19 @@
                     img_url = $(this).attr('vid_image_url');
                     vidimage_url = vidimage_baseurl + (img_url != null && img_url != '') ? img_url :
                         'images/c/channelvideo.png';
-                    viddomid = "f" + vidid;
-
-                    source =
-                        `{{ route('video.batch.playlist', [
-    'vid_id' => ':vidid',
-    'gize_channel_id' => ':channelid',
-]) }}`;
-
-                    source = source.replace(':vidid', vidid);
-                    source = source.replace(':channelid', vidchannel);
-
-                    new_vidid = moment.now();
-
-                    html = `<video-js
-                                style="height: inherit;"
-                                id="f${new_vidid}"
-                                class="video-js free-video vim-css video_player vjs-big-play-centered vjs-fluid"
-                                controls
-                                preload="auto"
-                                width="auto"
-                                height="264"
-                                poster="${vidimage_url}"
-                                data-setup="{}"
-                                >
-                                <source src="${source}" type="application/x-mpegURL">
+                    viddomid = "f" + hashid;
 
 
-                            </video-js>`;
                     // alert(html);
 
                     if ($(this).hasClass('isfree')) {
                         // alert("isfree");
+                        let url =
+                            "{{ route('play.index', [ 'v' => ':hashid']) }}";
+                        url = url.replace(':hashid', hashid);
+                        // alert(url);
+
+                        window.location.replace(url);
 
                         // var oldPlayer = $('.free-video');
                         // videojs(oldPlayer).dispose();

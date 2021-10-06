@@ -20,6 +20,7 @@
                 <source src="{{ route('video.playlist', ['vid_id' => $vidid ]) }}" type="application/x-mpegURL">
 
             </video-js> --}}
+            @if($video->file_url == null)
             <video-js style="height: inherit;" id="{{ $viddomid }}"
                 rid="{{ $video->rental_detail->id }}"
                 class="video-js video_player rental_player vjs-default-skin vjs-big-play-centered vjs-fluid" controls preload="auto"
@@ -28,12 +29,12 @@
                 data-setup="{}" {{-- poster="{{ asset('storage/images/l/'.$video->poster_image_url) }}" --}}>
                 <source
                     src="{{ route('video.rental.playlist', [
-    'vid_id' =>
-        $vidid,
-        // 7,
-    'gize_channel_id' => $video->gize_channel_id,
-]) }}"
-                    type="application/x-mpegURL">
+                    'vid_id' =>
+                        $vidid,
+                        // 7,
+                    'gize_channel_id' => $video->gize_channel_id,
+                    ]) }}"
+                                    type="application/x-mpegURL">
 
                 {{-- <source src="MY_VIDEO.webm" type="video/webm" /> --}}
                 {{-- <p class="vjs-no-js">
@@ -42,6 +43,20 @@
                     <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
                 </p> --}}
             </video-js>
+            @else
+            <video
+                id="{{ $viddomid }}"
+                rid="{{ $video->rental_detail->id }}"
+                class="video-js video_player rental_player vjs-default-skin vjs-big-play-centered vjs-fluid"
+                controls
+                preload="auto"
+                width="auto"
+                height="264"
+                poster="{{ isset($video->poster_image_url) && $video->poster_image_url!=null && $video->poster_image_url!=null ? asset('storage/'.$video->poster_image_url) : asset('storage/images/c/channelvideo.png') }}"
+                data-setup='{ "techOrder": ["youtube"], "sources": [{ "type": "video/youtube", "src": "{{ $video->file_url }}"}], "youtube": { "customVars": { "wmode": "transparent" } } }'
+                >
+            </video>
+            @endif
             <div class="card-body pb-0">
 
                 <span class="d-flex justify-content-start">
@@ -65,7 +80,7 @@
                             <span>{{ __('Once you start playing this vidio, it will be available for') }} {{ $video->rental_detail->for_hours }} {{ __('hours.') }}</span>
                             <br/>
                             <span class=" show-expiretime"><strong>{{ __('Rental Expires at') }}:</strong>
-                                {{ Jenssegers\Date\Date::createFromFormat('Y-m-d H:i:s', $video->rental_detail->published_at)->add($video->rental_detail->within_days . ' days')->setTimezone(\Config::get('app.timezone'))->format('M d, Y H:i A') }}
+                                {{ Jenssegers\Date\Date::createFromFormat('Y-m-d H:i:s', $video->rental_detail->published_at)->add($video->rental_detail->within_days . ' days')->setTimezone(\Config::get('app.timezone'))->format('M d, Y h:i A') }}
                             </span>
                             <br  class="show-expiretime"/><span class="badge badge-secondary show-expiretime">{{ __('Timezone') }}: {{ \Config::get('app.timezone') }}</span>
                         </dd>
@@ -85,7 +100,7 @@
                         <dt>{{ __('Rental Ends At') }}</dt>
                         <dd>
                             <span class="endtime">
-                                {{ Jenssegers\Date\Date::createFromFormat('Y-m-d H:i:s', $video->rental_detail->started_at)->addHours($video->rental_detail->for_hours)->setTimezone(\Config::get('app.timezone'))->format('M d, Y H:i A') }}
+                                {{ Jenssegers\Date\Date::createFromFormat('Y-m-d H:i:s', $video->rental_detail->started_at)->addHours($video->rental_detail->for_hours)->setTimezone(\Config::get('app.timezone'))->format('M d, Y h:i A') }}
                                 ({{ Jenssegers\Date\Date::createFromFormat('Y-m-d H:i:s', $video->rental_detail->started_at)->addHours($video->rental_detail->for_hours)->setTimezone(\Config::get('app.timezone'))->diffForHumans() }})
                             </span>
                             <br /><span class="badge badge-secondary ">{{ __('Timezone') }}: {{ \Config::get('app.timezone') }}</span>

@@ -9,6 +9,7 @@ use App\Models\BatchUser;
 use App\Models\Channelvideo;
 use App\Models\GizeChannel;
 use App\Http\Controllers\ChannelvideoRentalController;
+use Illuminate\Http\Request;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -20,19 +21,30 @@ class PlayPageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $hashid = '';
+        $file_url = "";
+        if($request->v){
+            $hashid = $request->v;
+            $vid_id = Channelvideo::decodeHashID($hashid);
+            $channelvideo = Channelvideo::find($vid_id)->first();
 
-        $gize_channels = GizeChannel::where('active', 1)->get();
+        }
+
+        // dd($file_url);
+        $gize_channel = GizeChannel::find($channelvideo->gize_channel_id)->first()->where('active', 1)->get()[0];
+        // dd($gize_channel[0]->slug);
 
         $featured_videos = Channelvideo::with('gizeChannel')
                     ->where('active', 1)
                     ->where('is_free', 1)
                     ->orderBy("is_featured", "Desc")
-                    ->orderBy("is_free", "Asc")
+                    ->orderBy("id", "Desc")
+                    ->take(4)
                     ->get();
 
-        return view('website.play.index', compact('featured_videos'));
+        return view('website.play.index', compact('featured_videos', 'channelvideo', 'gize_channel'));
 
     }
 

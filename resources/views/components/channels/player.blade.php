@@ -1,6 +1,7 @@
 <div class="video-card-wrapper">
     <div class="py-0 video-card fadeIn square-animation">
         <div class="card mx-2">
+            @if($video->file_url == null)
             <video-js
                 style="height: inherit;"
                 id="{{ $viddomid }}"
@@ -22,6 +23,20 @@
 
 
             </video-js>
+            @else
+            <video
+                id="{{ $viddomid }}"
+                bsid="{{ $video->batch_channelvideo_id }}"
+                class="video-js batch_player vim-css video_player vjs-big-play-centered vjs-fluid"
+                controls
+                preload="auto"
+                width="auto"
+                height="264"
+                poster="{{ isset($video->poster_image_url) && $video->poster_image_url!=null && $video->poster_image_url!=null ? asset('storage/'.$video->poster_image_url) : asset('storage/images/c/channelvideo.png') }}"
+                data-setup='{ "techOrder": ["youtube"], "sources": [{ "type": "video/youtube", "src": "{{ $video->file_url }}"}], "youtube": { "customVars": { "wmode": "transparent" } } }'
+                >
+            </video>
+            @endif
             <div class="card-body pb-0">
 
                 <span class="d-flex justify-content-start">

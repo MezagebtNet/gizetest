@@ -1,4 +1,11 @@
 <style>
+    .ytp-gradient-top {
+        display:none !important;
+    }
+
+    .ytp-show-cards-title {
+        display:none !important;
+    }
     .card-title {
         font-size: 0.85rem;
     }

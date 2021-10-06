@@ -94,6 +94,22 @@ return [
             'endpoint' => env('AWS_ENDPOINT'),
         ],
 
+        'sftp' => [
+            'driver' => 'sftp',
+            'host' => 'maseb.org',
+            'username' => 'your-username',
+            'password' => 'your-password',
+
+            // Settings for SSH key based authentication...
+            'privateKey' => '/path/to/privateKey',
+            'password' => 'encryption-password',
+
+            // Optional SFTP Settings...
+            // 'port' => 22,
+            // 'root' => '',
+            // 'timeout' => 30,
+        ],
+
     ],
 
     /*
