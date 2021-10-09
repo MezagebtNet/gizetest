@@ -289,7 +289,7 @@
                                                 <x-channels.archivecard :archivevid="$archive"/>
 
                                             </a> --}}
-                                <a href="javascript: void(0);" class="archivevid isfree" vid_id="{{ $archive->id }}"
+                                <a href="{{ url('/play?v='.$archive->hashid) }}"  class=" " vid_id="{{ $archive->id }}"
                                     vid_title="{{ $archive->title }}" vid_duration="{{ $archive->duration }}"
                                     vid_host="{{ $archive->trainer }}" vid_channel="{{ $archive->gize_channel_id }}"
                                     vid_channel_name="{{ $archive->gizeChannel->name }}"

@@ -160,8 +160,8 @@
                                 <img title="{{ $gize_channel->name }}" alt="{{ $gize_channel->name }}" class="" src="{{ asset('storage/'.$gize_channel->logo_image_url) }}" width="60"/>
                             </a>
                             </div>
-                            <div class="d-flex flex-column bd-highlight ml-2">
-                            <div class="text-dark h4 mb-0 pb-0 ">{{ mb_strimwidth($channelvideo->trainer, 0, 20, "..."); }} - {{ mb_strimwidth($channelvideo->title, 0, 35, "..."); }}</div>
+                            <div class="pt-3 pb-4 d-flex flex-column bd-highlight ml-2">
+                            <div class="h4 mb-0 pb-0 ">{{ mb_strimwidth($channelvideo->trainer, 0, 20, "..."); }} - {{ mb_strimwidth($channelvideo->title, 0, 35, "..."); }}</div>
                             {{-- <p class="card-text text-white pb-2 d-sm-none dpt-1">{{ mb_strimwidth($channelvideo->title, 0, 10, "..."); }}</p> --}}
                             <span class="card-date text-secondary text-sm">
                                     {{ Jenssegers\Date\Date::createFromFormat('Y-m-d H:i:s', $channelvideo->created_at)->format('M d, Y'); }}</span>
