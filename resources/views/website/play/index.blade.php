@@ -1,6 +1,16 @@
 @extends('layouts.website.index')
 
-@section('title', 'Play')
+{{-- @section('title', 'Play') --}}
+@section('seo')
+
+    {!! SEOMeta::generate() !!}
+    {!! OpenGraph::generate() !!}
+    {!! Twitter::generate() !!}
+    {!! JsonLd::generate() !!}
+
+    {!! SEO::generate(true) !!}
+
+@endsection
 
 @section('styles')
     <!--Video JS -->
@@ -141,13 +151,13 @@
                     </video>
 
                     @endif
-                    <div style="border: 1px solid red;">
+                    <div style="">
                         <div class="row pt-1 d-flex align-content-start flex-wrap mr-3 ml-0 mb-1"
                             style="
                             ">
                             <div class="  align-self-center">
                             <a href="{{ route('channel.landing', ['slug' => $gize_channel->slug]) }}#archive">
-                                <img title="{{ $gize_channel->name }}" alt="{{ $gize_channel->name }}" class="border:1px solid gray;" src="{{ asset('storage/'.$gize_channel->logo_image_url) }}" width="60"/>
+                                <img title="{{ $gize_channel->name }}" alt="{{ $gize_channel->name }}" class="" src="{{ asset('storage/'.$gize_channel->logo_image_url) }}" width="60"/>
                             </a>
                             </div>
                             <div class="d-flex flex-column bd-highlight ml-2">
@@ -187,10 +197,10 @@
                                     </div>
 
                         </div>
-                        <div style="border: 1px solid yellow;">
+                        <div style="">
                             <div class="row"></div>
                         </div>
-                        <div style="border: 1px solid black;">{{ $channelvideo->description }}</div>
+                        <div style="">{{ $channelvideo->description }}</div>
 
                     </div>
                 </div>

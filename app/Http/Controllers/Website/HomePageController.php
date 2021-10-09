@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\GizeChannel;
 use App\Models\Channelvideo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Jenssegers\Date\Date;
 
 use Artesaos\SEOTools\Facades\SEOMeta;
 use Artesaos\SEOTools\Facades\OpenGraph;
@@ -35,12 +36,12 @@ class HomePageController extends Controller
 
         SEOMeta::setTitle('Home');
         // SEOMeta::setDescription('Gize');
-        SEOMeta::setCanonical('https://gize.mezagebtnet.com');
+        SEOMeta::setCanonical(env('APP_URL'));
 
         // OpenGraph::setDescription('Gize');
         OpenGraph::setTitle('Home');
-        OpenGraph::setUrl('http://gize.mezagbetnet.com');
-        OpenGraph::addProperty('type', 'videos');
+        OpenGraph::setUrl(env('APP_URL'));
+        OpenGraph::addProperty('type', 'WebPage');
 
         TwitterCard::setTitle('Home');
         TwitterCard::setSite('@gize');
@@ -50,14 +51,13 @@ class HomePageController extends Controller
         JsonLd::addImage(asset('storage/images/logo-SEO-jsonld.jpg'));
 
         // OR
-
-        SEOTools::setTitle('Home');
+        // SEOTools::setTitle('Home');
         // SEOTools::setDescription('Gize');
-        SEOTools::opengraph()->setUrl('https://gize.mezagebtnet.com');
-        SEOTools::setCanonical('https://gize.mezagebtnet.com');
-        SEOTools::opengraph()->addProperty('type', 'articles');
-        SEOTools::twitter()->setSite('@GizeVideo');
-        SEOTools::jsonLd()->addImage(asset('storage/images/logo-SEO-jsonld.jpg'));
+        // SEOTools::opengraph()->setUrl(env('APP_URL'));
+        // SEOTools::setCanonical(env('APP_URL'));
+        // SEOTools::opengraph()->addProperty('type', 'articles');
+        // SEOTools::twitter()->setSite('@GizeVideo');
+        // SEOTools::jsonLd()->addImage(asset('storage/images/logo-SEO-jsonld.jpg'));
 
 
         $gize_channels = GizeChannel::where('active', 1)->orderBy('id', 'ASC')->take(4)->get();

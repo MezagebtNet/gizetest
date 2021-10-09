@@ -13,6 +13,20 @@ use Illuminate\Http\Request;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+
+
+use Artesaos\SEOTools\Facades\SEOMeta;
+use Artesaos\SEOTools\Facades\OpenGraph;
+use Artesaos\SEOTools\Facades\TwitterCard;
+use Artesaos\SEOTools\Facades\JsonLd;
+// OR with multi
+use Artesaos\SEOTools\Facades\JsonLdMulti;
+use Jenssegers\Date\Date;
+
+// OR
+use Artesaos\SEOTools\Facades\SEOTools;
+
+
 class PlayPageController extends Controller
 {
     use SoftDeletes;
@@ -43,6 +57,54 @@ class PlayPageController extends Controller
                     ->orderBy("id", "Desc")
                     ->take(4)
                     ->get();
+
+
+
+        // $created_at_date = Date::createFromFormat('Y-m-d H:i:s', $channelvideo->created_at)->format('M d, Y');
+        SEOMeta::setTitle($channelvideo->trainer . ' - ' . $channelvideo->title);
+        SEOMeta::setDescription($channelvideo->description);
+        SEOMeta::addMeta('video:published_time', $channelvideo->created_at->toW3CString(), 'property');
+        // SEOMeta::addMeta('video:section', $post->category, 'property');
+        SEOMeta::addKeyword(['gize', $gize_channel->slug, $gize_channel->name, $gize_channel->name_en]);
+
+
+        OpenGraph::setType('video.other')
+            ->setVideoOther([
+                'actor' => $channelvideo->trainer,
+                // 'actor:role' => 'string',
+                // 'director' => 'profile /array',
+                // 'writer' => $channelvideo->trainer,
+                'duration' => 900,
+                'release_date' => $channelvideo->created_at,
+                // 'tag' => 'string / array'
+            ]);
+
+        OpenGraph::setDescription($channelvideo->description);
+        OpenGraph::setTitle($channelvideo->trainer . ' - ' . $channelvideo->title);
+        OpenGraph::setUrl(url('/play?v='. $channelvideo->hashid));
+        OpenGraph::addProperty('type', 'video');
+        OpenGraph::addProperty('locale', \App::getLocale());
+        // OpenGraph::addProperty('locale:alternate', ['pt-pt', 'en-us']);
+
+        OpenGraph::addImage($channelvideo->poster_image_url);
+        // OpenGraph::addImage($post->images->list('url'));
+        // OpenGraph::addImage(['url' => 'http://image.url.com/cover.jpg', 'size' => 300]);
+        // OpenGraph::addImage('http://image.url.com/cover.jpg', ['height' => 300, 'width' => 300]);
+
+        JsonLd::setTitle($channelvideo->trainer . ' - ' . $channelvideo->title);
+        JsonLd::setDescription($channelvideo->description);
+        JsonLd::setType('Video');
+        JsonLd::addImage($channelvideo->poster_image_url);
+
+
+        // TwitterCard::addValue($key, $value); // value can be string or array
+        // TwitterCard::setType($type); // type of twitter card tag
+        TwitterCard::setTitle($channelvideo->trainer . ' - ' . $channelvideo->title); // title of twitter card tag
+        TwitterCard::setSite(env('APP_NAME')); // site of twitter card tag
+        TwitterCard::setDescription($channelvideo->description); // description of twitter card tag
+        TwitterCard::setUrl(url('/play?v='. $channelvideo->hashid)); // url of twitter card tag
+        TwitterCard::setImage($channelvideo->poster_image_url); // add image url
+
 
         return view('website.play.index', compact('featured_videos', 'channelvideo', 'gize_channel'));
 

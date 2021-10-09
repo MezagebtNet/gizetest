@@ -3,7 +3,7 @@
 @section('seo')
 
     {!! SEOMeta::generate() !!}
-    {!! OpenGraph::generate() !!}x
+    {!! OpenGraph::generate() !!}
     {!! Twitter::generate() !!}
     {!! JsonLd::generate() !!}
 
