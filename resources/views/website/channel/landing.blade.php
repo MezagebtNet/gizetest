@@ -1126,53 +1126,122 @@
 
                     }
                 });
+                var seen = false;
+                var sent_seen_status = false;
+
+                var started = false;
+                var sent_started_status = false;
+
+                var user_id = "{{ auth()->user()->id }}";
+
+                this.on('timeupdate', function(){
+                    // console.log(this.currentTime() + ' / ' + this.duration());
+
+                    //Mark Started
+                    if(started == true && sent_started_status == false){
+                        if(this.hasClass('rental_player')){
+                            console.log("Started!!!");
+                            alert('started');
+                            sent_started_status = true;
+
+                            // alert('started');
+                            //Mark Started
+                            $.ajaxSetup({
+                                headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                }
+                            });
+
+                            let channelvideo_rental_id = this.tagAttributes.rid;
+
+
+                            let url =
+                                " {{ route('rental.markstarted', ['user_id' => ':user_id', 'channelvideo_rental_id' => ':channelvideo_rental_id']) }}";
+
+                            url = url.replace(':user_id', user_id);
+                            url = url.replace(':channelvideo_rental_id', channelvideo_rental_id);
+
+
+                            $.ajax({
+                                url: url,
+                                type: 'POST',
+                                success: function(res) {
+                                    // console.log(res);
+                                    if ($("video-js[rid='" + channelvideo_rental_id + "']").parents('.card')
+                                        .find('.status-indicator').hasClass('text-danger')) {
+                                        $("video-js[rid='" + channelvideo_rental_id + "']").parents('.card')
+                                            .find('.status-indicator').addClass('text-warning');
+
+                                    }
+                                }
+                            });
+                        }
+                        sent_seen_status = true;
+
+                    }
+                    if(this.currentTime()>3){
+                        started = true;
+                    }
+                    //Mark Completed
+                    if(seen == true && sent_seen_status == false){
+                        if (this.hasClass('rental_player')) {
+                            alert('completed');
+                            // console.log('run once when left with 30 seconds');
+
+
+                            //Mark Completed
+                            // let user_id = "{{ auth()->user()->id }}";
+                            let channelvideo_rental_id = this.tagAttributes.rid;
+                            let url =
+                            " {{ route('rental.markcompleted', ['user_id' => ':user_id', 'channelvideo_rental_id' => ':channelvideo_rental_id']) }}";
+
+                                url = url.replace(':user_id', user_id);
+                                url = url.replace(':channelvideo_rental_id', channelvideo_rental_id);
+
+                                // alert(url);
+                                $.ajaxSetup({
+                                    headers: {
+                                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                    }
+                                });
+
+                                $.ajax({
+                                    url: url,
+                                    type: 'POST',
+                                    success: function(res) {
+                                        // console.log(res);
+                                        if (this.hasClass('rental_player')) {
+                                            let user_id = "{{ auth()->user()->id }}";
+                                            let channelvideo_rental_id = this.tagAttributes.rid;
+
+
+
+
+
+                                            $("video-js[rid='" + channelvideo_rental_id + "']").parents('.card').find(
+                                                '.status-indicator').removeClass('text-danger text-warning');
+                                            $("video-js[rid='" + channelvideo_rental_id + "']").parents('.card').find(
+                                                '.status-indicator').addClass('text-success');
+                                            // console.log('playing rental video');
+
+
+                                        }
+                                    }
+                                });
+                            }
+                        sent_seen_status = true;
+                    }
+                    if((this.duration() - this.currentTime())<30){
+                        seen = true;
+                    }
+                });
                 this.on('ended', function() {
                     // alert('ended');
                     $(".video-playing-indicator").addClass('d-none');
 
 
 
-                    if (this.hasClass('rental_player')) {
-                        let user_id = "{{ auth()->user()->id }}";
-                        let channelvideo_rental_id = this.tagAttributes.rid;
 
-                        if ($("video-js[rid='" + channelvideo_rental_id + "']").parents('.card')
-                            .find('.status-indicator').hasClass('text-danger')) {
-                            $("video-js[rid='" + channelvideo_rental_id + "']").parents('.card')
-                                .find('.status-indicator').addClass('text-warning');
-
-                        }
-
-
-
-                        $("video-js[rid='" + channelvideo_rental_id + "']").parents('.card').find(
-                            '.status-indicator').removeClass('text-danger text-warning');
-                        $("video-js[rid='" + channelvideo_rental_id + "']").parents('.card').find(
-                            '.status-indicator').addClass('text-success');
-                        // console.log('playing rental video');
-
-                        let url =
-                            " {{ route('rental.markcompleted', ['user_id' => ':user_id', 'channelvideo_rental_id' => ':channelvideo_rental_id']) }}";
-
-                        url = url.replace(':user_id', user_id);
-                        url = url.replace(':channelvideo_rental_id', channelvideo_rental_id);
-
-                        // alert(url);
-                        $.ajaxSetup({
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            }
-                        });
-
-                        $.ajax({
-                            url: url,
-                            type: 'POST',
-                            success: function(res) {
-                                console.log(res);
-
-                            }
-                        });
-                    }
                 });
                 this.on("play", function(e) {
                     //     videojs(this.player, {
@@ -1187,31 +1256,7 @@
 
                     if (this.hasClass('rental_player')) {
                         // console.log('playing rental video');
-                        $.ajaxSetup({
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            }
-                        });
 
-                        let user_id = "{{ auth()->user()->id }}";
-                        let channelvideo_rental_id = this.tagAttributes.rid;
-
-
-                        let url =
-                            " {{ route('rental.markstarted', ['user_id' => ':user_id', 'channelvideo_rental_id' => ':channelvideo_rental_id']) }}";
-
-                        url = url.replace(':user_id', user_id);
-                        url = url.replace(':channelvideo_rental_id', channelvideo_rental_id);
-
-
-                        $.ajax({
-                            url: url,
-                            type: 'POST',
-                            success: function(res) {
-                                console.log(res);
-
-                            }
-                        });
 
 
 
@@ -1219,11 +1264,8 @@
                         parentCardEl = $("video-js[rid='" + channelvideo_rental_id + "']").parents(
                             '.card');
 
-                        if (parentCardEl.find('.status-indicator').hasClass('text-danger')) {
-                            parentCardEl.find('.status-indicator').removeClass('text-danger');
-                            parentCardEl.find('.status-indicator').addClass('text-warning');
-                            parentCardEl.find('.status-text').html(
-                                "{{ __('Started Watching') }}");
+                        if (parentCardEl.find('.status-indicator').hasClass('text-success') ||parentCardEl.find('.status-indicator').hasClass('text-warning')) {
+
 
                             parentCardEl.find('.show-expiretime').addClass('d-none');
                             let url =
@@ -1370,17 +1412,14 @@
                     html = `<video-js
                                 style="height: inherit;"
                                 id="f${new_vidid}"
-                                class="video-js free-video vim-css  vjs-big-play-centered vjs-fluid"
+                                class="video-js free-video vim-css vjs-big-play-centered vjs-fluid"
                                 controls
                                 preload="auto"
                                 width="auto"
                                 height="264"
                                 poster="${vidimage_url}"
-                                data-setup="{}"
-                                >
+                                data-setup="{}">
                                 <source src="${source}" type="application/x-mpegURL">
-
-
                             </video-js>`;
 
                 }
@@ -1546,7 +1585,7 @@
 
             if ({!! $activerentals->count() !!}) {
                 var rentalcheker = setInterval(chkRentalTimer, 1000 * 10);
-                var endtimecheker = setInterval(updateEndingTime, 1000 * 3);
+                var endtimecheker = setInterval(updateEndingTime, 1000 * 5);
 
             }
 

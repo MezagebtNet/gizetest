@@ -7,6 +7,17 @@ use App\Models\GizeChannel;
 use App\Models\Channelvideo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use Artesaos\SEOTools\Facades\SEOMeta;
+use Artesaos\SEOTools\Facades\OpenGraph;
+use Artesaos\SEOTools\Facades\TwitterCard;
+use Artesaos\SEOTools\Facades\JsonLd;
+// OR with multi
+use Artesaos\SEOTools\Facades\JsonLdMulti;
+
+// OR
+use Artesaos\SEOTools\Facades\SEOTools;
+
+
 class HomePageController extends Controller
 {
     use SoftDeletes;
@@ -19,8 +30,35 @@ class HomePageController extends Controller
     {
 
         if (!\Auth::check()) {
-            return view('welcome');
+            return $this->welcomePage();
         }
+
+        SEOMeta::setTitle('Home');
+        // SEOMeta::setDescription('Gize');
+        SEOMeta::setCanonical('https://gize.mezagebtnet.com');
+
+        // OpenGraph::setDescription('Gize');
+        OpenGraph::setTitle('Home');
+        OpenGraph::setUrl('http://gize.mezagbetnet.com');
+        OpenGraph::addProperty('type', 'videos');
+
+        TwitterCard::setTitle('Home');
+        TwitterCard::setSite('@gize');
+
+        JsonLd::setTitle('Home');
+        // JsonLd::setDescription('Gize');
+        JsonLd::addImage(asset('storage/images/logo-SEO-jsonld.jpg'));
+
+        // OR
+
+        SEOTools::setTitle('Home');
+        // SEOTools::setDescription('Gize');
+        SEOTools::opengraph()->setUrl('https://gize.mezagebtnet.com');
+        SEOTools::setCanonical('https://gize.mezagebtnet.com');
+        SEOTools::opengraph()->addProperty('type', 'articles');
+        SEOTools::twitter()->setSite('@GizeVideo');
+        SEOTools::jsonLd()->addImage(asset('storage/images/logo-SEO-jsonld.jpg'));
+
 
         $gize_channels = GizeChannel::where('active', 1)->orderBy('id', 'ASC')->take(4)->get();
 
@@ -31,6 +69,10 @@ class HomePageController extends Controller
 
         return view('website.home', compact('featured_videos','gize_channels'));
 
+    }
+
+    public function welcomePage(){
+        return view('welcome');
     }
 
 }

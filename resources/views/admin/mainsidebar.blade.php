@@ -6,7 +6,7 @@
                 style="width:54px; height: 54px;" class="align-middle rounded-circle elevation-1">
         </div>
         <div class="info" style="display: grid;">
-            <a href="{{ route('profile.show') }}"
+            <a href="{{ route('profile') }}"
                 class="d-block"><strong>{{ request()->user()->fullname() }}</strong></a>
             @php
 
@@ -235,7 +235,7 @@
 
             <li class="nav-header">{{ __('MY ACCOUNT') }}</li>
             <li class="nav-item">
-                <a href="{{ route('profile.show') }}" class="nav-link">
+                <a href="{{ route('profile') }}" class="nav-link">
                     <i class="nav-icon far fa-id-card"></i>
                     <p class="text">{{ __('My Proile') }}</p>
                 </a>

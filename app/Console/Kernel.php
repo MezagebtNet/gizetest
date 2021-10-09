@@ -14,7 +14,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Commands\TestCron::class,
-        Commands\ScheduledVideoNotifications::class,
+        // Commands\ScheduledVideoNotifications::class,
     ];
 
     /**

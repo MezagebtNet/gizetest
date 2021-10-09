@@ -71,7 +71,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
         //USER PROFILE
         Route::get('/profile', function () {
             return view('profile.show');
-        })->name('profile.show');
+        })->name('profile');
 
         //Route GROUP::WEBSITE Index page
         Route::group(['prefix' => 'web', 'middleware' => 'role:super-admin|user', 'as' => 'web.'], function () {
@@ -570,7 +570,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
             $request->session()->invalidate();
             $request->session()->regenerateToken();
             return redirect('/');
-        })->name('logout');
+        })->name('log.out');
 
         Route::resource('tasks', \App\Http\Controllers\TasksController::class);
 

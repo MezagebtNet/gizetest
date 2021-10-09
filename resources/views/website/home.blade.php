@@ -1,5 +1,16 @@
 @extends('layouts.website.index')
 
+@section('seo')
+
+    {!! SEOMeta::generate() !!}
+    {!! OpenGraph::generate() !!}x
+    {!! Twitter::generate() !!}
+    {!! JsonLd::generate() !!}
+
+    {!! SEO::generate(true) !!}
+
+@endsection
+
 @section('title', 'Home')
 
 @section('styles')

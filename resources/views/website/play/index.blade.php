@@ -160,26 +160,27 @@
 
                                 <div class="col-2 pr-social-share d-flex flex-row">
                                     <!-- Sharingbutton Facebook -->
-                                    <a class=" mx-3 resp-sharing-button__link" href="https://facebook.com/sharer/sharer.php?u='{{ url('/play?v='.$channelvideo->hashid) }}'" target="_blank" aria-label="">
+
+                                    <a class=" mx-3 resp-sharing-button__link" href="https://facebook.com/sharer/sharer.php?u={{ url('/play?v='.$channelvideo->hashid) }}" target="_blank" aria-label="">
                                         <div class="resp-sharing-button resp-sharing-button--facebook resp-sharing-button--small">
                                         <div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
-                                            <span class="text-xl text-primary"><i class="fab fa-facebook"></i></span>
+                                            <span class="text-xl text-gray"><i class="fab fa-facebook"></i></span>
                                         </div>
                                         </div>
                                     </a>
                                     <!-- Sharingbutton Twitter -->
-                                    <a class=" mx-3 resp-sharing-button__link" href="https://twitter.com/intent/tweet/?text={{ $channelvideo->title }}&amp;url='{{ url('/play?v='.$channelvideo->hashid) }}'" target="_blank" aria-label="">
+                                    <a class=" mx-3 resp-sharing-button__link" href="https://twitter.com/intent/tweet/?text='{{ $channelvideo->title }}'&amp;url='{{ url('/play?v='.$channelvideo->hashid) }}'" target="_blank" aria-label="">
                                         <div class="resp-sharing-button resp-sharing-button--twitter resp-sharing-button--small">
                                         <div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
-                                            <span class="text-xl text-info"><i class="fab fa-twitter"></i></span>
+                                            <span class="text-xl text-gray "><i class="fab fa-twitter"></i></span>
                                         </div>
                                         </div>
                                     </a>
                                     <!-- Sharingbutton LinkedIn -->
-                                    <a class=" mx-3 resp-sharing-button__link" href="https://www.linkedin.com/shareArticle?mini=true&amp;url='{{ url('/play?v='.$channelvideo->hashid) }}'&amp;title={{ $channelvideo->title }}&amp;summary={{ $channelvideo->title }}&amp;source=@Model.Item.DefaultUrl" target="_blank" aria-label="">
+                                    <a class=" mx-3 resp-sharing-button__link" href="https://www.linkedin.com/shareArticle?mini=true&amp;url='{{ url('/play?v='.$channelvideo->hashid) }}'&amp;title='{{ $channelvideo->title }}'&amp;summary='{{ $channelvideo->title }}'&amp;source={{ url('') }}" target="_blank" aria-label="">
                                         <div class="resp-sharing-button resp-sharing-button--linkedin resp-sharing-button--small">
                                         <div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
-                                            <span class="text-xl text-danger"><i class="fab fa-linkedin"></i></span>
+                                            <span class="text-xl text-gray "><i class="fab fa-linkedin"></i></span>
                                         </div>
                                         </div>
                                     </a>

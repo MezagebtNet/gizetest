@@ -25,7 +25,7 @@
             @endif --}}
 
             @if (auth())
-                <li><a href="{{ route('profile.show') }}" class="dropdown-item">{{ __('Edit Profile') }}</a></li>
+                <li><a href="{{ route('profile') }}" class="dropdown-item">{{ __('Edit Profile') }}</a></li>
             @endif
             <li>
                 <a style="cursor:pointer;" class="dropdown-item select-theme d-flex flex-column" theme="{{ auth()->user()->theme_preference }}">
@@ -44,7 +44,7 @@
 
             <li class="dropdown-divider"></li>
 
-            <li><a href="{{ route('logout') }}" class="dropdown-item">Logout</a></li>
+            <li><a href="{{ route('log.out') }}" class="dropdown-item">Logout</a></li>
 
         </ul>
     </li>

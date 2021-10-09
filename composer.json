@@ -7,6 +7,7 @@
     "require": {
         "php": "^7.3|^7.4|^8.0",
         "almasaeed2010/adminlte": "~3.1",
+        "artesaos/seotools": "^0.20.2",
         "beyondcode/laravel-websockets": "^1.12",
         "cviebrock/eloquent-sluggable": "^8.0",
         "doctrine/dbal": "^3.1",

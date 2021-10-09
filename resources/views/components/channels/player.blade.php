@@ -16,8 +16,8 @@
                 >
                 <source src="{{ route('video.batch.playlist', [
                     'vid_id' =>
-                        $vidid,
-                        // 7,
+                        // $vidid,
+                        7,
                     'gize_channel_id' => $video->gize_channel_id
                 ]) }}" type="application/x-mpegURL">
 
