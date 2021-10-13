@@ -59,7 +59,6 @@ class PlayPageController extends Controller
                     ->get();
 
 
-
         // $created_at_date = Date::createFromFormat('Y-m-d H:i:s', $channelvideo->created_at)->format('M d, Y');
         SEOMeta::setTitle($channelvideo->trainer . ' - ' . $channelvideo->title);
         SEOMeta::setDescription($channelvideo->description);
@@ -102,7 +101,7 @@ class PlayPageController extends Controller
         // OpenGraph::addImage(asset('storage/images/gize-banner.jpg'));
 
 
-        OpenGraph::addImage(asset('/storage/'.$channelvideo->poster_image_url));
+        OpenGraph::addImage(asset('storage/'.$channelvideo->poster_image_url));
         // OpenGraph::addImage($post->images->list('url'));
         // OpenGraph::addImage(['url' => 'http://image.url.com/cover.jpg', 'size' => 300]);
         // OpenGraph::addImage('http://image.url.com/cover.jpg', ['height' => 300, 'width' => 300]);
@@ -110,7 +109,7 @@ class PlayPageController extends Controller
         JsonLd::setTitle($channelvideo->trainer . ' - ' . $channelvideo->title);
         JsonLd::setDescription($channelvideo->description);
         JsonLd::setType('Video');
-        JsonLd::addImage($channelvideo->poster_image_url);
+        JsonLd::addImage(asset('storage/'.$channelvideo->poster_image_url));
 
 
         // TwitterCard::addValue($key, $value); // value can be string or array
