@@ -99,10 +99,10 @@ class PlayPageController extends Controller
         OpenGraph::addProperty('type', 'video');
         OpenGraph::addProperty('locale', \App::getLocale());
         // OpenGraph::addProperty('locale:alternate', ['pt-pt', 'en-us'])
-        OpenGraph::addImage(asset('storage/images/gize-banner.jpg'));
-        ;
+        // OpenGraph::addImage(asset('storage/images/gize-banner.jpg'));
 
-        OpenGraph::addImage(asset('/storage/'.$channelvideo->poster_image_url);
+
+        OpenGraph::addImage(asset('/storage/'.$channelvideo->poster_image_url));
         // OpenGraph::addImage($post->images->list('url'));
         // OpenGraph::addImage(['url' => 'http://image.url.com/cover.jpg', 'size' => 300]);
         // OpenGraph::addImage('http://image.url.com/cover.jpg', ['height' => 300, 'width' => 300]);
