@@ -119,7 +119,7 @@ class PlayPageController extends Controller
         TwitterCard::setSite(env('APP_NAME')); // site of twitter card tag
         TwitterCard::setDescription($channelvideo->description); // description of twitter card tag
         TwitterCard::setUrl(url('/play?v='. $channelvideo->hashid)); // url of twitter card tag
-        TwitterCard::setImage($channelvideo->poster_image_url); // add image url
+        TwitterCard::setImage(asset('storage/'.$channelvideo->poster_image_url)); // add image url
 
 
         return view('website.play.index', compact('featured_videos', 'channelvideo', 'gize_channel'));
