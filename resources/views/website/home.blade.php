@@ -121,9 +121,6 @@
 
 
 @section('content')
-
-
-
 <div class="banner-section-wrapper">
     <section
         style=" width: 100%; padding:0;

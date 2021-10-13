@@ -65,7 +65,21 @@ class PlayPageController extends Controller
         SEOMeta::setDescription($channelvideo->description);
         SEOMeta::addMeta('video:published_time', $channelvideo->created_at->toW3CString(), 'property');
         // SEOMeta::addMeta('video:section', $post->category, 'property');
-        SEOMeta::addKeyword(['gize', $gize_channel->slug, $gize_channel->name, $gize_channel->name_en]);
+        SEOMeta::addKeyword([
+            'gize',
+            'gize video',
+            'gizevideo',
+            'gize app',
+            'gizeapp',
+            'mez',
+            'meza',
+            'mezagebt',
+            'mezagibt',
+            'video',
+            $gize_channel->slug,
+            $gize_channel->name,
+            $gize_channel->name_en
+        ]);
 
 
         OpenGraph::setType('video.other')

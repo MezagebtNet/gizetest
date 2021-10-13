@@ -127,7 +127,8 @@
                     @if($channelvideo->file_url == null)
                     <video-js style="height: inherit;" id="player_1"
                         class="video-js  vim-css video_player vjs-big-play-centered vjs-fluid" controls preload="auto" width="auto"
-                        height="264" poster="" data-setup="{}">
+                        height="264"
+                        poster="{{ $channelvideo->poster_image_url != null? $channelvideo->poster_image_url : asset('storage/images/c/channelvideo.png') }}" data-setup="{}">
                         <source
                             src="{{ route('video.play.playlist', [
                                 'hashid' =>

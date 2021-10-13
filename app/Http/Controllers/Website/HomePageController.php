@@ -42,6 +42,23 @@ class HomePageController extends Controller
         OpenGraph::setTitle('Home');
         OpenGraph::setUrl(env('APP_URL'));
         OpenGraph::addProperty('type', 'WebPage');
+        OpenGraph::addImage(asset('storage/images/gize-banner.jpg'));
+        // OpenGraph::addImage($post->images->list('url'));
+        // OpenGraph::addImage(['url' => 'http://image.url.com/cover.jpg', 'size' => 300]);
+        // OpenGraph::addImage('http://image.url.com/cover.jpg', ['height' => 300, 'width' => 300]);
+
+        SEOMeta::addKeyword([
+            'gize',
+            'gize video',
+            'gizevideo',
+            'gize app',
+            'gizeapp',
+            'mez',
+            'meza',
+            'mezagebt',
+            'mezagibt',
+            'video'
+        ]);
 
         TwitterCard::setTitle('Home');
         TwitterCard::setSite('@gize');

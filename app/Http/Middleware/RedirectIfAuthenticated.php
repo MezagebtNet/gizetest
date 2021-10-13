@@ -23,8 +23,8 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-$url = RouteServiceProvider::HOME . auth()->user()->language_preference;
-return redirect($url);
+                $url = RouteServiceProvider::HOME . auth()->user()->language_preference;
+                return redirect($url);
 
             }
         }
