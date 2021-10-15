@@ -82,6 +82,7 @@ class HomePageController extends Controller
         $featured_videos = Channelvideo::with('gizeChannel')->where('active', 1)
             ->where('is_featured', 1)
             ->orderBy("is_free")
+            ->orderBy('id', 'desc')
             ->get();
 
         return view('website.home', compact('featured_videos','gize_channels'));
