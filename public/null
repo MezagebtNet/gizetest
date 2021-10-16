@@ -1,12 +1,51 @@
-Channelvideo::find(1)
-Channelvideo::find(7)
-Channelvideo::find(7)
-Channelvideo::find(7)->gizeChannel()
-Channelvideo::find(7)->first()->gizeChannel()
-Channelvideo::find(7)->with('gizeChannel')->first()->gizeChannel()
-Channelvideo::find(7)->with('gizeChannel')->first()->gizeChannel()->get()
-Channelvideo::find(7)->with('gizeChannel')->first()->get()
-Channelvideo::where('id', 7)->with('gizeChannel')->first()->get()
-Channelvideo::where('channelvideo.id', 7)->with('gizeChannel')->first()->get()
-Channelvideo::with('gizeChannel')->first()->get()
-GizeChannel::find(1);
+$hashid = 'jRR';
+            $vid_id = Channelvideo::decodeHashID($hashid);
+            $channelvideo = Channelvideo::find($vid_id)->first();
+
+        
+GizeChannel::find($channelvideo->gize_channel_id)->where('active', 1)->get()[0];
+$hashid = 'jRR';
+            $vid_id = Channelvideo::decodeHashID($hashid);
+            $channelvideo = Channelvideo::find($vid_id)->first();
+
+return $channelvideo;
+        
+GizeChannel::find($channelvideo->gize_channel_id)->where('active', 1)->get()[0];
+$hashid = 'jRR';
+            $vid_id = Channelvideo::decodeHashID($hashid);
+            $channelvideo = Channelvideo::find($vid_id)->first();
+
+        
+GizeChannel::find($channelvideo->gize_channel_id)->where('active', 1)->get();
+$hashid = 'jRR';
+            $vid_id = Channelvideo::decodeHashID($hashid);
+            $channelvideo = Channelvideo::find($vid_id)->first();
+
+        
+GizeChannel::find($channelvideo->gize_channel_id)->where('active', 1)->get();
+$hashid = 'jRR';
+            $vid_id = Channelvideo::decodeHashID($hashid);
+            $channelvideo = Channelvideo::find($vid_id)->first();
+
+        
+GizeChannel::find($channelvideo->gize_channel_id)->get();
+$hashid = 'jRR';
+            $vid_id = Channelvideo::decodeHashID($hashid);
+            $channelvideo = Channelvideo::find($vid_id)->first();
+
+return $channelvideo->gize_channel_id;
+        
+GizeChannel::find($channelvideo->gize_channel_id)->where('active', 1)->get();
+$hashid = 'jRR';
+            $vid_id = Channelvideo::decodeHashID($hashid);
+            $channelvideo = Channelvideo::find($vid_id)->first();
+
+return $channelvideo->gize_channel_id;
+        
+GizeChannel::where('id',$channelvideo->gize_channel_id)->where('active', 1)->get();
+$hashid = 'jRR';
+            $vid_id = Channelvideo::decodeHashID($hashid);
+            $channelvideo = Channelvideo::find($vid_id)->first();
+
+        
+GizeChannel::where('id',$channelvideo->gize_channel_id)->where('active', 1)->get();

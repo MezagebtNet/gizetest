@@ -47,7 +47,7 @@ class PlayPageController extends Controller
         }
 
         // dd($file_url);
-        $gize_channel = GizeChannel::find($channelvideo->gize_channel_id)->first()->where('active', 1)->get()[0];
+        $gize_channel = GizeChannel::where('id', $channelvideo->gize_channel_id)->where('active', 1)->get()[0];
         // dd($gize_channel[0]->slug);
 
         $featured_videos = Channelvideo::with('gizeChannel')
