@@ -163,7 +163,7 @@
             <div class="row">
                 <div class="col-md-9">
                     @if ($channelvideo->file_url == null)
-                        <video-js style="height: inherit;" id="player_1"
+                        <video-js style="height: inherit;" id="player"
                             class="video-js  vim-css video_player vjs-big-play-centered vjs-fluid" controls preload="auto"
                             width="auto" height="264"
                             poster="{{ $channelvideo->poster_image_url != null ? asset('storage/' . $channelvideo->poster_image_url) : asset('storage/images/c/channelvideo.png') }}"
@@ -383,6 +383,12 @@
 
     <script>
         $(function() {
+            videojs("player").ready(function() {
+                videojs("player").hlsQualitySelector();
+                videojs("player").landscapeFullscreen();
+
+            });
+
             $('.btn-copy').on('click', function(){
                 var copyText = $("#shareUrl");
                 copyText.select(); //select the text area
