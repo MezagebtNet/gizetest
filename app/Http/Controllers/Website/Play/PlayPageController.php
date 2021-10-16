@@ -96,7 +96,7 @@ class PlayPageController extends Controller
         OpenGraph::setTitle($channelvideo->trainer . ' - ' . $channelvideo->title);
         OpenGraph::setUrl(url('/play?v='. $channelvideo->hashid));
         OpenGraph::addProperty('type', 'video');
-        OpenGraph::addProperty('locale', \App::getLocale());
+        // OpenGraph::addProperty('locale', \App::getLocale());
         // OpenGraph::addProperty('locale:alternate', ['pt-pt', 'en-us'])
         // OpenGraph::addImage(asset('storage/images/gize-banner.jpg'));
 

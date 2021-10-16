@@ -3,7 +3,6 @@
 {{-- @section('title', 'Play') --}}
 @section('seo')
 
-    {!! SEOMeta::generate() !!}
     {!! OpenGraph::generate() !!}
     {!! Twitter::generate() !!}
     {!! JsonLd::generate() !!}
