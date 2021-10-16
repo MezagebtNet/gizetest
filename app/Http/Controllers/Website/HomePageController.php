@@ -29,14 +29,9 @@ class HomePageController extends Controller
      */
     public function index()
     {
-
-        if (!\Auth::check()) {
-            return $this->welcomePage();
-        }
-
         SEOMeta::setTitle('Home');
         // SEOMeta::setDescription('Gize');
-        SEOMeta::setCanonical(env('APP_URL'));
+        // SEOMeta::setCanonical(env('APP_URL'));
 
         // OpenGraph::setDescription('Gize');
         OpenGraph::setTitle('Home');
@@ -63,18 +58,16 @@ class HomePageController extends Controller
         TwitterCard::setTitle('Home');
         TwitterCard::setSite('@gize');
 
-        JsonLd::setTitle('Home');
+        // JsonLd::setTitle('Home');
         // JsonLd::setDescription('Gize');
-        JsonLd::addImage(asset('storage/images/logo-SEO-jsonld.jpg'));
+        // JsonLd::addImage(asset('storage/images/logo-SEO-jsonld.jpg'));
 
-        // OR
-        // SEOTools::setTitle('Home');
-        // SEOTools::setDescription('Gize');
-        // SEOTools::opengraph()->setUrl(env('APP_URL'));
-        // SEOTools::setCanonical(env('APP_URL'));
-        // SEOTools::opengraph()->addProperty('type', 'articles');
-        // SEOTools::twitter()->setSite('@GizeVideo');
-        // SEOTools::jsonLd()->addImage(asset('storage/images/logo-SEO-jsonld.jpg'));
+
+        if (!\Auth::check()) {
+
+            return $this->welcomePage();
+        }
+
 
 
         $gize_channels = GizeChannel::where('active', 1)->orderBy('id', 'ASC')->take(4)->get();

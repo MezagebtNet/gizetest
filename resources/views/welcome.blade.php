@@ -1,5 +1,15 @@
 @extends('layouts.auth.index')
 
+@section('seo')
+
+    {!! OpenGraph::generate() !!}
+    {!! Twitter::generate() !!}
+    {{-- {!! JsonLd::generate() !!} --}}
+
+    {!! SEO::generate(true) !!}
+
+@endsection
+
 @section('header-menu')
     <div class="inner">
         <img src="{{ asset('assets/image/logos/Gize logo banner dark.png') }}" alt="Gize"
