@@ -55,7 +55,7 @@ class PlayPageController extends Controller
                     ->where('is_free', 1)
                     ->orderBy("is_featured", "Desc")
                     ->orderBy("id", "Desc")
-                    ->take(4)
+                    ->take(8)
                     ->get();
 
 
