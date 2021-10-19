@@ -143,6 +143,12 @@
             opacity: 1;
         }
 
+        #player {
+
+            border-radius: 8px !important;
+            overflow:hidden !important;
+        }
+
     </style>
 
 @endsection
@@ -184,6 +190,7 @@
                     @else
                         <video id="vid1" class="video-js  vim-css video_player vjs-big-play-centered vjs-fluid" controls
                             preload="auto" width="auto" height="264" poster=""
+                            style="border-radius: 8px; overflow:hidden;"
                             data-setup='{ "techOrder": ["youtube"], "sources": [{ "type": "video/youtube", "src": "{{ $channelvideo->file_url }}"}], "youtube": { "customVars": { "wmode": "transparent" } } }'>
                         </video>
 
@@ -216,7 +223,7 @@
                         <div style="">
                             <div class="row"></div>
                         </div>
-                        <div style="">{!! $channelvideo->description !!}</div>
+                        <div class="mb-3">{!! $channelvideo->description !!}</div>
 
                     </div>
                 </div>

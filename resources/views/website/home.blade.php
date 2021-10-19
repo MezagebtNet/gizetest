@@ -144,27 +144,27 @@
                 <div class="carousel-inner">
                   <div class="carousel-item active">
                     {{-- <img src="..." class="d-block w-100" alt="..."> --}}
-                    <div class="mt-5 mt-5  bd-highlight">
-                        <h4 class="px-5 text-center channel-title   text-white">{{ __('banner_text_1') }}</h4>
+                    <div class="mt-4 mt-sm-5  bd-highlight">
+                        <h5 class="px-5 channel-title   text-white">{{ __('banner_text_1') }}</h5>
 
-                        <p class="channel-description lead text-white"></p>
+                        {{-- <p class="channel-description lead text-white"></p> --}}
 
                     </div>
                   </div>
                   <div class="carousel-item">
-                    <div class="mt-5 mt-5  bd-highlight">
-                        <h4 class="px-5 text-center channel-title   text-white">{{ __('banner_text_2') }}</h4>
+                    <div class="mt-4 mt-sm-5  bd-highlight">
+                        <h5 class="px-5 channel-title   text-white">{{ __('banner_text_2') }}</h5>
 
-                        <p class="channel-description lead text-white"></p>
+                        {{-- <p class="channel-description lead text-white"></p> --}}
 
                     </div>
                   </div>
 
                   <div class="carousel-item">
-                    <div class="mt-5 mt-5  bd-highlight">
-                        <h4 class="px-5 text-center channel-title   text-white">{{ __('banner_text_3') }}</h4>
+                    <div class="mt-4 mt-sm-5  bd-highlight">
+                        <h5 class="px-5 channel-title   text-white">{{ __('banner_text_3') }}</h5>
 
-                        <p class="channel-description lead text-white"></p>
+                        {{-- <p class="channel-description lead text-white"></p> --}}
 
                     </div>
                   </div>
@@ -235,7 +235,7 @@
 
             <div class="row pt-4">
                 <div class="col">
-                    <h3 class="mt-2">{{ __('Gize Channels') }}</h3>
+                    <h4 class="mt-2">{{ __('Gize Channels') }}</h4>
                     <hr class="mt-0"/>
                 </div>
             </div>
@@ -260,7 +260,7 @@
         <div class=" mb-4">
             <div class="row pt-4">
                 <div class="col">
-                    <h3 class="mt-2 ">{{ __('Featured') }}</h3>
+                    <h4 class="mt-2 ">{{ __('Featured') }}</h4>
                     <hr class="mt-0"/>
                 </div>
                 {{-- <a href="{{ route('play.index', ['v'=>'7']); }}">Play</a> --}}
