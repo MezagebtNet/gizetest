@@ -866,7 +866,7 @@
                                             <x-channels.archivecard :archivevid="$archive"/>
 
                                         </a> --}}
-                                        <a href="javascript: void(0);" class="archivevid isfree"
+                                        <a href="{{ url('/play?v='.$archive->hashid) }}" class="archivevid isfree"
                                             vid_id="{{ $archive->id }}" vid_title="{{ $archive->title }}"
                                             vid_duration="{{ $archive->duration }}" vid_host="{{ $archive->trainer }}"
                                             vid_image_url="{{ asset('storage/' . $archive->thumb_image_url) }}"
