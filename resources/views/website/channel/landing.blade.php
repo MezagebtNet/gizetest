@@ -496,13 +496,13 @@
     <div class="banner-section-wrapper">
         <section
             style=" width: 100%; padding:0;
-                                                margin-top: -1px;
-                                                background-color: #faebd72e;
-                                                background-image: linear-gradient(to bottom, #000000ad, #00000063, #0000008f), url({{ asset('storage/' . $gize_channel->banner_image_url) }});
-                                                height: 186px;
-                                                /* background-attachment: fixed; */
-                                                background-position: center center;
-                                                background-size: cover;
+                    margin-top: -1px;
+                    background-color: #faebd72e;
+                    background-image: linear-gradient(to bottom, #000000ad, #00000063, #0000008f), url({{ asset('storage/' . $gize_channel->banner_image_url) }});
+                    height: 186px;
+                    /* background-attachment: fixed; */
+                    background-position: center center;
+                    background-size: cover;
 
                                                                                                                                                             "
             class=" mb-3 pb-0 w:100 jumbotron text-center channel-banner">
@@ -866,7 +866,7 @@
                                             <x-channels.archivecard :archivevid="$archive"/>
 
                                         </a> --}}
-                                        <a href="{{ url('/play?v='.$archive->hashid) }}" class="archivevid isfree"
+                                        <a href="{{ url('/play?v='.$archive->hashid) }}" class="archivevid"
                                             vid_id="{{ $archive->id }}" vid_title="{{ $archive->title }}"
                                             vid_duration="{{ $archive->duration }}" vid_host="{{ $archive->trainer }}"
                                             vid_image_url="{{ asset('storage/' . $archive->thumb_image_url) }}"
@@ -1135,7 +1135,7 @@
                 var user_id = "{{ auth()->user()->id }}";
 
                 this.on('timeupdate', function(){
-                    // console.log(this.currentTime() + ' / ' + this.duration());
+                    console.log(this.currentTime() + ' / ' + this.duration());
 
                     //Mark Started
                     if(started == true && sent_started_status == false){
@@ -1154,16 +1154,14 @@
 
                             let channelvideo_rental_id = this.tagAttributes.rid;
 
-
                             let url =
                                 " {{ route('rental.markstarted', ['user_id' => ':user_id', 'channelvideo_rental_id' => ':channelvideo_rental_id']) }}";
 
                             url = url.replace(':user_id', user_id);
                             url = url.replace(':channelvideo_rental_id', channelvideo_rental_id);
 
-
                             $.ajax({
-                                url: url,
+                                url: url
                                 type: 'POST',
                                 success: function(res) {
                                     // console.log(res);
@@ -1171,17 +1169,20 @@
                                         .find('.status-indicator').hasClass('text-danger')) {
                                         $("video-js[rid='" + channelvideo_rental_id + "']").parents('.card')
                                             .find('.status-indicator').addClass('text-warning');
-
                                     }
                                 }
                             });
+
                         }
+
                         sent_seen_status = true;
 
                     }
-                    if(this.currentTime()>3){
+
+                    if(this.currentTime() > 3){
                         started = true;
                     }
+
                     //Mark Completed
                     if(seen == true && sent_seen_status == false){
                         if (this.hasClass('rental_player')) {
@@ -1199,6 +1200,7 @@
                                 url = url.replace(':channelvideo_rental_id', channelvideo_rental_id);
 
                                 // alert(url);
+
                                 $.ajaxSetup({
                                     headers: {
                                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -1214,20 +1216,17 @@
                                             let user_id = "{{ auth()->user()->id }}";
                                             let channelvideo_rental_id = this.tagAttributes.rid;
 
-
-
-
-
                                             $("video-js[rid='" + channelvideo_rental_id + "']").parents('.card').find(
                                                 '.status-indicator').removeClass('text-danger text-warning');
+
                                             $("video-js[rid='" + channelvideo_rental_id + "']").parents('.card').find(
                                                 '.status-indicator').addClass('text-success');
                                             // console.log('playing rental video');
 
-
                                         }
                                     }
                                 });
+
                             }
                         sent_seen_status = true;
                     }
@@ -1258,8 +1257,6 @@
                         // console.log('playing rental video');
 
 
-
-
                         // alert($("video-js[rid='"+channelvideo_rental_id+"']").parents('.card').find('.status-indicator').hasClass('text-danger'));
                         parentCardEl = $("video-js[rid='" + channelvideo_rental_id + "']").parents(
                             '.card');
@@ -1278,7 +1275,9 @@
                                 delay: 250,
                                 type: 'POST',
                                 success: function(res) {
+
                                     console.log(res);
+
                                     $("video-js[rid='" + channelvideo_rental_id + "']")
                                         .parents('.card').find('.show-endtime .time')
                                         .html(res);

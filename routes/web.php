@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\Channels\Batches\BatchController;
 use App\Http\Controllers\Admin\Channels\Batches\BatchScheduleController;
 use App\Http\Controllers\Admin\Channels\Batches\BatchUserController;
+use App\Http\Controllers\Admin\Channels\Batches\BatchChannelvideoActivityController;
 use App\Http\Controllers\Admin\Channels\Channelvideos\ChannelvideoController;
 // use App\Http\Controllers\Admin\Channels\GizeChannelController_;
 use App\Http\Controllers\Admin\Channels\GizeChannelController;
@@ -488,6 +489,19 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
                         Route::get("/{gize_channel_id}/{batch_id}/load", [BatchScheduleController::class, 'loadEvent'])->name('load');
                         //CRUD
                         Route::post("/{gize_channel_id}/{batch_id}/ajax", [BatchScheduleController::class, 'crudCalendarEvents'])->name('crud_calendarevents');
+
+                    });
+
+                    //BATCH_VIDEOWATCH_STATUS
+                    Route::group(['prefix' => 'video_views', 'as' => 'video_view.'], function () {
+                        //Get All
+                        Route::get("/{gize_channel_id}/{batch_id?}", [BatchChannelvideoActivityController::class, 'index'])->name('index');
+
+                        //Mark Started
+                        Route::post("/{batch_user_id}/{batch_channelvideo_id}/started", [BatchChannelvideoActivityController::class, 'markStarted'])->name('markstarted');
+
+                        //Mark Completed
+                        Route::post("/{batch_user_id}/{batch_channelvideo_id}/completed", [BatchChannelvideoActivityController::class, 'markCompleted'])->name('markcompleted');
 
                     });
 

@@ -162,6 +162,7 @@
                             <a href="#"
                                 class="nav-link {{ request()->is('*admin/manage/batches/' . $channel->id . '*') ||
                                 request()->is('*admin/manage/batches/schedules/' . $channel->id . '*') ||
+                                request()->is('*admin/manage/batches/video_views/' . $channel->id . '*') ||
                                 request()->is('*admin/manage/batches/subscriptions/' . $channel->id . '*') ||
                                 request()->is('*admin/manage/rentals/' . $channel->id . '*') ||request()->is('*admin/manage/channelvideos*' . $channel->id . '*') ? 'active' : '' }}">
                                 <i class="nav-icon fa fa-solid fa-tv"></i>
@@ -215,15 +216,29 @@
                                         <p>{{ __('Schedule Calendar') }} </p>
                                     </a>
                                 </li>
+
                                 @endif
 
                                 <li class="nav-item">
                                     <a href="{{ route('admin.manage.rental.index', $channel->id) }}"
                                         class="nav-link {{ request()->is('*admin/manage/rentals/'. $channel->id .'*') ? 'active' : '' }}">
                                         <i class="far fa fa-calendar-alt nav-icon"></i>
-                                        <p>{{ __('Rental') }} </p>
+                                        <p>{{ __('Rentals') }} </p>
                                     </a>
                                 </li>
+
+
+                                @if($channel->has_batch_videos)
+
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.manage.batch.video_view.index', $channel->id) }}"
+                                        class="nav-link {{ request()->is('*admin/manage/batches/video_views/'. $channel->id .'*') ? 'active' : '' }}">
+                                        <i class=" fa fa-eye nav-icon"></i>
+                                        <p>{{ __('Batch Video Views') }} </p>
+                                    </a>
+                                </li>
+                                @endif
+
 
                             </ul>
 

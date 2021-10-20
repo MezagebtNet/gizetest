@@ -52,4 +52,23 @@ class BatchChannelvideo extends Pivot
 
     }
 
+    /**
+     * The batch_users that belong to the BatchChannelvideo
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function batch_users()
+    {
+        return $this->belongsToMany(BatchUser::class, 'batch_video_activity', 'batch_channelvideo_id', 'batch_user_id')
+            ->withPivot([
+                'status',
+                'started_at',
+                'ip_address',
+                'user_agent',
+                'view_count'
+            ])
+            ->withTimestamps();
+    }
+
+
 }

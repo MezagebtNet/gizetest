@@ -1,51 +1,60 @@
-$hashid = 'jRR';
-            $vid_id = Channelvideo::decodeHashID($hashid);
-            $channelvideo = Channelvideo::find($vid_id)->first();
+$batch_channelvideo_id = 6;
+
+        $batch_channelvideo = BatchChannelvideo::find($batch_channelvideo_id)->get();
+
+        $video_detail = $batch_channelvideo->video;
+
+return $video_detail
+$batch_channelvideo_id = 6;
+
+        $batch_channelvideo = BatchChannelvideo::find($batch_channelvideo_id)->get();
+
+        $video_detail = $batch_channelvideo->video;
+
+return $batch_channelvideo
+$batch_channelvideo_id = 6;
+
+        $batch_channelvideo = BatchChannelvideo::find($batch_channelvideo_id)->get();
+
+        $video_detail = $batch_channelvideo->video;
+
+return $batch_channelvideo;
+$batch_channelvideo_id = 6;
+
+        $batch_channelvideo = BatchChannelvideo::find($batch_channelvideo_id)->get();
 
         
-GizeChannel::find($channelvideo->gize_channel_id)->where('active', 1)->get()[0];
-$hashid = 'jRR';
-            $vid_id = Channelvideo::decodeHashID($hashid);
-            $channelvideo = Channelvideo::find($vid_id)->first();
+return $batch_channelvideo;
+$batch_channelvideo_id = 6;
 
-return $channelvideo;
-        
-GizeChannel::find($channelvideo->gize_channel_id)->where('active', 1)->get()[0];
-$hashid = 'jRR';
-            $vid_id = Channelvideo::decodeHashID($hashid);
-            $channelvideo = Channelvideo::find($vid_id)->first();
+        $batch_channelvideo = BatchChannelvideo::where('id', $batch_channelvideo_id)->get();
 
         
-GizeChannel::find($channelvideo->gize_channel_id)->where('active', 1)->get();
-$hashid = 'jRR';
-            $vid_id = Channelvideo::decodeHashID($hashid);
-            $channelvideo = Channelvideo::find($vid_id)->first();
+return $batch_channelvideo;
+$batch_channelvideo_id = 6;
 
-        
-GizeChannel::find($channelvideo->gize_channel_id)->where('active', 1)->get();
-$hashid = 'jRR';
-            $vid_id = Channelvideo::decodeHashID($hashid);
-            $channelvideo = Channelvideo::find($vid_id)->first();
+        $batch_channelvideo = BatchChannelvideo::where('id', $batch_channelvideo_id)->get();
 
-        
-GizeChannel::find($channelvideo->gize_channel_id)->get();
-$hashid = 'jRR';
-            $vid_id = Channelvideo::decodeHashID($hashid);
-            $channelvideo = Channelvideo::find($vid_id)->first();
+        $video_detail = $batch_channelvideo->video;
 
-return $channelvideo->gize_channel_id;
-        
-GizeChannel::find($channelvideo->gize_channel_id)->where('active', 1)->get();
-$hashid = 'jRR';
-            $vid_id = Channelvideo::decodeHashID($hashid);
-            $channelvideo = Channelvideo::find($vid_id)->first();
+return $video_detail;
+$batch_channelvideo_id = 6;
 
-return $channelvideo->gize_channel_id;
-        
-GizeChannel::where('id',$channelvideo->gize_channel_id)->where('active', 1)->get();
-$hashid = 'jRR';
-            $vid_id = Channelvideo::decodeHashID($hashid);
-            $channelvideo = Channelvideo::find($vid_id)->first();
+        $batch_channelvideo = BatchChannelvideo::where('id', $batch_channelvideo_id);
 
-        
-GizeChannel::where('id',$channelvideo->gize_channel_id)->where('active', 1)->get();
+        $video_detail = $batch_channelvideo->video;
+
+return $video_detail;
+$batch_channelvideo_id = 6;
+
+        $batch_channelvideo = BatchChannelvideo::where('id', $batch_channelvideo_id)->first();
+
+        $video_detail = $batch_channelvideo->video;
+
+return $video_detail;
+BatchUser::find(1)
+BatchUser::find(1)->get()
+$bu = BatchUser::find(1);
+$bu->user_id
+$bu = BatchUser::find(1);
+$bu->user_id;
