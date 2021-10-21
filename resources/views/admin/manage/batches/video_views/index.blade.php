@@ -57,19 +57,18 @@ Batch Channelvideo
     <script>
         $(function(){
             $('.btn-markstarted').on('click', function(e){
-                let url = "{{ route('admin.manage.batch.video_view.markstarted', ['batch_user_id' => ':batch_user_id', 'batch_channelvideo_id' => ':batch_channelvideo_id']) }}";
+                let url = "{{ route('admin.manage.batch.video_view.markstarted', ['batch_channelvideo_id' => ':batch_channelvideo_id']) }}";
 
-                let batch_user_id = $('#input_batch_user').val();
                 let batch_channelvideo_id = $('#input_batch_channelvideo').val();
 
-                url = url.replace(':batch_user_id', batch_user_id);
                 url = url.replace(':batch_channelvideo_id', batch_channelvideo_id);
 
                 $.ajax({
                     url: url,
                     type: 'POST',
                     data: {
-                        _token : $("input[name=_token]").val()
+                        _token : $("input[name=_token]").val(),
+                        batch_channelvideo_id: batch_channelvideo_id,
                     },
                     success: function(response){
                         alert('done');
@@ -80,19 +79,20 @@ Batch Channelvideo
 
 
             $('.btn-markcompleted').on('click', function(e){
-                let url = "{{ route('admin.manage.batch.video_view.markcompleted', ['batch_user_id' => ':batch_user_id', 'batch_channelvideo_id' => ':batch_channelvideo_id']) }}";
+                let url = "{{ route('admin.manage.batch.video_view.markcompleted', ['batch_channelvideo_id' => ':batch_channelvideo_id']) }}";
 
-                let batch_user_id = $('#input_batch_user').val();
+                // let user_id = $('#input_batch_user').val();
                 let batch_channelvideo_id = $('#input_batch_channelvideo').val();
 
-                url = url.replace(':batch_user_id', batch_user_id);
+                // url = url.replace(':user_id', user_id);
                 url = url.replace(':batch_channelvideo_id', batch_channelvideo_id);
 
                 $.ajax({
                     url: url,
                     type: 'POST',
                     data: {
-                        _token : $("input[name=_token]").val()
+                        _token : $("input[name=_token]").val(),
+                        batch_channelvideo_id: batch_channelvideo_id,
                     },
                     success: function(response){
                         alert('done');

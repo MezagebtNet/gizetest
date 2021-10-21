@@ -233,8 +233,9 @@ class ChannelvideoRentalController extends Controller
 
     public function getEndingTime($user_id, $channelvideo_rental_id)
     {
-        $user = User::find($user_id);
+        // $user = User::find($user_id);
         abort_if(\Auth::user()->id != $user_id, Response::HTTP_FORBIDDEN, 'Forbidden');
+        if(!isset($channelvideo_rental_id)) return 'n/a';
 
         $started_at = DB::table('channelvideo_rentals')
             ->select('started_at')
@@ -242,6 +243,8 @@ class ChannelvideoRentalController extends Controller
         $for_hours = DB::table('channelvideo_rentals')
             ->select('for_hours')
             ->where('id', $channelvideo_rental_id)->value('for_hours');
+
+        if($started_at == null) return 'n/a';
 
         $ends_at = Date::createFromFormat('Y-m-d H:i:s', $started_at)->addHours($for_hours)->setTimezone(\Config::get('app.timezone'));
 

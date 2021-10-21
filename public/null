@@ -1,60 +1,152 @@
-$batch_channelvideo_id = 6;
+$user_batches = BatchUser::where('user_id', 2)
+            ->where('active', 1)
+            ->get()->pluck('batch_id');
+$user_batches = BatchUser::where('user_id', 2)
+            ->where('active', 1)
+            ->get();
+$user_batches = BatchUser::where('user_id', 2)
+            ->where('active', 1)
+            ->get()->pluck(['id','batch_id']);
+$user_batches = BatchUser::where('user_id', 2)
+            ->where('active', 1)
+            ->get()->pluck(['id']);
+$user_batches = BatchUser::where('user_id', 2)
+            ->where('active', 1)
+            ->get()->select('id');
+$user_batches = BatchUser::where('user_id', 2)
+            ->where('active', 1)->select('id')
+            ->get();
+$user_batches = BatchUser::select('id')where('user_id', 2)
+            ->where('active', 1)
+            ->get();
+$user_batches = BatchUser::select('id')->where('user_id', 2)
+            ->where('active', 1)
+            ->get();
+$user_batches = BatchUser::select('id','batch_id')->where('user_id', 2)
+            ->where('active', 1)->get();
+$user_batches = BatchUser::select('id','batch_id')->where('user_id', 2)
+            ->where('active', 1)->get();
+   return $user_batches;
+$user_batches = BatchUser::select('id','batch_id', 'user_id')->where('user_id', 2)
+            ->where('active', 1)->get();
+   return $user_batches;
+$slug = 'addmes';
+        $user = \Auth::user();
+        $tz = \Config::get('app.timezone'); 
+                $now = new \DateTime("now", new \DateTimeZone($tz));
 
-        $batch_channelvideo = BatchChannelvideo::find($batch_channelvideo_id)->get();
+                        
+        $gize_channel = GizeChannel::where('slug', $slug)->firstOrFail();
 
-        $video_detail = $batch_channelvideo->video;
+                $user_id = $user->id;
 
-return $video_detail
-$batch_channelvideo_id = 6;
-
-        $batch_channelvideo = BatchChannelvideo::find($batch_channelvideo_id)->get();
-
-        $video_detail = $batch_channelvideo->video;
-
-return $batch_channelvideo
-$batch_channelvideo_id = 6;
-
-        $batch_channelvideo = BatchChannelvideo::find($batch_channelvideo_id)->get();
-
-        $video_detail = $batch_channelvideo->video;
-
-return $batch_channelvideo;
-$batch_channelvideo_id = 6;
-
-        $batch_channelvideo = BatchChannelvideo::find($batch_channelvideo_id)->get();
-
+                        
+        $user_batches = BatchUser::select('id', 'batch_id', 'user_id')->where('user_id', $user_id)
+            ->where('active', 1)->get();
         
-return $batch_channelvideo;
-$batch_channelvideo_id = 6;
-
-        $batch_channelvideo = BatchChannelvideo::where('id', $batch_channelvideo_id)->get();
-
+        $active_batches = Batch::whereIn('id', $user_batches->pluck('batch_id'))->where('status', 1);
         
-return $batch_channelvideo;
-$batch_channelvideo_id = 6;
+                $batches_in_channel = $active_batches->where('gize_channel_id', $gize_channel->id)->get();
 
-        $batch_channelvideo = BatchChannelvideo::where('id', $batch_channelvideo_id)->get();
+        $channelvideos = collect([]);
 
-        $video_detail = $batch_channelvideo->video;
+        $videos = Channelvideo::where('active', 1)
+            ->whereIn('video_available_for', [1, 2])
+            ->get();
 
-return $video_detail;
-$batch_channelvideo_id = 6;
+        $video_ids = $videos->pluck('id');
 
-        $batch_channelvideo = BatchChannelvideo::where('id', $batch_channelvideo_id);
+        foreach ($batches_in_channel as $batch) {
 
-        $video_detail = $batch_channelvideo->video;
+            $videos_in_batch = BatchChannelvideo::where('batch_id', $batch->id)
+                ->whereIn('channelvideo_id', $video_ids)
+                ->get();
+                        foreach ($videos_in_batch as $videos) {
+                foreach ($videos->video as $vid) {
 
-return $video_detail;
-$batch_channelvideo_id = 6;
+                    $batch_channelvideo_id = $videos->id;
+                    $starts_at = $videos->starts_at;
+                    $ends_at = $videos->ends_at;
+                    $batch_id = $videos->batch_id;
+                    $vid->starts_at = $starts_at;
+                    $vid->ends_at = $ends_at;
+                    $vid->batch_id = $batch_id;
+                    $vid->batch_channelvideo_id = $batch_channelvideo_id;
 
-        $batch_channelvideo = BatchChannelvideo::where('id', $batch_channelvideo_id)->first();
+                    if (
+                        \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $starts_at, $tz)->lte($now) &&
+                        \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $ends_at, $tz)->gte($now)
+                    ) {
+                                                                                                                        
+                        $new = $channelvideos->add($vid);
+                        $channelvideos = $new;
 
-        $video_detail = $batch_channelvideo->video;
+                    }
 
-return $video_detail;
-BatchUser::find(1)
-BatchUser::find(1)->get()
-$bu = BatchUser::find(1);
-$bu->user_id
-$bu = BatchUser::find(1);
-$bu->user_id;
+                }
+
+            }
+
+        }
+
+                return $channelvideos;
+$slug = 'addmes';
+        $user = \Auth::user();
+        $tz = \Config::get('app.timezone'); 
+                $now = new \DateTime("now", new \DateTimeZone($tz));
+
+                        
+        $gize_channel = GizeChannel::where('slug', $slug)->firstOrFail();
+
+                $user_id = $user->id;
+
+                        
+        $user_batches = BatchUser::select('id', 'batch_id', 'user_id')->where('user_id', $user_id)
+            ->where('active', 1)->get();
+        
+        $active_batches = Batch::whereIn('id', $user_batches->pluck('batch_id'))->where('status', 1);
+        
+                $batches_in_channel = $active_batches->where('gize_channel_id', $gize_channel->id)->get();
+
+        $channelvideos = collect([]);
+
+        $videos = Channelvideo::where('active', 1)
+            ->whereIn('video_available_for', [1, 2])
+            ->get();
+
+        $video_ids = $videos->pluck('id');
+
+        foreach ($batches_in_channel as $batch) {
+
+            $videos_in_batch = BatchChannelvideo::where('batch_id', $batch->id)
+                ->whereIn('channelvideo_id', $video_ids)
+                ->get();
+                        foreach ($videos_in_batch as $videos) {
+                foreach ($videos->video as $vid) {
+
+                    $batch_channelvideo_id = $videos->id;
+                    $starts_at = $videos->starts_at;
+                    $ends_at = $videos->ends_at;
+                    $batch_id = $videos->batch_id;
+                    $vid->starts_at = $starts_at;
+                    $vid->ends_at = $ends_at;
+                    $vid->batch_id = $batch_id;
+                    $vid->batch_channelvideo_id = $batch_channelvideo_id;
+
+                    if (
+                        \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $starts_at, $tz)->lte($now) &&
+                        \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $ends_at, $tz)->gte($now)
+                    ) {
+                                                                                                                        
+                        $new = $channelvideos->add($vid);
+                        $channelvideos = $new;
+
+                    }
+
+                }
+
+            }
+
+        }
+
+                return $channelvideos;

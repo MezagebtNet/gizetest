@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Models\BatchUser;
 use App\Models\User;
 use App\Models\Channelvideo;
+use App\Models\BatchVideoActivity;
 use Jenssegers\Date\Date;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\DB;
@@ -56,12 +57,11 @@ class BatchChannelvideoActivityController extends Controller
     }
 
 
-    public function markStarted($batch_user_id, $batch_channelvideo_id, Request $request)
+    public function markStarted($batch_channelvideo_id, Request $request)
     {
-        $batch_user = BatchUser::find($batch_user_id);
-        $user_id = $batch_user->user_id;
+        $user_id = \Auth::user()->id;
 
-        $user = User::where('id', $user_id);
+        // $user = User::where('id', $user_id);
         abort_if(\Auth::user()->id != $user_id, Response::HTTP_FORBIDDEN, 'Forbidden');
 
         $ip_address = '';
@@ -70,14 +70,19 @@ class BatchChannelvideoActivityController extends Controller
         $ip_address = $request->ip();
         $user_agent = $request->server('HTTP_USER_AGENT');
 
-        $row_exists = DB::table('batch_video_activity')
-            ->where('batch_channelvideo_id', '=', $batch_channelvideo_id)
-            ->where('batch_user_id', '=', $batch_user_id)
+        $row_exists = false;
+
+        if (BatchVideoActivity::
+            where('batch_channelvideo_id', '=', $batch_channelvideo_id)
+            ->where('user_id', '=', $user_id)
             ->where('ip_address', '=', $ip_address)
             ->where('user_agent', '=', $user_agent)
-            ->first();
+            ->exists()) {
+            $row_exists = true;
+        }
 
-        if (is_null($row_exists)) {
+
+        if (!$row_exists) {
             // It does not exist
 
             //View for first time...
@@ -85,7 +90,7 @@ class BatchChannelvideoActivityController extends Controller
             ->insert(
                 [
                     'batch_channelvideo_id' => $batch_channelvideo_id,
-                    'batch_user_id' => $batch_user_id,
+                    'user_id' => $user_id,
                     'ip_address' => $ip_address,
                     'user_agent' => $user_agent,
                     'started_at' => \Carbon\Carbon::now(),
@@ -102,13 +107,13 @@ class BatchChannelvideoActivityController extends Controller
             DB::table('batch_video_activity')
 
             ->where('batch_channelvideo_id', '=', $batch_channelvideo_id)
-            ->where('batch_user_id', '=', $batch_user_id)
+            ->where('user_id', '=', $user_id)
             ->where('ip_address', '=', $ip_address)
             ->where('user_agent', '=', $user_agent)
             ->increment('view_count', 1,
             [
                 'batch_channelvideo_id' => $batch_channelvideo_id,
-                'batch_user_id' => $batch_user_id,
+                'user_id' => $user_id,
                 'ip_address' => $ip_address,
                 'user_agent' => $user_agent,
             ]);
@@ -116,7 +121,7 @@ class BatchChannelvideoActivityController extends Controller
             DB::table('batch_video_activity')
 
             ->where('batch_channelvideo_id', '=', $batch_channelvideo_id)
-            ->where('batch_user_id', '=', $batch_user_id)
+            ->where('user_id', '=', $user_id)
             ->where('ip_address', '=', $ip_address)
             ->where('user_agent', '=', $user_agent)
             ->update(['updated_at' => \Carbon\Carbon::now()]);
@@ -126,12 +131,11 @@ class BatchChannelvideoActivityController extends Controller
 
     }
 
-    public function markCompleted($batch_user_id, $batch_channelvideo_id, Request $request)
+    public function markCompleted($batch_channelvideo_id, Request $request)
     {
-        $batch_user = BatchUser::find($batch_user_id);
-        $user_id = $batch_user->user_id;
+        $user_id = \Auth::user()->id;
 
-        $user = User::find($user_id);
+        // $user = User::find($user_id);
         abort_if(\Auth::user()->id != $user_id, Response::HTTP_FORBIDDEN, 'Forbidden');
 
         $ip_address = '';
@@ -140,16 +144,32 @@ class BatchChannelvideoActivityController extends Controller
         $ip_address = $request->ip();
         $user_agent = $request->server('HTTP_USER_AGENT');
 
-        DB::table('batch_video_activity')
-            ->where('batch_channelvideo_id', $batch_channelvideo_id)
-            ->where('batch_user_id', $batch_user_id)
-            ->where('ip_address', $ip_address)
-            ->where('user_agent', $user_agent)
-            ->where('status', 1)
-            ->whereNotNull('started_at')
-            ->update(['status' => 2]);
+        $row_exists = false;
 
-        return 1;
+        if (BatchVideoActivity::
+            where('batch_channelvideo_id', '=', $batch_channelvideo_id)
+            ->where('user_id', '=', $user_id)
+            ->where('ip_address', '=', $ip_address)
+            ->where('user_agent', '=', $user_agent)
+            ->exists()) {
+            $row_exists = true;
+        }
+
+
+        if ($row_exists) {
+
+            DB::table('batch_video_activity')
+                ->where('batch_channelvideo_id', $batch_channelvideo_id)
+                ->where('user_id', $user_id)
+                ->where('ip_address', $ip_address)
+                ->where('user_agent', $user_agent)
+                ->where('status', 1)
+                ->whereNotNull('started_at')
+                ->update(['status' => 2]);
+
+        }
+
+        return $row_exists;
 
     }
 

@@ -498,10 +498,10 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
                         Route::get("/{gize_channel_id}/{batch_id?}", [BatchChannelvideoActivityController::class, 'index'])->name('index');
 
                         //Mark Started
-                        Route::post("/{batch_user_id}/{batch_channelvideo_id}/started", [BatchChannelvideoActivityController::class, 'markStarted'])->name('markstarted');
+                        Route::post("/{batch_channelvideo_id}/started", [BatchChannelvideoActivityController::class, 'markStarted'])->name('markstarted');
 
                         //Mark Completed
-                        Route::post("/{batch_user_id}/{batch_channelvideo_id}/completed", [BatchChannelvideoActivityController::class, 'markCompleted'])->name('markcompleted');
+                        Route::post("/{batch_channelvideo_id}/completed", [BatchChannelvideoActivityController::class, 'markCompleted'])->name('markcompleted');
 
                     });
 

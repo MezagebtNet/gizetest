@@ -59,7 +59,7 @@ class BatchChannelvideo extends Pivot
      */
     public function batch_users()
     {
-        return $this->belongsToMany(BatchUser::class, 'batch_video_activity', 'batch_channelvideo_id', 'batch_user_id')
+        return $this->belongsToMany(BatchUser::class, 'batch_video_activity', 'batch_channelvideo_id', 'user_id')
             ->withPivot([
                 'status',
                 'started_at',

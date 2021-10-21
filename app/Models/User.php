@@ -487,4 +487,22 @@ class User extends Authenticatable
         return false; //or abort(403);
     }
 
+    /**
+     * The batch_channelvideos that belong to the BatchChannelvideo
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function batch_channelvideos()
+    {
+        return $this->belongsToMany(BatchChannelvideo::class, 'batch_video_activity', 'user_id', 'batch_channelvideo_id')
+            ->withPivot([
+                'status',
+                'started_at',
+                'ip_address',
+                'user_agent',
+                'view_count'
+            ])
+            ->withTimestamps();
+    }
+
 }

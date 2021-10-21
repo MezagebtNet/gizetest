@@ -17,15 +17,15 @@ class CreateBatchVideoActivityPivotTable extends Migration
             $table->id();
             $table->tinyInteger('status'); //0 - not_watched, 1 - started_watching, 2 - completed_watching
             $table->dateTime('started_at')->nullable(); //user has started watching at...
-            $table->string('user_agent', 100)->nullable();
+            $table->string('user_agent', 255)->nullable();
             $table->string('ip_address', 20)->nullable();
             $table->tinyInteger('view_count')->unsigned()->default(0);
             $table->timestamps();
         });
 
         Schema::table('batch_video_activity', function (Blueprint $table) {
-            $table->unsignedBigInteger('batch_user_id');
-            $table->foreign('batch_user_id')->references('id')->on('batch_user');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedBigInteger('batch_channelvideo_id');
             $table->foreign('batch_channelvideo_id')->references('id')->on('batch_channelvideo');
 

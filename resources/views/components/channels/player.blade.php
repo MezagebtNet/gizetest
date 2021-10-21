@@ -6,6 +6,7 @@
                 style="height: inherit;"
                 id="{{ $viddomid }}"
                 bsid="{{ $video->batch_channelvideo_id }}"
+                buid="{{ $video->batch_user_id }}"
                 class="video-js batch_player vim-css video_player vjs-big-play-centered vjs-fluid"
                 controls
                 preload="auto"
