@@ -1,26 +1,29 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Channels\Batches;
+namespace App\Http\Controllers\Admin\Channels\Channelvideos;
+
 use App\Http\Controllers\Controller;
-use App\Models\BatchUser;
+use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Channelvideo;
-use App\Models\BatchVideoActivity;
+use App\Models\ChannelvideoActivity;
 use Jenssegers\Date\Date;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\DB;
+use Hashids\Hashids;
 
-use Illuminate\Http\Request;
 
-class BatchChannelvideoActivityController extends Controller
+class ChannelvideoActivityController extends Controller
 {
-    public function index($gize_channel_id, $batch_id = null){
+    //
 
-        return view('admin.manage.batches.video_views.index');
+    public static function decodeHashID($hashid){
+        $hashids = new Hashids();
+        $id = $hashids->decode($hashid);
+        return $id;
     }
 
-
-    public function markStarted($batch_channelvideo_id, Request $request)
+    public function markStarted($video, Request $request)
     {
         $user_id = \Auth::user()->id;
 
@@ -33,10 +36,12 @@ class BatchChannelvideoActivityController extends Controller
         $ip_address = $request->ip();
         $user_agent = $request->server('HTTP_USER_AGENT');
 
+        $channelvideo_id = Channelvideo::decodeHashID($video)[0];
+
         $row_exists = false;
 
-        if (BatchVideoActivity::
-            where('batch_channelvideo_id', '=', $batch_channelvideo_id)
+        if (ChannelvideoActivity::
+            where('channelvideo_id', '=', $channelvideo_id)
             ->where('user_id', '=', $user_id)
             ->where('ip_address', '=', $ip_address)
             ->where('user_agent', '=', $user_agent)
@@ -49,10 +54,10 @@ class BatchChannelvideoActivityController extends Controller
             // It does not exist
 
             //View for first time...
-            DB::table('batch_video_activity')
+            DB::table('channelvideo_activity')
             ->insert(
                 [
-                    'batch_channelvideo_id' => $batch_channelvideo_id,
+                    'channelvideo_id' => $channelvideo_id,
                     'user_id' => $user_id,
                     'ip_address' => $ip_address,
                     'user_agent' => $user_agent,
@@ -67,23 +72,23 @@ class BatchChannelvideoActivityController extends Controller
         } else {
             // It exists
             //Increment view count
-            DB::table('batch_video_activity')
+            DB::table('channelvideo_activity')
 
-            ->where('batch_channelvideo_id', '=', $batch_channelvideo_id)
+            ->where('channelvideo_id', '=', $channelvideo_id)
             ->where('user_id', '=', $user_id)
             ->where('ip_address', '=', $ip_address)
             ->where('user_agent', '=', $user_agent)
             ->increment('view_count', 1,
             [
-                'batch_channelvideo_id' => $batch_channelvideo_id,
+                'channelvideo_id' => $channelvideo_id,
                 'user_id' => $user_id,
                 'ip_address' => $ip_address,
                 'user_agent' => $user_agent,
             ]);
 
-            DB::table('batch_video_activity')
+            DB::table('channelvideo_activity')
 
-            ->where('batch_channelvideo_id', '=', $batch_channelvideo_id)
+            ->where('channelvideo_id', '=', $channelvideo_id)
             ->where('user_id', '=', $user_id)
             ->where('ip_address', '=', $ip_address)
             ->where('user_agent', '=', $user_agent)
@@ -94,7 +99,7 @@ class BatchChannelvideoActivityController extends Controller
 
     }
 
-    public function markCompleted($batch_channelvideo_id, Request $request)
+    public function markCompleted($video, Request $request)
     {
         $user_id = \Auth::user()->id;
 
@@ -109,8 +114,10 @@ class BatchChannelvideoActivityController extends Controller
 
         $row_exists = false;
 
-        if (BatchVideoActivity::
-            where('batch_channelvideo_id', '=', $batch_channelvideo_id)
+        $channelvideo_id = Channelvideo::decodeHashID($video)[0];
+
+        if (ChannelvideoActivity::
+            where('channelvideo_id', '=', $channelvideo_id)
             ->where('user_id', '=', $user_id)
             ->where('ip_address', '=', $ip_address)
             ->where('user_agent', '=', $user_agent)
@@ -121,8 +128,8 @@ class BatchChannelvideoActivityController extends Controller
 
         if ($row_exists) {
 
-            DB::table('batch_video_activity')
-                ->where('batch_channelvideo_id', $batch_channelvideo_id)
+            DB::table('channelvideo_activity')
+                ->where('channelvideo_id', $channelvideo_id)
                 ->where('user_id', $user_id)
                 ->where('ip_address', $ip_address)
                 ->where('user_agent', $user_agent)
@@ -135,5 +142,4 @@ class BatchChannelvideoActivityController extends Controller
         return $row_exists;
 
     }
-
 }

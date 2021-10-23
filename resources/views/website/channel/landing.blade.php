@@ -733,7 +733,7 @@
                                         }
                                         $key = $i;
                                     @endphp
-                                    {{-- {{ dd($active->id) }} --}}
+                                    {{-- {{ dd($archive->is_free) }} --}}
                                     @if ($archive->is_free)
                                         {{-- <a href="#modal"
                                                                         data-vid_title = "{{ $archive->title }}"
@@ -743,7 +743,7 @@
                                                                         <x-channels.archivecard :archivevid="$archive"/>
 
                                                                     </a> --}}
-                                        <a href="{{ url('/play?v=' . $archive->hashid) }}" class=" "
+                                        <a href="{{ url('/play?v=' . $archive->hashid) }}" class=" isfree"
                                             vid_id="{{ $archive->id }}" vid_title="{{ $archive->title }}"
                                             vid_duration="{{ $archive->duration }}" vid_host="{{ $archive->trainer }}"
                                             vid_channel="{{ $archive->gize_channel_id }}"

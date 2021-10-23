@@ -1,5 +1,3 @@
-
-
   <div title="{{ $archivevid->title }}"  class="card mx-2 p-1 my-2  bg-gradient-dark" style="">
     <img class="card-img-top"  src="{{ asset('storage/'. $archivevid->poster_image_url) }}" alt="{{ $archivevid->title }}">
 
@@ -22,8 +20,7 @@
 
   </div>
   <div class="d-flex align-content-start flex-wrap mx-3 mb-3"
-        style="
-        ">
+        style=" ">
         <div class="  align-self-center">
           {{-- <a href="{{ route('channel.landing', ['slug' => $archivevid->gizeChannel->slug]) }}"> --}}
             <img title="{{ $archivevid->gizeChannel->name }}" alt="{{ $archivevid->gizeChannel->name }}" class="border:1px solid gray;" src="{{ asset('storage/'.$archivevid->gizeChannel->logo_image_url) }}" width="40"/>

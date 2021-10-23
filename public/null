@@ -1,152 +1,494 @@
-$user_batches = BatchUser::where('user_id', 2)
-            ->where('active', 1)
-            ->get()->pluck('batch_id');
-$user_batches = BatchUser::where('user_id', 2)
-            ->where('active', 1)
-            ->get();
-$user_batches = BatchUser::where('user_id', 2)
-            ->where('active', 1)
-            ->get()->pluck(['id','batch_id']);
-$user_batches = BatchUser::where('user_id', 2)
-            ->where('active', 1)
-            ->get()->pluck(['id']);
-$user_batches = BatchUser::where('user_id', 2)
-            ->where('active', 1)
-            ->get()->select('id');
-$user_batches = BatchUser::where('user_id', 2)
-            ->where('active', 1)->select('id')
-            ->get();
-$user_batches = BatchUser::select('id')where('user_id', 2)
-            ->where('active', 1)
-            ->get();
-$user_batches = BatchUser::select('id')->where('user_id', 2)
-            ->where('active', 1)
-            ->get();
-$user_batches = BatchUser::select('id','batch_id')->where('user_id', 2)
-            ->where('active', 1)->get();
-$user_batches = BatchUser::select('id','batch_id')->where('user_id', 2)
-            ->where('active', 1)->get();
-   return $user_batches;
-$user_batches = BatchUser::select('id','batch_id', 'user_id')->where('user_id', 2)
-            ->where('active', 1)->get();
-   return $user_batches;
-$slug = 'addmes';
-        $user = \Auth::user();
-        $tz = \Config::get('app.timezone'); 
-                $now = new \DateTime("now", new \DateTimeZone($tz));
+$user_id = 2;
 
-                        
-        $gize_channel = GizeChannel::where('slug', $slug)->firstOrFail();
+        $video = 'p2';
 
-                $user_id = $user->id;
+        $ip_address = '';
+        $user_agent = '';
+                $ip_address = $request->ip();
+        $user_agent = $request->server('HTTP_USER_AGENT');
 
-                        
-        $user_batches = BatchUser::select('id', 'batch_id', 'user_id')->where('user_id', $user_id)
-            ->where('active', 1)->get();
-        
-        $active_batches = Batch::whereIn('id', $user_batches->pluck('batch_id'))->where('status', 1);
-        
-                $batches_in_channel = $active_batches->where('gize_channel_id', $gize_channel->id)->get();
+        $channelvideo_id = Channelvideo::decodeHashID($video);
 
-        $channelvideos = collect([]);
+        $row_exists = false;
 
-        $videos = Channelvideo::where('active', 1)
-            ->whereIn('video_available_for', [1, 2])
-            ->get();
-
-        $video_ids = $videos->pluck('id');
-
-        foreach ($batches_in_channel as $batch) {
-
-            $videos_in_batch = BatchChannelvideo::where('batch_id', $batch->id)
-                ->whereIn('channelvideo_id', $video_ids)
-                ->get();
-                        foreach ($videos_in_batch as $videos) {
-                foreach ($videos->video as $vid) {
-
-                    $batch_channelvideo_id = $videos->id;
-                    $starts_at = $videos->starts_at;
-                    $ends_at = $videos->ends_at;
-                    $batch_id = $videos->batch_id;
-                    $vid->starts_at = $starts_at;
-                    $vid->ends_at = $ends_at;
-                    $vid->batch_id = $batch_id;
-                    $vid->batch_channelvideo_id = $batch_channelvideo_id;
-
-                    if (
-                        \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $starts_at, $tz)->lte($now) &&
-                        \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $ends_at, $tz)->gte($now)
-                    ) {
-                                                                                                                        
-                        $new = $channelvideos->add($vid);
-                        $channelvideos = $new;
-
-                    }
-
-                }
-
-            }
-
+        if (ChannelvideoActivity::
+            where('channelvideo_id', '=', $channelvideo_id)
+            ->where('user_id', '=', $user_id)
+            ->where('ip_address', '=', $ip_address)
+            ->where('user_agent', '=', $user_agent)
+            ->exists()) {
+            $row_exists = true;
         }
 
-                return $channelvideos;
-$slug = 'addmes';
-        $user = \Auth::user();
-        $tz = \Config::get('app.timezone'); 
-                $now = new \DateTime("now", new \DateTimeZone($tz));
 
-                        
-        $gize_channel = GizeChannel::where('slug', $slug)->firstOrFail();
+        if (!$row_exists) {
+            
+                        DB::table('channelvideo_activity')
+            ->insert(
+                [
+                    'channelvideo_id' => $channelvideo_id,
+                    'user_id' => $user_id,
+                    'ip_address' => $ip_address,
+                    'user_agent' => $user_agent,
+                    'started_at' => \Carbon\Carbon::now(),
+                    'created_at' => \Carbon\Carbon::now(),
+                    'updated_at' => \Carbon\Carbon::now(),
+                    'status' => 1,
+                    'view_count' => 1,
+                ]
+            );
 
-                $user_id = $user->id;
+        } else {
+                                    DB::table('channelvideo_activity')
 
-                        
-        $user_batches = BatchUser::select('id', 'batch_id', 'user_id')->where('user_id', $user_id)
-            ->where('active', 1)->get();
-        
-        $active_batches = Batch::whereIn('id', $user_batches->pluck('batch_id'))->where('status', 1);
-        
-                $batches_in_channel = $active_batches->where('gize_channel_id', $gize_channel->id)->get();
+            ->where('channelvideo_id', '=', $channelvideo_id)
+            ->where('user_id', '=', $user_id)
+            ->where('ip_address', '=', $ip_address)
+            ->where('user_agent', '=', $user_agent)
+            ->increment('view_count', 1,
+            [
+                'channelvideo_id' => $channelvideo_id,
+                'user_id' => $user_id,
+                'ip_address' => $ip_address,
+                'user_agent' => $user_agent,
+            ]);
 
-        $channelvideos = collect([]);
+            DB::table('channelvideo_activity')
 
-        $videos = Channelvideo::where('active', 1)
-            ->whereIn('video_available_for', [1, 2])
-            ->get();
+            ->where('channelvideo_id', '=', $channelvideo_id)
+            ->where('user_id', '=', $user_id)
+            ->where('ip_address', '=', $ip_address)
+            ->where('user_agent', '=', $user_agent)
+            ->update(['updated_at' => \Carbon\Carbon::now()]);
+        }
+$user_id = 2;
 
-        $video_ids = $videos->pluck('id');
+        $video = 'p2';
 
-        foreach ($batches_in_channel as $batch) {
+        $ip_address = '';
+        $user_agent = '';
+                        $user_agent = $request->server('HTTP_USER_AGENT');
 
-            $videos_in_batch = BatchChannelvideo::where('batch_id', $batch->id)
-                ->whereIn('channelvideo_id', $video_ids)
-                ->get();
-                        foreach ($videos_in_batch as $videos) {
-                foreach ($videos->video as $vid) {
+        $channelvideo_id = Channelvideo::decodeHashID($video);
 
-                    $batch_channelvideo_id = $videos->id;
-                    $starts_at = $videos->starts_at;
-                    $ends_at = $videos->ends_at;
-                    $batch_id = $videos->batch_id;
-                    $vid->starts_at = $starts_at;
-                    $vid->ends_at = $ends_at;
-                    $vid->batch_id = $batch_id;
-                    $vid->batch_channelvideo_id = $batch_channelvideo_id;
+        $row_exists = false;
 
-                    if (
-                        \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $starts_at, $tz)->lte($now) &&
-                        \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $ends_at, $tz)->gte($now)
-                    ) {
-                                                                                                                        
-                        $new = $channelvideos->add($vid);
-                        $channelvideos = $new;
-
-                    }
-
-                }
-
-            }
-
+        if (ChannelvideoActivity::
+            where('channelvideo_id', '=', $channelvideo_id)
+            ->where('user_id', '=', $user_id)
+            ->where('ip_address', '=', $ip_address)
+            ->where('user_agent', '=', $user_agent)
+            ->exists()) {
+            $row_exists = true;
         }
 
-                return $channelvideos;
+
+        if (!$row_exists) {
+            
+                        DB::table('channelvideo_activity')
+            ->insert(
+                [
+                    'channelvideo_id' => $channelvideo_id,
+                    'user_id' => $user_id,
+                    'ip_address' => $ip_address,
+                    'user_agent' => $user_agent,
+                    'started_at' => \Carbon\Carbon::now(),
+                    'created_at' => \Carbon\Carbon::now(),
+                    'updated_at' => \Carbon\Carbon::now(),
+                    'status' => 1,
+                    'view_count' => 1,
+                ]
+            );
+
+        } else {
+                                    DB::table('channelvideo_activity')
+
+            ->where('channelvideo_id', '=', $channelvideo_id)
+            ->where('user_id', '=', $user_id)
+            ->where('ip_address', '=', $ip_address)
+            ->where('user_agent', '=', $user_agent)
+            ->increment('view_count', 1,
+            [
+                'channelvideo_id' => $channelvideo_id,
+                'user_id' => $user_id,
+                'ip_address' => $ip_address,
+                'user_agent' => $user_agent,
+            ]);
+
+            DB::table('channelvideo_activity')
+
+            ->where('channelvideo_id', '=', $channelvideo_id)
+            ->where('user_id', '=', $user_id)
+            ->where('ip_address', '=', $ip_address)
+            ->where('user_agent', '=', $user_agent)
+            ->update(['updated_at' => \Carbon\Carbon::now()]);
+        }
+$user_id = 2;
+
+        $video = 'p2';
+
+        $ip_address = '';
+        $user_agent = '';
+                        
+        $channelvideo_id = Channelvideo::decodeHashID($video);
+
+        $row_exists = false;
+
+        if (ChannelvideoActivity::
+            where('channelvideo_id', '=', $channelvideo_id)
+            ->where('user_id', '=', $user_id)
+            ->where('ip_address', '=', $ip_address)
+            ->where('user_agent', '=', $user_agent)
+            ->exists()) {
+            $row_exists = true;
+        }
+
+
+        if (!$row_exists) {
+            
+                        DB::table('channelvideo_activity')
+            ->insert(
+                [
+                    'channelvideo_id' => $channelvideo_id,
+                    'user_id' => $user_id,
+                    'ip_address' => $ip_address,
+                    'user_agent' => $user_agent,
+                    'started_at' => \Carbon\Carbon::now(),
+                    'created_at' => \Carbon\Carbon::now(),
+                    'updated_at' => \Carbon\Carbon::now(),
+                    'status' => 1,
+                    'view_count' => 1,
+                ]
+            );
+
+        } else {
+                                    DB::table('channelvideo_activity')
+
+            ->where('channelvideo_id', '=', $channelvideo_id)
+            ->where('user_id', '=', $user_id)
+            ->where('ip_address', '=', $ip_address)
+            ->where('user_agent', '=', $user_agent)
+            ->increment('view_count', 1,
+            [
+                'channelvideo_id' => $channelvideo_id,
+                'user_id' => $user_id,
+                'ip_address' => $ip_address,
+                'user_agent' => $user_agent,
+            ]);
+
+            DB::table('channelvideo_activity')
+
+            ->where('channelvideo_id', '=', $channelvideo_id)
+            ->where('user_id', '=', $user_id)
+            ->where('ip_address', '=', $ip_address)
+            ->where('user_agent', '=', $user_agent)
+            ->update(['updated_at' => \Carbon\Carbon::now()]);
+        }
+$user_id = 2;
+
+        $video = 'p2';
+
+        $ip_address = '';
+        $user_agent = '';
+                        
+        $channelvideo_id = Channelvideo::decodeHashID($video);
+
+        $row_exists = false;
+
+        if (\App\Models\ChannelvideoActivity::
+            where('channelvideo_id', '=', $channelvideo_id)
+            ->where('user_id', '=', $user_id)
+            ->where('ip_address', '=', $ip_address)
+            ->where('user_agent', '=', $user_agent)
+            ->exists()) {
+            $row_exists = true;
+        }
+
+
+        if (!$row_exists) {
+            
+                        DB::table('channelvideo_activity')
+            ->insert(
+                [
+                    'channelvideo_id' => $channelvideo_id,
+                    'user_id' => $user_id,
+                    'ip_address' => $ip_address,
+                    'user_agent' => $user_agent,
+                    'started_at' => \Carbon\Carbon::now(),
+                    'created_at' => \Carbon\Carbon::now(),
+                    'updated_at' => \Carbon\Carbon::now(),
+                    'status' => 1,
+                    'view_count' => 1,
+                ]
+            );
+
+        } else {
+                                    DB::table('channelvideo_activity')
+
+            ->where('channelvideo_id', '=', $channelvideo_id)
+            ->where('user_id', '=', $user_id)
+            ->where('ip_address', '=', $ip_address)
+            ->where('user_agent', '=', $user_agent)
+            ->increment('view_count', 1,
+            [
+                'channelvideo_id' => $channelvideo_id,
+                'user_id' => $user_id,
+                'ip_address' => $ip_address,
+                'user_agent' => $user_agent,
+            ]);
+
+            DB::table('channelvideo_activity')
+
+            ->where('channelvideo_id', '=', $channelvideo_id)
+            ->where('user_id', '=', $user_id)
+            ->where('ip_address', '=', $ip_address)
+            ->where('user_agent', '=', $user_agent)
+            ->update(['updated_at' => \Carbon\Carbon::now()]);
+        }
+$user_id = 2;
+
+        $video = 'p2';
+
+        $ip_address = '';
+        $user_agent = '';
+                        
+        $channelvideo_id = Channelvideo::decodeHashID($video);
+return $channelcideo_id;
+
+        $row_exists = false;
+
+        if (\App\Models\ChannelvideoActivity::
+            where('channelvideo_id', '=', $channelvideo_id)
+            ->where('user_id', '=', $user_id)
+            ->where('ip_address', '=', $ip_address)
+            ->where('user_agent', '=', $user_agent)
+            ->exists()) {
+            $row_exists = true;
+        }
+
+
+        if (!$row_exists) {
+            
+                        DB::table('channelvideo_activity')
+            ->insert(
+                [
+                    'channelvideo_id' => $channelvideo_id,
+                    'user_id' => $user_id,
+                    'ip_address' => $ip_address,
+                    'user_agent' => $user_agent,
+                    'started_at' => \Carbon\Carbon::now(),
+                    'created_at' => \Carbon\Carbon::now(),
+                    'updated_at' => \Carbon\Carbon::now(),
+                    'status' => 1,
+                    'view_count' => 1,
+                ]
+            );
+
+        } else {
+                                    DB::table('channelvideo_activity')
+
+            ->where('channelvideo_id', '=', $channelvideo_id)
+            ->where('user_id', '=', $user_id)
+            ->where('ip_address', '=', $ip_address)
+            ->where('user_agent', '=', $user_agent)
+            ->increment('view_count', 1,
+            [
+                'channelvideo_id' => $channelvideo_id,
+                'user_id' => $user_id,
+                'ip_address' => $ip_address,
+                'user_agent' => $user_agent,
+            ]);
+
+            DB::table('channelvideo_activity')
+
+            ->where('channelvideo_id', '=', $channelvideo_id)
+            ->where('user_id', '=', $user_id)
+            ->where('ip_address', '=', $ip_address)
+            ->where('user_agent', '=', $user_agent)
+            ->update(['updated_at' => \Carbon\Carbon::now()]);
+        }
+$user_id = 2;
+
+        $video = 'p2';
+
+        $ip_address = '';
+        $user_agent = '';
+                        
+        $channelvideo_id = Channelvideo::decodeHashID($video);
+return $channelvideo_id;
+
+        $row_exists = false;
+
+        if (\App\Models\ChannelvideoActivity::
+            where('channelvideo_id', '=', $channelvideo_id)
+            ->where('user_id', '=', $user_id)
+            ->where('ip_address', '=', $ip_address)
+            ->where('user_agent', '=', $user_agent)
+            ->exists()) {
+            $row_exists = true;
+        }
+
+
+        if (!$row_exists) {
+            
+                        DB::table('channelvideo_activity')
+            ->insert(
+                [
+                    'channelvideo_id' => $channelvideo_id,
+                    'user_id' => $user_id,
+                    'ip_address' => $ip_address,
+                    'user_agent' => $user_agent,
+                    'started_at' => \Carbon\Carbon::now(),
+                    'created_at' => \Carbon\Carbon::now(),
+                    'updated_at' => \Carbon\Carbon::now(),
+                    'status' => 1,
+                    'view_count' => 1,
+                ]
+            );
+
+        } else {
+                                    DB::table('channelvideo_activity')
+
+            ->where('channelvideo_id', '=', $channelvideo_id)
+            ->where('user_id', '=', $user_id)
+            ->where('ip_address', '=', $ip_address)
+            ->where('user_agent', '=', $user_agent)
+            ->increment('view_count', 1,
+            [
+                'channelvideo_id' => $channelvideo_id,
+                'user_id' => $user_id,
+                'ip_address' => $ip_address,
+                'user_agent' => $user_agent,
+            ]);
+
+            DB::table('channelvideo_activity')
+
+            ->where('channelvideo_id', '=', $channelvideo_id)
+            ->where('user_id', '=', $user_id)
+            ->where('ip_address', '=', $ip_address)
+            ->where('user_agent', '=', $user_agent)
+            ->update(['updated_at' => \Carbon\Carbon::now()]);
+        }
+$user_id = 2;
+
+        $video = 'p2';
+
+        $ip_address = '';
+        $user_agent = '';
+                        
+        $channelvideo_id = Channelvideo::decodeHashID($video);
+return $channelvideo_id[0];
+
+        $row_exists = false;
+
+        if (\App\Models\ChannelvideoActivity::
+            where('channelvideo_id', '=', $channelvideo_id)
+            ->where('user_id', '=', $user_id)
+            ->where('ip_address', '=', $ip_address)
+            ->where('user_agent', '=', $user_agent)
+            ->exists()) {
+            $row_exists = true;
+        }
+
+
+        if (!$row_exists) {
+            
+                        DB::table('channelvideo_activity')
+            ->insert(
+                [
+                    'channelvideo_id' => $channelvideo_id,
+                    'user_id' => $user_id,
+                    'ip_address' => $ip_address,
+                    'user_agent' => $user_agent,
+                    'started_at' => \Carbon\Carbon::now(),
+                    'created_at' => \Carbon\Carbon::now(),
+                    'updated_at' => \Carbon\Carbon::now(),
+                    'status' => 1,
+                    'view_count' => 1,
+                ]
+            );
+
+        } else {
+                                    DB::table('channelvideo_activity')
+
+            ->where('channelvideo_id', '=', $channelvideo_id)
+            ->where('user_id', '=', $user_id)
+            ->where('ip_address', '=', $ip_address)
+            ->where('user_agent', '=', $user_agent)
+            ->increment('view_count', 1,
+            [
+                'channelvideo_id' => $channelvideo_id,
+                'user_id' => $user_id,
+                'ip_address' => $ip_address,
+                'user_agent' => $user_agent,
+            ]);
+
+            DB::table('channelvideo_activity')
+
+            ->where('channelvideo_id', '=', $channelvideo_id)
+            ->where('user_id', '=', $user_id)
+            ->where('ip_address', '=', $ip_address)
+            ->where('user_agent', '=', $user_agent)
+            ->update(['updated_at' => \Carbon\Carbon::now()]);
+        }
+$user_id = 2;
+
+        $video = 'p2';
+
+        $ip_address = '';
+        $user_agent = '';
+                        
+        $channelvideo_id = Channelvideo::decodeHashID($video)[0];
+
+        $row_exists = false;
+
+        if (\App\Models\ChannelvideoActivity::
+            where('channelvideo_id', '=', $channelvideo_id)
+            ->where('user_id', '=', $user_id)
+            ->where('ip_address', '=', $ip_address)
+            ->where('user_agent', '=', $user_agent)
+            ->exists()) {
+            $row_exists = true;
+        }
+
+
+        if (!$row_exists) {
+            
+                        DB::table('channelvideo_activity')
+            ->insert(
+                [
+                    'channelvideo_id' => $channelvideo_id,
+                    'user_id' => $user_id,
+                    'ip_address' => $ip_address,
+                    'user_agent' => $user_agent,
+                    'started_at' => \Carbon\Carbon::now(),
+                    'created_at' => \Carbon\Carbon::now(),
+                    'updated_at' => \Carbon\Carbon::now(),
+                    'status' => 1,
+                    'view_count' => 1,
+                ]
+            );
+
+        } else {
+                                    DB::table('channelvideo_activity')
+
+            ->where('channelvideo_id', '=', $channelvideo_id)
+            ->where('user_id', '=', $user_id)
+            ->where('ip_address', '=', $ip_address)
+            ->where('user_agent', '=', $user_agent)
+            ->increment('view_count', 1,
+            [
+                'channelvideo_id' => $channelvideo_id,
+                'user_id' => $user_id,
+                'ip_address' => $ip_address,
+                'user_agent' => $user_agent,
+            ]);
+
+            DB::table('channelvideo_activity')
+
+            ->where('channelvideo_id', '=', $channelvideo_id)
+            ->where('user_id', '=', $user_id)
+            ->where('ip_address', '=', $ip_address)
+            ->where('user_agent', '=', $user_agent)
+            ->update(['updated_at' => \Carbon\Carbon::now()]);
+        }

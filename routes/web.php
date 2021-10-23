@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\Channels\Batches\BatchController;
 use App\Http\Controllers\Admin\Channels\Batches\BatchScheduleController;
 use App\Http\Controllers\Admin\Channels\Batches\BatchUserController;
 use App\Http\Controllers\Admin\Channels\Batches\BatchChannelvideoActivityController;
+use App\Http\Controllers\Admin\Channels\Channelvideos\ChannelvideoActivityController;
 use App\Http\Controllers\Admin\Channels\Channelvideos\ChannelvideoController;
 // use App\Http\Controllers\Admin\Channels\GizeChannelController_;
 use App\Http\Controllers\Admin\Channels\GizeChannelController;
@@ -92,6 +93,12 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
             //index
             Route::get('/', [PlayPageController::class, 'index'])->name('index');
+
+            //Mark Started
+            Route::post("/{video}/started", [ChannelvideoActivityController::class, 'markStarted'])->name('markstarted');
+
+            //Mark Completed
+            Route::post("/{video}/completed", [ChannelvideoActivityController::class, 'markCompleted'])->name('markcompleted');
 
         });
 

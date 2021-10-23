@@ -176,19 +176,19 @@
                             data-setup="{}">
                             <source
                                 src="{{ route('video.play.playlist', [
-    'hashid' =>
-        // 'p2',
-        $channelvideo->hashid,
-    'gize_channel_id' =>
-        //  1,
-        $channelvideo->gize_channel_id,
-]) }}"
+                                    'hashid' =>
+                                        // 'p2',
+                                        $channelvideo->hashid,
+                                    'gize_channel_id' =>
+                                        //  1,
+                                        $channelvideo->gize_channel_id,
+                                ]) }}"
                                 type="application/x-mpegURL" />
 
 
                         </video-js>
                     @else
-                        <video id="vid1" class="video-js  vim-css video_player vjs-big-play-centered vjs-fluid" controls
+                        <video id="player" class="video-js  vim-css video_player vjs-big-play-centered vjs-fluid" controls
                             preload="auto" width="auto" height="264" poster=""
                             style="border-radius: 8px; overflow:hidden;"
                             data-setup='{ "techOrder": ["youtube"], "sources": [{ "type": "video/youtube", "src": "{{ $channelvideo->file_url }}"}], "youtube": { "customVars": { "wmode": "transparent" } } }'>
@@ -389,10 +389,99 @@
 
 
     <script>
+        let playstate = {};
+
         $(function() {
             videojs("player").ready(function() {
                 videojs("player").hlsQualitySelector();
                 videojs("player").landscapeFullscreen();
+
+                // playstate.videoId = videoId;
+                playstate.sent_started_status = false;
+                playstate.sent_completed_status = false;
+                playstate.started = false;
+                playstate.completed = false;
+
+
+                var user_id = "{{ auth()->user()->id }}";
+
+                this.on('timeupdate', function() {
+
+
+                // console.log(playstate);
+                // $('.lbl-time').html(playstate);
+                // $('.lbl-time').html(this.currentTime() + ' / ' + this.duration());
+
+                //Mark Started
+                if (playstate.started == true && playstate.sent_started_status == false) {
+
+                    //send started state
+
+                        let url =
+                            "{{ route('play.markstarted', ['video' => ':video']) }}";
+
+                        let video = "{{ $channelvideo->hashid }}";
+
+                        url = url.replace(':video', video);
+
+                        $.ajax({
+                            url: url,
+                            type: 'POST',
+                            data: {
+                                _token: $('meta[name="csrf-token"]').attr('content'),
+                                video: video,
+                            },
+                            success: function(response) {
+
+                            }
+                        });
+                        playstate.sent_started_status = true;
+
+
+
+
+                }
+                if (this.currentTime() > 15) {
+                    playstate.started = true;
+
+                }
+                //Mark Completed
+                if (playstate.completed == true && playstate.sent_completed_status == false) {
+
+                    //send completed state
+                        let url =
+                            "{{ route('play.markcompleted', ['video' => ':video']) }}";
+
+                        let video = "{{ $channelvideo->hashid }}";
+
+
+                        url = url.replace(':video', video);
+
+                        $.ajax({
+                            url: url,
+                            type: 'POST',
+                            data: {
+                                _token: $('meta[name="csrf-token"]').attr('content'),
+                                video: video,
+                            },
+                            success: function(response) {
+
+                            }
+                        });
+                        playstate.sent_completed_status = true;
+
+
+
+
+                }
+                if ((this.duration() - this.currentTime()) < 30) {
+
+                    playstate.completed = true;
+
+                }
+                });
+
+
 
             });
         });
