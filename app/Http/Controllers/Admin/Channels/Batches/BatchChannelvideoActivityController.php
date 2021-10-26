@@ -25,7 +25,7 @@ class BatchChannelvideoActivityController extends Controller
         $user_id = \Auth::user()->id;
 
         // $user = User::where('id', $user_id);
-        abort_if(\Auth::user()->id != $user_id, Response::HTTP_FORBIDDEN, 'Forbidden');
+        // abort_if(\Auth::user()->id != $user_id, Response::HTTP_FORBIDDEN, 'Forbidden');
 
         $ip_address = '';
         $user_agent = '';
@@ -99,7 +99,7 @@ class BatchChannelvideoActivityController extends Controller
         $user_id = \Auth::user()->id;
 
         // $user = User::find($user_id);
-        abort_if(\Auth::user()->id != $user_id, Response::HTTP_FORBIDDEN, 'Forbidden');
+        // abort_if(\Auth::user()->id != $user_id, Response::HTTP_FORBIDDEN, 'Forbidden');
 
         $ip_address = '';
         $user_agent = '';
