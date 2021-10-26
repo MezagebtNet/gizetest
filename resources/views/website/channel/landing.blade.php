@@ -6,7 +6,8 @@
     @livewireStyles
 
     <!--Video JS -->
-    <link href="https://vjs.zencdn.net/7.14.3/video-js.css" rel="stylesheet" />
+    {{-- <link href="https://vjs.zencdn.net/7.14.3/video-js.css" rel="stylesheet" /> --}}
+    <link href="{{ asset('vendors/videojs/video.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('vendors/videojs/vim.css') }}" rel="stylesheet" />
     {{-- <link href="https://unpkg.com/video.js/dist/video-js.css" rel="stylesheet"> --}}
 
@@ -496,13 +497,13 @@
     <div class="banner-section-wrapper">
         <section
             style=" width: 100%; padding:0;
-                                                                                margin-top: -1px;
-                                                                                background-color: #faebd72e;
-                                                                                background-image: linear-gradient(to bottom, #000000ad, #00000063, #0000008f), url({{ asset('storage/' . $gize_channel->banner_image_url) }});
-                                                                                height: 186px;
-                                                                                /* background-attachment: fixed; */
-                                                                                background-position: center center;
-                                                                                background-size: cover;
+                    margin-top: -1px;
+                    background-color: #faebd72e;
+                    background-image: linear-gradient(to bottom, #000000ad, #00000063, #0000008f), url({{ asset('storage/' . $gize_channel->banner_image_url) }});
+                    height: 186px;
+                    /* background-attachment: fixed; */
+                    background-position: center center;
+                    background-size: cover;
 
                                                                                                                                                                                             "
             class=" mb-3 pb-0 w:100 jumbotron text-center channel-banner">
@@ -574,44 +575,103 @@
                 <div class="tab-content">
 
                     <div class="tab-pane active mt-4" id="my-streams" role="tabpanel" aria-labelledby="my-streams-tab">
-                        @if ($gize_channel->has_batch_videos)
-                            <h4 class="">{{ __('My Streamed Videos') }}</h4>
+                        @auth
+                            @if ($gize_channel->has_batch_videos)
+                                <h4 class="">{{ __('My Streamed Videos') }}</h4>
 
-                            <h6 class="
-                                text-muted mb-0">
-                                {{ __('Videos available for you to watch from this channel') }}
+                                <h6 class="
+                                    text-muted mb-0">
+                                    {{ __('Videos available for you to watch from this channel') }}
+                                    <button class="btn btn-xs btn-outline-info btn-refresh float-right mr-2 mt-1">
+                                        <i class="fa fa-recycle"></i> {{ __('Reload') }}
+                                    </button>
+                                </h6>
+                                <hr />
+
+
+                                <div style="text-align: center;" class="spin-8">
+                                    <svg class=" slow-spin fa-refresh" aria-hidden="true" focusable="false" data-prefix="fas"
+                                        data-icon="sun" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+                                        class="svg-inline--fa fa-sun fa-w-16 fa-spin fa-lg">
+                                        <path fill="currentColor"
+                                            d="M256 160c-52.9 0-96 43.1-96 96s43.1 96 96 96 96-43.1 96-96-43.1-96-96-96zm246.4 80.5l-94.7-47.3 33.5-100.4c4.5-13.6-8.4-26.5-21.9-21.9l-100.4 33.5-47.4-94.8c-6.4-12.8-24.6-12.8-31 0l-47.3 94.7L92.7 70.8c-13.6-4.5-26.5 8.4-21.9 21.9l33.5 100.4-94.7 47.4c-12.8 6.4-12.8 24.6 0 31l94.7 47.3-33.5 100.5c-4.5 13.6 8.4 26.5 21.9 21.9l100.4-33.5 47.3 94.7c6.4 12.8 24.6 12.8 31 0l47.3-94.7 100.4 33.5c13.6 4.5 26.5-8.4 21.9-21.9l-33.5-100.4 94.7-47.3c13-6.5 13-24.7.2-31.1zm-155.9 106c-49.9 49.9-131.1 49.9-181 0-49.9-49.9-49.9-131.1 0-181 49.9-49.9 131.1-49.9 181 0 49.9 49.9 49.9 131.1 0 181z"
+                                            class=""></path>
+                                    </svg>
+                                </div>
+                                <div class="
+                                            streams-container">
+
+                                    {{-- <div class="justify-content-sm-center"> --}}
+                                    {{-- <center> --}}
+                                    <div class=" grid-container">
+                                        @if ($activevideos->count() == 0)
+                                            <div>
+
+                                                <p class="text-center text-muted">
+                                                    {{ __('Videos not available for now') }}<br />
+                                                    {{ __('If you have already subscribed please check your schedule.') }}
+                                                </p>
+                                                <p class="text-center text-muted">
+                                                    <a class="btn btn-sm btn-outline-secondary"
+                                                        href="{{ route('web.home') }}">
+                                                        {{ __('Go back to home') }}
+                                                    </a>
+                                                    <button class="btn btn-refresh btn-sm btn-outline-secondary">
+                                                        {{ __('Reload') }}
+                                                    </button>
+                                                </p>
+
+                                            </div>
+                                        @endif
+                                        <div id="video-cards" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 ">
+                                            {{-- {{ dd($activevideos[0]->video->poster_image_url) }} --}}
+                                            {{-- {{  dd($activevideos)}} --}}
+
+                                            @for ($i = 0; $i < $activevideos->count(); $i++)
+
+                                                @php
+                                                    $active = $activevideos[$i];
+                                                    $key = $i;
+                                                @endphp
+                                                {{-- {{ dd($active->id) }} --}}
+
+                                                <x-channels.player :vidid="$active->id" :viddomid="'v'.$key.$active->id"
+                                                    :vidtitle="$active->title" :viddescription="$active->description"
+                                                    :vidposter="$active->poster_image_url" :video="$active" />
+
+
+
+                                            @endfor
+                                        </div>
+                                        {{-- </center> --}}
+                                        {{-- </div> --}}
+                                    </div>
+
+                                </div>
+                            @endif
+                            <h4 class="mt-3">{{ __('Rentals') }}</h4>
+                            <h6 class=" text-muted mb-0">
+                                {{ __('Your rented videos from this channel') }}
                                 <button class="btn btn-xs btn-outline-info btn-refresh float-right mr-2 mt-1">
                                     <i class="fa fa-recycle"></i> {{ __('Reload') }}
                                 </button>
                             </h6>
                             <hr />
 
-
-                            <div style="text-align: center;" class="spin-8">
-                                <svg class=" slow-spin fa-refresh" aria-hidden="true" focusable="false" data-prefix="fas"
-                                    data-icon="sun" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
-                                    class="svg-inline--fa fa-sun fa-w-16 fa-spin fa-lg">
-                                    <path fill="currentColor"
-                                        d="M256 160c-52.9 0-96 43.1-96 96s43.1 96 96 96 96-43.1 96-96-43.1-96-96-96zm246.4 80.5l-94.7-47.3 33.5-100.4c4.5-13.6-8.4-26.5-21.9-21.9l-100.4 33.5-47.4-94.8c-6.4-12.8-24.6-12.8-31 0l-47.3 94.7L92.7 70.8c-13.6-4.5-26.5 8.4-21.9 21.9l33.5 100.4-94.7 47.4c-12.8 6.4-12.8 24.6 0 31l94.7 47.3-33.5 100.5c-4.5 13.6 8.4 26.5 21.9 21.9l100.4-33.5 47.3 94.7c6.4 12.8 24.6 12.8 31 0l47.3-94.7 100.4 33.5c13.6 4.5 26.5-8.4 21.9-21.9l-33.5-100.4 94.7-47.3c13-6.5 13-24.7.2-31.1zm-155.9 106c-49.9 49.9-131.1 49.9-181 0-49.9-49.9-49.9-131.1 0-181 49.9-49.9 131.1-49.9 181 0 49.9 49.9 49.9 131.1 0 181z"
-                                        class=""></path>
-                                </svg>
-                            </div>
-                            <div class="
-                                        streams-container">
+                            <div class="rentals-container">
 
                                 {{-- <div class="justify-content-sm-center"> --}}
                                 {{-- <center> --}}
                                 <div class=" grid-container">
-                                    @if ($activevideos->count() == 0)
+                                    @if ($activerentals->count() == 0)
                                         <div>
 
                                             <p class="text-center text-muted">
-                                                {{ __('Videos not available for now') }}<br />
-                                                {{ __('If you have already subscribed please check your schedule.') }}
+                                                {{ __('You have no rental videos available') }}<br />
+                                                {{ __('If you would like to rent videos please contact the channel admin.') }}
                                             </p>
                                             <p class="text-center text-muted">
-                                                <a class="btn btn-sm btn-outline-secondary"
-                                                    href="{{ route('web.home') }}">
+                                                <a class="btn btn-sm btn-outline-secondary" href="{{ route('web.home') }}">
                                                     {{ __('Go back to home') }}
                                                 </a>
                                                 <button class="btn btn-refresh btn-sm btn-outline-secondary">
@@ -623,17 +683,17 @@
                                     @endif
                                     <div id="video-cards" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 ">
                                         {{-- {{ dd($activevideos[0]->video->poster_image_url) }} --}}
-                                        {{-- {{  dd($activevideos)}} --}}
+                                        {{-- {{ dd($activerentals[0]->title) }} --}}
 
-                                        @for ($i = 0; $i < $activevideos->count(); $i++)
 
+                                        @for ($i = 0; $i < $activerentals->count(); $i++)
                                             @php
-                                                $active = $activevideos[$i];
+                                                $active = $activerentals[$i];
                                                 $key = $i;
                                             @endphp
                                             {{-- {{ dd($active->id) }} --}}
 
-                                            <x-channels.player :vidid="$active->id" :viddomid="'v'.$key.$active->id"
+                                            <x-channels.rentalplayer :vidid="$active->id" :viddomid="'r'.$key.$active->id"
                                                 :vidtitle="$active->title" :viddescription="$active->description"
                                                 :vidposter="$active->poster_image_url" :video="$active" />
 
@@ -646,174 +706,123 @@
                                 </div>
 
                             </div>
-                        @endif
-                        <h4 class="mt-3">{{ __('Rentals') }}</h4>
-                        <h6 class=" text-muted mb-0">
-                            {{ __('Your rented videos from this channel') }}
-                            <button class="btn btn-xs btn-outline-info btn-refresh float-right mr-2 mt-1">
-                                <i class="fa fa-recycle"></i> {{ __('Reload') }}
-                            </button>
-                        </h6>
-                        <hr />
 
-                        <div class="rentals-container">
+                            <div class="row pt-4">
+                                <div class="col">
+                                    <h4 class="">{{ __('Featured') }}</h4>
+                                    <h6 class=" text-muted mb-0">
+                                        {{ __('Featured videos from this channel') }}
+                                    </h6>
+                                    <hr />
+                                </div>
 
-                            {{-- <div class="justify-content-sm-center"> --}}
-                            {{-- <center> --}}
-                            <div class=" grid-container">
-                                @if ($activerentals->count() == 0)
-                                    <div>
+                            </div>
 
-                                        <p class="text-center text-muted">
-                                            {{ __('You have no rental videos available') }}<br />
-                                            {{ __('If you would like to rent videos please contact the channel admin.') }}
-                                        </p>
-                                        <p class="text-center text-muted">
-                                            <a class="btn btn-sm btn-outline-secondary" href="{{ route('web.home') }}">
-                                                {{ __('Go back to home') }}
-                                            </a>
-                                            <button class="btn btn-refresh btn-sm btn-outline-secondary">
-                                                {{ __('Reload') }}
-                                            </button>
-                                        </p>
+                            <div class="featured-container">
 
-                                    </div>
-                                @endif
-                                <div id="video-cards" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 ">
+                                <div id=" archive-cards" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 ">
                                     {{-- {{ dd($activevideos[0]->video->poster_image_url) }} --}}
                                     {{-- {{ dd($activerentals[0]->title) }} --}}
 
 
-                                    @for ($i = 0; $i < $activerentals->count(); $i++)
+                                    @for ($i = 0; $i < $archives->count(); $i++)
                                         @php
-                                            $active = $activerentals[$i];
+                                            $archive = $archives[$i];
+                                            if (!$archive->is_featured) {
+                                                continue;
+                                            }
                                             $key = $i;
                                         @endphp
                                         {{-- {{ dd($active->id) }} --}}
+                                        @if ($archive->is_free)
+                                            {{-- <a href="#modal"
+                                                                            data-vid_title = "{{ $archive->title }}"
+                                                                            data-vid_duration = "{{ $archive->duration }}"
+                                                                            data-vid_host = "{{ $archive->trainer }}">
 
-                                        <x-channels.rentalplayer :vidid="$active->id" :viddomid="'r'.$key.$active->id"
-                                            :vidtitle="$active->title" :viddescription="$active->description"
-                                            :vidposter="$active->poster_image_url" :video="$active" />
+                                                                            <x-channels.archivecard :archivevid="$archive"/>
+
+                                                                        </a> --}}
+                                            <a href="{{ url('/play?v=' . $archive->hashid) }}" class=" "
+                                                vid_id="{{ $archive->id }}" vid_title="{{ $archive->title }}"
+                                                vid_duration="{{ $archive->duration }}" vid_host="{{ $archive->trainer }}"
+                                                vid_channel="{{ $archive->gize_channel_id }}"
+                                                vid_channel_name="{{ $archive->gizeChannel->name }}"
+                                                vid_channel_logo="{{ $archive->gizeChannel->logo_image_url }}"
+                                                vid_channel_phone_number="{{ $archive->gizeChannel->phone_number }}"
+                                                vid_channel_contact_address="{{ $archive->gizeChannel->contact_address }}"
+                                                vid_channel_website="{{ $archive->gizeChannel->website }}"
+                                                vid_channel_file_url="{{ $archive->file_url != null ? $archive->file_url : '' }}"
+                                                vid_image_url="{{ asset('storage/' . $archive->thumb_image_url) }}">
+
+                                                <x-channels.archivecard :archivevid="$archive" />
+
+                                            </a>
+
+                                        @else
+                                            <a href="javascript: void(0);" class="archivevid"
+                                                vid_title="{{ $archive->title }}" vid_duration="{{ $archive->duration }}"
+                                                vid_host="{{ $archive->trainer }}"
+                                                vid_channel="{{ $archive->gize_channel_id }}"
+                                                vid_channel_name="{{ $archive->gizeChannel->name }}"
+                                                vid_channel_phone_number="{{ $archive->gizeChannel->phone_number }}"
+                                                vid_channel_contact_address="{{ $archive->gizeChannel->contact_address }}"
+                                                vid_channel_website="{{ $archive->gizeChannel->website }}"
+                                                vid_image_url="{{ asset('storage/' . $archive->thumb_image_url) }}">
+
+                                                <x-channels.archivecard :archivevid="$archive" />
+                                            </a>
+                                        @endif
 
 
 
                                     @endfor
                                 </div>
-                                {{-- </center> --}}
-                                {{-- </div> --}}
                             </div>
+                        @endauth
 
-                        </div>
-
-
-
-                        <div class="row pt-4">
-                            <div class="col">
-                                <h4 class="">{{ __('Featured') }}</h4>
-                                <h6 class=" text-muted mb-0">
-                                    {{ __('Featured videos from this channel') }}
-                                </h6>
-                                <hr />
-                            </div>
-
-                        </div>
-
-                        <div class="featured-container">
-
-                            <div id=" archive-cards" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 ">
-                                {{-- {{ dd($activevideos[0]->video->poster_image_url) }} --}}
-                                {{-- {{ dd($activerentals[0]->title) }} --}}
-
-
-                                @for ($i = 0; $i < $archives->count(); $i++)
-                                    @php
-                                        $archive = $archives[$i];
-                                        if (!$archive->is_featured) {
-                                            continue;
-                                        }
-                                        $key = $i;
-                                    @endphp
-                                    {{-- {{ dd($archive->is_free) }} --}}
-                                    @if ($archive->is_free)
-                                        {{-- <a href="#modal"
-                                                                        data-vid_title = "{{ $archive->title }}"
-                                                                        data-vid_duration = "{{ $archive->duration }}"
-                                                                        data-vid_host = "{{ $archive->trainer }}">
-
-                                                                        <x-channels.archivecard :archivevid="$archive"/>
-
-                                                                    </a> --}}
-                                        <a href="{{ url('/play?v=' . $archive->hashid) }}" class=" isfree"
-                                            vid_id="{{ $archive->id }}" vid_title="{{ $archive->title }}"
-                                            vid_duration="{{ $archive->duration }}" vid_host="{{ $archive->trainer }}"
-                                            vid_channel="{{ $archive->gize_channel_id }}"
-                                            vid_channel_name="{{ $archive->gizeChannel->name }}"
-                                            vid_channel_logo="{{ $archive->gizeChannel->logo_image_url }}"
-                                            vid_channel_phone_number="{{ $archive->gizeChannel->phone_number }}"
-                                            vid_channel_contact_address="{{ $archive->gizeChannel->contact_address }}"
-                                            vid_channel_website="{{ $archive->gizeChannel->website }}"
-                                            vid_channel_file_url="{{ $archive->file_url != null ? $archive->file_url : '' }}"
-                                            vid_image_url="{{ asset('storage/' . $archive->thumb_image_url) }}">
-
-                                            <x-channels.archivecard :archivevid="$archive" />
-
-                                        </a>
-
-                                    @else
-                                        <a href="javascript: void(0);" class="archivevid"
-                                            vid_title="{{ $archive->title }}" vid_duration="{{ $archive->duration }}"
-                                            vid_host="{{ $archive->trainer }}"
-                                            vid_channel="{{ $archive->gize_channel_id }}"
-                                            vid_channel_name="{{ $archive->gizeChannel->name }}"
-                                            vid_channel_phone_number="{{ $archive->gizeChannel->phone_number }}"
-                                            vid_channel_contact_address="{{ $archive->gizeChannel->contact_address }}"
-                                            vid_channel_website="{{ $archive->gizeChannel->website }}"
-                                            vid_image_url="{{ asset('storage/' . $archive->thumb_image_url) }}">
-
-                                            <x-channels.archivecard :archivevid="$archive" />
-                                        </a>
-                                    @endif
-
-
-
-                                @endfor
-                            </div>
-                        </div>
+                        @guest
+                            {{ __('Plase login to access this section.') }} <a href="{{ route('login') }}"></a>
+                        @endguest
 
                     </div>
                     @if ($gize_channel->has_batch_videos)
                         <div class="tab-pane mt-4" id="schedule" role="tabpanel" aria-labelledby="schedule-tab">
-                            {{-- <div id='top' class="container">
+                            @auth
+                                {{-- <div id='top' class="container">
 
-                            <div style='float:left'>
-                                <select id='time-zone-selector'>
-                                    <option value='local'>local</option>
-                                    <option value='UTC' selected>UTC</option>
-                                </select>
-                            </div>
-                            <div style='float:right'>
-                                <span id='loading'>loading...</span>
-
-                            </div>
-
-                            <div style='clear:both'></div>
-                        </div> --}}
-                            <div class="container">
-                                @if (app()->getLocale() == 'am')
-                                    <div style="opacity: 1; color: black;"
-                                        class="text-center alert alert-info alert-dismissible">
-                                        <button type="button" style="color: black;" class="close "
-                                            data-dismiss="alert" aria-hidden="true">×</button>
-                                        በመርሐግብሩ ዝርዝር ላይ ያሉ ሰዓታት 6፡00 ከሰዓት ካሉ በኢትዮጵያ ሰዓት አቆጣጠር ከምሽቱ 12፡00 መሆኑን እና እንዲሁም 12፡00
-                                        ጥዋት
-                                        ካሉ
-                                        በኢትዮጵያ ሰዓት አቆጣጠር ከሌሊቱ 6 ሰዓት ማለት መሆናቸውን ልብ ይበሉ።
+                                    <div style='float:left'>
+                                        <select id='time-zone-selector'>
+                                            <option value='local'>local</option>
+                                            <option value='UTC' selected>UTC</option>
+                                        </select>
                                     </div>
-                                @endif
-                            </div>
+                                    <div style='float:right'>
+                                        <span id='loading'>loading...</span>
 
-                            <div id="schedule_calendar"></div>
+                                    </div>
 
+                                    <div style='clear:both'></div>
+                                </div> --}}
+                                <div class="container">
+                                    @if (app()->getLocale() == 'am')
+                                        <div style="opacity: 1; color: black;"
+                                            class="text-center alert alert-info alert-dismissible">
+                                            <button type="button" style="color: black;" class="close "
+                                                data-dismiss="alert" aria-hidden="true">×</button>
+                                            በመርሐግብሩ ዝርዝር ላይ ያሉ ሰዓታት 6፡00 ከሰዓት ካሉ በኢትዮጵያ ሰዓት አቆጣጠር ከምሽቱ 12፡00 መሆኑን እና እንዲሁም 12፡00
+                                            ጥዋት
+                                            ካሉ
+                                            በኢትዮጵያ ሰዓት አቆጣጠር ከሌሊቱ 6 ሰዓት ማለት መሆናቸውን ልብ ይበሉ።
+                                        </div>
+                                    @endif
+                                </div>
+
+                                <div id="schedule_calendar"></div>
+                            @endauth
+                            @guest
+                                {{ __('Plase login to access this section.') }} <a href="{{ route('login') }}"></a>
+                            @endguest
                         </div>
                     @endif
                     <div class="tab-pane  mt-4" id="archive" role="tabpanel" aria-labelledby="archive-tab">
@@ -865,7 +874,7 @@
                                             <x-channels.archivecard :archivevid="$archive"/>
 
                                         </a> --}}
-                                        <a href="{{ url('/play?v=' . $archive->hashid) }}" class="archivevid"
+                                        <a href="{{ url('/play?v=' . $archive->hashid) }}" class=" "
                                             vid_id="{{ $archive->id }}" vid_title="{{ $archive->title }}"
                                             vid_duration="{{ $archive->duration }}" vid_host="{{ $archive->trainer }}"
                                             vid_image_url="{{ asset('storage/' . $archive->thumb_image_url) }}"
@@ -941,21 +950,7 @@
 
 @section('modals')
 
-    {{-- @include('website.channel.video_detail_modal') --}}
-    <!-- Player modal -->
-    <section class="remodal" tabindex="-1" data-remodal-id="modal">
-        <button data-remodal-action="close" class="remodal-close"></button>
-        <video id="my-video" class="video-js vjs-default-skin" controls preload="auto" width="640" height="264"
-            data-setup="{}">
-            <source src="" type='video/mp4'>
 
-            <p class="vjs-no-js">
-                To view this video please enable JavaScript, and consider upgrading to a web browser that
-                <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
-            </p>
-        </video>
-
-    </section>
 
 
 
@@ -967,19 +962,24 @@
 
     <!-- Video JS -->
 
-    <script src="https://vjs.zencdn.net/7.14.3/video.min.js"></script>
+    {{-- <script src="https://vjs.zencdn.net/7.14.3/video.min.js"></script> --}}
+    <script src="{{ asset('vendors/videojs/video.min.js') }}"></script>
     {{-- <script src="https://unpkg.com/video.js/dist/video.js"></script> --}}
-    <script src="{{ asset('assets/js/dist/Youtube.min.js') }}"></script>
 
-    <script src="https://unpkg.com/@videojs/http-streaming@2.8.0/dist/videojs-http-streaming.min.js"></script>
+    {{-- <script src="https://unpkg.com/@videojs/http-streaming@2.8.0/dist/videojs-http-streaming.min.js"></script> --}}
+    <script src="{{ asset('vendors/videojs/videojs-http-streaming.min.js') }}"></script>
 
     <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-quality-levels/2.1.0/videojs-contrib-quality-levels.min.js">
+        {{-- src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-quality-levels/2.1.0/videojs-contrib-quality-levels.min.js"> --}}
+        src="{{ asset('vendors/videojs/videojs-contrib-quality-levels.min.js') }}">
     </script>
 
-    <script src="https://unpkg.com/videojs-hls-quality-selector@1.0.5/dist/videojs-hls-quality-selector.min.js"></script>
+    {{-- <script src="https://unpkg.com/videojs-hls-quality-selector@1.0.5/dist/videojs-hls-quality-selector.min.js"></script> --}}
+    <script src="{{ asset('vendors/videojs/videojs-hls-quality-selector.min.js') }}"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/videojs-landscape-fullscreen@11.1.0/dist/videojs-landscape-fullscreen.min.js">
+    {{-- <script src="https://cdn.jsdelivr.net/npm/videojs-landscape-fullscreen@11.1.0/dist/videojs-landscape-fullscreen.min.js">
+    </script> --}}
+    <script src="{{ asset('vendors/videojs/videojs-landscape-fullscreen.min.js') }}">
     </script>
 
 
@@ -1001,7 +1001,7 @@
             var initialTimeZone = 'local';
             var timeZoneSelectorEl = document.getElementById('time-zone-selector');
             var loadingEl = document.getElementById('loading');
-            var calendarEl = document.getElementById('calendar');
+            // var calendarEl = document.getElementById('calendar');
 
             var calendarEl = document.getElementById('schedule_calendar');
             // console.log({!! json_encode($events) !!});
@@ -1173,6 +1173,7 @@
                             });
 
                             let channelvideo_rental_id = this.tagAttributes.rid;
+                            console.log(channelvideo_rental_id);
 
 
                             let url =
@@ -1495,7 +1496,7 @@
             $('.streams-container').show();
             clearTimeout(spinnerTimer);
 
-        }, 2000);
+        }, 80);
     </script>
 
     <script>
@@ -1505,11 +1506,11 @@
                 trigger: 'focus'
             })
 
-            var player = videojs("my-video", {
-                // autoplay: "muted",
-                autoplay: false,
-                fluid: true
-            });
+            // var player = videojs("my-video", {
+            //     // autoplay: "muted",
+            //     autoplay: false,
+            //     fluid: true
+            // });
 
             var modal_vidtitle;
             var modal_vidduration;
@@ -1531,9 +1532,9 @@
 
                 source =
                     `{{ route('video.batch.playlist', [
-    'vid_id' => ':vidid',
-    'gize_channel_id' => $gize_channel->id,
-]) }}`;
+                        'vid_id' => ':vidid',
+                        'gize_channel_id' => $gize_channel->id,
+                    ]) }}`;
 
                 source = source.replace(':vidid', vidid);
                 new_vidid = moment.now();
@@ -1678,28 +1679,6 @@
                 // alert($(this).attr('vid_title'));
             });
 
-            $(document).on("opened", ".remodal", function() {
-                console.log("Modal is opened");
-                // player.play("muted");
-                // player.muted(false); // unmute the volume
-            });
-
-            $(document).on("opening", ".remodal", function(e) {
-                alert($(this).data('vid_title'));
-
-                alert(window.modal_vidtitle);
-                document.getElementById('my-video').src = 'https://www.w3schools.com/html/mov_bbb.mp4';
-
-            });
-
-            $(document).on("closing", ".remodal", function(e) {
-                player.pause();
-                // player.play("pause");
-                // player.p
-                player.muted(false); // nmute the volume
-                /* uncomment this if you want the video time to be reset when modal is close
-                  player.currentTime('0');*/
-            });
 
             function onHashChange() {
                 var hash = window.location.hash;
@@ -1714,14 +1693,23 @@
             window.addEventListener('hashchange', onHashChange, false);
             onHashChange();
 
-            if ({!! $activerentals->count() !!}) {
-                var rentalcheker = setInterval(chkRentalTimer, 1000 * 15);
-                var endtimecheker = setInterval(updateEndingTime, 1000 * 10);
+            // if ({!! $activerentals->count() !!}) {
+            //     var rentalcheker = setInterval(chkRentalTimer, 1000 * 15);
+            //     var endtimecheker = setInterval(updateEndingTime, 1000 * 10);
 
+            // }
+
+
+            // var validStreamcheker = setInterval(chkValidStreamTimer, 1000 * 20);
+            var validStreamcheker = setInterval(rond, 1000 * 10);
+
+            function rond(){
+                if ({!! $activerentals->count() !!}) {
+                    chkRentalTimer();
+                    updateEndingTime();
+                }
+                chkValidStreamTimer();
             }
-
-
-            var validStreamcheker = setInterval(chkValidStreamTimer, 1000 * 20);
 
 
             $('.btn-refresh').on('click', function() {
@@ -1759,6 +1747,74 @@
                         }
                     });
                 });
+            }
+
+            function chkRentalTimer() {
+                // console.log("remoing");
+                let rental_vids = $(".rental_player");
+
+                active_rental_vids = [];
+
+
+                // console.log(rental_vids);
+                rental_vids.each(function(i) {
+
+                    rid = $(this).attr('rid');
+
+                    let url =
+                        "{{ route('rental.check', ['user_id' => auth()->user()->id, 'channelvideo_rental_id' => ':channelvideo_rental_id']) }}";
+                    url = url.replace(':channelvideo_rental_id', rid);
+
+                    let that = this;
+                    console.log(url);
+                    $.ajax({
+                        type: 'GET',
+                        url: url,
+
+
+                        success: function(response) {
+                            console.log(response);
+                            if (response == "0") {
+                                console.log('clearing');
+                                $(that).parents('.video-card').remove();
+                                console.log('active_rental_vids.length: ' + active_rental_vids
+                                    .length);
+
+                                if (active_rental_vids.length ==
+                                    0) { //if the removed one is the last one....
+                                    text = `<div>
+
+                                            <p class="text-center text-muted">
+                                                {{ __('You have no rental videos available') }}<br />
+                                                {{ __('If you would like to rent videos please contact the channel admin.') }}
+                                            </p>
+                                            <p class="text-center text-muted">
+                                                <a class="btn btn-sm btn-outline-secondary"
+                                                    href="{{ route('web.home') }}">
+                                                    {{ __('Go back to home') }}
+                                                </a>
+                                                <button class="btn btn-refresh btn-sm btn-outline-secondary" >
+                                                    {{ __('Reload') }}
+                                                </button>
+                                            </p>
+
+                                            </div>`;
+                                    $('.rentals-container').html(text);
+                                }
+                                // removeExpiredVideos(rid);
+                                // clearInterval(chkRentalTimer);
+                                // clearInterval(endtimecheker);
+
+                            }
+                        }
+
+                    });
+
+                });
+
+
+
+                // notifyMe();
             }
 
             function chkValidStreamTimer() {
@@ -1829,73 +1885,6 @@
 
             }
 
-            function chkRentalTimer() {
-                // console.log("remoing");
-                let rental_vids = $(".rental_player");
-
-                active_rental_vids = [];
-
-
-                // console.log(rental_vids);
-                rental_vids.each(function(i) {
-
-                    rid = $(this).attr('rid');
-
-                    let url =
-                        "{{ route('rental.check', ['user_id' => auth()->user()->id, 'channelvideo_rental_id' => ':channelvideo_rental_id']) }}";
-                    url = url.replace(':channelvideo_rental_id', rid);
-
-                    let that = this;
-                    console.log(url);
-                    $.ajax({
-                        type: 'GET',
-                        url: url,
-
-
-                        success: function(response) {
-                            console.log(response);
-                            if (response == "0") {
-                                console.log('clearing');
-                                $(that).parents('.video-card').remove();
-                                console.log('active_rental_vids.length: ' + active_rental_vids
-                                    .length);
-
-                                if (active_rental_vids.length ==
-                                    0) { //if the removed one is the last one....
-                                    text = `<div>
-
-                                            <p class="text-center text-muted">
-                                                {{ __('You have no rental videos available') }}<br />
-                                                {{ __('If you would like to rent videos please contact the channel admin.') }}
-                                            </p>
-                                            <p class="text-center text-muted">
-                                                <a class="btn btn-sm btn-outline-secondary"
-                                                    href="{{ route('web.home') }}">
-                                                    {{ __('Go back to home') }}
-                                                </a>
-                                                <button class="btn btn-refresh btn-sm btn-outline-secondary" >
-                                                    {{ __('Reload') }}
-                                                </button>
-                                            </p>
-
-                                            </div>`;
-                                    $('.rentals-container').html(text);
-                                }
-                                // removeExpiredVideos(rid);
-                                // clearInterval(chkRentalTimer);
-                                // clearInterval(endtimecheker);
-
-                            }
-                        }
-
-                    });
-
-                });
-
-
-
-                // notifyMe();
-            }
 
             function removeExpiredVideos(rid = 0) {
                 if (rid) {

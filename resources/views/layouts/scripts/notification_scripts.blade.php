@@ -1,23 +1,23 @@
 <script type="module">
 
-    import Echo from "{{ asset('assets/js/dist/echo.js') }}"
+    // import Echo from "{{ asset('assets/js/dist/echo.js') }}"
 
-    import {
-        Pusher
-    } from "{{ asset('assets/js/dist/pusher.js') }}"
+    // import {
+    //     Pusher
+    // } from "{{ asset('assets/js/dist/pusher.js') }}"
 
-    window.Pusher = Pusher
+    // window.Pusher = Pusher
 
-    window.Echo = new Echo({
-        broadcaster: 'pusher',
-        key: 'pusherkey',
-        cluster: 'mt1',
-        // encrypted: true,
-        wsHost: window.location.hostname,
-        wsPort: 6001,
-        forceTLS: false,
-        disableStats: false,
-    })
+    // window.Echo = new Echo({
+    //     broadcaster: 'pusher',
+    //     key: 'pusherkey',
+    //     cluster: 'mt1',
+    //     // encrypted: true,
+    //     wsHost: window.location.hostname,
+    //     wsPort: 6001,
+    //     forceTLS: false,
+    //     disableStats: false,
+    // })
 
 
 
@@ -26,29 +26,29 @@
         renderNotifications();
 
 
-        window.Echo.private('App.Models.User.' + '{{ auth()->user()->id }}')
-            .notification((notification) => {
-                console.log(notification);
-                if (notification.type == "broadcast.message") {
-                    Swal.fire({
-                        position: 'bottom-end',
-                        // toast: true,
-                        icon: 'success',
-                        title: notification.message,
-                        showConfirmButton: false,
-                        timer: 5000
-                    });
+        // window.Echo.private('App.Models.User.' + '{{ auth()->user()->id }}')
+        //     .notification((notification) => {
+        //         console.log(notification);
+        //         if (notification.type == "broadcast.message") {
+        //             Swal.fire({
+        //                 position: 'bottom-end',
+        //                 // toast: true,
+        //                 icon: 'success',
+        //                 title: notification.message,
+        //                 showConfirmButton: false,
+        //                 timer: 5000
+        //             });
 
-                    //update notification dropdown...
-                    renderNotifications();
+        //             //update notification dropdown...
+        //             renderNotifications();
 
-                }
-
-
-            })
+        //         }
 
 
-        var myVar = setInterval(myTimer, 1000 * 10);
+        //     })
+
+
+        var myVar = setInterval(myTimer, 1000 * 30);
 
         function myTimer() {
             //check if dropdown is open

@@ -17,6 +17,7 @@
     <!--Video JS -->
     <link href="https://vjs.zencdn.net/7.14.3/video-js.css" rel="stylesheet" />
     <link href="{{ asset('vendors/videojs/vim.css') }}" rel="stylesheet" />
+    <link rel="shortcut icon" href="{{ asset('storage/favicon.png') }}" >
 
     <style>
         .grow {

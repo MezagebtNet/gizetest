@@ -13,7 +13,8 @@
 
 @section('styles')
     <!--Video JS -->
-    <link href="https://vjs.zencdn.net/7.14.3/video-js.css" rel="stylesheet" />
+    {{-- <link href="https://vjs.zencdn.net/7.14.3/video-js.css" rel="stylesheet" /> --}}
+    <link href="{{ asset('vendors/videojs/video.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('vendors/videojs/vim.css') }}" rel="stylesheet" />
 
     <style>
@@ -373,18 +374,24 @@
 @section('js')
     <!-- Video JS -->
 
-    <script src="https://vjs.zencdn.net/7.14.3/video.min.js"></script>
+    {{-- <script src="https://vjs.zencdn.net/7.14.3/video.min.js"></script> --}}
+    <script src="{{ asset('vendors/videojs/video.min.js') }}"></script>
     <script src="{{ asset('assets/js/dist/Youtube.min.js') }}"></script>
 
-    <script src="https://unpkg.com/@videojs/http-streaming@2.8.0/dist/videojs-http-streaming.min.js"></script>
+    {{-- <script src="https://unpkg.com/@videojs/http-streaming@2.8.0/dist/videojs-http-streaming.min.js"></script> --}}
+    <script src="{{ asset('vendors/videojs/videojs-http-streaming.min.js') }}"></script>
 
     <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-quality-levels/2.1.0/videojs-contrib-quality-levels.min.js">
+        {{-- src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-quality-levels/2.1.0/videojs-contrib-quality-levels.min.js"> --}}
+        src="{{ asset('vendors/videojs/videojs-contrib-quality-levels.min.js') }}">
     </script>
 
-    <script src="https://unpkg.com/videojs-hls-quality-selector@1.0.5/dist/videojs-hls-quality-selector.min.js"></script>
+    {{-- <script src="https://unpkg.com/videojs-hls-quality-selector@1.0.5/dist/videojs-hls-quality-selector.min.js"></script> --}}
+    <script src="{{ asset('vendors/videojs/videojs-hls-quality-selector.min.js') }}"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/videojs-landscape-fullscreen@11.1.0/dist/videojs-landscape-fullscreen.min.js">
+    {{-- <script src="https://cdn.jsdelivr.net/npm/videojs-landscape-fullscreen@11.1.0/dist/videojs-landscape-fullscreen.min.js">
+    </script> --}}
+    <script src="{{ asset('vendors/videojs/videojs-landscape-fullscreen.min.js') }}">
     </script>
 
 
