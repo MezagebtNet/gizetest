@@ -1232,7 +1232,7 @@
 
                         } else if (this.hasClass('batch_player')) {
                             let url =
-                                "{{ route('admin.manage.batch.video_view.markstarted', ['batch_channelvideo_id' => ':batch_channelvideo_id']) }}";
+                                "{{ route('batchvideo.markstarted', ['batch_channelvideo_id' => ':batch_channelvideo_id']) }}";
 
                             let batch_channelvideo_id = this.tagAttributes.bsid;
 
@@ -1332,7 +1332,7 @@
 
                         } else if (this.hasClass('batch_player')) {
                             let url =
-                                "{{ route('admin.manage.batch.video_view.markcompleted', ['batch_channelvideo_id' => ':batch_channelvideo_id']) }}";
+                                "{{ route('batchvideo.markcompleted', ['batch_channelvideo_id' => ':batch_channelvideo_id']) }}";
 
                             let batch_channelvideo_id = this.tagAttributes.bsid;
 

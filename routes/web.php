@@ -88,7 +88,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
         });
 
-        //Route GROUP::PLAYER
+        //Route GROUP::PLAYER / ACTIVITY
         Route::group(['prefix' => 'play', 'middleware' => 'role:super-admin|user|channel-admin|system-admin', 'as' => 'play.'], function () {
 
             //index
@@ -99,6 +99,17 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
             //Mark Completed
             Route::post("/{video}/completed", [ChannelvideoActivityController::class, 'markCompleted'])->name('markcompleted');
+
+        });
+
+        //Route GROUP::BATCHVIDEO_ACTIVITY
+        Route::group(['prefix' => 'bv', 'middleware' => 'role:super-admin|user|channel-admin|system-admin', 'as' => 'batchvideo.'], function () {
+
+            //Mark Started
+            Route::post("/{batch_channelvideo_id}/started", [BatchChannelvideoActivityController::class, 'markStarted'])->name('markstarted');
+
+            //Mark Completed
+            Route::post("/{batch_channelvideo_id}/completed", [BatchChannelvideoActivityController::class, 'markCompleted'])->name('markcompleted');
 
         });
 
@@ -205,7 +216,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
         });
 
-        //Route GROUP::WEBSITE Rentals
+        //Route GROUP::WEBSITE_RENTALS / ACTIVITY
         Route::group(['prefix' => 'rental', 'middleware' => 'role:super-admin|channel-admin|user', 'as' => 'rental.'], function () {
 
             // Route::post('/{user_id}/{channelvideo_rental_id}/active-rental-videos', [ChannelvideoRentalController::class, 'markStartedAt'])->name('markstarted');
@@ -504,11 +515,6 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
                         //Get All
                         Route::get("/{gize_channel_id}/{batch_id?}", [BatchChannelvideoActivityController::class, 'index'])->name('index');
 
-                        //Mark Started
-                        Route::post("/{batch_channelvideo_id}/started", [BatchChannelvideoActivityController::class, 'markStarted'])->name('markstarted');
-
-                        //Mark Completed
-                        Route::post("/{batch_channelvideo_id}/completed", [BatchChannelvideoActivityController::class, 'markCompleted'])->name('markcompleted');
 
                     });
 
