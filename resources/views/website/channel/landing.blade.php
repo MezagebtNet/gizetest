@@ -1701,7 +1701,7 @@
 
 
             // var validStreamcheker = setInterval(chkValidStreamTimer, 1000 * 20);
-            var validStreamcheker = setInterval(rond, 1000 * 10);
+            var validStreamcheker = setInterval(rond, 1000 * 20);
 
             function rond(){
                 if ({!! $activerentals->count() !!}) {
