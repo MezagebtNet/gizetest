@@ -28,6 +28,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use ProtoneMedia\LaravelFFMpeg\Http\DynamicHLSPlaylist;
 use App\Models\Channelvideo;
+use App\Http\Controllers\Website\Payment\Telebirr\TelebirrPaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -615,3 +616,9 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 Route::redirect('/student/videos', '/login');
 
 Route::post('/user/payment-ipn', [PaymentController::class, 'postIPN'])->name('payment.ipn');
+
+
+Route::get('/telebirr', [TelebirrPaymentController::class, 'test']);
+Route::get('/telebirr/ipn', [TelebirrPaymentController::class, 'IPN']);
+Route::get('/telebirr/return', [TelebirrPaymentController::class, 'return']);
+
