@@ -44,6 +44,7 @@ class PlayPageController extends Controller
             $vid_id = Channelvideo::decodeHashID($hashid);
             $channelvideo = Channelvideo::find($vid_id)->first();
 
+
         }
 
         // dd($file_url);
@@ -58,6 +59,11 @@ class PlayPageController extends Controller
                     ->take(8)
                     ->get();
 
+        if($channelvideo->video_available_for==1){
+            $channelvideo=null;
+            return view('website.play.index', compact('featured_videos', 'channelvideo', 'gize_channel'));
+
+        }
 
         // $created_at_date = Date::createFromFormat('Y-m-d H:i:s', $channelvideo->created_at)->format('M d, Y');
         SEOMeta::setTitle($channelvideo->trainer . ' - ' . $channelvideo->title);

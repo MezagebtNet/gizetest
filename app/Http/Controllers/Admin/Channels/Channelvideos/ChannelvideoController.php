@@ -59,6 +59,7 @@ class ChannelvideoController extends Controller
         $channelvideo->duration = $request->duration;
         $channelvideo->description = $request->description;
         $channelvideo->gize_channel_id = $gize_channel_id;
+        // $channelvideo->video_available_for = 1;
 
             // Poster Image...
         $request->validate([
