@@ -46,11 +46,6 @@ class PlayPageController extends Controller
 
 
         }
-
-        // dd($file_url);
-        $gize_channel = GizeChannel::where('id', $channelvideo->gize_channel_id)->where('active', 1)->get()[0];
-        // dd($gize_channel[0]->slug);
-
         $featured_videos = Channelvideo::with('gizeChannel')
                     ->where('active', 1)
                     ->where('is_free', 1)
@@ -58,12 +53,19 @@ class PlayPageController extends Controller
                     ->orderBy("id", "Desc")
                     ->take(8)
                     ->get();
-
-        if($channelvideo->video_available_for==1){
+        if( $channelvideo!=null? $channelvideo->video_available_for==1:$channelvideo==null){
             $channelvideo=null;
+            $gize_channel=null;
+
             return view('website.play.index', compact('featured_videos', 'channelvideo', 'gize_channel'));
 
         }
+        // dd($file_url);
+        $gize_channel = GizeChannel::where('id', $channelvideo->gize_channel_id)->where('active', 1)->get()[0];
+        // dd($gize_channel[0]->slug);
+
+
+
 
         // $created_at_date = Date::createFromFormat('Y-m-d H:i:s', $channelvideo->created_at)->format('M d, Y');
         SEOMeta::setTitle($channelvideo->trainer . ' - ' . $channelvideo->title);
