@@ -45,6 +45,7 @@ class User extends Authenticatable
         'email',
         'password',
         'password_confirmation',
+        'country_id',
     ];
 
     /**
@@ -77,6 +78,8 @@ class User extends Authenticatable
         'profile_photo_url',
         'name',
         'full_name_first_chars',
+        'country_code',
+        'currency_code'
     ];
 
     protected $dispatchesEvents = [
@@ -92,6 +95,22 @@ class User extends Authenticatable
         parent::__construct($attributes);
         // self::created(function (User $user) {
         // });
+    }
+
+    public function getCountryCodeAttribute($value){
+        if($this->country_id !=null){
+            $country = Country::find($this->country_id);
+            return $country->code;
+        }
+        return 'ET'; //default
+    }
+
+    public function getCurrencyCodeAttribute($value){
+        if($this->country_id !=null){
+            $country = Country::find($this->country_id);
+            return $country->currency_code;
+        }
+        return 'ETB'; //default
     }
 
     /**
@@ -112,6 +131,16 @@ class User extends Authenticatable
     public function gize_channels()
     {
         return $this->belongsToMany(GizeChannel::class, 'gize_channel_user', 'user_id', 'gize_channel_id');
+    }
+
+    /**
+     * Get the country that owns the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
     }
 
     /**
@@ -326,6 +355,41 @@ class User extends Authenticatable
         // ->dontLogIfAttributesChangedOnly(['password']);
     }
 
+    public function availablePackages(){
+        $user_gize_packages = UserGizePackage::where('user_id', $this->id)->get();
+
+        $now = \Carbon\Carbon::now();
+
+
+        $available_packages = collect([]);
+
+        //filter active , not-expired
+        foreach($user_gize_packages as $package){
+
+            $months = $package->months;
+            $start_date = $package->start_date;
+            $package->expires_at = Date::createFromFormat('Y-m-d H:i:s', $package->start_date)->addMonths($months)->setTimezone(\Config::get('app.timezone'))->diffForHumans();
+
+            $end_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $start_date)->addMonths($months);
+
+            $check = $now->between($start_date, $end_date);
+
+            if ($check) {
+                $package->status = 1; //active
+            }
+            else {
+                $package->status = 0; //expired
+            }
+
+            if($package->gize_package->active && $package->status){
+                $available_packages = $available_packages->add($package);
+            }
+        }
+
+        return response()->json($available_packages);
+
+    }
+
     // public function setProfilePhotoUrlAttribute()
     // {
     //     return substr($this->firstname, 0, 1).substr($this->lastname, 0, 1).'.png';
@@ -501,6 +565,24 @@ class User extends Authenticatable
                 'ip_address',
                 'user_agent',
                 'view_count'
+            ])
+            ->withTimestamps();
+    }
+
+    /**
+     * The gize_packages that belong to the GizePackage
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function gize_packages()
+    {
+        return $this->belongsToMany(User::class, 'user_gize_package', 'user_id', 'gize_package_id')
+            ->withPivot([
+                'user_id',
+                'gize_package_id',
+                'unit_values_balance',
+                'start_date',
+                'payment_method',
             ])
             ->withTimestamps();
     }

@@ -19,7 +19,7 @@ class CreateBatchVideoActivityPivotTable extends Migration
             $table->dateTime('started_at')->nullable(); //user has started watching at...
             $table->string('user_agent', 255)->nullable();
             $table->string('ip_address', 20)->nullable();
-            $table->tinyInteger('view_count')->unsigned()->default(0);
+            $table->integer('view_count')->unsigned()->default(0);
             $table->timestamps();
         });
 

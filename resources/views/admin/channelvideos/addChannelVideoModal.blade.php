@@ -23,6 +23,18 @@
                 <input type="text" class="form-control" id="duration" />
             </div>
             <div class="form-group">
+              <label for="collection_id">{{ __('Collection') }}</label>
+              <select class="form-control select2" name="collection_id" id="collection_id">
+                  <option>{{ __('Please Select') }}</option>
+                  @foreach($first_level_collections as $collection)
+                      <option disabled="disabled" value="{{ $collection->id }}">{{  $collection->title . ($collection->seriesable ? ' - ' . $collection->collection_type->singular_name . ' ' . $collection->series_no.'' : '')}}</option>
+                      @foreach($collection->childCollections()->get() as $childCollection)
+                          <option value="{{ $childCollection->id }}" >-- {{ $collection->title . ($collection->seriesable ? ' - ' . $collection->collection_type->singular_name . ' ' . $collection->series_no.'' : ''). ' >> ' .  $childCollection->collection_type->singular_name  . ($childCollection->seriesable ? ' '.$childCollection->series_no : '') . ($childCollection->title !='' ? ': '.$childCollection->title : '') }}</option>
+                      @endforeach
+                  @endforeach
+              </select>
+            </div>
+            <div class="form-group">
                 <label for="description">Description</label>
                 <textarea class="form-control" id="description" rows="5"></textarea>
             </div>

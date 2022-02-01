@@ -20,9 +20,14 @@
                 <li class="nav-item">
                     <a href="{{ route('channel.index') }}" class="nav-link">{{ __('Channels') }}</a>
                 </li>
-                {{-- <li class="nav-item">
-                    <a href="{{ route('user.home') }}" class="nav-link">{{ __('Addmes') }}</a>
-                </li> --}}
+                <li class="nav-item">
+                    <a href="{{ route('myvideos.index') }}" class="nav-link">{{ __('My Videos') }}</a>
+                </li>
+
+
+                <li class="nav-item">
+                    <a href="{{ route('gizepackages.index') }}" class="nav-link">{{ __('Gize Packages') }}</a>
+                </li>
 
                 <!-- Navbar Search -->
                 {{-- <li class="nav-item">

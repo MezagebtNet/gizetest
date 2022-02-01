@@ -135,6 +135,13 @@
                 @endcanany
                 @canany(['system_gize_channels'])
                     <li class="nav-item">
+                        <a href="{{ route('admin.manage.gizepackage.index') }}"
+                            class="nav-link {{ request()->is('*admin/manage/gizepackage*') ? 'active' : '' }}">
+                            <i class="nav-icon fa fa-solid fa-bullhorn"></i>
+                            <p class="text">{{ __('Gize Package Topup') }}</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{{ route('admin.manage.gize_channel.index') }}"
                             class="nav-link {{ request()->is('*admin/manage/gize_channel*') ? 'active' : '' }}">
                             <i class="nav-icon fa fa-solid fa-bullhorn"></i>

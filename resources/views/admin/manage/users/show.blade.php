@@ -80,6 +80,16 @@
                                 {{ $user->address }}
                             </td>
                         </tr>
+
+                        <tr>
+                            <th scope="col">
+                                Location
+                            </th>
+                            <td>
+                                {{ ($user->country_id != null) ? $user->country_name : '[not set]'}} ({{ $user->currency_code }})
+                            </td>
+                        </tr>
+
                         <tr>
                             <th scope="col">
                                 Email

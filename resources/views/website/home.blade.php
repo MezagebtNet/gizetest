@@ -253,6 +253,13 @@
                     </div>
                     {{-- </center> --}}
                 </div>
+                <div class="justify-content-center ">
+                    {{-- <center> --}}
+                    <div class=" row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 ">
+                        <a href="{{ url('/fitrete-hibuat-1') }}">Fitrete Hebuat</a>
+                    </div>
+                    {{-- </center> --}}
+                </div>
             </div>
 
         </div>

@@ -102,6 +102,29 @@
                             @enderror
                         </div>
 
+                        <div class="form-group">
+
+                            <x-jet-label for="country_id" value="{{ __('Location') }}" />
+                            @php
+                                $countries = App\Models\Country::all();
+                            @endphp
+                            <select id="country_id" class="custom-select    " name="country_id">
+                                <option value="" >
+                                    [Choose]
+                                </option>
+                                @foreach ( $countries as $country)
+                                    <option value="{{ $country->id }}" >
+                                        {{ $country->name }}
+                                    </option>
+                                @endforeach
+
+
+                            </select>
+                        <x-jet-input-error for="country_id"></x-jet-input-error>
+
+
+                    </div>
+
                         <div class="px-4 py-2 sm:p-6">
 
                             <label for="email" class="">Email</label>

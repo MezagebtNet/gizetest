@@ -1,6 +1,6 @@
 @extends('layouts.website.index')
 
-@section('title', 'Overview')
+@section('title', 'Channel')
 
 @section('styles')
     @livewireStyles
@@ -88,6 +88,10 @@
         #schedule_calendar {
             max-width: 1100px;
             margin: 0 auto;
+        }
+
+        #collection-text {
+            color: black;
         }
 
     </style>
@@ -499,7 +503,7 @@
             style=" width: 100%; padding:0;
                     margin-top: -1px;
                     background-color: #faebd72e;
-                    background-image: linear-gradient(to bottom, #000000ad, #00000063, #0000008f), url({{ asset('storage/' . $gize_channel->banner_image_url) }});
+                    background-image: linear-gradient(to bottom, #00000000, #00000012, #0000008f), url({{ asset('storage/' . $gize_channel->banner_image_url) }});
                     height: 186px;
                     /* background-attachment: fixed; */
                     background-position: center center;
@@ -527,6 +531,37 @@
             </div>
         </section>
     </div>
+
+    <div class="row px-4 pt-4 pt-1 pb-4">
+        <div class="col">
+            @if($collections->count())
+            <h4 class="mt-5">{{ __('Bundle Videos From This Channel') }}</h4>
+            <h6 class=" text-muted mb-0">
+                {{ __('Series Video Collection Grouped in the form of a Book/Chapters or Season/Episoids') }}
+                <button class="btn btn-xs btn-outline-info btn-refresh float-right mr-2 mt-1">
+                    <i class="fa fa-recycle"></i> {{ __('Reload') }}
+                </button>
+            </h6>
+            <hr />
+            @endif
+
+            <div class="  flex-row justify-content-between">
+                    @foreach ($collections as $collection)
+
+                        <div style="">
+
+                            <x-channels.collection-card :channel="$gize_channel"
+                            :collection="$collection"
+                            />
+
+                        </div>
+
+
+
+                    @endforeach
+            </div>
+        </div>
+    </div>
     <div class="videos-grid-wrapper px-4 pt-4 pt-5 pb-4">
 
         {{-- @include('website.user.top-menu') --}}
@@ -547,6 +582,17 @@
                 <div class="row mt-n5 mb-3">
 
                 </div>
+
+
+
+
+
+
+
+
+
+
+
                 <ul class="nav nav-pills nav-justified sticky-top mt-4" id="menuTab" role="tablist">
                     <li class="nav-item" role="presentation">
                         <a class="nav-link active" id="my-streams-tab" data-toggle="tab" href="#my-streams" role="tab"
@@ -1045,7 +1091,7 @@
                     }
                 },
 
-                initialView: 'listDay',
+                initialView: 'listWeek',
                 initialDate: moment().format('YYYY-MM-DD'),
                 navLinks: true, // can click day/week names to navigate views
                 editable: false,

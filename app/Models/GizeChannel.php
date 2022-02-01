@@ -91,6 +91,30 @@ class GizeChannel extends Model
         return $this->hasMany(Batch::class);
     }
 
+    /**
+     * Get all of the collections for the GizeChannel
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function collections()
+    {
+        return $this->hasMany(Collection::class);
+    }
+
+    public function getTopVideoBundles(){
+
+        try {
+            if($this->id){
+                return Collection::where('gize_channel_id', $this->id)->where('parent_id',null);
+
+            }
+        } catch (\Throwable $th) {
+            // throw $th;
+        }
+
+        return collect([]);
+    }
+
     public function isPermittedEditor(User $user){
         // return true;
         if($user->hasRole('super-admin')){

@@ -61,7 +61,10 @@ class ChannelLandingPageController extends Controller
 
         $events = $this->loadSchedule($slug);
 
-        return view('website.channel.landing', compact(['gize_channel', 'activevideos', 'activerentals', 'events', 'archives']));
+        $collections =  $gize_channel->getTopVideoBundles()->where('active', 1)->get();
+
+        return view('website.channel.landing', compact(['gize_channel', 'activevideos', 'activerentals', 'events', 'archives',
+        'collections',]));
 
     }
 

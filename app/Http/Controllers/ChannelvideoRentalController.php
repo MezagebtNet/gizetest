@@ -27,7 +27,6 @@ class ChannelvideoRentalController extends Controller
             $vid->text = $vid->title;
         }
 
-
         foreach ($users as $user) {
 
             $rental_details = $user->channelvideos()->where('gize_channel_id', $gize_channel_id)->get();
@@ -100,7 +99,6 @@ class ChannelvideoRentalController extends Controller
 
     public function checkRentalValidity($user_id, $channelvideo_rental_id = 0)
     {
-
 
         // return false;
         $q = $this::getChannelActiveRentalsByUser(null, $user_id);

@@ -206,6 +206,9 @@ hold-transition sidebar-mini layout-navbar-fixed ">
     <!-- Sweetalert2 -->
     <script src="{{ asset('vendors/admin/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
 
+    <!-- Select2 -->
+    <script src="{{ asset('vendors/admin/plugins/select2/js/select2.full.min.js') }}"></script>
+
     <!-- Bootstrap4 Duallistbox -->
     <script src="{{ asset('vendors/admin/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js') }}">
     </script>

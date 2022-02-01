@@ -88,6 +88,7 @@
                                     <th scope="col">Name</th>
                                     <th scope="col">Phone</th>
                                     <th scope="col">Address</th>
+                                    <th scope="col">Location</th>
                                     <th scope="col">Email</th>
                                     <th scope="col">Email Verified At</th>
                                     <th scope="col">Roles</th>
@@ -108,6 +109,8 @@
                                         <td>{{ $user->phone_number }}</td>
 
                                         <td>{{ $user->address }}</td>
+
+                                        <td>{{ ($user->country_id != null) ? App\Models\Country::find($user->country_id)->name : '[not set]'}} ({{ $user->currency_code }})</td>
 
                                         <td>{{ $user->email }}</td>
 

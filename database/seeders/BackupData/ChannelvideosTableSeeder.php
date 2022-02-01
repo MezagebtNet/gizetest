@@ -149,6 +149,9 @@ class ChannelvideosTableSeeder extends Seeder
                 "is_featured"=>0,
                 "gize_channel_id"=> 1,
                 "active"=>"0",
+                'is_in_collection' => 2,
+                'part_no' => 0,
+                'unit_value' => 1,
                 "created_at"=>"2021-04-16 12:56:01",
                 "updated_at"=>"2021-08-04 14:26:06"
             ],
@@ -175,6 +178,9 @@ class ChannelvideosTableSeeder extends Seeder
                 "is_featured"=>0,
                 "gize_channel_id"=> 1,
                 "active"=>"0",
+                'is_in_collection' => 2,
+                'part_no' => 0,
+                'unit_value' => 1,
                 "created_at"=>"2021-05-06 07:09:22",
                 "updated_at"=>"2021-08-04 14:26:04"
             ],
@@ -201,6 +207,9 @@ class ChannelvideosTableSeeder extends Seeder
                 "is_featured"=>0,
                 "gize_channel_id"=> 1,
                 "active"=>"0",
+                'is_in_collection' => 2,
+                'part_no' => 0,
+                'unit_value' => 1,
                 "created_at"=>"2021-05-15 13:06:06",
                 "updated_at"=>"2021-08-04 14:26:01"
             ],
@@ -227,6 +236,9 @@ class ChannelvideosTableSeeder extends Seeder
                 "is_featured"=>0,
                 "gize_channel_id"=> 1,
                 "active"=>"0",
+                'is_in_collection' => 2,
+                'part_no' => 0,
+                'unit_value' => 1,
                 "created_at"=>"2021-05-23 10:51:57",
                 "updated_at"=>"2021-08-04 14:25:59"
             ],
@@ -253,6 +265,9 @@ class ChannelvideosTableSeeder extends Seeder
                 "is_featured"=>0,
                 "gize_channel_id"=> 1,
                 "active"=>"0",
+                'is_in_collection' => 2,
+                'part_no' => 0,
+                'unit_value' => 1,
                 "created_at"=>"2021-07-23 14:55:46",
                 "updated_at"=>"2021-09-19 14:55:19"
             ],
@@ -279,6 +294,9 @@ class ChannelvideosTableSeeder extends Seeder
                 "is_featured"=>0,
                 "gize_channel_id"=> 1,
                 "active"=>"0",
+                'is_in_collection' => 2,
+                'part_no' => 0,
+                'unit_value' => 1,
                 "created_at"=>"2021-07-23 15:29:49",
                 "updated_at"=>"2021-09-19 14:55:22"
             ],
@@ -305,6 +323,9 @@ class ChannelvideosTableSeeder extends Seeder
                 "is_featured"=>0,
                 "gize_channel_id"=> 1,
                 "active"=>"0",
+                'is_in_collection' => 2,
+                'part_no' => 0,
+                'unit_value' => 1,
                 "created_at"=>"2021-07-23 15:32:45",
                 "updated_at"=>"2021-09-19 14:55:24"
             ],
@@ -331,6 +352,9 @@ class ChannelvideosTableSeeder extends Seeder
                 "is_featured"=>0,
                 "gize_channel_id"=> 1,
                 "active"=>"0",
+                'is_in_collection' => 2,
+                'part_no' => 0,
+                'unit_value' => 1,
                 "created_at"=>"2021-07-28 12:46:11",
                 "updated_at"=>"2021-09-16 17:04:25"
             ],
@@ -357,6 +381,9 @@ class ChannelvideosTableSeeder extends Seeder
                 "is_featured"=>0,
                 "gize_channel_id"=> 1,
                 "active"=>"0",
+                'is_in_collection' => 2,
+                'part_no' => 0,
+                'unit_value' => 1,
                 "created_at"=>"2021-07-28 12:47:02",
                 "updated_at"=>"2021-09-17 04:50:33"
             ],
@@ -383,6 +410,9 @@ class ChannelvideosTableSeeder extends Seeder
                 "is_featured"=>0,
                 "gize_channel_id"=> 1,
                 "active"=>"0",
+                'is_in_collection' => 2,
+                'part_no' => 0,
+                'unit_value' => 1,
                 "created_at"=>"2021-07-28 12:47:08",
                 "updated_at"=>"2021-09-17 04:50:36"
             ],
@@ -409,6 +439,9 @@ class ChannelvideosTableSeeder extends Seeder
                 "is_featured"=>0,
                 "gize_channel_id"=> 1,
                 "active"=>"0",
+                'is_in_collection' => 2,
+                'part_no' => 0,
+                'unit_value' => 1,
                 "created_at"=>"2021-08-04 12:47:05",
                 "updated_at"=>"2021-09-17 17:39:55"
             ],
@@ -435,6 +468,9 @@ class ChannelvideosTableSeeder extends Seeder
                 "is_featured"=>0,
                 "gize_channel_id"=> 1,
                 "active"=>"0",
+                'is_in_collection' => 2,
+                'part_no' => 0,
+                'unit_value' => 1,
                 "created_at"=>"2021-08-04 12:47:22",
                 "updated_at"=>"2021-09-17 17:39:51"
             ],
@@ -461,6 +497,9 @@ class ChannelvideosTableSeeder extends Seeder
                 "is_featured"=>0,
                 "gize_channel_id"=> 1,
                 "active"=>"0",
+                'is_in_collection' => 2,
+                'part_no' => 0,
+                'unit_value' => 1,
                 "created_at"=>"2021-08-04 12:51:31",
                 "updated_at"=>"2021-09-17 17:39:58"
             ],
@@ -487,6 +526,9 @@ class ChannelvideosTableSeeder extends Seeder
                 "is_featured"=>0,
                 "gize_channel_id"=> 1,
                 "active"=>"0",
+                'is_in_collection' => 2,
+                'part_no' => 0,
+                'unit_value' => 1,
                 "created_at"=>"2021-08-11 12:19:43",
                 "updated_at"=>"2021-09-18 14:54:05"
             ],
@@ -513,6 +555,9 @@ class ChannelvideosTableSeeder extends Seeder
                 "is_featured"=>0,
                 "gize_channel_id"=> 1,
                 "active"=>"0",
+                'is_in_collection' => 2,
+                'part_no' => 0,
+                'unit_value' => 1,
                 "created_at"=>"2021-08-11 12:20:10",
                 "updated_at"=>"2021-09-18 14:54:07"
             ],
@@ -539,6 +584,9 @@ class ChannelvideosTableSeeder extends Seeder
                 "is_featured"=>0,
                 "gize_channel_id"=> 1,
                 "active"=>"0",
+                'is_in_collection' => 2,
+                'part_no' => 0,
+                'unit_value' => 1,
                 "created_at"=>"2021-08-11 12:21:17",
                 "updated_at"=>"2021-09-18 14:54:08"
             ],
@@ -565,6 +613,9 @@ class ChannelvideosTableSeeder extends Seeder
                 "is_featured"=>0,
                 "gize_channel_id"=> 1,
                 "active"=>"0",
+                'is_in_collection' => 2,
+                'part_no' => 0,
+                'unit_value' => 1,
                 "created_at"=>"2021-08-18 08:29:32",
                 "updated_at"=>"2021-09-05 14:57:26"
             ],
@@ -591,6 +642,9 @@ class ChannelvideosTableSeeder extends Seeder
                 "is_featured"=>0,
                 "gize_channel_id"=> 1,
                 "active"=>"0",
+                'is_in_collection' => 2,
+                'part_no' => 0,
+                'unit_value' => 1,
                 "created_at"=>"2021-08-18 08:31:49",
                 "updated_at"=>"2021-09-05 14:57:23"
             ],
@@ -617,6 +671,9 @@ class ChannelvideosTableSeeder extends Seeder
                 "is_featured"=>0,
                 "gize_channel_id"=> 1,
                 "active"=>"0",
+                'is_in_collection' => 2,
+                'part_no' => 0,
+                'unit_value' => 1,
                 "created_at"=>"2021-08-18 08:31:55",
                 "updated_at"=>"2021-09-05 14:57:23"
             ],
@@ -643,6 +700,9 @@ class ChannelvideosTableSeeder extends Seeder
                 "is_featured"=>0,
                 "gize_channel_id"=> 1,
                 "active"=>"0",
+                'is_in_collection' => 2,
+                'part_no' => 0,
+                'unit_value' => 1,
                 "created_at"=>"2021-08-18 08:32:26",
                 "updated_at"=>"2021-09-05 14:57:29"
             ],
@@ -669,6 +729,9 @@ class ChannelvideosTableSeeder extends Seeder
                 "is_featured"=>0,
                 "gize_channel_id"=> 1,
                 "active"=>"0",
+                'is_in_collection' => 2,
+                'part_no' => 0,
+                'unit_value' => 1,
                 "created_at"=>"2021-08-19 11:51:14",
                 "updated_at"=>"2021-09-07 17:28:13"
             ],
@@ -695,6 +758,9 @@ class ChannelvideosTableSeeder extends Seeder
                 "is_featured"=>0,
                 "gize_channel_id"=> 1,
                 "active"=>"0",
+                'is_in_collection' => 2,
+                'part_no' => 0,
+                'unit_value' => 1,
                 "created_at"=>"2021-08-19 11:51:43",
                 "updated_at"=>"2021-09-07 17:28:12"
             ],
@@ -721,6 +787,9 @@ class ChannelvideosTableSeeder extends Seeder
                 "is_featured"=>0,
                 "gize_channel_id"=> 1,
                 "active"=>"0",
+                'is_in_collection' => 2,
+                'part_no' => 0,
+                'unit_value' => 1,
                 "created_at"=>"2021-08-19 11:51:43",
                 "updated_at"=>"2021-09-07 17:28:11"
             ],
@@ -747,6 +816,9 @@ class ChannelvideosTableSeeder extends Seeder
                 "is_featured"=>0,
                 "gize_channel_id"=> 1,
                 "active"=>"0",
+                'is_in_collection' => 2,
+                'part_no' => 0,
+                'unit_value' => 1,
                 "created_at"=>"2021-08-25 11:10:02",
                 "updated_at"=>"2021-09-05 14:57:10"
             ],
@@ -773,6 +845,9 @@ class ChannelvideosTableSeeder extends Seeder
                 "is_featured"=>0,
                 "gize_channel_id"=> 1,
                 "active"=>"0",
+                'is_in_collection' => 2,
+                'part_no' => 0,
+                'unit_value' => 1,
                 "created_at"=>"2021-08-25 11:10:10",
                 "updated_at"=>"2021-09-05 14:57:11"
             ],
@@ -799,6 +874,9 @@ class ChannelvideosTableSeeder extends Seeder
                 "is_featured"=>0,
                 "gize_channel_id"=> 1,
                 "active"=>"0",
+                'is_in_collection' => 2,
+                'part_no' => 0,
+                'unit_value' => 1,
                 "created_at"=>"2021-08-25 11:12:43",
                 "updated_at"=>"2021-09-05 14:57:11"
             ],
@@ -825,6 +903,9 @@ class ChannelvideosTableSeeder extends Seeder
                 "is_featured"=>0,
                 "gize_channel_id"=> 1,
                 "active"=>"0",
+                'is_in_collection' => 2,
+                'part_no' => 0,
+                'unit_value' => 1,
                 "created_at"=>"2021-09-01 12:48:42",
                 "updated_at"=>"2021-09-07 17:28:27"
             ],
@@ -851,6 +932,9 @@ class ChannelvideosTableSeeder extends Seeder
                 "is_featured"=>0,
                 "gize_channel_id"=> 1,
                 "active"=>"0",
+                'is_in_collection' => 2,
+                'part_no' => 0,
+                'unit_value' => 1,
                 "created_at"=>"2021-09-01 13:34:39",
                 "updated_at"=>"2021-09-07 17:28:27"
             ],
@@ -877,6 +961,9 @@ class ChannelvideosTableSeeder extends Seeder
                 "is_featured"=>0,
                 "gize_channel_id"=> 1,
                 "active"=>"0",
+                'is_in_collection' => 2,
+                'part_no' => 0,
+                'unit_value' => 1,
                 "created_at"=>"2021-09-01 13:34:54",
                 "updated_at"=>"2021-09-07 17:28:30"
             ],
@@ -903,6 +990,9 @@ class ChannelvideosTableSeeder extends Seeder
                 "is_featured"=>0,
                 "gize_channel_id"=> 1,
                 "active"=>"0",
+                'is_in_collection' => 2,
+                'part_no' => 0,
+                'unit_value' => 1,
                 "created_at"=>"2021-09-08 13:11:20",
                 "updated_at"=>"2021-09-16 15:21:08"
             ],
@@ -929,6 +1019,9 @@ class ChannelvideosTableSeeder extends Seeder
                 "is_featured"=>0,
                 "gize_channel_id"=> 1,
                 "active"=>"0",
+                'is_in_collection' => 2,
+                'part_no' => 0,
+                'unit_value' => 1,
                 "created_at"=>"2021-09-08 13:12:34",
                 "updated_at"=>"2021-09-16 15:21:06"
             ],
@@ -955,6 +1048,9 @@ class ChannelvideosTableSeeder extends Seeder
                 "is_featured"=>0,
                 "gize_channel_id"=> 1,
                 "active"=>"0",
+                'is_in_collection' => 2,
+                'part_no' => 0,
+                'unit_value' => 1,
                 "created_at"=>"2021-09-08 13:13:28",
                 "updated_at"=>"2021-09-16 15:21:04"
             ],
@@ -981,6 +1077,9 @@ class ChannelvideosTableSeeder extends Seeder
                 "is_featured"=>0,
                 "gize_channel_id"=> 1,
                 "active"=>"0",
+                'is_in_collection' => 2,
+                'part_no' => 0,
+                'unit_value' => 1,
                 "created_at"=>"2021-09-08 13:14:20",
                 "updated_at"=>"2021-09-16 15:21:03"
             ],
@@ -1007,6 +1106,9 @@ class ChannelvideosTableSeeder extends Seeder
                 "is_featured"=>0,
                 "gize_channel_id"=> 1,
                 "active"=>"0",
+                'is_in_collection' => 2,
+                'part_no' => 0,
+                'unit_value' => 1,
                 "created_at"=>"2021-09-15 09:29:10",
                 "updated_at"=>"2021-09-19 14:55:01"
             ],
@@ -1033,6 +1135,9 @@ class ChannelvideosTableSeeder extends Seeder
                 "is_featured"=>0,
                 "gize_channel_id"=> 1,
                 "active"=>"0",
+                'is_in_collection' => 2,
+                'part_no' => 0,
+                'unit_value' => 1,
                 "created_at"=>"2021-09-15 09:29:25",
                 "updated_at"=>"2021-09-19 14:55:05"
             ],
@@ -1059,6 +1164,9 @@ class ChannelvideosTableSeeder extends Seeder
                 "is_featured"=>0,
                 "gize_channel_id"=> 1,
                 "active"=>"0",
+                'is_in_collection' => 2,
+                'part_no' => 0,
+                'unit_value' => 1,
                 "created_at"=>"2021-09-15 09:29:38",
                 "updated_at"=>"2021-09-19 14:55:08"
             ],
@@ -1084,6 +1192,9 @@ class ChannelvideosTableSeeder extends Seeder
                 "is_featured"=>0,
                 "gize_channel_id"=>1,
                 "active"=>"0",
+                'is_in_collection' => 2,
+                'part_no' => 0,
+                'unit_value' => 1,
                 "created_at"=>"2021-09-22 13:02:07",
                 "updated_at"=>"2021-09-28 18:24:49"
             ],
@@ -1109,6 +1220,9 @@ class ChannelvideosTableSeeder extends Seeder
                 "is_featured"=>0,
                 "gize_channel_id"=>1,
                 "active"=>"0",
+                'is_in_collection' => 2,
+                'part_no' => 0,
+                'unit_value' => 1,
                 "created_at"=>"2021-09-22 13:03:09",
                 "updated_at"=>"2021-09-28 18:24:46"
             ],
@@ -1134,6 +1248,9 @@ class ChannelvideosTableSeeder extends Seeder
                 "is_featured"=>0,
                 "gize_channel_id"=>1,
                 "active"=>"0",
+                'is_in_collection' => 2,
+                'part_no' => 0,
+                'unit_value' => 1,
                 "created_at"=>"2021-09-22 13:03:38",
                 "updated_at"=>"2021-09-28 18:24:44"
             ],
@@ -1159,6 +1276,9 @@ class ChannelvideosTableSeeder extends Seeder
                 "is_featured"=>1,
                 "gize_channel_id"=>2,
                 "active"=>"0",
+                'is_in_collection' => 2,
+                'part_no' => 0,
+                'unit_value' => 1,
                 "created_at"=>"2021-09-22 13:03:38",
                 "updated_at"=>"2021-09-28 18:24:44"
             ],
@@ -1184,6 +1304,9 @@ class ChannelvideosTableSeeder extends Seeder
                 "is_featured"=>1,
                 "gize_channel_id"=>2,
                 "active"=>"0",
+                'is_in_collection' => 2,
+                'part_no' => 0,
+                'unit_value' => 1,
                 "created_at"=>"2021-09-22 13:03:38",
                 "updated_at"=>"2021-09-28 18:24:44"
             ],
@@ -1209,6 +1332,9 @@ class ChannelvideosTableSeeder extends Seeder
                 "is_featured"=>1,
                 "gize_channel_id"=>2,
                 "active"=>"0",
+                'is_in_collection' => 2,
+                'part_no' => 0,
+                'unit_value' => 1,
                 "created_at"=>"2021-09-22 13:03:38",
                 "updated_at"=>"2021-09-28 18:24:44"
             ],
@@ -1235,6 +1361,9 @@ class ChannelvideosTableSeeder extends Seeder
                 "is_featured"=>1,
                 "gize_channel_id"=>2,
                 "active"=>"0",
+                'is_in_collection' => 2,
+                'part_no' => 0,
+                'unit_value' => 1,
                 "created_at"=>"2021-09-22 13:03:38",
                 "updated_at"=>"2021-09-28 18:24:44"
             ]

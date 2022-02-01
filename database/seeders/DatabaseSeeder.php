@@ -17,48 +17,53 @@ class DatabaseSeeder extends Seeder
 
 
             //Roles and Permissions
-            RolesAndPermissionsSeeder::class,
+            // RolesAndPermissionsSeeder::class,
 
-            // UsersTableSeeder::class,
-            BackupData\UsersTableSeeder::class,
+            BackupData\SqlFileSeeder::class,
 
-            // ChannelCategoriesSeeder::class,
+                // UsersTableSeeder::class,
 
-            // ChannelvideoCategorySeeder::class,
+            // BackupData\UsersTableSeeder::class,
 
-            // GizeChannelsTableSeeder::class,
-            BackupData\GizeChannelsTableSeeder::class,
+                // ChannelCategoriesSeeder::class,
 
-            SubscriptionTypesSeeder::class,
+                // ChannelvideoCategorySeeder::class,
 
-            // BatchesSeeder::class,
+                // GizeChannelsTableSeeder::class,
+            // BackupData\GizeChannelsTableSeeder::class,
+
+            // SubscriptionTypesSeeder::class,
+
+                // BatchesSeeder::class,
 
 
             // ChannelvideosTableSeeder::class,
-            BackupData\ChannelvideosTableSeeder::class,
+            // BackupData\ChannelvideosTableSeeder::class,
 
+                // BatchUserSeeder::class,
 
-            // BatchUserSeeder::class,
+                // SubscriptionPeriodsSeeder::class,
 
-            // SubscriptionPeriodsSeeder::class,
+                // BatchChannelvideoSeeder::class,
 
-            // BatchChannelvideoSeeder::class,
+                // GizeChannelUserSeeder::class,
 
-            // GizeChannelUserSeeder::class,
-
-            // ChannelvideoRentalTableSeeder::class,
-
+                // ChannelvideoRentalTableSeeder::class,
 
 
             //Factory Settings..
-            // FactorySettings\BookTypesSeeder::class,
-            // FactorySettings\BookGenresSeeder::class,
-            // FactorySettings\BookFormatsSeeder::class,
-            // FactorySettings\CurrenciesSeeder::class,
-            // FactorySettings\BookLanguagesSeeder::class,
-            // FactorySettings\BookRoyaltyRatesSeeder::class,
+                // FactorySettings\BookTypesSeeder::class,
+                // FactorySettings\BookGenresSeeder::class,
+                // FactorySettings\BookFormatsSeeder::class,
+                // FactorySettings\CurrenciesSeeder::class,
+                // FactorySettings\BookLanguagesSeeder::class,
+                // FactorySettings\BookRoyaltyRatesSeeder::class,
 
-            FactorySettings\CurrenciesSeeder::class,
+            // FactorySettings\CurrenciesSeeder::class,
+            FactorySettings\CollectionTypesSeeder::class,
+            FactorySettings\CollectionsSeeder::class,
+            FactorySettings\CountrySeeder::class,
+            FactorySettings\GizePackageSeeder::class,
 
             //Book Data...
             // BookData\BookSeriesSeeder::class,

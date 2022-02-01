@@ -42,8 +42,23 @@ class Channelvideo extends Model
     ];
 
     protected $appends = [
-        'hashid'
+        'hashid',
+        'collection_id',
     ];
+
+    public function getCollectionIdAttribute($value){
+        try {
+            $collection_id = Collection::whereHas('channelvideos', function ($query)  {
+                return $query->where('channelvideos.id', $this->id);
+            })->get()->first()->id;
+
+            return $collection_id;
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+
+        return '';
+    }
 
     public function getHashidAttribute($value){
         $id = $this->id;
@@ -107,6 +122,18 @@ class Channelvideo extends Model
         return $this->belongsToMany(User::class, 'channelvideo_rentals', 'channelvideo_id', 'user_id')
         ->withPivot('id', 'status', 'within_days', 'for_hours', 'started_at')
         ->as ('rental_detail')
+        ->withTimestamps();
+    }
+
+    /**
+     * The collections that belong to the Channelvideo
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function collections()
+    {
+        return $this->belongsToMany(Collection::class)
+        ->withPivot('id')
         ->withTimestamps();
     }
 

@@ -1,6 +1,6 @@
 @extends('layouts.website.index')
 
-@section('title', 'User Account')
+@section('title', 'Payment')
 
 @section('navbar')
 

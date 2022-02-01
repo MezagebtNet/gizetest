@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\SystemConfigs\BookGenreController;
 use App\Http\Controllers\Admin\SystemConfigs\BookLanguageController;
 use App\Http\Controllers\Admin\SystemConfigs\BookRoyaltyRateController;
 use App\Http\Controllers\Admin\SystemConfigs\BookTypeController;
+use App\Http\Controllers\Admin\GizePackageController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\UserPreferencesController;
 use App\Http\Controllers\UsersController;
@@ -20,6 +21,11 @@ use App\Http\Controllers\Utils\UploadController;
 use App\Http\Controllers\Website\ChannelLandingPageController;
 use App\Http\Controllers\ChannelvideoRentalController;
 use App\Http\Controllers\Website\HomePageController;
+use App\Http\Controllers\Website\ChannelvideoCollectionsPageController;
+use App\Http\Controllers\Website\CollectionDetailsPageController;
+use App\Http\Controllers\Website\MyVideosPageController;
+use App\Http\Controllers\Website\GizePackagesPageController;
+use App\Http\Controllers\Website\FitreteHibuatChaptersController;
 use App\Http\Controllers\Website\Play\PlayPageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -76,6 +82,12 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
             return view('profile.show');
         })->name('profile');
 
+        //FITRETE_HEBUAT_CHAPTERS
+        Route::get('/fitrete-hibuat-1', [FitreteHibuatChaptersController::class, 'index'])->name('hebuat1');
+
+
+
+
         //Route GROUP::WEBSITE Index page
         Route::group(['prefix' => 'web', 'middleware' => 'role:super-admin|user', 'as' => 'web.'], function () {
 
@@ -86,6 +98,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
             Route::post('/get-user-notifications/{dropdown_state?}', [UsersController::class, 'renderedNotificationDropdownData'])->name('rendernotifications');
             Route::post('/mark-user-notifications/{notification_id}/{dropdown_state?}', [UsersController::class, 'markNotificationAsRead'])->name('marknotification');
             Route::post('/markall-user-notifications/{dropdown_state?}', [UsersController::class, 'markAllNotificationAsRead'])->name('markallnotification');
+
+
 
         });
 
@@ -198,6 +212,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
         });
 
+
         //Route GROUP::WEBSITE Channels Landing
         Route::group(['prefix' => 'channel', 'middleware' => 'role:super-admin|channel-admin|user', 'as' => 'channel.'], function () {
 
@@ -215,7 +230,54 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
             Route::get('/{slug}/{batch_channelvideo_id}/check-for-new', [ChannelLandingPageController::class, 'checkNewBatchChannelvideo'])->name('validstream.checknew');
 
+            //active-collections...
+
+
         });
+
+
+
+        //Route GROUP::WEBSITE Channels Landing
+        Route::group(['prefix' => 'channel', 'middleware' => 'role:super-admin|channel-admin|user', 'as' => 'channel.'], function () {
+
+            Route::get('/', [ChannelLandingPageController::class, 'index'])->name('index');
+
+            Route::get('/{slug}', [ChannelLandingPageController::class, 'loadChannel'])->name('landing');
+
+            Route::get('/{slug}/active-batch-videos', [ChannelLandingPageController::class, 'getActiveChannelVideos'])->name('activevideos');
+
+            Route::get('/{slug}/active-batch-schedules', [ChannelLandingPageController::class, 'loadSchedule'])->name('loadscheudle');
+
+            Route::get('/{slug}/{user_id}/{status?}/active-rental-videos', [ChannelvideoRentalController::class, 'getChannelActiveRentalsByUser'])->name('activerentalvideos');
+
+            Route::get('/{slug}/{batch_channelvideo_id}/check', [ChannelLandingPageController::class, 'checkBatchChannelvideoValidity'])->name('validstream.check');
+
+            Route::get('/{slug}/{batch_channelvideo_id}/check-for-new', [ChannelLandingPageController::class, 'checkNewBatchChannelvideo'])->name('validstream.checknew');
+
+        // });
+        // //WEBSITE Channelvideo Collections Page...
+        // Route::group(['prefix' => 'channel', 'middleware' => 'role:super-admin|channel-admin|user', 'as' => 'channel.'], function () {
+
+            Route::get('/{slug}/col', [ChannelvideoCollectionsPageController::class, 'index'])->name('col.index');
+
+            Route::get('/{slug}/col/{col_slug}', [CollectionDetailsPageController::class, 'index'])->name('col.details.index');
+
+            // Route::get('/{slug}/active-batch-videos', [ChannelvideoCollectionsPageController::class, 'getActiveChannelVideos'])->name('activevideos');
+
+            // Route::get('/{slug}/active-batch-schedules', [ChannelvideoCollectionsPageController::class, 'loadSchedule'])->name('loadscheudle');
+
+            // Route::get('/{slug}/{user_id}/{status?}/active-rental-videos', [ChannelvideoRentalController::class, 'getChannelActiveRentalsByUser'])->name('activerentalvideos');
+
+            // Route::get('/{slug}/{batch_channelvideo_id}/check', [ChannelvideoCollectionsPageController::class, 'checkBatchChannelvideoValidity'])->name('validstream.check');
+
+            // Route::get('/{slug}/{batch_channelvideo_id}/check-for-new', [ChannelvideoCollectionsPageController::class, 'checkNewBatchChannelvideo'])->name('validstream.checknew');
+
+
+
+
+        });
+
+
 
         //Route GROUP::WEBSITE_RENTALS / ACTIVITY
         Route::group(['prefix' => 'rental', 'middleware' => 'role:super-admin|channel-admin|user', 'as' => 'rental.'], function () {
@@ -230,6 +292,50 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
 
         });
+
+        //MY VIDEOS
+        Route::group(['prefix' => 'myvideos', 'as' => 'myvideos.'], function () {
+            //Get All
+            Route::get("/myvideos", [MyVideosPageController::class, 'index'])->name('index');
+
+            //add
+            // Route::post('/{gize_channel_id}/rental-add', [ChannelvideoRentalController::class, 'addRental'])->name('add');
+            //update
+            // Route::post('/{gize_channel_id}/rental-update', [ChannelvideoRentalController::class, 'updateRental'])->name('update');
+            //get
+            // Route::get('/{gize_channel_id}/rentals/{id}', [ChannelvideoRentalController::class, 'getRentalById'])->name('get');
+            //delete
+            // Route::delete('/{gize_channel_id}/rentals/{id}', [ChannelvideoRentalController::class, 'deleteRental'])->name('delete');
+            //delete selected
+            // Route::delete('/{gize_channel_id}/rentals-del-selected', [ChannelvideoRentalController::class, 'deleteCheckedRentals'])->name('deleteSelected');
+
+        });
+
+        //GIZE PACKAGES
+        Route::group(['prefix' => 'gizepackages', 'as' => 'gizepackages.'], function () {
+            //Get All
+            Route::get("/gize_packages", [GizePackagesPageController::class, 'index'])->name('index');
+
+            //add
+            Route::post('/order-add', [GizePackagesPageController::class, 'orderVideoUsingPackage'])->name('order');
+
+            //update
+            // Route::post('/{gize_channel_id}/rental-update', [ChannelvideoRentalController::class, 'updateRental'])->name('update');
+            //get
+            // Route::get('/{gize_channel_id}/rentals/{id}', [ChannelvideoRentalController::class, 'getRentalById'])->name('get');
+            //delete
+            // Route::delete('/{gize_channel_id}/rentals/{id}', [ChannelvideoRentalController::class, 'deleteRental'])->name('delete');
+            //delete selected
+            // Route::delete('/{gize_channel_id}/rentals-del-selected', [ChannelvideoRentalController::class, 'deleteCheckedRentals'])->name('deleteSelected');
+
+        });
+
+        //ACTIVE_PACKAGES
+        Route::get('/userpackages', function(){
+            $user = auth()->user();
+            return $user->availablePackages();
+
+        })->name('user.packages');
 
 
         //ROUTE GROUP::SUPER-ADMIN
@@ -347,6 +453,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
                 Route::post('/users', [\App\Http\Controllers\UsersController::class, 'search'])->name('users');
 
             });
+
+
 
 
             //ROUTE GROUP::ADMIN/MANAGE
@@ -539,6 +647,27 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
                 });
 
+
+                //RENTALS
+                Route::group(['prefix' => 'gizepackages', 'as' => 'gizepackage.'], function () {
+                    //Get All
+                    Route::get("", [GizePackageController::class, 'index'])->name('index');
+
+                    //add
+                    Route::post('/package-add', [GizePackageController::class, 'addPackage'])->name('add');
+                    //update
+                    // Route::post('/{gize_channel_id}/rental-update', [ChannelvideoRentalController::class, 'updateRental'])->name('update');
+                    //get
+                    // Route::get('/{gize_channel_id}/rentals/{id}', [ChannelvideoRentalController::class, 'getRentalById'])->name('get');
+                    //delete
+                    // Route::delete('/{gize_channel_id}/rentals/{id}', [ChannelvideoRentalController::class, 'deleteRental'])->name('delete');
+                    //delete selected
+                    // Route::delete('/{gize_channel_id}/rentals-del-selected', [ChannelvideoRentalController::class, 'deleteCheckedRentals'])->name('deleteSelected');
+
+                });
+
+
+
             });
 
             // Route::resource('tests', \App\Http\Controllers\TestsController::class);
@@ -621,4 +750,6 @@ Route::post('/user/payment-ipn', [PaymentController::class, 'postIPN'])->name('p
 Route::get('/telebirr', [TelebirrPaymentController::class, 'test']);
 Route::get('/telebirr/ipn', [TelebirrPaymentController::class, 'IPN']);
 Route::get('/telebirr/return', [TelebirrPaymentController::class, 'return']);
+
+
 

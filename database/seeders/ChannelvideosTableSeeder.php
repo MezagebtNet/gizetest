@@ -159,6 +159,10 @@ class ChannelvideosTableSeeder extends Seeder
                     'updated_at' => $faker->date() . ' ' . $faker->time(),
                     'active' => (int) $faker->boolean,
                     'gize_channel_id' => $faker->randomElement($gize_channels->pluck('id')),
+                    'is_in_collection' => 2,
+                    'part_no' => 0,
+                    'unit_value' => 1,
+
                 ]);
 
                 // $channelvideo->gizeChannel()->associate($gc);

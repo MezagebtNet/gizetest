@@ -1,4 +1,4 @@
-<a class="channel-card-link" href={{ route('channel.landing', $slug) }}>
+<a class="channel-card-link" href="{{ route('channel.landing', $slug) }}">
     <div class="mx-2 mx-xs-2">
 
         <article class="position-relative card card-body channel-card grow" style="">

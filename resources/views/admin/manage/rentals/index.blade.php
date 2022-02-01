@@ -401,8 +401,7 @@
         });
 
 
-
-        //Add New Book Format
+        //Add Rental
 
         $('#rentalForm').submit(function(e) {
             e.preventDefault();

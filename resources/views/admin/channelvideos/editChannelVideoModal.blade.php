@@ -17,13 +17,27 @@
                 <input type="text" class="form-control" id="title_ed" />
             </div>
             <div class="form-group">
-                <label for="trainer_ed">Trainer</label>
+                <label for="trainer_ed">Host</label>
                 <input type="text" class="form-control" id="trainer_ed" />
             </div>
             <div class="form-group">
                 <label for="duration_ed">Duration</label>
                 <input type="text" class="form-control" id="duration_ed" />
             </div>
+
+            <div class="form-group">
+              <label for="collection_id_ed">{{ __('Collection') }}</label>
+              <select class="form-control select2 " name="collection_id_ed" id="collection_id_ed">
+                  <option>{{ __('Please Select') }}</option>
+                  @foreach($first_level_collections as $collection)
+                      <option disabled="disabled" value="{{ $collection->id }}">{{  $collection->title . ($collection->seriesable ? ' - ' . $collection->collection_type->singular_name . ' ' . $collection->series_no.'' : '')}}</option>
+                      @foreach($collection->childCollections()->get() as $childCollection)
+                          <option value="{{ $childCollection->id }}">-- {{ $collection->title . ($collection->seriesable ? ' - ' . $collection->collection_type->singular_name . ' ' . $collection->series_no.'' : ''). ' >> ' .  $childCollection->collection_type->singular_name  . ($childCollection->seriesable ? ' '.$childCollection->series_no : '') . ($childCollection->title !='' ? ': '.$childCollection->title : '') }}</option>
+                      @endforeach
+                  @endforeach
+              </select>
+            </div>
+
             <div class="form-group">
                 <label for="description_ed">Description</label>
                 <textarea class="form-control" id="description_ed" rows="5"></textarea>

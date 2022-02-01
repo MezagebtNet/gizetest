@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Channels\Channelvideos;
 use App\Http\Controllers\Controller;
 use App\Models\Channelvideo;
 use App\Models\GizeChannel;
+use App\Models\Collection;
 use App\Models\ChannelvideoAccessByAppUser;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
@@ -35,9 +36,12 @@ class ChannelvideoController extends Controller
         $gize_channel = GizeChannel::find($gize_channel_id);
         abort_if(!$gize_channel->isPermittedEditor(\Auth::user()), Response::HTTP_FORBIDDEN, 'Forbidden');
 
+        $first_level_collections = $gize_channel->getTopVideoBundles()->get();
+
         $channelvideos = ChannelVideo::where('gize_channel_id', $gize_channel_id)->orderBy('id', 'DESC')->get();
         return view('admin.channelvideos.index', compact(
             'channelvideos',
+            'first_level_collections',
             'gize_channel'
         ));
     }
@@ -59,6 +63,9 @@ class ChannelvideoController extends Controller
         $channelvideo->duration = $request->duration;
         $channelvideo->description = $request->description;
         $channelvideo->gize_channel_id = $gize_channel_id;
+
+        $collection_id = $request->collection_id;
+
         // $channelvideo->video_available_for = 1;
 
             // Poster Image...
@@ -100,6 +107,15 @@ class ChannelvideoController extends Controller
         }
 
         $channelvideo->save();
+
+
+        //Add to collection
+        if($collection_id != null && $collection_id != ''){
+            $collection = Collection::find($collection_id);
+            $collection->channelvideos()->syncWithoutDetaching([$channelvideo->id]);
+        }
+
+
         return response()->json($channelvideo);
     }
 
@@ -193,6 +209,10 @@ class ChannelvideoController extends Controller
         $channelvideo->trainer = $request->trainer;
         $channelvideo->duration = $request->duration;
         $channelvideo->description = $request->description;
+
+        $collection_id = $request->collection_id;
+
+
         // image...
 
         // $pathme = $imagePath->getClientOrigin="";
@@ -259,6 +279,16 @@ class ChannelvideoController extends Controller
         }
 
         $channelvideo->save();
+
+        //First remove channelvideo from collection
+        Channelvideo::find($channelvideo->id)->collections()->detach();
+
+        //Add to collection
+        if($collection_id != null && $collection_id != ''){
+            $collection = Collection::find($collection_id);
+            $collection->channelvideos()->syncWithoutDetaching([$channelvideo->id]);
+        }
+
         return response()->json($channelvideo);
     }
 

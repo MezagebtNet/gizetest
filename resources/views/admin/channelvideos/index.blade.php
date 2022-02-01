@@ -596,6 +596,7 @@
 				let title = $('#title').val();
 				let trainer = $('#trainer').val();
 				let duration = $('#duration').val();
+				let collection_id = $('#collection_id').val();
 				let description = $('#description').val();
 				let image_input = $('#image_input').val();
 				let _token = $('input[name=_token]').val();
@@ -603,6 +604,7 @@
 				formData.append("title", title);
 				formData.append("trainer", trainer);
 				formData.append("duration", duration);
+				formData.append("collection_id", collection_id);
 				formData.append("description", description);
 				formData.append("_token", _token);
 
@@ -738,6 +740,7 @@
 				let trainer = $('#trainer_ed').val();
 				let duration = $('#duration_ed').val();
 				let description = $('#description_ed').val();
+				let collection_id = $('#collection_id_ed').val();
 				let image_input_ed = $('#image_input_ed').val();
 				let _token = $('input[name=_token]').val();
 
@@ -745,6 +748,7 @@
 				formData.append("title", title);
 				formData.append("trainer", trainer);
 				formData.append("duration", duration);
+				formData.append("collection_id", collection_id);
 				formData.append("description", description);
 				// formData.append("_token", _token);
 				// formData.append("channelvideoid", id);
@@ -756,6 +760,7 @@
 					title: title,
 					trainer: trainer,
 					duration: duration,
+					collection_id: collection_id,
 					description: description,
 					image_input_ed: image_input_ed,
 					_token: _token
@@ -878,6 +883,8 @@
 					$('#title_ed').val(channelvideo.title);
 					$('#trainer_ed').val(channelvideo.trainer);
 					$('#duration_ed').val(channelvideo.duration);
+					// $('#collection_id_ed option[value="' + channelvideo.collection_id + '"]');
+					$('#collection_id_ed').val(channelvideo.collection_id);
 					$('#description_ed').val(channelvideo.description);
 					// $('#image_input_ed').val(channelvideo.poster_image_url);
 
