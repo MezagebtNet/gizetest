@@ -168,7 +168,7 @@ class ChannelvideoRentalController extends Controller
         $rentals = collect([]);
 
         foreach ($result as $rent) {
-            if ($rent->rental_detail->started_at == null && $rent->rental_detail->status == 0) {
+            // if ($rent->rental_detail->started_at == null && $rent->rental_detail->status == 0) {
                 $start_date = $rent->rental_detail->published_at;
                 $within_days = $rent->rental_detail->within_days;
 
@@ -181,20 +181,20 @@ class ChannelvideoRentalController extends Controller
                     $rentals = $rentals->add($rent);
 
                 }
-            } else if ($rent->rental_detail->started_at != null && $rent->rental_detail->status != 0) {
-                $start_date = $rent->rental_detail->started_at;
-                $for_hours = $rent->rental_detail->for_hours;
+            // } else if ($rent->rental_detail->started_at != null && $rent->rental_detail->status != 0) {
+            //     $start_date = $rent->rental_detail->started_at;
+            //     $for_hours = $rent->rental_detail->for_hours;
 
-                $end_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $start_date)->addHours($for_hours);
+            //     $end_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $start_date)->addHours($for_hours);
 
-                $check = $now->between($start_date, $end_date);
+            //     $check = $now->between($start_date, $end_date);
 
-                if ($check) {
+            //     if ($check) {
 
-                    $rentals = $rentals->add($rent);
+            //         $rentals = $rentals->add($rent);
 
-                }
-            }
+            //     }
+            // }
         }
 
         return $rentals;

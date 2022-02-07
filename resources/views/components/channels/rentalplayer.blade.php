@@ -77,8 +77,8 @@
                         <dd>
                             {{-- <span>Video Not Played Yet</span> --}}
 
-                            <span>{{ __('Once you start playing this vidio, it will be available for') }} {{ $video->rental_detail->for_hours }} {{ __('hours.') }}</span>
-                            <br/>
+                            {{-- <span>{{ __('Once you start playing this vidio, it will be available for') }} {{ $video->rental_detail->for_hours }} {{ __('hours.') }}</span> --}}
+                            {{-- <br/> --}}
                             <span class=" show-expiretime"><strong>{{ __('Rental Expires at') }}:</strong>
                                 {{ Jenssegers\Date\Date::createFromFormat('Y-m-d H:i:s', $video->rental_detail->published_at)->add($video->rental_detail->within_days . ' days')->setTimezone(\Config::get('app.timezone'))->format('M d, Y h:i A') }}
                             </span>

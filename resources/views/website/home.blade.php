@@ -202,13 +202,13 @@
                         <p class="h4 text-right text-center text-sm-right" style="vertical-align: middle !important;">
                             {{ __("Have you subscribed to a regular series of 'Book of Addmes' videos?") }}</p>
                         <p class="text-sm pb-0 mb-0 text-muted font-italic text-center text-sm-right">
-                            {{ __('For more info') }}: <a target="_blank" href="tel:+251911448945">(+251) 911448945</a>
+                            {{ __('For more info') }}: <a target="_blank" href="tel:+251911616155">(+251) 911616155</a>
                         </p>
-                        <p class="text-sm pb-0 text-muted font-italic text-center text-sm-right">{{ __('Website') }}: <a
+                        {{-- <p class="text-sm pb-0 text-muted font-italic text-center text-sm-right">{{ __('Website') }}: <a
                                 target="_blank"
                                 href="https://addmes.mezagebtnet.com/courses">https://addmes.mezagebtnet.com/courses</a></p>
                         <p class="text-sm text-muted font-italic text-center text-sm-right">
-                            {{ __('by Addmesh Book Trading') }} </p>
+                            {{ __('by Addmesh Book Trading') }} </p> --}}
                     </div>
                     <div class="col-12 col-sm-4 d-inline-block text-center text-sm-left"
                         style="margin-top: auto;margin-bottom: auto; padding: 1rem;display: block;display: inline-block !important;">
@@ -253,13 +253,11 @@
                     </div>
                     {{-- </center> --}}
                 </div>
-                <div class="justify-content-center ">
-                    {{-- <center> --}}
+                {{-- <div class="justify-content-center ">
                     <div class=" row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 ">
                         <a href="{{ url('/fitrete-hibuat-1') }}">Fitrete Hebuat</a>
                     </div>
-                    {{-- </center> --}}
-                </div>
+                </div> --}}
             </div>
 
         </div>

@@ -532,8 +532,8 @@
         </section>
     </div>
 
-    <div class="row px-4 pt-4 pt-1 pb-4">
-        <div class="col">
+    <div class=" px-4 pt-4  pb-4">
+        <div class="">
             @if($collections->count())
             <h4 class="mt-5">{{ __('Bundle Videos From This Channel') }}</h4>
             <h6 class=" text-muted mb-0">

@@ -70,7 +70,6 @@ class GizePackagesPageController extends Controller
         $user_id = auth()->user()->id;
         $channelvideos = explode (",", $request->videos_in_cart);
 
-
         $package_id = $request->package_id;
         // $within_days = $request->within_days;
         $within_days = 7;
@@ -96,12 +95,19 @@ class GizePackagesPageController extends Controller
                     //check if package has sufficient balance
                     if(count($channelvideos) <= $users_available_packages->where('id', $package_id)->first()->unit_values_balance){
 
+                        $user_gize_package = UserGizePackage::find($package_id);
+
+                        $package_months = $user_gize_package->gize_package->months;
+
+                        $start_date =\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $published_at);
+
+                        $within_days = $start_date->diffInDays($start_date->copy()->addMonths($package_months)) + 1;
+
                         // place order
                         $rental = $this->addRental($user_id, $channelvideo_id, $within_days, $for_hours, $published_at);
 
                         if($rental != null){
                             //Subtract balance from package
-                            $user_gize_package = UserGizePackage::find($package_id);
                             $user_gize_package->unit_values_balance = $user_gize_package->unit_values_balance - 1;
                             $user_gize_package->save();
 
