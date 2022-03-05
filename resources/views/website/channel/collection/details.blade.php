@@ -546,8 +546,8 @@
                 <div class="d-flex align-items-center flex-column bd-highlight ">
                     <div class="pb-0 mb-n3 bd-highlight">
                         {{-- <div class="channel-logo"></div> --}}
-
-                        <a href="{{ route('channel.landing', ['slug' => $gize_channel->slug]) }}" class="btn-lg btn-dark btn"><i class="fa fa-arrow-left"></i> Back to Channel</a>
+                        <a  href="{{ route('channel.landing', 'Addmes') }}" class="btn-lg btn-dark btn"><i class="fa fa-arrow-left"></i> Back to Channel</a>
+                        {{-- <a href="{{ route('channel.landing', ['slug' => '$gize_channel->slug']) }}" class="btn-lg btn-dark btn"><i class="fa fa-arrow-left"></i> Back to Channel</a> --}}
                     </div>
                 </div>
             </div>
@@ -573,25 +573,25 @@
                         {{ $collection->title }}
                     </h4>
                     <h5> {{  $collection->collection_type->singular_name }} {{ $collection->seriesable ? $collection->series_no : '' }}</h5>
-
-
-
-                </div>
-
-                <div class="col-sm-9">
                     <div class="form-group mt-4">
-                        <label for="collection_id">{{ __('Select Video Groups') }}:</label>
+                        <label for="collection_id">{{ __('Filter Videos by Book Chapters') }}:</label>
 
-                            <select id="select-section" class="custom-select custom-select-lg mb-3" name="select-section">
-
+                            <select id="select-section" class="custom-select custom-select mb-3" name="select-section">
+                            <option selected="selected">-- Select --</option>
                             <option disabled="disabled" value="{{ $collection->id }}">{{  $collection->title . ($collection->seriesable ? ' - ' . $collection->collection_type->singular_name . ' ' . $collection->series_no.'' : '')}}</option>
                             @foreach($collection->childCollections()->get() as $childCollection)
                                 <option value="{{ $childCollection->id }}" >-- {{ $childCollection->collection_type->singular_name  . ($childCollection->seriesable ? ' '.$childCollection->series_no : '') . ($childCollection->title !='' ? ': '.$childCollection->title : '') }}</option>
                             @endforeach
                         </select>
                       </div>
+
+
+
+                </div>
+
+                <div class="col-sm-9">
                     <div data-spy="scroll" data-target="#navbar-chapters" data-offset="0" id="chapter-content"
-                        class="chapter-content row row-cols-1 row-cols-md-3">
+                    class="chapter-content row row-cols-1 row-cols-md-3">
 
                     </div>
                 </div>
@@ -896,10 +896,10 @@
 
             });
 
-            let first_collection_value = $("#select-section option:eq(1)").val();
-            $("#select-section").val(first_collection_value);
-            $('.channelvideo').hide();
-            $('.channelvideo[collection="'+first_collection_value+'"]').show();
+            // let first_collection_value = $("#select-section option:eq(1)").val();
+            // $("#select-section").val(first_collection_value);
+            // $('.channelvideo').hide();
+            // $('.channelvideo[collection="'+first_collection_value+'"]').show();
 
 
 
@@ -1076,6 +1076,22 @@
                                             icon: 'success',
                                             title: 'Your videos are now available for you.',
                                             html: `Go to <a href="{{ route('myvideos.index') }}">My Videos</a> page now.`,
+                                            showConfirmButton: false,
+                                        });
+
+                                        //Empty Cart
+                                        $('#cart').empty();
+                                        cartTotal();
+                                    }
+                                    else {
+                                        // $('#cartModal').modal('hide');
+
+
+                                        Swal.fire({
+                                            position: 'center',
+                                            icon: 'warning',
+                                            title: 'Sorry, videos are not added.',
+                                            html: `Please make sure you have sufficient balance or your package has not expired.`,
                                             showConfirmButton: false,
                                         });
                                     }

@@ -366,7 +366,8 @@ class User extends Authenticatable
         //filter active , not-expired
         foreach($user_gize_packages as $package){
 
-            $months = $package->months;
+            $gize_package_month = GizePackage::where('id', $package->id)->first()->value('months');
+            $months = $gize_package_month;
             $start_date = $package->start_date;
             $package->expires_at = Date::createFromFormat('Y-m-d H:i:s', $package->start_date)->addMonths($months)->setTimezone(\Config::get('app.timezone'))->diffForHumans();
 

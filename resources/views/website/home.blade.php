@@ -263,6 +263,35 @@
         </div>
 
 
+        <div class=" px-4 pt-4  pb-4">
+            <div class="">
+                @if($collections->count())
+                <h4 class="mt-5">{{ __('Bundle Videos Book of Addmes Channel') }}</h4>
+                <h6 class=" text-muted mb-0">
+                    {{ __('Series Video Collection Grouped in the form of a Book/Chapters or Season/Episoids') }}
+
+                </h6>
+                <hr />
+                @endif
+
+                <div class="  flex-row justify-content-between">
+                        @foreach ($collections as $collection)
+
+                            <div style="">
+
+                                <x-channels.collection-card :channel="$gize_channel"
+                                :collection="$collection"
+                                />
+
+                            </div>
+
+
+
+                        @endforeach
+                </div>
+            </div>
+        </div>
+
         <div class=" mb-4">
             <div class="row pt-4">
                 <div class="col">

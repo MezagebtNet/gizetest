@@ -37,7 +37,10 @@ class GizePackageController extends Controller
             $price = $price . ' ' . $user->currency_code;
             $package->price = $price;
 
-            $months = $package->months;
+
+            $gize_package_month = GizePackage::where('id', $package->id)->first()->value('months');
+            $months = $gize_package_month;
+
             $start_date = $package->start_date;
 
             $package->expires_at = Date::createFromFormat('Y-m-d H:i:s', $package->start_date)->addMonths($months)->setTimezone(\Config::get('app.timezone'))->diffForHumans();

@@ -76,10 +76,10 @@ class GizePackagesPageController extends Controller
         // $for_hours = $request->for_hours;
         $for_hours = 24;
         $published_at = $request->published_at;
-
+        // return 'package '. $package_id;
 
         try {
-            //loop through ids and assign rentals...
+            //loop through selected channelvideo ids and add rentals...
 
             foreach ( $channelvideos as $channelvideo_id) {
 
@@ -89,10 +89,11 @@ class GizePackagesPageController extends Controller
                 $users_available_packages = $this->getUserPackages($user_id);
 
                 // dd($users_available_packages);
-
+                // return $users_available_packages;
                 if (in_array($package_id, $users_available_packages->pluck('id')->toArray())) {
                     // dd( $channelvideo_id);
                     //check if package has sufficient balance
+                    // return 'here';
                     if(count($channelvideos) <= $users_available_packages->where('id', $package_id)->first()->unit_values_balance){
 
                         $user_gize_package = UserGizePackage::find($package_id);
@@ -100,8 +101,8 @@ class GizePackagesPageController extends Controller
                         $package_months = $user_gize_package->gize_package->months;
 
                         $start_date =\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $published_at);
-
                         $within_days = $start_date->diffInDays($start_date->copy()->addMonths($package_months)) + 1;
+                        // return $within_days;
 
                         // place order
                         $rental = $this->addRental($user_id, $channelvideo_id, $within_days, $for_hours, $published_at);
@@ -113,9 +114,11 @@ class GizePackagesPageController extends Controller
 
                             //save user gizepackage usage history on db
 
+                            $last_inserted_id = $user_gize_package->id;
+
                             $history = [
                                 [
-                                    'user_gize_package_id' => $package_id,
+                                    'user_gize_package_id' => $last_inserted_id,
                                     'unit_value_used' => 1,
                                     'model_id' => $channelvideo_id,
                                 ]
@@ -126,21 +129,18 @@ class GizePackagesPageController extends Controller
                                 UserGizePackageHistory::create($h);
                             }
 
-
                         }
-
-
-
 
                     }
 
                 }
+                return response()->json(['success' => "Rental is set."]);
 
             }
 
 
         } catch (Exception $e) {}
-        return response()->json(['success' => "Rental is set."]);
+        return response()->json(['fail' => "Rental is not set."]);
     }
 
     public function getUserPackages($user_id){
@@ -155,7 +155,10 @@ class GizePackagesPageController extends Controller
         //filter active , not-expired
         foreach($user_gize_packages as $package){
 
-            $months = $package->months;
+            $gize_package = GizePackage::find($package->id);
+		  	$package_months = $gize_package->months;
+            $months = $package_months;
+
             $start_date = $package->start_date;
             $package->expires_at = Date::createFromFormat('Y-m-d H:i:s', $package->start_date)->addMonths($months)->setTimezone(\Config::get('app.timezone'))->diffForHumans();
 

@@ -1,66 +1,190 @@
-$user_gize_package = App\Models\UserGizePackage::find(1);
-$package_months = $user_gize_package->gize_package->months;
+$user_id = 2;
 
-$start_date = $user_gize_package->start_date;
+$user_gize_packages = App\Models\UserGizePackage::where('user_id', $user_id)->get();
 
-$days =\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $start_date)->addMonths($package_months);
-                   echo $days->diffInRealHours('2022-03-7 00:00:00');
-$user_gize_package = App\Models\UserGizePackage::find(1);
-$package_months = $user_gize_package->gize_package->months;
+        $now = \Carbon\Carbon::now();
 
-$start_date = $user_gize_package->start_date;
 
-$days =\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $start_date)->addMonths($package_months);
-                   echo $days->diffInRealHours('2022-03-7 00:00:00');
-$user_gize_package = App\Models\UserGizePackage::find(1);
-$package_months = $user_gize_package->gize_package->months;
+        $available_packages = collect([]);
 
-$start_date = $user_gize_package->start_date;
+                foreach($user_gize_packages as $package){
 
-$days =\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $start_date)->addMonths($package_months);
-                   echo $days->diffInRealHours('2022-03-8 00:00:00');
-$user_gize_package = App\Models\UserGizePackage::find(1);
-$package_months = $user_gize_package->gize_package->months;
+            $months = $package->months;
+            $start_date = $package->start_date;
+            $package->expires_at = Date::createFromFormat('Y-m-d H:i:s', $package->start_date)->addMonths($months)->setTimezone(\Config::get('app.timezone'))->diffForHumans();
 
-$start_date = $user_gize_package->start_date;
+            $end_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $start_date)->addMonths($months);
 
-$days =\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $start_date)->addMonths($package_months);
-                   echo $days->diffInRealHours('2022-03-6 00:00:00');
-$user_gize_package = App\Models\UserGizePackage::find(1);
-$package_months = $user_gize_package->gize_package->months;
+            $check = $now->between($start_date, $end_date);
 
-$start_date = $user_gize_package->start_date;
+            if ($check) {
+                $package->status = 1;             }
+            else {
+                $package->status = 0;             }
 
-$days =\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $start_date)->addMonths($package_months);
-                   echo $days->diffInHours('2022-03-6 00:00:00');
-$user_gize_package = App\Models\UserGizePackage::find(1);
-$package_months = $user_gize_package->gize_package->months;
+            if($package->gize_package->active && $package->status){
+                $available_packages = $available_packages->add($package);
+            }
+        }
 
-$start_date = $user_gize_package->start_date;
+        return $available_packages;
+$user_id = 2;
 
-$days =\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $start_date)->addMonths($package_months);
-                   echo $days->diffInHours('2022-03-6 00:00:00');
-$user_gize_package = App\Models\UserGizePackage::find(1);
-$package_months = $user_gize_package->gize_package->months;
+$user_gize_packages = App\Models\UserGizePackage::where('user_id', $user_id)->get();
 
-$start_date = $user_gize_package->start_date;
+        $now = \Carbon\Carbon::now();
 
-$days =\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $start_date);
-                   
-echo $days->diffInHours($days->copy()->addMonths($package_months));
-$user_gize_package = App\Models\UserGizePackage::find(1);
-$package_months = $user_gize_package->gize_package->months;
 
-$start_date = $user_gize_package->start_date;
+        $available_packages = collect([]);
 
-$days =\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $start_date);
-                   
-echo $days->diffInHours($days->copy()->addMonths($package_months));
-$user_gize_package = App\Models\UserGizePackage::find(1);
-$package_months = $user_gize_package->gize_package->months;
+                foreach($user_gize_packages as $package){
 
-$start_date = $user_gize_package->start_date;
+            $months = $package->months;
+		  return $months;
+            $start_date = $package->start_date;
+            $package->expires_at = Date::createFromFormat('Y-m-d H:i:s', $package->start_date)->addMonths($months)->setTimezone(\Config::get('app.timezone'))->diffForHumans();
 
-$days =\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $start_date);
-                   
-echo $days->diffInHours($days->copy()->addDays($package_months));
+            $end_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $start_date)->addMonths($months);
+
+            $check = $now->between($start_date, $end_date);
+
+            if ($check) {
+                $package->status = 1;             }
+            else {
+                $package->status = 0;             }
+
+            if($package->gize_package->active && $package->status){
+                $available_packages = $available_packages->add($package);
+            }
+        }
+
+        return $available_packages;
+$user_id = 2;
+
+$user_gize_packages = App\Models\UserGizePackage::where('user_id', $user_id)->get();
+
+        $now = \Carbon\Carbon::now();
+
+
+        $available_packages = collect([]);
+
+                foreach($user_gize_packages as $package){
+
+            $months = $package->months;
+            $start_date = $package->start_date;
+		  return $start_date;
+		  
+            $package->expires_at = Date::createFromFormat('Y-m-d H:i:s', $package->start_date)->addMonths($months)->setTimezone(\Config::get('app.timezone'))->diffForHumans();
+
+            $end_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $start_date)->addMonths($months);
+
+            $check = $now->between($start_date, $end_date);
+
+            if ($check) {
+                $package->status = 1;             }
+            else {
+                $package->status = 0;             }
+
+            if($package->gize_package->active && $package->status){
+                $available_packages = $available_packages->add($package);
+            }
+        }
+
+        return $available_packages;
+$user_id = 2;
+
+$user_gize_packages = App\Models\UserGizePackage::where('user_id', $user_id)->get();
+
+        $now = \Carbon\Carbon::now();
+
+
+        $available_packages = collect([]);
+
+                foreach($user_gize_packages as $package){
+			$gize_package = App\Models\GizePackage::find($package->id);
+		  	$package_months = $gize_package->months;
+            $months = $package->months;
+            $start_date = $package->start_date;
+		  return $package_months;
+		  
+            $package->expires_at = Date::createFromFormat('Y-m-d H:i:s', $package->start_date)->addMonths($months)->setTimezone(\Config::get('app.timezone'))->diffForHumans();
+
+            $end_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $start_date)->addMonths($months);
+
+            $check = $now->between($start_date, $end_date);
+
+            if ($check) {
+                $package->status = 1;             }
+            else {
+                $package->status = 0;             }
+
+            if($package->gize_package->active && $package->status){
+                $available_packages = $available_packages->add($package);
+            }
+        }
+
+        return $available_packages;
+$user_id = 2;
+
+$user_gize_packages = App\Models\UserGizePackage::where('user_id', $user_id)->get();
+
+        $now = \Carbon\Carbon::now();
+
+
+        $available_packages = collect([]);
+
+                foreach($user_gize_packages as $package){
+			$gize_package = App\Models\GizePackage::find($package->id);
+		  	$package_months = $gize_package->months;
+            $months = $package_months
+            $start_date = $package->start_date;
+		  
+            $package->expires_at = Date::createFromFormat('Y-m-d H:i:s', $package->start_date)->addMonths($months)->setTimezone(\Config::get('app.timezone'))->diffForHumans();
+
+            $end_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $start_date)->addMonths($months);
+
+            $check = $now->between($start_date, $end_date);
+
+            if ($check) {
+                $package->status = 1;             }
+            else {
+                $package->status = 0;             }
+
+            if($package->gize_package->active && $package->status){
+                $available_packages = $available_packages->add($package);
+            }
+        }
+
+        return $available_packages;
+$user_id = 2;
+
+$user_gize_packages = App\Models\UserGizePackage::where('user_id', $user_id)->get();
+
+        $now = \Carbon\Carbon::now();
+
+
+        $available_packages = collect([]);
+
+                foreach($user_gize_packages as $package){
+			$gize_package = App\Models\GizePackage::find($package->id);
+		  	$package_months = $gize_package->months;
+            $months = $package_months;
+            $start_date = $package->start_date;
+		  
+            $package->expires_at = Date::createFromFormat('Y-m-d H:i:s', $package->start_date)->addMonths($months)->setTimezone(\Config::get('app.timezone'))->diffForHumans();
+
+            $end_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $start_date)->addMonths($months);
+
+            $check = $now->between($start_date, $end_date);
+
+            if ($check) {
+                $package->status = 1;             }
+            else {
+                $package->status = 0;             }
+
+            if($package->gize_package->active && $package->status){
+                $available_packages = $available_packages->add($package);
+            }
+        }
+
+        return $available_packages;

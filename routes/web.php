@@ -314,7 +314,10 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
         //GIZE PACKAGES
         Route::group(['prefix' => 'gizepackages', 'as' => 'gizepackages.'], function () {
             //Get All
-            Route::get("/gize_packages", [GizePackagesPageController::class, 'index'])->name('index');
+            Route::get("/gize_packages", [GizePackagesPageController::class, 'index']);
+
+            //Get All
+            Route::get("/", [GizePackagesPageController::class, 'index'])->name('index');
 
             //add
             Route::post('/order-add', [GizePackagesPageController::class, 'orderVideoUsingPackage'])->name('order');

@@ -78,7 +78,13 @@ class HomePageController extends Controller
             ->orderBy('id', 'desc')
             ->get();
 
-        return view('website.home', compact('featured_videos','gize_channels'));
+
+        $gize_channel = GizeChannel::where('slug', 'Addmes')->firstOrFail();
+
+        $collections =  $gize_channel->getTopVideoBundles()->where('active', 1)->get();
+
+
+        return view('website.home', compact('featured_videos','gize_channels', 'collections'));
 
     }
 
