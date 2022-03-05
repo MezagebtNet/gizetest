@@ -620,7 +620,7 @@
                                             {{-- {{ dd($activerentals[0]->title) }} --}}
 
 
-                                            @for ($i = 0; $i < $activerentals->count(); $i++)
+                                            @for ($i = $activerentals->count()-1; $i >= 0; $i--)
                                                 @php
                                                     $active = $activerentals[$i];
                                                     $key = $i;
@@ -1241,7 +1241,7 @@
 
             // }
 
-            var validStreamcheker = setInterval(rond, 1000 * 20);
+            var validStreamcheker = setInterval(rond, 1000 * 60);
 
             function rond(){
                 if ({!! $activerentals->count() !!}) {
@@ -1287,7 +1287,7 @@
 
             function chkRentalTimer() {
                 // console.log("remoing");
-                let rental_vids = $(".rental_player");
+                let rental_vids = $(".rental_player.vjs-playing");
 
                 // active_rental_vids = [];
 
@@ -1352,73 +1352,73 @@
                 // notifyMe();
             }
 
-            function chkValidStreamTimer() {
-                // alert('here');
-                let batch_stream_vids = $(".batch_player");
+            // function chkValidStreamTimer() {
+            //     // alert('here');
+            //     let batch_stream_vids = $(".batch_player");
 
-                active_vids = [];
-                batch_stream_vids.each(function(i) {
-                    active_vids.push($(this).attr('bsid'));
-                });
-                // console.log(active_vids);
+            //     active_vids = [];
+            //     batch_stream_vids.each(function(i) {
+            //         active_vids.push($(this).attr('bsid'));
+            //     });
+            //     // console.log(active_vids);
 
-                batch_stream_vids.each(function(i) {
+            //     batch_stream_vids.each(function(i) {
 
-                    batch_channelvideo_id = $(this).attr('bsid');
-                    // alert(batch_channelvideo_id);
+            //         batch_channelvideo_id = $(this).attr('bsid');
+            //         // alert(batch_channelvideo_id);
 
-                    slug = '{{ $gize_channel->slug }}';
-                    let url =
-                        "{{ route('channel.validstream.check', ['slug' => ':slug', 'batch_channelvideo_id' => ':batch_channelvideo_id']) }}";
-                    url = url.replace(':batch_channelvideo_id', batch_channelvideo_id);
-                    url = url.replace(':slug', slug);
+            //         slug = '{{ $gize_channel->slug }}';
+            //         let url =
+            //             "{{ route('channel.validstream.check', ['slug' => ':slug', 'batch_channelvideo_id' => ':batch_channelvideo_id']) }}";
+            //         url = url.replace(':batch_channelvideo_id', batch_channelvideo_id);
+            //         url = url.replace(':slug', slug);
 
-                    let that = this;
+            //         let that = this;
 
-                    $.ajax({
-                        type: 'GET',
-                        url: url,
+            //         $.ajax({
+            //             type: 'GET',
+            //             url: url,
 
-                        success: function(response) {
-                            if (response == 0) {
-                                target = $(that).parents('.video-card-wrapper');
-                                target.hide('slow', function() {
-                                    target.remove();
-                                });
-                                // .remove();
-                                // removeExpiredVideos(rid);
-                                clearInterval(validStreamcheker);
-                                // console.log(active_vids.length);
-                                if (active_vids.length ==
-                                    1) { //if the removed one is the last one....
-                                    text = `<div>
+            //             success: function(response) {
+            //                 if (response == 0) {
+            //                     target = $(that).parents('.video-card-wrapper');
+            //                     target.hide('slow', function() {
+            //                         target.remove();
+            //                     });
+            //                     // .remove();
+            //                     // removeExpiredVideos(rid);
+            //                     clearInterval(validStreamcheker);
+            //                     // console.log(active_vids.length);
+            //                     if (active_vids.length ==
+            //                         1) { //if the removed one is the last one....
+            //                         text = `<div>
 
-                                        <p class="text-center text-muted">
-                                            {{ __('Videos not available for now') }}<br />
-                                            {{ __('If you have already subscribed please check your schedule.') }}
-                                        </p>
-                                        <p class="text-center text-muted">
-                                            <a class="btn btn-sm btn-outline-secondary"
-                                                href="{{ route('web.home') }}">
-                                                {{ __('Go back to home') }}
-                                            </a>
-                                            <button class="btn btn-refresh btn-sm btn-outline-secondary" >
-                                                {{ __('Reload') }}
-                                            </button>
-                                        </p>
+            //                             <p class="text-center text-muted">
+            //                                 {{ __('Videos not available for now') }}<br />
+            //                                 {{ __('If you have already subscribed please check your schedule.') }}
+            //                             </p>
+            //                             <p class="text-center text-muted">
+            //                                 <a class="btn btn-sm btn-outline-secondary"
+            //                                     href="{{ route('web.home') }}">
+            //                                     {{ __('Go back to home') }}
+            //                                 </a>
+            //                                 <button class="btn btn-refresh btn-sm btn-outline-secondary" >
+            //                                     {{ __('Reload') }}
+            //                                 </button>
+            //                             </p>
 
-                                        </div>`;
-                                    $('.streams-container').html(text);
-                                }
+            //                             </div>`;
+            //                         $('.streams-container').html(text);
+            //                     }
 
-                            }
-                        }
-                    });
+            //                 }
+            //             }
+            //         });
 
-                });
+            //     });
 
 
-            }
+            // }
 
 
             function removeExpiredVideos(rid = 0) {

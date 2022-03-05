@@ -37,25 +37,32 @@ class GizePackageController extends Controller
             $price = $price . ' ' . $user->currency_code;
             $package->price = $price;
 
+            $gize_package =  GizePackage::where('id', $package->id);
+            if ($gize_package != null){
 
-            $gize_package_month = GizePackage::where('id', $package->id)->first()->value('months');
-            $months = $gize_package_month;
+                $gize_package_month = GizePackage::where('id', $package->id)->value('months');
 
-            $start_date = $package->start_date;
 
-            $package->expires_at = Date::createFromFormat('Y-m-d H:i:s', $package->start_date)->addMonths($months)->setTimezone(\Config::get('app.timezone'))->diffForHumans();
 
-            $end_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $start_date)->addMonths($months);
-            $check = $now->between($start_date, $end_date);
+                // dd( $gize_package_month );
+                $months = $gize_package_month;
 
-            if ($check) {
-                $package->status = 1; //active
+                $start_date = $package->start_date;
+
+                $package->expires_at = Date::createFromFormat('Y-m-d H:i:s', $package->start_date)->addMonths($months)->setTimezone(\Config::get('app.timezone'))->diffForHumans();
+
+                $end_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $start_date)->addMonths($months);
+                $check = $now->between($start_date, $end_date);
+
+                if ($check) {
+                    $package->status = 1; //active
+                }
+                else {
+                    $package->status = 0; //expired
+                }
+
+                $user_gize_packages = $user_gize_packages->add($package);
             }
-            else {
-                $package->status = 0; //expired
-            }
-
-            $user_gize_packages = $user_gize_packages->add($package);
         }
 
         foreach ($gize_packages as $package) {
