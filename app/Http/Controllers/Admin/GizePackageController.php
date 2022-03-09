@@ -40,20 +40,24 @@ class GizePackageController extends Controller
             $gize_package =  GizePackage::where('id', $package->id);
             if ($gize_package != null){
 
-                $gize_package_month = GizePackage::where('id', $package->id)->value('months');
+                $gize_package_month = GizePackage::where('id', $package->gize_package_id)->value('months');
 
 
 
                 // dd( $gize_package_month );
                 $months = $gize_package_month;
-
+                // $months = 2;
+                if($package->id == 12){
+                    // dd($months);
+                }
                 $start_date = $package->start_date;
-
+                $package->months = $months;
                 $package->expires_at = Date::createFromFormat('Y-m-d H:i:s', $package->start_date)->addMonths($months)->setTimezone(\Config::get('app.timezone'))->diffForHumans();
 
                 $end_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $start_date)->addMonths($months);
-                $check = $now->between($start_date, $end_date);
-
+                $check = $now->between(Date::createFromFormat('Y-m-d H:i:s', $start_date), $end_date);
+                // dd($end_date->toDateTimeString());
+                // dd($check);
                 if ($check) {
                     $package->status = 1; //active
                 }
@@ -64,6 +68,8 @@ class GizePackageController extends Controller
                 $user_gize_packages = $user_gize_packages->add($package);
             }
         }
+        // dd($user_gize_packages);
+
 
         foreach ($gize_packages as $package) {
             // dd($package->first());

@@ -192,18 +192,21 @@
         <div class="container pt-4 ">
 
             <div class="container mt-2" style="background-color: #f0f8ff14;
-                border: 1px solid #74747452;
+                border: 1px solid #74747452;  margin-top: auto;margin-bottom: auto; padding: 1rem; display: inline-block !important; width: 100%; padding:0;
+                                background-color: #faebd72e;
+                                background-image: linear-gradient(to bottom, #0000, #fff0, #000000b5), url({{ asset('storage/images/ad_gize_package.jpg') }});
+                                height: 230px;
+                                /* background-attachment: fixed; */
+                                background-position: center center;
+                                background-size: cover;
+                                border-radius: 0;
                 border-radius: 8px;">
 
 
-                <div class="row" style="min-height: 200px;padding: 2rem 0;">
+                <div class="row" style="min-height: 200px; padding: 2rem 0;">
                     <div class=" col-12 col-sm-8"
                         style="padding: 1rem;display: inline-block !important;margin-top: auto;margin-bottom: auto;">
-                        <p class="h4 text-right text-center text-sm-right" style="vertical-align: middle !important;">
-                            {{ __("Have you subscribed to a regular series of 'Book of Addmes' videos?") }}</p>
-                        <p class="text-sm pb-0 mb-0 text-muted font-italic text-center text-sm-right">
-                            {{ __('For more info') }}: <a target="_blank" href="tel:+251911616155">(+251) 911616155</a>
-                        </p>
+
                         {{-- <p class="text-sm pb-0 text-muted font-italic text-center text-sm-right">{{ __('Website') }}: <a
                                 target="_blank"
                                 href="https://addmes.mezagebtnet.com/courses">https://addmes.mezagebtnet.com/courses</a></p>
@@ -211,11 +214,13 @@
                             {{ __('by Addmesh Book Trading') }} </p> --}}
                     </div>
                     <div class="col-12 col-sm-4 d-inline-block text-center text-sm-left"
-                        style="margin-top: auto;margin-bottom: auto; padding: 1rem;display: block;display: inline-block !important;">
-                        <span class=" justify-content-center align-middle">
-                            <p style="mb-0" style="margin-bottom: 0;">{{ __('To watch the videos') }} </p>
-                            <a href="{{ route('channel.landing', 'addmes') }}"
-                                class="btn btn-block bg-gradient-warning btn-lg mx-atuo ">{{ __('Enter Here') }}!</a>
+                        style="margin-top: auto;margin-bottom: auto; padding: 1rem;display: inline-block !important;"
+                        >
+                <span class=" justify-content-center align-middle">
+                            {{-- <p style="mb-0" style="margin-bottom: 0;">  </p> --}}
+                            <a href="{{ route('gizepackages.index') }}"
+                                style="opacity:0.7"
+                                class="btn btn-block bg-gradient-dark btn-lg mx-atuo ">{{ __('Gize Packages') }}!</a>
 
                         </span>
 
@@ -307,7 +312,9 @@
 
 
                         @for ($i = 0; $i < $featured_videos->count(); $i++)
+
                             @php
+
                                 $archive = $featured_videos[$i];
                                 $key = $i;
                             @endphp
