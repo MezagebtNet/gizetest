@@ -52,9 +52,10 @@ class GizePackageController extends Controller
                 }
                 $start_date = $package->start_date;
                 $package->months = $months;
-                $package->expires_at = Date::createFromFormat('Y-m-d H:i:s', $package->start_date)->addMonths($months)->setTimezone(\Config::get('app.timezone'))->diffForHumans();
+                $package->expires_at = Date::createFromFormat('Y-m-d H:i:s', $package->start_date)->addMonths($months)->addDays($package->extended_days)->setTimezone(\Config::get('app.timezone'))->diffForHumans();
 
-                $end_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $start_date)->addMonths($months);
+                $end_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $start_date)->addMonths($months)->addDays($package->extended_days);
+                $package->end_date_formatted = $end_date->format('M d, Y h:i A');
                 $check = $now->between(Date::createFromFormat('Y-m-d H:i:s', $start_date), $end_date);
                 // dd($end_date->toDateTimeString());
                 // dd($check);

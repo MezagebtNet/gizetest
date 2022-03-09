@@ -161,11 +161,10 @@ class GizePackagesPageController extends Controller
             if($gize_package !=null){
     		  	$package_months = $gize_package->value('months');
                 $months = $package_months;
-
                 $start_date = $package->start_date;
-                $package->expires_at = Date::createFromFormat('Y-m-d H:i:s', $package->start_date)->addMonths($months)->setTimezone(\Config::get('app.timezone'))->diffForHumans();
+                $package->expires_at = Date::createFromFormat('Y-m-d H:i:s', $package->start_date)->addMonths($months)->addDays($package->extended_days)->setTimezone(\Config::get('app.timezone'))->diffForHumans();
 
-                $end_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $start_date)->addMonths($months);
+                $end_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $start_date)->addMonths($months)->addDays($package->extended_days);
 
                 $check = $now->between($start_date, $end_date);
 
