@@ -100,8 +100,9 @@
                         <dt>{{ __('Rental Ends At') }}</dt>
                         <dd>
                             <span class="endtime">
-                                {{ Jenssegers\Date\Date::createFromFormat('Y-m-d H:i:s', $video->rental_detail->started_at)->addHours($video->rental_detail->for_hours)->setTimezone(\Config::get('app.timezone'))->format('M d, Y h:i A') }}
-                                ({{ Jenssegers\Date\Date::createFromFormat('Y-m-d H:i:s', $video->rental_detail->started_at)->addHours($video->rental_detail->for_hours)->setTimezone(\Config::get('app.timezone'))->diffForHumans() }})
+                                {{-- {{ Jenssegers\Date\Date::createFromFormat('Y-m-d H:i:s', $video->rental_detail->started_at)->addHours($video->rental_detail->for_hours)->setTimezone(\Config::get('app.timezone'))->format('M d, Y h:i A') }} --}}
+                                {{ Jenssegers\Date\Date::createFromFormat('Y-m-d H:i:s', $video->rental_detail->started_at)->addDays($video->rental_detail->within_days)->setTimezone(\Config::get('app.timezone'))->format('M d, Y h:i A') }}
+                                ({{ Jenssegers\Date\Date::createFromFormat('Y-m-d H:i:s', $video->rental_detail->started_at)->addDays($video->rental_detail->within_days)->setTimezone(\Config::get('app.timezone'))->diffForHumans() }})
                             </span>
                             <br /><span class="badge badge-secondary ">{{ __('Timezone') }}: {{ \Config::get('app.timezone') }}</span>
 
