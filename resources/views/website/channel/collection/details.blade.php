@@ -985,6 +985,10 @@
                                         <ul class="list-unstyled">
                                             <li>Package: <b><br/>${ package.gize_package.for_unit_values } </b> {{ _('Videos') }}</li>
                                             <li>Balance: <b><br/>${ package.unit_values_balance } </b> {{ _('Videos') }}</li>
+
+                                            <li>Expires: <b><br/>${ package.expires_at } </b> <br/>
+                                                <span>${ package.expires_at_formated }</span><br/>
+                                                <span style="color: #57b87b">${ package.extended_days != 0 ? '** This package is extended for ' + package.extended_days + ((package.extended_days != 1)?' more days. **': ' day. **'): '' }</span></li>
                                             </ul>
                                         <div class="table_btn"> <button class="btn btn-order btn-dark"
                                             data-months = "${ package.months}"

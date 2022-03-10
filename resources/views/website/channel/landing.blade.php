@@ -531,37 +531,32 @@
             </div>
         </section>
     </div>
+    <ul class="nav nav-pills nav-justified sticky-top mt-4" id="menuTab" role="tablist">
+        {{-- <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="my-streams-tab" data-toggle="tab" href="#my-streams" role="tab"
+                aria-controls="my-streams" aria-selected="true">
+                <i class="mr-1 mb-2 fa fa-minus d-none video-playing-indicator"></i>
+                {{ __('My Videos') }}
+            </a>
+        </li> --}}
+        {{-- @if ($gize_channel->has_batch_videos)
 
-    <div class=" px-4 pt-4  pb-4">
-        <div class="">
-            @if($collections->count())
-            <h4 class="mt-5">{{ __('Bundle Videos From This Channel') }}</h4>
-            <h6 class=" text-muted mb-0">
-                {{ __('Series Video Collection Grouped in the form of a Book/Chapters or Season/Episoids') }}
-                <button class="btn btn-xs btn-outline-info btn-refresh float-right mr-2 mt-1">
-                    <i class="fa fa-recycle"></i> {{ __('Reload') }}
-                </button>
-            </h6>
-            <hr />
-            @endif
-
-            <div class="  flex-row justify-content-between">
-                    @foreach ($collections as $collection)
-
-                        <div style="">
-
-                            <x-channels.collection-card :channel="$gize_channel"
-                            :collection="$collection"
-                            />
-
-                        </div>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="schedule-tab" data-toggle="tab" href="#schedule" role="tab"
+                    aria-controls="schedule" aria-selected="false">{{ __('Schedule') }}</a>
+            </li>
+        @endif --}}
+        <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="archive-tab" data-toggle="tab" href="#archive" role="tab"
+                aria-controls="archive" aria-selected="ትሩእ">{{ __('Archive') }}</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="about-tab" data-toggle="tab" href="#about" role="tab"
+                aria-controls="about" aria-selected="false">{{ __('About Channel') }}</a>
+        </li>
+    </ul>
 
 
-
-                    @endforeach
-            </div>
-        </div>
-    </div>
     <div class="videos-grid-wrapper px-4 pt-4 pt-5 pb-4">
 
         {{-- @include('website.user.top-menu') --}}
@@ -593,36 +588,13 @@
 
 
 
-                <ul class="nav nav-pills nav-justified sticky-top mt-4" id="menuTab" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link active" id="my-streams-tab" data-toggle="tab" href="#my-streams" role="tab"
-                            aria-controls="my-streams" aria-selected="true">
-                            <i class="mr-1 mb-2 fa fa-minus d-none video-playing-indicator"></i>
-                            {{ __('My Videos') }}
-                        </a>
-                    </li>
-                    @if ($gize_channel->has_batch_videos)
 
-                        <li class="nav-item" role="presentation">
-                            <a class="nav-link" id="schedule-tab" data-toggle="tab" href="#schedule" role="tab"
-                                aria-controls="schedule" aria-selected="false">{{ __('Schedule') }}</a>
-                        </li>
-                    @endif
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link  " id="archive-tab" data-toggle="tab" href="#archive" role="tab"
-                            aria-controls="archive" aria-selected="false">{{ __('Archive') }}</a>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link" id="about-tab" data-toggle="tab" href="#about" role="tab"
-                            aria-controls="about" aria-selected="false">{{ __('About Channel') }}</a>
-                    </li>
-                </ul>
 
                 <div class="tab-content">
 
-                    <div class="tab-pane active mt-4" id="my-streams" role="tabpanel" aria-labelledby="my-streams-tab">
+                    <div class="tab-pane  mt-4" id="my-streams" role="tabpanel" aria-labelledby="my-streams-tab">
                         @auth
-                            @if ($gize_channel->has_batch_videos)
+                            {{-- @if ($gize_channel->has_batch_videos)
                                 <h4 class="">{{ __('My Streamed Videos') }}</h4>
 
                                 <h6 class="
@@ -647,8 +619,6 @@
                                 <div class="
                                             streams-container">
 
-                                    {{-- <div class="justify-content-sm-center"> --}}
-                                    {{-- <center> --}}
                                     <div class=" grid-container">
                                         @if ($activevideos->count() == 0)
                                             <div>
@@ -670,8 +640,6 @@
                                             </div>
                                         @endif
                                         <div id="video-cards" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 ">
-                                            {{-- {{ dd($activevideos[0]->video->poster_image_url) }} --}}
-                                            {{-- {{  dd($activevideos)}} --}}
 
                                             @for ($i = 0; $i < $activevideos->count(); $i++)
 
@@ -679,7 +647,6 @@
                                                     $active = $activevideos[$i];
                                                     $key = $i;
                                                 @endphp
-                                                {{-- {{ dd($active->id) }} --}}
 
                                                 <x-channels.player :vidid="$active->id" :viddomid="'v'.$key.$active->id"
                                                     :vidtitle="$active->title" :viddescription="$active->description"
@@ -689,142 +656,12 @@
 
                                             @endfor
                                         </div>
-                                        {{-- </center> --}}
-                                        {{-- </div> --}}
+
                                     </div>
 
                                 </div>
-                            @endif
-                            <h4 class="mt-3">{{ __('Rentals') }}</h4>
-                            <h6 class=" text-muted mb-0">
-                                {{ __('Your rented videos from this channel') }}
-                                <button class="btn btn-xs btn-outline-info btn-refresh float-right mr-2 mt-1">
-                                    <i class="fa fa-recycle"></i> {{ __('Reload') }}
-                                </button>
-                            </h6>
-                            <hr />
+                            @endif --}}
 
-                            <div class="rentals-container">
-
-                                {{-- <div class="justify-content-sm-center"> --}}
-                                {{-- <center> --}}
-                                <div class=" grid-container">
-                                    @if ($activerentals->count() == 0)
-                                        <div>
-
-                                            <p class="text-center text-muted">
-                                                {{ __('You have no rental videos available') }}<br />
-                                                {{ __('If you would like to rent videos please contact the channel admin.') }}
-                                            </p>
-                                            <p class="text-center text-muted">
-                                                <a class="btn btn-sm btn-outline-secondary" href="{{ route('web.home') }}">
-                                                    {{ __('Go back to home') }}
-                                                </a>
-                                                <button class="btn btn-refresh btn-sm btn-outline-secondary">
-                                                    {{ __('Reload') }}
-                                                </button>
-                                            </p>
-
-                                        </div>
-                                    @endif
-                                    <div id="video-cards" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 ">
-                                        {{-- {{ dd($activevideos[0]->video->poster_image_url) }} --}}
-                                        {{-- {{ dd($activerentals[0]->title) }} --}}
-
-
-                                        @for ($i = 0; $i < $activerentals->count(); $i++)
-                                            @php
-                                                $active = $activerentals[$i];
-                                                $key = $i;
-                                            @endphp
-                                            {{-- {{ dd($active->id) }} --}}
-
-                                            <x-channels.rentalplayer :vidid="$active->id" :viddomid="'r'.$key.$active->id"
-                                                :vidtitle="$active->title" :viddescription="$active->description"
-                                                :vidposter="$active->poster_image_url" :video="$active" />
-
-
-
-                                        @endfor
-                                    </div>
-                                    {{-- </center> --}}
-                                    {{-- </div> --}}
-                                </div>
-
-                            </div>
-
-                            <div class="row pt-4">
-                                <div class="col">
-                                    <h4 class="">{{ __('Featured') }}</h4>
-                                    <h6 class=" text-muted mb-0">
-                                        {{ __('Featured videos from this channel') }}
-                                    </h6>
-                                    <hr />
-                                </div>
-
-                            </div>
-
-                            <div class="featured-container">
-
-                                <div id=" archive-cards" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 ">
-                                    {{-- {{ dd($activevideos[0]->video->poster_image_url) }} --}}
-                                    {{-- {{ dd($activerentals[0]->title) }} --}}
-
-
-                                    @for ($i = 0; $i < $archives->count(); $i++)
-                                        @php
-                                            $archive = $archives[$i];
-                                            if (!$archive->is_featured) {
-                                                continue;
-                                            }
-                                            $key = $i;
-                                        @endphp
-                                        {{-- {{ dd($active->id) }} --}}
-                                        @if ($archive->is_free)
-                                            {{-- <a href="#modal"
-                                                                            data-vid_title = "{{ $archive->title }}"
-                                                                            data-vid_duration = "{{ $archive->duration }}"
-                                                                            data-vid_host = "{{ $archive->trainer }}">
-
-                                                                            <x-channels.archivecard :archivevid="$archive"/>
-
-                                                                        </a> --}}
-                                            <a href="{{ url('/play?v=' . $archive->hashid) }}" class=" "
-                                                vid_id="{{ $archive->id }}" vid_title="{{ $archive->title }}"
-                                                vid_duration="{{ $archive->duration }}" vid_host="{{ $archive->trainer }}"
-                                                vid_channel="{{ $archive->gize_channel_id }}"
-                                                vid_channel_name="{{ $archive->gizeChannel->name }}"
-                                                vid_channel_logo="{{ $archive->gizeChannel->logo_image_url }}"
-                                                vid_channel_phone_number="{{ $archive->gizeChannel->phone_number }}"
-                                                vid_channel_contact_address="{{ $archive->gizeChannel->contact_address }}"
-                                                vid_channel_website="{{ $archive->gizeChannel->website }}"
-                                                vid_channel_file_url="{{ $archive->file_url != null ? $archive->file_url : '' }}"
-                                                vid_image_url="{{ asset('storage/' . $archive->thumb_image_url) }}">
-
-                                                <x-channels.archivecard :archivevid="$archive" />
-
-                                            </a>
-
-                                        @else
-                                            <a href="javascript: void(0);" class="archivevid"
-                                                vid_title="{{ $archive->title }}" vid_duration="{{ $archive->duration }}"
-                                                vid_host="{{ $archive->trainer }}"
-                                                vid_channel="{{ $archive->gize_channel_id }}"
-                                                vid_channel_name="{{ $archive->gizeChannel->name }}"
-                                                vid_channel_phone_number="{{ $archive->gizeChannel->phone_number }}"
-                                                vid_channel_contact_address="{{ $archive->gizeChannel->contact_address }}"
-                                                vid_channel_website="{{ $archive->gizeChannel->website }}"
-                                                vid_image_url="{{ asset('storage/' . $archive->thumb_image_url) }}">
-
-                                                <x-channels.archivecard :archivevid="$archive" />
-                                            </a>
-                                        @endif
-
-
-
-                                    @endfor
-                                </div>
-                            </div>
                         @endauth
 
                         @guest
@@ -835,21 +672,7 @@
                     @if ($gize_channel->has_batch_videos)
                         <div class="tab-pane mt-4" id="schedule" role="tabpanel" aria-labelledby="schedule-tab">
                             @auth
-                                {{-- <div id='top' class="container">
 
-                                    <div style='float:left'>
-                                        <select id='time-zone-selector'>
-                                            <option value='local'>local</option>
-                                            <option value='UTC' selected>UTC</option>
-                                        </select>
-                                    </div>
-                                    <div style='float:right'>
-                                        <span id='loading'>loading...</span>
-
-                                    </div>
-
-                                    <div style='clear:both'></div>
-                                </div> --}}
                                 <div class="container">
                                     @if (app()->getLocale() == 'am')
                                         <div style="opacity: 1; color: black;"
@@ -871,87 +694,113 @@
                             @endguest
                         </div>
                     @endif
-                    <div class="tab-pane  mt-4" id="archive" role="tabpanel" aria-labelledby="archive-tab">
-                        <h4 class="mt-3">{{ __('Archive') }}</h4>
-                        <h6 class=" text-muted mb-0">
-                            {{ __('Video archives from this channel') }}
-                            <button class="btn btn-xs btn-outline-info btn-refresh float-right mr-2 mt-1">
-                                <i class="fa fa-recycle"></i> {{ __('Reload') }}
-                            </button>
-                        </h6>
-                        <hr />
-                        {{-- {{ dd($archives) }} --}}
-                        <div class=" grid-container">
-                            @if ($archives->count() == 0)
-                                <div>
+                    <div class="tab-pane active  mt-6" id="archive" role="tabpanel" aria-labelledby="archive-tab">
+                        <div class="container">
 
-                                    <p class="text-center text-muted">
-                                        {{ __('There are no videos in archive') }}<br />
-                                    </p>
-                                    <p class="text-center text-muted">
-                                        <a class="btn btn-sm btn-outline-secondary" href="{{ route('web.home') }}">
-                                            {{ __('Go back to home') }}
-                                        </a>
-                                        <button class="btn btn-refresh btn-sm btn-outline-secondary">
-                                            {{ __('Reload') }}
+
+
+                            <div class=" pt-4  pb-4">
+                                <div class="">
+                                    @if($collections->count())
+                                    <h4 class="mt-5">{{ __('Bundle Videos From This Channel') }}</h4>
+                                    <h6 class=" text-muted mb-0">
+                                        {{ __('Series Video Collection Grouped in the form of a Book/Chapters or Season/Episoids') }}
+                                        <button class="btn btn-xs btn-outline-info btn-refresh float-right mr-2 mt-1">
+                                            <i class="fa fa-recycle"></i> {{ __('Reload') }}
                                         </button>
-                                    </p>
-
-                                </div>
-                            @endif
-
-                            <div id="archive-cards" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 ">
-                                {{-- {{ dd($activevideos[0]->video->poster_image_url) }} --}}
-                                {{-- {{ dd($activerentals[0]->title) }} --}}
-
-
-                                @for ($i = 0; $i < $archives->count(); $i++)
-                                    @php
-                                        $archive = $archives[$i];
-                                        $key = $i;
-                                    @endphp
-                                    {{-- {{ dd($active->id) }} --}}
-                                    @if ($archive->is_free)
-                                        {{-- <a href="#modal"
-                                            data-vid_title = "{{ $archive->title }}"
-                                            data-vid_duration = "{{ $archive->duration }}"
-                                            data-vid_host = "{{ $archive->trainer }}">
-
-                                            <x-channels.archivecard :archivevid="$archive"/>
-
-                                        </a> --}}
-                                        <a href="{{ url('/play?v=' . $archive->hashid) }}" class=" "
-                                            vid_id="{{ $archive->id }}" vid_title="{{ $archive->title }}"
-                                            vid_duration="{{ $archive->duration }}" vid_host="{{ $archive->trainer }}"
-                                            vid_image_url="{{ asset('storage/' . $archive->thumb_image_url) }}"
-                                            vid_channel="{{ $archive->gize_channel_id }}"
-                                            vid_channel_file_url="{{ $archive->file_url != null ? $archive->file_url : '' }}"
-                                            vid_channel_name="{{ $archive->gizeChannel->name }}"
-                                            vid_channel_logo="{{ $archive->gizeChannel->logo_image_url }}">
-
-                                            <x-channels.archivecard :archivevid="$archive" />
-
-                                        </a>
-
-                                    @else
-                                        <a href="javascript: void(0);" class="archivevid"
-                                            vid_title="{{ $archive->title }}" vid_duration="{{ $archive->duration }}"
-                                            vid_host="{{ $archive->trainer }}"
-                                            vid_image_url="{{ asset('storage/' . $archive->thumb_image_url) }}"
-                                            vid_channel="{{ $archive->gize_channel_id }}"
-                                            vid_channel_name="{{ $archive->gizeChannel->name }}"
-                                            vid_channel_logo="{{ $archive->gizeChannel->logo_image_url }}">
-
-                                            <x-channels.archivecard :archivevid="$archive" />
-                                        </a>
+                                    </h6>
+                                    <hr />
                                     @endif
 
+                                    <div class="  flex-row justify-content-between">
+                                            @foreach ($collections as $collection)
+
+                                                <div style="">
+
+                                                    <x-channels.collection-card :channel="$gize_channel"
+                                                    :collection="$collection"
+                                                    />
+
+                                                </div>
 
 
-                                @endfor
+
+                                            @endforeach
+                                    </div>
+                                </div>
                             </div>
-                            {{-- </center> --}}
-                            {{-- </div> --}}
+                            <h4 class="mt-3">{{ __('Archive') }}</h4>
+                            <h6 class=" text-muted mb-0">
+                                {{ __('Video archives from this channel') }}
+                                <button class="btn btn-xs btn-outline-info btn-refresh float-right mr-2 mt-1">
+                                    <i class="fa fa-recycle"></i> {{ __('Reload') }}
+                                </button>
+                            </h6>
+                            <hr />
+
+                            <div class=" grid-container">
+                                @if ($archives->count() == 0)
+                                    <div>
+
+                                        <p class="text-center text-muted">
+                                            {{ __('There are no videos in archive') }}<br />
+                                        </p>
+                                        <p class="text-center text-muted">
+                                            <a class="btn btn-sm btn-outline-secondary" href="{{ route('web.home') }}">
+                                                {{ __('Go back to home') }}
+                                            </a>
+                                            <button class="btn btn-refresh btn-sm btn-outline-secondary">
+                                                {{ __('Reload') }}
+                                            </button>
+                                        </p>
+
+                                    </div>
+                                @endif
+
+                                <div id="archive-cards" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 ">
+
+
+                                    @for ($i = 0; $i < $archives->count(); $i++)
+                                        @php
+                                            $archive = $archives[$i];
+                                            $key = $i;
+                                        @endphp
+
+                                        @if ($archive->is_free)
+
+
+                                            <a href="{{ url('/play?v=' . $archive->hashid) }}" class=" "
+                                                vid_id="{{ $archive->id }}" vid_title="{{ $archive->title }}"
+                                                vid_duration="{{ $archive->duration }}" vid_host="{{ $archive->trainer }}"
+                                                vid_image_url="{{ asset('storage/' . $archive->thumb_image_url) }}"
+                                                vid_channel="{{ $archive->gize_channel_id }}"
+                                                vid_channel_file_url="{{ $archive->file_url != null ? $archive->file_url : '' }}"
+                                                vid_channel_name="{{ $archive->gizeChannel->name }}"
+                                                vid_channel_logo="{{ $archive->gizeChannel->logo_image_url }}">
+
+                                                <x-channels.archivecard :archivevid="$archive" />
+
+                                            </a>
+
+                                        @else
+                                            {{-- <a href="javascript: void(0);" class="archivevid"
+                                                vid_title="{{ $archive->title }}" vid_duration="{{ $archive->duration }}"
+                                                vid_host="{{ $archive->trainer }}"
+                                                vid_image_url="{{ asset('storage/' . $archive->thumb_image_url) }}"
+                                                vid_channel="{{ $archive->gize_channel_id }}"
+                                                vid_channel_name="{{ $archive->gizeChannel->name }}"
+                                                vid_channel_logo="{{ $archive->gizeChannel->logo_image_url }}">
+
+                                                <x-channels.archivecard :archivevid="$archive" />
+                                            </a> --}}
+                                        @endif
+
+
+
+                                    @endfor
+                                </div>
+
+                            </div>
                         </div>
                     </div>
                     <div class="tab-pane mt-4" id="about" role="tabpanel" aria-labelledby="about-tab">

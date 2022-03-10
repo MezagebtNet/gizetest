@@ -640,7 +640,7 @@
                                     </div>
 
                                 </div>
-
+                                {{--
                                 <h4 class="">{{ __('My Streamed Videos') }}</h4>
 
                                 <h6 class="
@@ -651,6 +651,7 @@
                                     </button>
                                 </h6>
                                 <hr />
+
 
 
                                 <div style="text-align: center;" class="spin-8">
@@ -664,9 +665,6 @@
                                 </div>
                                 <div class="
                                             streams-container">
-
-                                    {{-- <div class="justify-content-sm-center"> --}}
-                                    {{-- <center> --}}
                                     <div class=" grid-container">
                                         @if ($activevideos->count() == 0)
                                             <div>
@@ -688,8 +686,7 @@
                                             </div>
                                         @endif
                                         <div id="video-cards" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 ">
-                                            {{-- {{ dd($activevideos[0]->video->poster_image_url) }} --}}
-                                            {{-- {{  dd($activevideos)}} --}}
+
 
                                             @for ($i = 0; $i < $activevideos->count(); $i++)
 
@@ -697,7 +694,6 @@
                                                     $active = $activevideos[$i];
                                                     $key = $i;
                                                 @endphp
-                                                {{-- {{ dd($active->id) }} --}}
 
                                                 <x-channels.player :vidid="$active->id" :viddomid="'v'.$key.$active->id"
                                                     :vidtitle="$active->title" :viddescription="$active->description"
@@ -706,14 +702,11 @@
 
 
                                             @endfor
-                                        </div>
-                                        {{-- </center> --}}
-                                        {{-- </div> --}}
                                     </div>
 
                                 </div>
 
-
+                                --}}
 
 
                         @endauth
