@@ -247,8 +247,8 @@
             list-style: none;
             padding: 0;
             position: relative;
-            max-width: 600px;
-            margin: 20px auto 26px;
+            /* max-width: 600px; */
+            /* margin: 20px auto 26px; */
             border: none;
             z-index: 0;
         }
@@ -273,7 +273,7 @@
         }
         .process-model li {
             display: inline-block;
-            width: 30%;
+            width: 47%;
             text-align: center;
             float: none;
         }
