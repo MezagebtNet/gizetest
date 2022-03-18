@@ -115,7 +115,9 @@ class GizePackagesPageController extends Controller
 
                         $start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', UserGizePackage::find($package_id)->start_date);
                         // $within_days = $start_date->diffInDays(\Carbon\Carbon::now()->addMonths($package_months));
-                        $within_days = \Carbon\Carbon::now()->diffInDays($start_date->copy()->addMonths($package_months));
+                        $extended_days = UserGizePackage::find($package_id)->extended_days;
+
+                        $within_days = \Carbon\Carbon::now()->diffInDays($start_date->copy()->addMonths($package_months)->addDays($extended_days));
 
                         // return $within_days;
 
