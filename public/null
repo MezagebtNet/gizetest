@@ -1,9 +1,446 @@
-User::all()
-User::all();
-User::all()->orderBy('Desc');
-User::all()->orderBy('id','Desc');
-User::all()->orderBy('id','Desc')->get9);
-User::all()->orderBy('id','Desc')->get();
-User::where('language-preference', 'en')->orderBy('id','Desc')->get();
-User::where('language-preference', 'en')->orderBy('id','Desc')->get();
-User::orderBy('id','Desc')->get();
+UserGizePackage::where('user_id', 2)->where('id', 2)->first();
+UserGizePackage::where('user_id', 2)->where('id', 2)->first()->gize_package->months;
+$published_at = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', Date::now())->toDateTimeString();
+$user_gize_package = UserGizePackage::find(2);
+
+$package_months = UserGizePackage::where('user_id', 2)->where('id', 2)->first()->gize_package->months;
+
+$start_date =\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $published_at);
+$within_days = $start_date->diffInDays(\Carbon\Carbon::now()->addMonths($package_months));
+
+return $within_days;
+$published_at = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', Date::now())->toDateTimeString();
+$user_gize_package = UserGizePackage::find(2);
+
+$package_months = UserGizePackage::where('user_id', 2)->where('id', 2)->first()->gize_package->months;
+
+$start_date =\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $published_at);
+$within_days = $start_date->diffInDays(\Carbon\Carbon::now()->addMonths($package_months));
+
+return $start_date;
+$published_at = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', Date::now())->toDateTimeString();
+$user_gize_package = UserGizePackage::find(2);
+
+$package_months = UserGizePackage::where('user_id', 2)->where('id', 2)->first()->gize_package->months;
+
+$start_date =UserGizePackage::find(2)->first()->start_date;
+$within_days = $start_date->diffInDays(\Carbon\Carbon::now()->addMonths($package_months));
+
+return $start_date;
+$published_at = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', Date::now())->toDateTimeString();
+$user_gize_package = UserGizePackage::find(2);
+
+$package_months = UserGizePackage::where('user_id', 2)->where('id', 2)->first()->gize_package->months;
+
+$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', UserGizePackage::find(2)->first()->start_date);
+$within_days = $start_date->diffInDays(\Carbon\Carbon::now()->addMonths($package_months));
+
+return $start_date;
+$published_at = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', Date::now())->toDateTimeString();
+$user_gize_package = UserGizePackage::find(2);
+
+$package_months = UserGizePackage::where('user_id', 2)->where('id', 2)->first()->gize_package->months;
+
+$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', UserGizePackage::find(2)->first()->start_date);
+$within_days = $start_date->diffInDays($start_date->copy()->addMonths($package_months));
+
+return $start_date;
+$published_at = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', Date::now())->toDateTimeString();
+$user_gize_package = UserGizePackage::find(2);
+
+$package_months = UserGizePackage::where('user_id', 2)->where('id', 2)->first()->gize_package->months;
+
+$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', UserGizePackage::find(2)->first()->start_date);
+$within_days = $start_date->diffInDays($start_date->copy()->addMonths($package_months));
+
+return $start_date;
+$published_at = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', Date::now())->toDateTimeString();
+$user_gize_package = UserGizePackage::find(2);
+
+$package_months = UserGizePackage::where('user_id', 2)->where('id', 2)->first()->gize_package->months;
+
+$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', UserGizePackage::find(2)->first()->start_date);
+$within_days = $start_date->diffInDays($start_date->copy()->addMonths($package_months));
+
+return $within_days;
+$published_at = \Carbon\Carbon::now();
+$user_gize_package = UserGizePackage::find(2);
+
+$package_months = UserGizePackage::where('user_id', 2)->where('id', 2)->first()->gize_package->months;
+
+$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', UserGizePackage::find(2)->first()->start_date);
+$within_days = $start_date->diffInDays($start_date->copy()->addMonths($package_months));
+
+return $within_days;
+$published_at = \Carbon\Carbon::now();
+$user_gize_package = UserGizePackage::find(2);
+
+$package_months = UserGizePackage::where('user_id', 2)->where('id', 2)->first()->gize_package->months;
+
+$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', UserGizePackage::find(2)->first()->start_date);
+$within_days = \Carbon\Carbon::now()->diffInDays($start_date->copy()->addMonths($package_months));
+
+return $within_days;
+$published_at = \Carbon\Carbon::now();
+$user_gize_package = UserGizePackage::find(2);
+
+$package_months = UserGizePackage::where('user_id', 2)->where('id', 2)->first()->gize_package->months;
+
+$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', UserGizePackage::find(2)->first()->start_date);
+$within_days = \Carbon\Carbon::now()->diffInDays($start_date->copy()->addMonths($package_months));
+
+return \Carbon\Carbon::now();
+$published_at = \Carbon\Carbon::now();
+$user_gize_package = UserGizePackage::find(2);
+
+$package_months = UserGizePackage::where('user_id', 2)->where('id', 2)->first()->gize_package->months;
+
+$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', UserGizePackage::find(2)->first()->start_date);
+$within_days = \Carbon\Carbon::now()->diffInDays($start_date->copy()->addMonths($package_months));
+
+return \Carbon\Carbon::now();
+$published_at = \Carbon\Carbon::now();
+$user_gize_package = UserGizePackage::find(2);
+
+$package_months = UserGizePackage::where('user_id', 2)->where('id', 2)->first()->gize_package->months;
+
+$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', UserGizePackage::find(2)->first()->start_date);
+$within_days = \Carbon\Carbon::now()->diffInDays($start_date->copy()->addMonths($package_months));
+
+return $start_date->copy();
+$published_at = \Carbon\Carbon::now();
+$user_gize_package = UserGizePackage::find(2);
+
+$package_months = UserGizePackage::where('user_id', 2)->where('id', 2)->first()->gize_package->months;
+
+$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', UserGizePackage::find(2)->first()->start_date);
+$within_days = \Carbon\Carbon::now()->diffInDays($start_date->copy()->addMonths($package_months));
+
+return $start_date->copy()->addMonths($package_months);
+$published_at = \Carbon\Carbon::now();
+$user_gize_package = UserGizePackage::find(2);
+
+$package_months = UserGizePackage::where('user_id', 2)->where('id', 2)->first()->gize_package->months;
+
+$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', UserGizePackage::find(2)->first()->start_date);
+$within_days = \Carbon\Carbon::now()->diffInDays($start_date->copy()->addMonths($package_months));
+
+return \Carbon\Carbon::now();
+$published_at = \Carbon\Carbon::now();
+$user_gize_package = UserGizePackage::find(2);
+
+$package_months = UserGizePackage::where('user_id', 2)->where('id', 2)->first()->gize_package->months;
+
+$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', UserGizePackage::find(2)->first()->start_date);
+$within_days = \Carbon\Carbon::now()->diffInDays($start_date->copy()->addMonths($package_months));
+
+return $start_date->copy()->addMonths($package_months);
+
+$published_at = \Carbon\Carbon::now();
+$user_gize_package = UserGizePackage::find(2);
+
+$package_months = UserGizePackage::where('user_id', 2)->where('id', 2)->first()->gize_package->months;
+
+$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', UserGizePackage::find(2)->first()->start_date);
+$within_days = \Carbon\Carbon::now()->diffInDays($start_date->copy()->addMonths($package_months));
+
+return \Carbon\Carbon::now()->diffInDays($start_date->copy()->addMonths($package_months));
+
+$published_at = \Carbon\Carbon::now();
+$user_gize_package = UserGizePackage::find(2);
+
+$package_months = UserGizePackage::where('user_id', 2)->where('id', 4)->first()->gize_package->months;
+
+$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', UserGizePackage::find(2)->first()->start_date);
+$within_days = \Carbon\Carbon::now()->diffInDays($start_date->copy()->addMonths($package_months));
+
+return \Carbon\Carbon::now()->diffInDays($start_date->copy()->addMonths($package_months));
+
+$published_at = \Carbon\Carbon::now();
+$user_gize_package = UserGizePackage::find(2);
+
+$package_months = UserGizePackage::where('user_id', 2)->where('id', 4)->first()->gize_package->months;
+
+$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', UserGizePackage::find(2)->first()->start_date);
+$within_days = \Carbon\Carbon::now()->diffInDays($start_date->copy()->addMonths($package_months));
+
+return \Carbon\Carbon::now();
+$published_at = \Carbon\Carbon::now();
+$user_gize_package = UserGizePackage::find(2);
+
+$package_months = UserGizePackage::where('user_id', 2)->where('id', 4)->first()->gize_package->months;
+
+$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', UserGizePackage::find(2)->first()->start_date);
+$within_days = \Carbon\Carbon::now()->diffInDays($start_date->copy()->addMonths($package_months));
+
+return $start_date;
+$published_at = \Carbon\Carbon::now();
+$user_gize_package = UserGizePackage::find(2);
+
+$package_months = UserGizePackage::where('user_id', 2)->where('id', 4)->first()->gize_package->months;
+
+$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', UserGizePackage::find(4)->first()->start_date);
+$within_days = \Carbon\Carbon::now()->diffInDays($start_date->copy()->addMonths($package_months));
+
+return $start_date;
+$published_at = \Carbon\Carbon::now();
+$user_gize_package = UserGizePackage::find(4);
+
+$package_months = UserGizePackage::where('user_id', 2)->where('id', 4)->first()->gize_package->months;
+
+$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', UserGizePackage::find(4)->first()->start_date);
+$within_days = \Carbon\Carbon::now()->diffInDays($start_date->copy()->addMonths($package_months));
+
+return $start_date;
+$published_at = \Carbon\Carbon::now();
+$user_gize_package = UserGizePackage::find(4);
+
+$package_months = UserGizePackage::where('user_id', 2)->where('id', 4)->first()->gize_package->months;
+
+$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', UserGizePackage::find(4)->first()->start_date);
+$within_days = \Carbon\Carbon::now()->diffInDays($start_date->copy()->addMonths($package_months));
+
+return $start_date;
+$package_id = 4;
+$user_id = 2;
+$published_at = \Carbon\Carbon::now();
+$user_gize_package = UserGizePackage::find($package_id);
+
+$package_months = UserGizePackage::where('user_id', $user_id)->where('id', $package_id)->first()->gize_package->months;
+
+$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', UserGizePackage::find($package_id)->first()->start_date);
+$within_days = \Carbon\Carbon::now()->diffInDays($start_date->copy()->addMonths($package_months));
+
+return $start_date;
+$package_id = 4;
+$user_id = 2;
+$published_at = \Carbon\Carbon::now();
+$user_gize_package = UserGizePackage::find($package_id);
+
+$package_months = UserGizePackage::where('user_id', $user_id)->where('id', $package_id)->first()->gize_package->months;
+
+$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', UserGizePackage::find($package_id)->first()->start_date);
+$within_days = \Carbon\Carbon::now()->diffInDays($start_date->copy()->addMonths($package_months));
+
+return $start_date;
+$package_id = 4;
+$user_id = 2;
+$published_at = \Carbon\Carbon::now();
+$user_gize_package = UserGizePackage::find($package_id);
+
+$package_months = UserGizePackage::where('user_id', $user_id)->where('id', $package_id)->first()->gize_package->months;
+
+$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', UserGizePackage::find($package_id)->first()->start_date);
+$within_days = \Carbon\Carbon::now()->diffInDays($start_date->copy()->addMonths($package_months));
+
+return \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', UserGizePackage::find($package_id)->first()->start_date);;
+$package_id = 4;
+$user_id = 2;
+$published_at = \Carbon\Carbon::now();
+$user_gize_package = UserGizePackage::find($package_id);
+
+$package_months = UserGizePackage::where('user_id', $user_id)->where('id', $package_id)->first()->gize_package->months;
+
+$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', UserGizePackage::find($package_id)->first()->start_date);
+$within_days = \Carbon\Carbon::now()->diffInDays($start_date->copy()->addMonths($package_months));
+
+return \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', UserGizePackage::find($package_id)->first()->start_date);;
+$package_id = 4;
+$user_id = 2;
+$published_at = \Carbon\Carbon::now();
+$user_gize_package = UserGizePackage::find($package_id);
+
+$package_months = UserGizePackage::where('user_id', $user_id)->where('id', $package_id)->first()->gize_package->months;
+
+$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', UserGizePackage::find($package_id)->first()->start_date);
+$within_days = \Carbon\Carbon::now()->diffInDays($start_date->copy()->addMonths($package_months));
+
+return $start_date;
+$package_id = 4;
+$user_id = 2;
+$published_at = \Carbon\Carbon::now();
+$user_gize_package = UserGizePackage::find($package_id);
+
+$package_months = UserGizePackage::where('user_id', $user_id)->where('id', $package_id)->first()->gize_package->months;
+
+$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', UserGizePackage::find($package_id)->first()->start_date);
+$within_days = \Carbon\Carbon::now()->diffInDays($start_date->copy()->addMonths($package_months));
+
+return $within_days;
+$package_id = 4;
+$user_id = 2;
+$published_at = \Carbon\Carbon::now();
+$user_gize_package = UserGizePackage::find($package_id);
+
+$package_months = UserGizePackage::where('user_id', $user_id)->where('id', $package_id)->first()->gize_package->months;
+
+$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', UserGizePackage::find($package_id)->first()->start_date);
+$within_days = \Carbon\Carbon::now()->diffInDays($start_date->copy()->addMonths($package_months));
+
+return $within_days;
+$package_id = 4;
+$user_id = 2;
+$published_at = \Carbon\Carbon::now();
+$user_gize_package = UserGizePackage::find($package_id);
+
+$package_months = UserGizePackage::where('user_id', $user_id)->where('id', $package_id)->first()->gize_package->months;
+
+$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', UserGizePackage::find($package_id)->first()->start_date);
+$within_days = \Carbon\Carbon::now()->diffInDays($start_date->copy()->addMonths($package_months));
+
+return $start_date;
+$package_id = 4;
+$user_id = 2;
+$published_at = \Carbon\Carbon::now();
+$user_gize_package = UserGizePackage::find($package_id);
+
+$package_months = UserGizePackage::where('user_id', $user_id)->where('id', $package_id)->first()->gize_package->months;
+
+$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', UserGizePackage::find($package_id)->first()->start_date);
+$within_days = \Carbon\Carbon::now()->diffInDays($start_date->copy()->addMonths($package_months));
+
+return $start_date;
+$package_id = 3;
+$user_id = 2;
+$published_at = \Carbon\Carbon::now();
+$user_gize_package = UserGizePackage::find($package_id);
+
+$package_months = UserGizePackage::where('user_id', $user_id)->where('id', $package_id)->first()->gize_package->months;
+
+$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', UserGizePackage::find($package_id)->first()->start_date);
+$within_days = \Carbon\Carbon::now()->diffInDays($start_date->copy()->addMonths($package_months));
+
+return $start_date;
+$package_id = 2;
+$user_id = 2;
+$published_at = \Carbon\Carbon::now();
+$user_gize_package = UserGizePackage::find($package_id);
+
+$package_months = UserGizePackage::where('user_id', $user_id)->where('id', $package_id)->first()->gize_package->months;
+
+$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', UserGizePackage::find($package_id)->first()->start_date);
+$within_days = \Carbon\Carbon::now()->diffInDays($start_date->copy()->addMonths($package_months));
+
+return $start_date;
+$package_id = 4;
+$user_id = 2;
+$published_at = \Carbon\Carbon::now();
+$user_gize_package = UserGizePackage::find($package_id);
+
+$package_months = UserGizePackage::where('user_id', $user_id)->where('id', $package_id)->first()->gize_package->months;
+
+$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', UserGizePackage::find($package_id)->first()->start_date);
+$within_days = \Carbon\Carbon::now()->diffInDays($start_date->copy()->addMonths($package_months));
+
+return $start_date;
+$package_id = 4;
+$user_id = 2;
+$published_at = \Carbon\Carbon::now();
+$user_gize_package = UserGizePackage::find($package_id);
+
+$package_months = UserGizePackage::where('user_id', $user_id)->where('id', $package_id)->first()->gize_package->months;
+
+$start_date = UserGizePackage::find($package_id)->first()->start_date;
+$within_days = \Carbon\Carbon::now()->diffInDays($start_date->copy()->addMonths($package_months));
+
+return $start_date;
+$package_id = 4;
+$user_id = 2;
+$published_at = \Carbon\Carbon::now();
+$user_gize_package = UserGizePackage::find($package_id);
+
+$package_months = UserGizePackage::where('user_id', $user_id)->where('id', $package_id)->first()->gize_package->months;
+
+$start_date = UserGizePackage::find($package_id)->first()->start_date;
+$within_days = \Carbon\Carbon::now()->diffInDays($start_date->copy()->addMonths($package_months));
+
+return UserGizePackage::find($package_id)->first()->start_date;;
+$package_id = 4;
+$user_id = 2;
+$published_at = \Carbon\Carbon::now();
+$user_gize_package = UserGizePackage::find($package_id);
+
+$package_months = UserGizePackage::where('user_id', $user_id)->where('id', $package_id)->first()->gize_package->months;
+
+$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', UserGizePackage::find($package_id)->first()->start_date);
+$within_days = \Carbon\Carbon::now()->diffInDays($start_date->copy()->addMonths($package_months));
+
+return UserGizePackage::find($package_id)->first()->start_date;
+$package_id = 4;
+$user_id = 2;
+$published_at = \Carbon\Carbon::now();
+$user_gize_package = UserGizePackage::find($package_id);
+
+$package_months = UserGizePackage::where('user_id', $user_id)->where('id', $package_id)->first()->gize_package->months;
+
+$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', UserGizePackage::find($package_id)->first()->start_date);
+$within_days = \Carbon\Carbon::now()->diffInDays($start_date->copy()->addMonths($package_months));
+
+return UserGizePackage::find(4)->first()->start_date;
+$package_id = 4;
+$user_id = 2;
+$published_at = \Carbon\Carbon::now();
+$user_gize_package = UserGizePackage::find($package_id);
+
+$package_months = UserGizePackage::where('user_id', $user_id)->where('id', $package_id)->first()->gize_package->months;
+
+$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', UserGizePackage::find($package_id)->first()->start_date);
+$within_days = \Carbon\Carbon::now()->diffInDays($start_date->copy()->addMonths($package_months));
+
+return UserGizePackage::find(4)->get()->start_date;
+$package_id = 4;
+$user_id = 2;
+$published_at = \Carbon\Carbon::now();
+$user_gize_package = UserGizePackage::find($package_id);
+
+$package_months = UserGizePackage::where('user_id', $user_id)->where('id', $package_id)->first()->gize_package->months;
+
+$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', UserGizePackage::find($package_id)->first()->start_date);
+$within_days = \Carbon\Carbon::now()->diffInDays($start_date->copy()->addMonths($package_months));
+
+return UserGizePackage::find(4)->start_date;
+$package_id = 4;
+$user_id = 2;
+$published_at = \Carbon\Carbon::now();
+$user_gize_package = UserGizePackage::find($package_id);
+
+$package_months = UserGizePackage::where('user_id', $user_id)->where('id', $package_id)->first()->gize_package->months;
+
+$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', UserGizePackage::find($package_id)->first()->start_date);
+$within_days = \Carbon\Carbon::now()->diffInDays($start_date->copy()->addMonths($package_months));
+
+return UserGizePackage::find(4)
+$package_id = 4;
+$user_id = 2;
+$published_at = \Carbon\Carbon::now();
+$user_gize_package = UserGizePackage::find($package_id);
+
+$package_months = UserGizePackage::where('user_id', $user_id)->where('id', $package_id)->first()->gize_package->months;
+
+$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', UserGizePackage::find($package_id)->first()->start_date);
+$within_days = \Carbon\Carbon::now()->diffInDays($start_date->copy()->addMonths($package_months));
+
+return UserGizePackage::find(4)->start_date;
+$package_id = 4;
+$user_id = 2;
+$published_at = \Carbon\Carbon::now();
+$user_gize_package = UserGizePackage::find($package_id);
+
+$package_months = UserGizePackage::where('user_id', $user_id)->where('id', $package_id)->first()->gize_package->months;
+
+$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', UserGizePackage::find($package_id)->start_date);
+$within_days = \Carbon\Carbon::now()->diffInDays($start_date->copy()->addMonths($package_months));
+
+return UserGizePackage::find(4)->start_date;
+$package_id = 4;
+$user_id = 2;
+$published_at = \Carbon\Carbon::now();
+$user_gize_package = UserGizePackage::find($package_id);
+
+$package_months = UserGizePackage::where('user_id', $user_id)->where('id', $package_id)->first()->gize_package->months;
+
+$start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', UserGizePackage::find($package_id)->start_date);
+$within_days = \Carbon\Carbon::now()->diffInDays($start_date->copy()->addMonths($package_months));
+
+return \Carbon\Carbon::now()->diffInDays($start_date->copy()->addMonths($package_months));
+

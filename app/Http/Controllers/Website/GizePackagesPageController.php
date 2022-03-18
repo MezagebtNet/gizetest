@@ -68,14 +68,22 @@ class GizePackagesPageController extends Controller
     public function orderVideoUsingPackage(Request $request){
         // return 1;
         $user_id = auth()->user()->id;
+        $user = User::find($user_id);
         $channelvideos = explode (",", $request->videos_in_cart);
 
-        $package_id = $request->package_id;
+        $package_id = UserGizePackage::where('user_id', $user_id)->where('id', $request->package_id)->first()->id;
+        if($package_id == null){
+            return response()->json(['fail' => "Rental is not set."]);
+        }
+
+        // $package_id =
         // $within_days = $request->within_days;
         $within_days = 7;
         // $for_hours = $request->for_hours;
         $for_hours = 24;
-        $published_at = $request->published_at;
+        // $published_at = $request->published_at;
+        $published_at = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', Date::now())->toDateTimeString();
+
         // return 'package '. $package_id;
 
         try {
@@ -87,11 +95,14 @@ class GizePackagesPageController extends Controller
                 $channelvideo = $channelvideo_id;
 
                 $users_available_packages = $this->getUserPackages($user_id);
+                // $users_available_packages =
+
+                // dd($users_available_packages);
 
                 // dd($package_id, $users_available_packages->pluck('id'));
                 // return $users_available_packages->pluck('id')->toArray();
                 // return $package_id;
-                if (in_array($package_id, $users_available_packages->pluck('id')->toArray())) {
+                // if (in_array($package_id, $users_available_packages->pluck('id')->toArray())) {
                     // dd( $channelvideo_id);
                     //check if package has sufficient balance
                     // return 'here';
@@ -99,10 +110,13 @@ class GizePackagesPageController extends Controller
 
                         $user_gize_package = UserGizePackage::find($package_id);
 
-                        $package_months = $user_gize_package->gize_package->value('months');
+                        // $package_months = $user_gize_package->gize_package->value('months');
+                        $package_months = UserGizePackage::where('user_id', $user_id)->where('id', $package_id)->first()->gize_package->months;
 
-                        $start_date =\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $published_at);
-                        $within_days = $start_date->diffInDays($start_date->copy()->addMonths($package_months)) + 1;
+                        $start_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', UserGizePackage::find($package_id)->start_date);
+                        // $within_days = $start_date->diffInDays(\Carbon\Carbon::now()->addMonths($package_months));
+                        $within_days = \Carbon\Carbon::now()->diffInDays($start_date->copy()->addMonths($package_months));
+
                         // return $within_days;
 
                         // place order
@@ -135,7 +149,7 @@ class GizePackagesPageController extends Controller
                     }
                     return response()->json(['success' => "Rental is set."]);
 
-                }
+                // }
 
 
             }
@@ -157,27 +171,25 @@ class GizePackagesPageController extends Controller
         //filter active , not-expired
         foreach($user_gize_packages as $package){
 
-            $gize_package = GizePackage::find($package->gize_package_id);
-            if($gize_package !=null){
-    		  	$package_months = $gize_package->value('months');
-                $months = $package_months;
-                $start_date = $package->start_date;
-                $package->expires_at = Date::createFromFormat('Y-m-d H:i:s', $package->start_date)->addMonths($months)->addDays($package->extended_days)->setTimezone(\Config::get('app.timezone'))->diffForHumans();
+            $gize_package_month = GizePackage::where('id', $package->gize_package_id)->value('months');
+            $months = $gize_package_month;
+            $start_date = $package->start_date;
+            $package->expires_at = Date::createFromFormat('Y-m-d H:i:s', $package->start_date)->addMonths($months)->addDays($package->extended_days)->setTimezone(\Config::get('app.timezone'))->diffForHumans();
+            $package->expires_at_formated = Date::createFromFormat('Y-m-d H:i:s', $package->start_date)->addMonths($months)->addDays($package->extended_days)->setTimezone(\Config::get('app.timezone'))->format('M d, Y (D)');
 
-                $end_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $start_date)->addMonths($months)->addDays($package->extended_days);
+            $end_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $start_date)->addMonths($months)->addDays($package->extended_days);
 
-                $check = $now->between($start_date, $end_date);
+            $check = $now->between($start_date, $end_date);
 
-                if ($check) {
-                    $package->status = 1; //active
-                }
-                else {
-                    $package->status = 0; //expired
-                }
+            if ($check) {
+                $package->status = 1; //active
+            }
+            else {
+                $package->status = 0; //expired
+            }
 
-                if($package->gize_package->active && $package->status){
-                    $available_packages = $available_packages->add($package);
-                }
+            if($package->gize_package->active && $package->status){
+                $available_packages = $available_packages->add($package);
             }
         }
 
