@@ -14,4 +14,6 @@ class GeoLocationController extends Controller
             $data = \Location::get($ip);
             dd($data);
     }
+
+
 }

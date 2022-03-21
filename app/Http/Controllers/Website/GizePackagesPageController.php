@@ -11,6 +11,8 @@ use App\Models\User;
 use App\Models\Channelvideo;
 use App\Models\UserGizePackageHistory;
 
+use Location;
+
 class GizePackagesPageController extends Controller
 {
     /**
@@ -21,9 +23,13 @@ class GizePackagesPageController extends Controller
     public function index()
     {
 
+        $ip = $request->ip();
+        $location_data = \Location::get($ip);
+
         $gize_packages = GizePackage::where('active', 1)->get();
         return view('website.gize_packages.index', compact(
-            'gize_packages'
+            'gize_packages',
+            'location_data'
         ));
 
     }

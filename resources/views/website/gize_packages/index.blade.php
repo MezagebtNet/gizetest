@@ -152,13 +152,26 @@
             </div> --}}
             <div class="container">
                 <div class="row">
+                    @guest
+                        @php
+                            if($location_data != null)
+                            {
+                                $currency_code  = $location_data->countryCode == "ET" ? 'ETB' : 'USD';
+                            }
+                            else {
+                                $currency_code = 'ETB';
+                            }
 
-                    @php
 
+                        @endphp
+                    @endguest
+                    @auth
+                        @php
                         $currency_code =   auth()->user() != null ? (auth()->user()->currency_code == 'ETB'? 'ETB' : 'USD'): 'ETB';
                         // $currency_code = 'ETB';
+                        @endphp
+                    @endauth
 
-                    @endphp
                     @foreach ($gize_packages as $package)
                         <div class="col-md-6 col-lg-3 my-2 grow">
                             <div class="block-pricing">
