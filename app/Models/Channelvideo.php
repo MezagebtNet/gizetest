@@ -44,7 +44,17 @@ class Channelvideo extends Model
     protected $appends = [
         'hashid',
         'collection_id',
+        'days_elapsed',
     ];
+
+    public function getDaysElapsedAttribute($value){
+        $postdate = \Carbon\Carbon::parse($this->created_at->toDateTimeString());
+        $now = \Carbon\Carbon::now();
+
+        $diff = $postdate->diffInDays($now);
+
+        return $diff;
+    }
 
     public function getCollectionIdAttribute($value){
         try {

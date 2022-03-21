@@ -29,8 +29,6 @@ class CollectionDetailsPageController extends Controller
         $channelvideos = [];
         foreach($child_collections as $child){
 
-
-
             $channelvideos = array_merge($channelvideos, $child->channelvideos()->get()->toArray());
         }
 

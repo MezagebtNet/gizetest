@@ -77,7 +77,7 @@ class HomePageController extends Controller
             ->orderBy("is_free")
             ->orderBy('id', 'desc')
             ->get()
-            ->take(8);
+            ->take(12);
 
 
         $gize_channel = GizeChannel::where('slug', 'Addmes')->firstOrFail();

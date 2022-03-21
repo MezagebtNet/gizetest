@@ -811,10 +811,17 @@
 
 
                                 </div>
+                                <div style="position: absolute; top: 32px; left: 5px; ">
+                                    ${ product.days_elapsed < 15  ?
+                                    '<span class="card-date text-white align-self-end " style="border: solid 1px white; background-color: #f71515; padding: 1px 2px; margin-top-30px; margin-right:5px; border-radius: 4px;"> <strong> {{ __("New") }} </strong> </span>' :'' }
+                                </div>
+
                                 <div style="position: absolute; top: 5px; left: 5px; ">
                                         <span class="card-date text-white align-self-end "
                                             style="border: solid 1px white; background-color: #323232; padding: 1px 2px; margin-top-30px; margin-right:5px; border-radius: 4px;">
                                             ${ product.duration==null?'':product.duration }</span>
+
+
                                 </div>
 
                                 <div class="card-body" style="padding:4px 15px 15px 15px;">
