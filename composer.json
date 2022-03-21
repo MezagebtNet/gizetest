@@ -31,6 +31,7 @@
         "pusher/pusher-php-server": "~3.0",
         "spatie/laravel-activitylog": "^3.17",
         "spatie/laravel-permission": "^4.2",
+        "stevebauman/location": "^6.3",
         "yenepay/php-sdk": "dev-master"
     },
     "require-dev": {

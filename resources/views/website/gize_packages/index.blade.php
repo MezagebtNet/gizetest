@@ -152,19 +152,26 @@
             </div> --}}
             <div class="container">
                 <div class="row">
+
+                    @php
+
+                        $currency_code =   auth()->user() != null ? (auth()->user()->currency_code == 'ETB'? 'ETB' : 'USD'): 'ETB';
+                        // $currency_code = 'ETB';
+
+                    @endphp
                     @foreach ($gize_packages as $package)
                         <div class="col-md-6 col-lg-3 my-2 grow">
                             <div class="block-pricing">
                                 <div class="table">
                                     <h4>{{ $package->months }} {{ __('month') }}</h4>
-                                    <h2>{{ auth()->user()->currency_code == 'ETB' ? $package->etb_amount : $package->usd_amount }} {{ auth()->user()->currency_code }}</h2>
+                                    <h2>{{ $currency_code == 'ETB' ? $package->etb_amount : $package->usd_amount }} {{ $currency_code }}</h2>
                                     <ul class="list-unstyled">
                                         <li><b>{{ $package->for_unit_values }}</b> {{ _('Videos') }}</li>
                                         </ul>
                                     <div class="table_btn"> <button class="btn btn-buy btn-dark"
                                         data-months = "{{ $package->months }}"
-                                        data-price = "{{ auth()->user()->currency_code == 'ETB' ? $package->etb_amount : $package->usd_amount }}"
-                                        data-currency-code = "{{ auth()->user()->currency_code }}"
+                                        data-price = "{{ $currency_code == 'ETB' ? $package->etb_amount : $package->usd_amount }}"
+                                        data-currency-code = "{{ $currency_code }}"
                                         data-unit-values = "{{ $package->for_unit_values }}"
                                         data-package-code = "{{ $package->code }}"><i class="fa "></i> Details </button> </div>
                                 </div>
@@ -196,7 +203,7 @@
                 let unit_values = $(this).attr('data-unit-values');
                 let package_code = $(this).attr('data-package-code');
 
-                let currency = "{{ auth()->user()->currency_code == 'ETB' ? 'ETB' : 'USD' }}";
+                let currency = "{{ $currency_code == 'ETB' ? 'ETB' : 'USD' }}";
 
                 // let lv_id = $(this).attr('lv_id');
                 let payment_methods = "";

@@ -65,7 +65,7 @@ class HomePageController extends Controller
 
         if (!\Auth::check()) {
 
-            return $this->welcomePage();
+            // return $this->welcomePage();
         }
 
 

@@ -146,7 +146,7 @@
 </head>
 
 <body class="
-{{ auth()->user()->theme_preference == 'dark-mode' ? 'dark-mode' : '' }}
+{{ auth()->user() != null ? (auth()->user()->theme_preference == 'dark-mode' ? 'dark-mode' : '' ): '' }}
 hold-transition layout-top-nav layout-navbar-fixed ">
 <div class="wrapper">
 
@@ -265,8 +265,10 @@ hold-transition layout-top-nav layout-navbar-fixed ">
     </script>
 
 </div>
+    @auth
     @include('layouts.scripts.notification_scripts')
     @include('layouts.scripts.userpreference_scripts')
+    @endauth
 </body>
 
 </html>

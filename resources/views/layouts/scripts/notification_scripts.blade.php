@@ -26,7 +26,7 @@
         renderNotifications();
 
 
-        // window.Echo.private('App.Models.User.' + '{{ auth()->user()->id }}')
+        // window.Echo.private('App.Models.User.' + '{{ auth()->user() != null ? auth()->user()->id : ''}}')
         //     .notification((notification) => {
         //         console.log(notification);
         //         if (notification.type == "broadcast.message") {
@@ -87,7 +87,7 @@
         }
 
         function renderNotifications() {
-            // let user_id = '{{ auth()->user()->id }}';
+            // let user_id = '{{ auth()->user() != null ? auth()->user()->id : ''}}';
 
             let url = "{{ route('web.rendernotifications', ['dropdown_state' => ':dropdown_state']) }}";
             let dropdown_state = $('.notifications-dropdown').hasClass('show');

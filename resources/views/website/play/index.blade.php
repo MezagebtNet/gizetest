@@ -431,7 +431,7 @@
                 playstate.completed = false;
 
 
-                var user_id = "{{ auth()->user()->id }}";
+                var user_id = "{{  auth()->user() != null ? auth()->user()->id : '' }}";
 
                 this.on('timeupdate', function() {
 

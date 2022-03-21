@@ -172,6 +172,13 @@
                 @include('website.navbar-language-dropdown')
 
             @endauth
+            @guest
+                <li class="nav-item dropdown notifications-dropdown">
+                    <a class="nav-link btn-outline-secondary btn btn-flat rounded text-sm"  href="{{ route('login') }}" aria-expanded="false">
+                        {{ __('Login') }}
+                      </a>
+              </li>
+            @endguest
 
         </ul>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
