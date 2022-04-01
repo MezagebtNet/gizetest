@@ -1,3 +1,5 @@
+<script src="{{ asset('vendors/videojs/video.min.js') }}"></script>
+
 <script type="module">
 
     // import Echo from "{{ asset('assets/js/dist/echo.js') }}"

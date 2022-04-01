@@ -194,7 +194,7 @@
             <div class="container mt-2" style="background-color: #f0f8ff14;
                 border: 1px solid #74747452;  margin-top: auto;margin-bottom: auto; padding: 1rem; display: inline-block !important; width: 100%; padding:0;
                                 background-color: #faebd72e;
-                                background-image: linear-gradient(to bottom, #0000, #fff0, #000000b5), url({{ asset('storage/images/ad_gize_package.jpg') }});
+                                background-image: linear-gradient(to bottom, #0000, #fff0, #00000045), url({{ asset('storage/images/ad_package_2.jpg') }});
                                 height: 230px;
                                 /* background-attachment: fixed; */
                                 background-position: center center;
@@ -218,9 +218,9 @@
                         >
                 <span class=" justify-content-center align-middle">
                             {{-- <p style="mb-0" style="margin-bottom: 0;">  </p> --}}
-                            <a href="{{ route('gizepackages.index') }}"
+                            {{-- <a href="{{ route('gizepackages.index') }}"
                                 style="opacity:0.7"
-                                class="btn btn-block bg-gradient-dark btn-lg mx-atuo ">{{ __('Gize Packages') }}!</a>
+                                class="btn btn-block bg-gradient-dark btn-lg mx-atuo ">{{ __('Gize Packages') }}!</a> --}}
 
                         </span>
 

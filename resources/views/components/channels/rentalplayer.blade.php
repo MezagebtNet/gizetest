@@ -79,34 +79,33 @@
 
                             {{-- <span>{{ __('Once you start playing this vidio, it will be available for') }} {{ $video->rental_detail->for_hours }} {{ __('hours.') }}</span> --}}
                             {{-- <br/> --}}
-                            <span class=" show-expiretime"><strong>{{ __('Rental Expires at') }}:</strong>
+                            {{-- <span class=" show-expiretime"><strong>{{ __('Rental Expires at') }}:</strong>
                                 {{ Jenssegers\Date\Date::createFromFormat('Y-m-d H:i:s', $video->rental_detail->published_at)->add($video->rental_detail->within_days . ' days')->setTimezone(\Config::get('app.timezone'))->format('M d, Y h:i A') }}
                             </span>
-                            <br  class="show-expiretime"/><span class="badge badge-secondary show-expiretime">{{ __('Timezone') }}: {{ \Config::get('app.timezone') }}</span>
+                            <br  class="show-expiretime"/><span class="badge badge-secondary show-expiretime">{{ __('Timezone') }}: {{ \Config::get('app.timezone') }}</span> --}}
                         </dd>
                     @endif
-                    <dt class="show-endtime d-none">{{ __('Rental Ends At') }}</dt>
+                    {{-- <dt class="show-endtime d-none">{{ __('Rental Ends At') }}</dt>
                     <dd class="show-endtime d-none">
                         <span class="time endtime">
                         </span>
                         <br /><span>{{ __('Timezone') }}: {{ \Config::get('app.timezone') }}</span>
-                    </dd>
+                    </dd> --}}
 
                     @if ($video->rental_detail->status != 0 && $video->rental_detail->started_at != null)
                         <dt>{{ __('Status') }}:- <i class="status-indicator text-sm pl- fa fa-circle {{ $video->rental_detail->status == 1 ? 'text-warning' : 'text-success'}}"></i> <span style="font-weight: 100" class="text-sm status-text">{{ $video->rental_detail->status == 1 ? __('Started Watching') : __('Watched') }}</span></dt>
                         <dd>
 
                         </dd>
-                        <dt>{{ __('Rental Ends At') }}</dt>
+                        {{-- <dt>{{ __('Rental Ends At') }}</dt>
                         <dd>
                             <span class="endtime">
-                                {{-- {{ Jenssegers\Date\Date::createFromFormat('Y-m-d H:i:s', $video->rental_detail->started_at)->addHours($video->rental_detail->for_hours)->setTimezone(\Config::get('app.timezone'))->format('M d, Y h:i A') }} --}}
                                 {{ Jenssegers\Date\Date::createFromFormat('Y-m-d H:i:s', $video->rental_detail->started_at)->addDays($video->rental_detail->within_days)->setTimezone(\Config::get('app.timezone'))->format('M d, Y h:i A') }}
                                 ({{ Jenssegers\Date\Date::createFromFormat('Y-m-d H:i:s', $video->rental_detail->started_at)->addDays($video->rental_detail->within_days)->setTimezone(\Config::get('app.timezone'))->diffForHumans() }})
                             </span>
                             <br /><span class="badge badge-secondary ">{{ __('Timezone') }}: {{ \Config::get('app.timezone') }}</span>
 
-                        </dd>
+                        </dd> --}}
                     @endif
                 </dl>
                 <div>

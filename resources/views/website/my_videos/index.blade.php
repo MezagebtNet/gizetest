@@ -742,7 +742,7 @@
     <!-- Video JS -->
 
     {{-- <script src="https://vjs.zencdn.net/7.14.3/video.min.js"></script> --}}
-    <script src="{{ asset('vendors/videojs/video.min.js') }}"></script>
+    {{-- <script src="{{ asset('vendors/videojs/video.min.js') }}"></script> --}}
     {{-- <script src="https://unpkg.com/video.js/dist/video.js"></script> --}}
 
     {{-- <script src="https://unpkg.com/@videojs/http-streaming@2.8.0/dist/videojs-http-streaming.min.js"></script> --}}
@@ -775,7 +775,8 @@
 
         let playstates = [];
 
-            document.addEventListener('DOMContentLoaded', function() {
+            // document.addEventListener('DOMContentLoaded', function() {
+        $(function() {
 
 
             $(".video_player").each(function(videoIndex) {
@@ -844,7 +845,7 @@
 
                             //send started state
                             if (this.hasClass('rental_player')) {
-                                console.log("Started!!!");
+                                // console.log("Started!!!");
                                 // alert('started');
                                 sent_started_status = true;
 
@@ -1091,27 +1092,27 @@
                                     " {{ route('rental.getendtime', ['user_id' => ':user_id', 'channelvideo_rental_id' => ':channelvideo_rental_id']) }}";
                                 url = url.replace(':user_id', user_id);
                                 url = url.replace(':channelvideo_rental_id', channelvideo_rental_id);
-                                $.ajaxSetup({
-                                    headers: {
-                                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                                    }
-                                });
-                                $.ajax({
-                                    url: url,
-                                    delay: 250,
-                                    type: 'POST',
-                                    success: function(res) {
-                                        console.log(res);
-                                        $("video-js[rid='" + channelvideo_rental_id + "']")
-                                            .parents('.card').find('.show-endtime .time')
-                                            .html(res);
+                                // $.ajaxSetup({
+                                //     headers: {
+                                //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                //     }
+                                // });
+                                // $.ajax({
+                                //     url: url,
+                                //     delay: 250,
+                                //     type: 'POST',
+                                //     success: function(res) {
+                                //         console.log(res);
+                                //         $("video-js[rid='" + channelvideo_rental_id + "']")
+                                //             .parents('.card').find('.show-endtime .time')
+                                //             .html(res);
 
-                                        $("video-js[rid='" + channelvideo_rental_id + "']")
-                                            .parents('.card').find('.show-endtime')
-                                            .removeClass('d-none');
+                                //         $("video-js[rid='" + channelvideo_rental_id + "']")
+                                //             .parents('.card').find('.show-endtime')
+                                //             .removeClass('d-none');
 
-                                    }
-                                });
+                                //     }
+                                // });
                             }
 
                         }
